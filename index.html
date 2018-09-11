@@ -1,8 +1,577 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46457317-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-46457317-11');
+  </script>
+  <title>What-If Tool</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.orange-cyan.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <link rel="icon" href="./assets/favicon.png" type="image/png"/>
+  <style type="text/css">
+
+  .section-name {
+    color: #202124;
+    margin: 36px auto;
+    padding: 36px auto;
+  }
+
+  .hero-banner {
+    height: 50vh;
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.37),
+      rgba(255, 255, 255, 0.57),
+      rgba(255, 255, 255, 0.77),
+      rgba(255, 255, 255, 0.97)
+      ), url("./assets/WIT-static.png");
+    background-position: top-left;
+    background-size: contain;
+    margin-bottom: 12px;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    border-bottom: solid 1px #DADCE0;
+  }
+
+  .page-content{
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0px 64px 64px 64px;
+  }
+
+  /*Typography*/
+  .mdl-typography--display-4 {
+    position: absolute;
+    top: 112px;
+    color: #FF9801;
+  }
+
+  .tagline {
+    position: absolute;
+    top: 384px;
+  }
+
+  .mdl-typography--display-1 {
+    font-weight: 300;
+    color: #3C4043;
+    line-height: 1.4em;
+  }
+
+  .mdl-typography--headline {
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
+
+  .mdl-typography--body-1 {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .citation {
+    vertical-align: super;
+    font-size: smaller;
+    text-decoration: underline;
+    color: #5F6368;
+    padding-left: 4px;
+    line-height: 24px;
+  }
+
+  .inline {
+    background: rgba(255,179,68,0.3);
+    color: #202124;
+    padding: 2px 2px 2px 4px;
+    text-decoration: underline;
+  }
+
+  .inline:hover {
+    color: #3C4043;
+    background: rgba(255,179,68,0.7);
+
+  }
+
+  /*introduction*/
+  .introduction-content {
+    margin: 24px auto;
+  }
+
+  .tutorial-video {
+    padding: 24px;
+  }
+
+  /*features*/
+  .feature-list-item__content {
+    padding: 12px;
+    color: #5F6368;
+  }
+
+  .feature-list-item__content > .mdl-typography--display-1 {
+    font-size: 24px;
+    color: #5F6368;
+    margin-bottom: 12px;
+  }
+
+  .feature-list-item__content > .mdl-typography--body-1 {
+    font-size: 16px;
+    color: #202124;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  /*feature images container*/
+  .feature-list-item__image {
+    width: 320px;
+    height: 240px;
+    border: solid 1px #DADCE0;
+  }
+
+  /*individual feature images*/
+  .visualize-inference-feature > .feature-list-item__image {
+    background-image: url('./assets/WIT-illustration-1.png');
+    background-position: center;
+    background-size: cover;
+  }
+  .edit-example-feature > .feature-list-item__image {
+    background-image: url('./assets/WIT-illustration-2.png');
+    background-position: center;
+    background-size: cover;
+  }
+  .pd-plot-feature > .feature-list-item__image {
+    background-image: url('./assets/WIT-illustration-3.png');
+    background-position: center;
+    background-size: cover;
+  }
+  .counterfactual-feature > .feature-list-item__image {
+    background-image: url('./assets/WIT-illustration-4.png');
+    background-position: center;
+    background-size: cover;
+  }
+  .distance-feature-feature > .feature-list-item__image {
+    background-image: url('./assets/WIT-illustration-5.png');
+    background-position: center;
+    background-size: cover;
+  }
+  .performance-feature > .feature-list-item__image {
+    background-image: url('./assets/WIT-illustration-6.png');
+    background-position: center;
+    background-size: cover;
+  }
+  .fairness-feature > .feature-list-item__image {
+    background-image: url('./assets/WIT-illustration-7.png');
+    background-position: center;
+    background-size: cover;
+  }
+
+
+  /*demo cards*/
+  .demo-card-wide.mdl-card {
+    width: 512px;
+    border: solid 1px #DADCE0;
+    margin: 16px;
+  }
+
+  .demo-card-wide > .mdl-card__title {
+    height: 176px;
+  }
+
+  .demo-card-wide > .mdl-typography--body-1 {
+    font-size:  16px;
+    color: #202124;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+    line-height: 24px;
+
+  }
+
+  .demo-title {
+    color: #000000;
+  }
+
+  .demo-description {
+    color: #3C4043;
+  }
+  /*demo card images*/
+
+  .binary-classification-demo > .mdl-card__title {
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.57),
+      rgba(255, 255, 255, 0.57),
+      rgba(255, 255, 255, 0.77)
+      ),
+    url('./assets/over50k-bins.png');
+    background-position: center;
+    background-size: cover;
+    border-bottom: solid 1px #DADCE0;
+  }
+  .image-binary-classification-demo > .mdl-card__title {
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.57),
+      rgba(255, 255, 255, 0.57),
+      rgba(255, 255, 255, 0.77)
+      ),
+    url('./assets/images-conf-matrix.png');
+    background-position: center;
+    background-size: cover;
+    border-bottom: solid 1px #DADCE0;
+  }
+  .regression-demo > .mdl-card__title {
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.57),
+      rgba(255, 255, 255, 0.57),
+      rgba(255, 255, 255, 0.77)
+      ),
+    url('./assets/age-scatter.png');
+    background-position: center;
+    background-size: cover;
+    border-bottom: solid 1px #DADCE0;
+  }
+  .multiclass-classification-demo > .mdl-card__title {
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.57),
+      rgba(255, 255, 255, 0.57),
+      rgba(255, 255, 255, 0.77)
+      ),
+    url('./assets/iris-scatter.png');
+    background-position: center;
+    background-size: cover;
+    border-bottom: solid 1px #DADCE0;
+  }
+
+
+  /*to organize */
+  .chip {
+    padding: 0 0 16px 16px;
+  }
+  .mdl-chip {
+    background: #ffffff;
+    border: solid 1px #DADCE0;
+    color: #80868B;
+  }
+  /*.mdl-grid {
+    margin-bottom: 120px;
+    }*/
+    .icon-style {
+      margin: auto 4px;
+      font-size: 1.2em;
+    }
+    .button-style {
+      margin: auto 6px;
+    }
+    .button-style > .icon-style {
+      margin: auto 4px auto 8px;
+      font-size: 1.6em;
+    }
+
+  </style>
+</head>
+
 <body>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title">What-If Tool</span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+          <a class="mdl-navigation__link" href="./index.html">Home</a>
+          <a class="mdl-navigation__link" href="./index.html#intro">Introduction</a>
+          <a class="mdl-navigation__link" href="./index.html#features">Features</a>
+          <a class="mdl-navigation__link" href="./index.html#demos">Demos</a>
+          <a class="mdl-navigation__link" href="./index.html#about">About</a>
+          <a class="mdl-navigation__link" href="./index.html#references">References</a>
+          <a class="mdl-navigation__link" href="./ai-fairness.html">AI Fairness</a>
+          <a class="mdl-navigation__link button-style mdl-typography--text-uppercase" href="https://ai.google/research/teams/brain/pair" target="-_blank">
+            <i class="material-icons icon-style">open_in_new</i>
+            <span>PAIR</span>
+          </a>
+          <a class="mdl-navigation__link button-style mdl-typography--text-uppercase" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference" target="-_blank">
+            <i class="material-icons icon-style">link</i>
+            <span>Github</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">What If Tool</span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="./index.html">Home</a>
+        <a class="mdl-navigation__link" href="./index.html#intro">Introduction</a>
+        <a class="mdl-navigation__link" href="./index.html#features">Features</a>
+        <a class="mdl-navigation__link" href="./index.html#demos">Demos</a>
+        <a class="mdl-navigation__link" href="./index.html#about">About</a>
+        <a class="mdl-navigation__link" href="./index.html#references">References</a>
+        <a class="mdl-navigation__link" href="./ai-fairness.html">AI Fairness</a>
+        <hr>
+        <!-- <a class="mdl-navigation__link" href="" target="-_blank">Read the blog post</a> -->
+        <a class="mdl-navigation__link" href="https://ai.google/research/teams/brain/pair">About PAIR</a>
+        <a class="mdl-navigation__link" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference">Github</a>
+        <a class="mdl-navigation__link" href="https://pair-code.github.io/facets/" target="-_blank">
+          <i class="material-icons icon-style">star</i>
+          <span>Facets</span>
+        </a>
+        <a class="mdl-navigation__link" href="https://js.tensorflow.org" target="-_blank">
+          <i class="material-icons icon-style">star</i>
+          <span>TensorFlow.js</span>
+        </a>
+      </nav>
+    </div>
 
-<h1>Test</h1>
+    <main class="mdl-layout__content">
+      <div class="hero-banner">
+      </div>
+      <div class="page-content">
+        <div class="intro mdl-grid" id="intro">
+          <div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet section-name mdl-typography--display-4 what-if">
+            What If...
+          </div>
+          <div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet mdl-cell--1-offset-tablet mdl-typography--display-1 tagline">
+            you could inspect a machine learning model,<br> with no coding required?
+          </div>
+          <div class="mdl-layout-spacer"></div>
+          <div class="mdl-cell mdl-cell--5-col mdl-cell--6-col-tablet mdl-cell--1-offset-tablet introduction-content ">
+            <div class="mdl-typography--headline">Building effective machine learning systems means asking a lot of questions. It&apos;s not enough to train a model and walk away. Instead, good practitioners act as detectives, probing to understand their model better.</div><br>
+            <div class="mdl-typography--body-1">But answering these kinds of questions isn&apos;t easy. Probing  &quot;what if&quot; scenarios often means writing custom, one-off code to analyze a specific model. Not only is this process inefficient, it makes it hard for non-programmers to participate in the process of shaping and improving machine learning models. For <a class="inline" href="https://ai.google/research/teams/brain/pair" target="_blank">us</a>, making it easier for a broad set of people to examine, evaluate, and debug machine learning systems is a key concern.</div><br>
+            <div class="mdl-typography--body-1"> That's why we built the What-If Tool. Built into the open-source TensorBoard web application - a standard part of the TensorFlow platform - the tool allows users to analyze an machine learning model without the need for writing any further code. Given pointers to a TensorFlow model and a dataset, the What-If Tool offers an interactive visual interface for exploring model results. </div>
+          </div>
+          <div class="mdl-layout-spacer"></div>
+          <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-offset-tablet tutorial-video ">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/LLsp1eEhoRQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
 
+        <div class="features mdl-grid" id="features">
+          <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet  mdl-typography--display-1 section-name">
+            What can you do with the What-If Tool? 
+          </div>
+          <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--0-offset-tablet ">
+            <div class="mdl-grid mdl-grid--nesting visualize-inference-feature">
+              <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
+              <div class="feature-list-item__content mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet ">
+                <div class="feature-list-item__title mdl-typography--display-1">Visualize inference results
+                </div>
+                <div class="feature-list-item__text mdl-typography--body-1">
+                  Examples are colored by inference results until changed. Organize results into confusion matrices and other custom layouts to show inference results faceted by numerous features.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet ">
+            <div class="mdl-grid mdl-grid--nesting edit-example-feature">
+              <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
+              <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
+                <div class="feature-list-item__title mdl-typography--display-1">Edit a datapoint and see how your model performs
+                </div>
+                <div class="feature-list-item__text mdl-typography--body-1">
+                  Edit, add or remove features or feature values for any selected datapoint and then run inference to test model performance. Alternatively, you can duplicate or upload a whole new example to see where it stands vis-&#224;-vis loaded examples.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet ">
+            <div class="mdl-grid mdl-grid--nesting pd-plot-feature">
+              <div class="feature-list-item__image mdl-cell mdl-cell--4-col  mdl-cell--4-col-tablet "></div>
+              <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
+                <div class="feature-list-item__title mdl-typography--display-1">Explore the effects of a single feature
+                </div>
+                <div class="feature-list-item__text mdl-typography--body-1">
+                  Explore auto-generated plots for individual features of a selected datapoint that show the change in inference results for different valid values of the feature.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet ">
+            <div class="mdl-grid mdl-grid--nesting counterfactual-feature">
+              <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
+              <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
+                <div class="feature-list-item__title mdl-typography--display-1">Explore counterfactual examples
+                </div>
+                <div class="feature-list-item__text mdl-typography--body-1">
+                  Seek out the most similar example of a different classification for any datapoint for classification models along L1 and L2 distances calculated using the distribution of feature values across all loaded examples. WIT highlights the delta between the initial example and its counterfactual<a class="citation" href=#ref2>[1]</a>.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet ">
+            <div class="mdl-grid mdl-grid--nesting distance-feature-feature">
+              <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
+              <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
+                <div class="feature-list-item__title mdl-typography--display-1">Arrange examples by similarity
+                </div>
+                <div class="feature-list-item__text mdl-typography--body-1">
+                  Create distance features from a selected datapoint using either L1 or L2 distances and apply it to your visualizations for further analysis.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet ">
+            <div class="mdl-grid mdl-grid--nesting performance-feature">
+              <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
+              <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
+                <div class="feature-list-item__title mdl-typography--display-1">View confusion matrices and ROC curves
+                </div>
+                <div class="feature-list-item__text mdl-typography--body-1">
+                  For binary classification models and examples that include a feature describing the true label, explore model performance interactively using thresholds, <a class="inline" href="" target='_blank'>ROC curves</a>, numeric <a class="inline" href="" target='_blank'>confusion matrices</a> and cost ratios.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet ">
+            <div class="mdl-grid mdl-grid--nesting fairness-feature">
+              <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>      
+              <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
+                <div class="feature-list-item__title mdl-typography--display-1 ">Test algorithmic fairness constraints
+                </div>
+                <div class="feature-list-item__text mdl-typography--body-1">
+                  For binary classification models, slice your dataset into subgroups and explore the effect of different algorithmic fairness constraints with the push of a button, such as "equality of opportunity"<a class="citation" href=#ref2>[2]</a>, for your model on those subgroups.
+                  <br><br>
+                  Read more about investigating algorithmic fairness on the What-If Tool in <a class="inline" href="./ai-fairness.html" target="_blank">this article</a> by <a class="inline" href="http://www.hyperorg.com/speaker/bio.html" target="_blank">David Weinberger</a>.
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- grid close div below  -->
+        </div>
+
+        <div class="demos mdl-grid" id="demos">
+          <div class="mdl-cell mdl-cell--12-col mdl-typography--display-1 section-name  mdl-cell--8-col-tablet ">
+            Take the What-If Tool for a spin!
+          </div>
+          <div class="mdl-card demo-card-wide binary-classification-demo">
+            <div class="mdl-card__title demo-card-title">
+              <h2 class="mdl-card__title-text demo-title demo-content">Income Classification</h2>
+            </div>
+            <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1"> This binary classification model predicts whether a person earns more than $50k a year based on their census information<a class="citation" href=#ref3>[3]</a>. Discover how different features affect the model's predictions.
+            </div>
+            <div class="chip">
+              <span class="mdl-chip">
+                <span class="mdl-chip__text">Binary Classification</span>
+              </span>
+              <span class="mdl-chip">
+                <span class="mdl-chip__text">Numeric Data</span>
+              </span>
+              <span class="mdl-chip">
+                <span class="mdl-chip__text">Categorical Data</span>
+              </span>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="demoserver.html" target="_blank"> Go to demo </a>
+            </div>
+          </div>
+
+          <div class="mdl-card demo-card-wide regression-demo">
+            <div class="mdl-card__title demo-card-title">
+              <h2 class="mdl-card__title-text demo-title demo-content">Age Prediction</h2>
+            </div>
+            <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1"> This regression model predicts a persons age from their census information<a class="citation" href=#ref3>[3]</a>. Slice your data and explore inference results, including aggregated inference error measures, across the different subgroups. 
+            </div>
+            <div class="chip">
+              <span class="mdl-chip">
+                <span class="mdl-chip__text">Regression Model</span>
+              </span>
+              <span class="mdl-chip">
+                <span class="mdl-chip__text">Numeric Data</span>
+              </span>
+              <span class="mdl-chip">
+                <span class="mdl-chip__text">Categorical Data</span>
+              </span>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="agedemoserver.html" target="_blank"> Go to demo </a>
+            </div>
+          </div>
+
+          <div class="mdl-card demo-card-wide image-binary-classification-demo">
+            <div class="mdl-card__title demo-card-title">
+              <h2 class="mdl-card__title-text demo-title demo-content">Smile Detection</h2>
+            </div>
+            <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1">This binary classification model predicts whether an image contains a smiling face<a class="citation" href=#ref5>[5]</a>. Can you figure out what group was missing from the training data, resulting in a biased model?
+            </div>
+            <div class="chip">
+              <span class="mdl-chip">
+                <span class="mdl-chip__text">Binary Classification</span>
+              </span>
+              <span class="mdl-chip">
+                <span class="mdl-chip__text">Image Data</span>
+              </span>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="imagedemoserver.html" target="_blank"> Go to demo </a>
+            </div>
+          </div>
+
+
+          <div class="mdl-card demo-card-wide multiclass-classification-demo">
+            <div class="mdl-card__title demo-card-title">
+              <h2 class="mdl-card__title-text demo-title demo-content">Iris Flower</h2>
+            </div>
+            <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1"> This multi-class classification model predicts flower type from plant measurements<a class="citation" href=#ref4>[4]</a>. Look at the correlations between different features and flower type.
+            </div>
+            <div class="chip">
+              <span class="mdl-chip">
+                <span class="mdl-chip__text">Multiclass Classification</span>
+              </span>
+              <span class="mdl-chip">
+                <span class="mdl-chip__text">Numeric Data</span>
+              </span>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="irisdemoserver.html" target="_blank"> Go to demo </a>
+            </div>
+          </div>
+
+        </div>
+        <div class="about mdl-grid" id="about">
+          <div class="mdl-cell mdl-cell--3-col mdl-typography--display-1 mdl-cell--2-col-tablet">About</div>
+          <div class=" mdl-cell mdl-cell--6-col mdl-typography--body-1 mdl-cell--6-col-tablet ">
+            <br><span class="mdl-typography--headline">PAIR </span><br>
+            The <a class="inline" href="https://www.google.ai/pair" target='_blank'>People + AI Research initiative (PAIR)</a> brings together researchers across <a class='inline' href='https://ai.google' target='_blank'>Google</a> to study and redesign the ways people interact with AI systems. We focus on the &quot;human side&quot; of AI: the relationship between users and technology, the new applications it enables, and how to make it broadly inclusive. Our goal isn't just to publish research; we're also releasing open source tools for researchers and other experts to use.
+            <br><br><span class="mdl-typography--headline">Acknowledgements</span><br>
+            The What-If Tool was a collaborative effort. We would like to thank the Google teams that piloted the tool and provided valuable feedback and the TensorBoard team for all their help.
+          </div>
+        </div>
+        <hr>
+        <div class="references mdl-grid" id="references">
+          <div class="mdl-cell mdl-cell--3-col mdl-typography--display-1 mdl-cell--2-col-tablet">References</div>
+          <div class=" mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet ">
+            <div class="mdl-typography--body-1" id="ref1"><a class="citation" href=#features>[1]</a> Wachter, S., Mittelstadt, B., & Russell, C. (2017). Counterfactual explanations without opening the black box: Automated decisions and the GDPR.<a class="inline" href="https://arxiv.org/abs/1711.00399" target="_blank">https://arxiv.org/abs/1711.00399</a>
+            </div>
+            <br>
+            <div class="mdl-typography--body-1" id="ref2"><a class="citation" href=#features>[2]</a> Hardt, M., Price, E., & Srebro, N. (2016). Equality of opportunity in supervised learning. In Advances in neural information processing systems (pp. 3315-3323). <a class="inline" href="https://arxiv.org/abs/1610.02413" target="_blank">https://arxiv.org/abs/1610.02413</a>
+            </div>
+            <br>
+            <div class="mdl-typography--body-1" id="ref3"><a class="citation" href=#demos>[3]</a> Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science. <a class="inline" href="http://archive.ics.uci.edu/ml/datasets/Census+Income" target="_blank">http://archive.ics.uci.edu/ml/datasets/Census+Income</a>
+            </div>
+            <br>
+            <div class="mdl-typography--body-1" id="ref4">
+              <a class="citation" href=#demos>[4]</a> Lichman, M. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science. <a class="inline" href="https://archive.ics.uci.edu/ml/datasets/iris" target="_blank">https://archive.ics.uci.edu/ml/datasets/iris</a>.
+            </div>
+            <br>
+            <div class="mdl-typography--body-1" id="ref5">
+              <a class="citation" href=#demos>[5]</a> Liu, Z, Luo, P, Wang, X, Tang, X. Deep Learning Face Attributes in the Wild. Proceedings of International Conference on Computer Vision (ICCV) 2015. <a class="inline" href="http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html" target="_blank">http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
 </body>
 </html>
