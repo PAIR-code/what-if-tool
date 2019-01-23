@@ -16,6 +16,6 @@ https://archive.ics.uci.edu/ml/datasets/census+income
 - Rejoinder: http://www.crj.org/assets/2017/07/9_Machine_bias_rejoinder.pdf
 
 ## Colab notebooks
-- COMPAS binary classification: https://colab.research.google.com/drive/1JZ4pKifzsYnQQmD8eYht3v8uTUO75ujw
-- UCI census binary classification model comparison: https://colab.research.google.com/drive/13XI1OQ5QGdtJwKb2SuJGx1bBERh2v-if
-- Regression for age prediction using UCI census: https://colab.research.google.com/drive/1L6MJz9bRFsRDAIulBTb8x3QWKIWhUvJ_
+- COMPAS binary classification: https://colab.research.google.com/gist/jameswex/c3ad8e970d6c1626bbba43acdd3491fa/wit-compas.ipynb
+- UCI census binary classification model comparison: https://colab.research.google.com/gist/jameswex/b6ece17a171224345c2c84ee3bea9ebc/wit-model-comparison.ipynb
+- Regression for age prediction using UCI census: https://colab.sandbox.google.com/gist/jameswex/04b622e622c9d26c3ba6238a12edc0e4/wit-age-regression.ipynb
