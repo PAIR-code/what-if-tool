@@ -1,8 +1,8 @@
 # Information for What-If Tool presenation at ComputeFest 2019
 
 ## Feedback
-Open an issue in this respository: https://github.com/PAIR-code/what-if-tool/issues/new
-Give feedback on the what-if tool: https://goo.gl/forms/gPZJZE40siPuCTB42
+- Open an issue in this respository: https://github.com/PAIR-code/what-if-tool/issues/new
+- Give feedback on the what-if tool: https://goo.gl/forms/gPZJZE40siPuCTB42
 
 ## Web demos
 https://pair-code.github.io/what-if-tool/index.html#demos
