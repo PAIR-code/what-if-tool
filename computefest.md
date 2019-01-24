@@ -12,6 +12,7 @@ https://archive.ics.uci.edu/ml/datasets/census+income
 
 ## COMPAS information
 - Data: https://www.kaggle.com/danofer/compass
+- Data direct link: https://storage.googleapis.com/what-if-tool-resources/computefest2019/compass.zip 
 - Original article: https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing
 - Data methodology: https://www.propublica.org/article/how-we-analyzed-the-compas-recidivism-algorithm
 - Rejoinder: http://www.crj.org/assets/2017/07/9_Machine_bias_rejoinder.pdf
