@@ -18,7 +18,7 @@ https://archive.ics.uci.edu/ml/datasets/census+income
 - Rejoinder: http://www.crj.org/assets/2017/07/9_Machine_bias_rejoinder.pdf
 
 ## Colab notebooks
-- COMPAS binary classification: https://colab.research.google.com/gist/jameswex/f1eb3e52f8b9627a7bfe601881f4c5ec/wit-compas.ipynb
-- UCI census binary classification model comparison: https://colab.research.google.com/gist/jameswex/b91415548de088ed80e491fd0e7871bb/wit-model-comparison.ipynb
-- Regression for age prediction using UCI census: https://colab.research.google.com/gist/jameswex/7e4e64acd91c90abd9456153829603b8/wit-age-regression.ipynb
-- Text toxicity model comparison: https://colab.research.google.com/gist/jameswex/612b1b9423a17b755da81125584c90ac/wit-toxicity-text-model-comparison.ipynb
+- COMPAS binary classification: https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_COMPAS.ipynb
+- UCI census binary classification model comparison: https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Model_Comparison.ipynb
+- Regression for age prediction using UCI census: https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Age_Regression.ipynb
+- Text toxicity model comparison: https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb
