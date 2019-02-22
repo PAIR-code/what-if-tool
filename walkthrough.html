@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46457317-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-46457317-11');
+  </script>
+  <title>WIT | Walkthrough</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-deep_orange.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,400i,700,700i" rel="stylesheet" type='text/css'>
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <link rel="icon" href="./assets/favicon.png" type="image/png"/>
+  <style type="text/css">
+
+  body {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .page-content{
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .hero-banner {
+    height: 25vw;
+    background-image:  url("./assets/AI-Fairness.png");
+    background-position: top;
+    background-size: contain;
+    margin-bottom: 12px;
+    border-bottom: solid 1px #DADCE0;
+  }
+
+  .emphasis-italic {
+    font-style: italic;
+  }
+
+  .uppercase {
+    text-transform: uppercase;
+  }
+
+  img {
+    border: 1px solid #DADCE0;
+    width: 100%;
+    margin: 36px;
+  }
+
+  .para {
+    padding: 18px 8px;
+  }
+
+  .group-type{
+    color: #db7205;
+  }
+
+  .quote {
+    margin: 48px;
+    padding: 24px;
+    border-left: solid 2px #e57373;
+  }
+
+  .article-content {
+    margin-bottom: 112px;
+  }
+
+  .separator {
+    width: 40%;
+    margin: 24px auto;
+  }
+
+  /*inline and citation or reference links*/
+  .inline {
+    background: rgba(255,179,68,0.3);
+    color: #3C4043;
+    padding: 2px 2px 2px 4px;
+    text-decoration: underline;
+    font-weight: inherit;
+  }
+
+  .inline:hover {
+    color: #283593;
+    background: rgba(255,179,68,1);
+  }
+
+  /*Typography*/
+  .mdl-typography--body-1 {
+    font-size:  18px;
+    color: #3C4043;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.8em;
+  }
+
+  .mdl-typography--body-2 {
+    font-size:  18px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.8em;
+  }
+
+  .mdl-typography--quote {
+    font-family: 'Noto Serif', serif;
+    font-size:  20px;
+    font-style: italic;
+    color: #c54a4a;
+    line-height: 1.6em;
+  }
+
+  .mdl-typography--headline {
+    font-size: 22px;
+  }
+
+  .mdl-typography--display-3 {
+    margin: 56px 0 0 0;
+    color: #c54a4a;
+  }
+
+  .mdl-typography--display-1 {
+    margin: 24px auto;
+    color: #3C4043;
+    font-weight: 300;
+    line-height: 1.8em;
+  }
+  /*sections in text*/
+
+  .author-note {
+    font-family: 'Noto Serif', serif;
+    font-size:  18px;
+    font-style: italic;
+    /*color: #1e348e;*/
+    color: #283593;
+    line-height: 1.8em;
+    margin:24px auto;
+  }
+
+  /*Icons in Navigation, do not touch*/
+  .icon-style {
+    margin: auto 4px;
+    font-size: 1.2em;
+  }
+  .button-style {
+    margin: auto 6px;
+  }
+  .button-style > .icon-style {
+    margin: auto 4px auto 8px;
+    font-size: 1.6em;
+  }
+
+</style>
+</head>
+
+<body>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout__title">What-If Tool</span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+          <a class="mdl-navigation__link" href="./index.html">Home</a>
+          <a class="mdl-navigation__link" href="./index.html#intro">Introduction</a>
+          <a class="mdl-navigation__link" href="./index.html#features">Features</a>
+          <a class="mdl-navigation__link" href="./index.html#demos">Demos</a>
+          <a class="mdl-navigation__link" href="./index.html#about">About</a>
+          <a class="mdl-navigation__link" href="./walkthrough.html">Walkthrough</a>
+          <a class="mdl-navigation__link" href="./index.html#references">References</a>
+          <a class="mdl-navigation__link" href="./ai-fairness.html">AI Fairness</a>
+          <a class="mdl-navigation__link button-style mdl-typography--text-uppercase" href="https://ai.google/research/teams/brain/pair" target="-_blank">
+            <i class="material-icons icon-style">open_in_new</i>
+            <span>PAIR</span>
+          </a>
+          <a class="mdl-navigation__link button-style mdl-typography--text-uppercase" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference" target="-_blank">
+            <i class="material-icons icon-style">link</i>
+            <span>Github</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">What If Tool</span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="./index.html">Home</a>
+        <a class="mdl-navigation__link" href="./index.html#intro">Introduction</a>
+        <a class="mdl-navigation__link" href="./index.html#features">Features</a>
+        <a class="mdl-navigation__link" href="./index.html#demos">Demos</a>
+        <a class="mdl-navigation__link" href="./index.html#about">About</a>
+        <a class="mdl-navigation__link" href="./walkthrough.html">Walkthrough</a>
+        <a class="mdl-navigation__link" href="./index.html#references">References</a>
+        <a class="mdl-navigation__link" href="./ai-fairness.html">AI Fairness</a>
+        <hr>
+        <a class="mdl-navigation__link" href="https://ai.google/research/teams/brain/pair">About PAIR</a>
+        <a class="mdl-navigation__link" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference">Github</a>
+        <a class="mdl-navigation__link" href="https://pair-code.github.io/facets/" target="-_blank">
+          <i class="material-icons icon-style">star</i>
+          <span>Facets</span>
+        </a>
+        <a class="mdl-navigation__link" href="https://js.tensorflow.org" target="-_blank">
+          <i class="material-icons icon-style">star</i>
+          <span>TensorFlow.js</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Main page starts here -->
+    <main class="mdl-layout__content">
+      <div class="hero-banner">
+      </div>
+      <div class="page-content">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--6-col mdl-cell--2-offset article-title">
+            <div class="article-headline mdl-typography--display-3">What-If Tool Walkthrough</div>
+            <div class="article-subhead mdl-typography--display-1">Coming soon...
+            </div>
+          </div>
+        </div>
+
+        <div class="mdl-grid article-content">
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

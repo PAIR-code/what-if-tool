@@ -170,6 +170,11 @@
     background-position: center;
     background-size: cover;
   }
+  .compare-feature > .feature-list-item__image {
+    background-image: url('./assets/WIT-illustration-8.png');
+    background-position: center;
+    background-size: cover;
+  }
 
 
   /*demo cards*/
@@ -299,6 +304,7 @@
           <a class="mdl-navigation__link" href="./index.html#features">Features</a>
           <a class="mdl-navigation__link" href="./index.html#demos">Demos</a>
           <a class="mdl-navigation__link" href="./index.html#about">About</a>
+          <a class="mdl-navigation__link" href="./walkthrough.html">Walkthrough</a>
           <a class="mdl-navigation__link" href="./index.html#references">References</a>
           <a class="mdl-navigation__link" href="./ai-fairness.html">AI Fairness</a>
           <a class="mdl-navigation__link button-style mdl-typography--text-uppercase" href="https://ai.google/research/teams/brain/pair" target="-_blank">
@@ -320,10 +326,10 @@
         <a class="mdl-navigation__link" href="./index.html#features">Features</a>
         <a class="mdl-navigation__link" href="./index.html#demos">Demos</a>
         <a class="mdl-navigation__link" href="./index.html#about">About</a>
+        <a class="mdl-navigation__link" href="./walkthrough.html">Walkthrough</a>
         <a class="mdl-navigation__link" href="./index.html#references">References</a>
         <a class="mdl-navigation__link" href="./ai-fairness.html">AI Fairness</a>
         <hr>
-        <a class="mdl-navigation__link" href="http://ai.googleblog.com/2018/09/the-what-if-tool-code-free-probing-of.html" target="_blank">Read the blog post</a>
         <a class="mdl-navigation__link" href="https://ai.google/research/teams/brain/pair">About PAIR</a>
         <a class="mdl-navigation__link" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference">Github</a>
         <a class="mdl-navigation__link" href="https://pair-code.github.io/facets/" target="-_blank">
@@ -353,10 +359,11 @@
             <div class="mdl-cell mdl-cell--5-col mdl-cell--2-offset mdl-cell--6-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone introduction-content ">
               <div class="mdl-typography--headline">Building effective machine learning systems means asking a lot of questions. It&apos;s not enough to train a model and walk away. Instead, good practitioners act as detectives, probing to understand their model better.</div><br>
               <div class="mdl-typography--body-1">But answering these kinds of questions isn&apos;t easy. Probing  &quot;what if&quot; scenarios often means writing custom, one-off code to analyze a specific model. Not only is this process inefficient, it makes it hard for non-programmers to participate in the process of shaping and improving machine learning models. For <a class="inline" href="https://ai.google/research/teams/brain/pair" target="_blank">us</a>, making it easier for a broad set of people to examine, evaluate, and debug machine learning systems is a key concern.</div><br>
-              <div class="mdl-typography--body-1"> That's why we built the What-If Tool. Built into the open-source TensorBoard web application - a standard part of the TensorFlow platform - the tool allows users to analyze an machine learning model without the need for writing any further code. Given pointers to a TensorFlow model and a dataset, the What-If Tool offers an interactive visual interface for exploring model results. </div>
+              <div class="mdl-typography--body-1"> That's why we built the What-If Tool. Usable in Jupyter and Colaboratory notebooks, and built into the open-source TensorBoard web application - a standard part of the TensorFlow platform - the tool allows users to analyze an machine learning model without the need for writing any further code. Given pointers to a model and a dataset, the What-If Tool offers an interactive visual interface for exploring model results. </div>
             </div>
-            <div class="mdl-cell mdl-cell--5-col mdl-cell--1-offset mdl-cell--4-col-tablet mdl-cell--2-offset-tablet mdl-cell--4-col-phone tutorial-video ">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/hpYl8WLYeKo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <div class="mdl-cell mdl-cell--5-col mdl-cell--2-offset mdl-cell--6-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone introduction-content ">
+              <div class="mdl-typography--headline">Check out a detailed <a class="inline" href="./walkthrough.html">walkthrough</a> of the What-If Tool and what it can help you learn about your model.</div>
+              <div class="mdl-typography--headline">Explore the <a class="inline" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference">documentation</a> for more details.</div>
             </div>
           </div>
 
@@ -458,6 +465,19 @@
               </div>
             </div>
 
+            <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+              <div class="mdl-grid mdl-grid--nesting compare-feature">
+                <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>      
+                <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
+                  <div class="feature-list-item__title mdl-typography--display-1 ">Compare mulitiple models
+                  </div>
+                  <div class="feature-list-item__text mdl-typography--body-1">
+                    Compare the performance of two different models on the same dataset, easily seeing the datapoints and data slices on which the models differ the most.
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <div class="demos mdl-grid mdl-grid--no-spacing page-section" id="demos">
@@ -469,7 +489,7 @@
                 <div class="mdl-card__title demo-card-title">
                   <h2 class="mdl-card__title-text demo-title demo-content">Income Classification</h2>
                 </div>
-                <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1"> This binary classification model predicts whether a person earns more than $50k a year based on their census information<a class="citation" href=#ref3 id="cite3a">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3a">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Discover how different features affect the model's predictions.
+                <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1"> Two binary classification models predict whether a person earns more than $50k a year based on their census information<a class="citation" href=#ref3 id="cite3a">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3a">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Discover how different features affect the models' predictions and how the models differ from each other.
                 </div>
                 <div class="chip">
                   <span class="mdl-chip">
@@ -480,6 +500,9 @@
                   </span>
                   <span class="mdl-chip">
                     <span class="mdl-chip__text">Categorical Data</span>
+                  </span>
+                  <span class="mdl-chip">
+                    <span class="mdl-chip__text">Model Comparison</span>
                   </span>
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
