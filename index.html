@@ -11,11 +11,14 @@
 
     gtag('config', 'UA-46457317-11');
   </script>
+
   <title>What-If Tool</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.orange-cyan.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
   <link href='http://fonts.googleapis.com/css?family=Roboto:300,300italic,400,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script defer src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
   <link rel="icon" href="./assets/favicon.png" type="image/png"/>
   <style type="text/css">
 
@@ -184,17 +187,23 @@
   .demo-section-title {
     margin-bottom: 24px;
   }
-  .demo-card-wide.mdl-card {
-    width: 512px;
+  .demo-card-cell.mdl-card {
+    /*width: 512px;*/
     border: solid 1px #DADCE0;
     margin: 16px;
+    border-radius: 3px;
   }
 
-  .demo-card-wide > .mdl-card__title {
-    height: 176px;
+  #demo-panel-all > .mdl-grid {
+    overflow-x: auto;
+    overflow-y: none;
   }
 
-  .demo-card-wide > .mdl-typography--body-1 {
+  .demo-card-cell > .mdl-card__title {
+    height: 160px;
+  }
+
+  .demo-card-cell > .mdl-typography--body-1 {
     font-size:  16px;
     color: #202124;
     font-weight: 300;
@@ -203,12 +212,19 @@
 
   }
 
-  .demo-title {
-    color: #000000;
+  .demo-card-title {
+    height: 120px; 
   }
 
-  .demo-description {
+  .demo-title {
+    color: #202124;
+  }
+
+  .demo-content {
     color: #3C4043;
+    padding: 24px;
+    background: yellow;
+    min-height: 140px;
   }
   /*demo card images*/
 
@@ -270,6 +286,7 @@
     background: #ffffff;
     border: solid 1px #DADCE0;
     color: #80868B;
+    border-radius: 3px;
   }
   /*.mdl-grid {
     margin-bottom: 120px;
@@ -348,7 +365,7 @@
         <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--11-col mdl-cell--1-offset mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone section-name big-title">
             <div class="mdl-typography--display-4 what-if">What If...</div>
-            <div class="mdl-typography--display-1 tagline">you could inspect a machine learning model,<br> with no coding required?
+            <div class="mdl-typography--display-1 tagline">you could inspect a machine learning model,<br> with minimal coding required?
             </div>
           </div>
         </div>
@@ -357,13 +374,14 @@
         <div class="page-content">
           <div class="intro mdl-grid" id="intro">
             <div class="mdl-cell mdl-cell--5-col mdl-cell--2-offset mdl-cell--6-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone introduction-content ">
-              <div class="mdl-typography--headline">Building effective machine learning systems means asking a lot of questions. It&apos;s not enough to train a model and walk away. Instead, good practitioners act as detectives, probing to understand their model better.</div><br>
-              <div class="mdl-typography--body-1">But answering these kinds of questions isn&apos;t easy. Probing  &quot;what if&quot; scenarios often means writing custom, one-off code to analyze a specific model. Not only is this process inefficient, it makes it hard for non-programmers to participate in the process of shaping and improving machine learning models. For <a class="inline" href="https://ai.google/research/teams/brain/pair" target="_blank">us</a>, making it easier for a broad set of people to examine, evaluate, and debug machine learning systems is a key concern.</div><br>
-              <div class="mdl-typography--body-1"> That's why we built the What-If Tool. Usable in Jupyter and Colaboratory notebooks, and built into the open-source TensorBoard web application - a standard part of the TensorFlow platform - the tool allows users to analyze an machine learning model without the need for writing any further code. Given pointers to a model and a dataset, the What-If Tool offers an interactive visual interface for exploring model results. </div>
+              <div class="mdl-typography--headline">Building effective machine learning models means asking a lot of questions. Look for answers using the What-if Tool, an interactive visual interface designed to probe your models better. Compatible with TensorBoard, Jupyter and Colaboratory notebooks. Works on Tensorflow and Python-accessible models.</div><br>
+              <div class="mdl-typography--body-1">  <a class="inline" href="https://ai.google/research/teams/brain/pair" target="_blank">We</a> believe in making it easier for a broad set of people to examine, evaluate, and compare machine learning models - whether you're a developer, a product manager, a researcher or a student. Now, everyone in your team can participate in probing, shaping and improving models. 
+              </div><br>
+              <div class="mdl-typography--body-1">The What-If Tool makes it easy to efficiently and intuitively explore up to two models' performance on a dataset. Investigate model performances for a range of features in your dataset, optimization strategies and even manipulations to individual datapoint values. All this and more, in a visual way that requires minimal code.</div>
             </div>
             <div class="mdl-cell mdl-cell--5-col mdl-cell--2-offset mdl-cell--6-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone introduction-content ">
-              <div class="mdl-typography--headline">Check out a detailed <a class="inline" href="./walkthrough.html">walkthrough</a> of the What-If Tool and what it can help you learn about your model.</div>
-              <div class="mdl-typography--headline">Explore the <a class="inline" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference">documentation</a> for more details.</div>
+              <div class="mdl-typography--headline">Check out this <a class="inline" href="./walkthrough.html">walkthrough</a> to find out what you can learn about your models with the What-If Tool.</div><br>
+              <div class="mdl-typography--headline">Fore more details, refer to the <a class="inline" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference">documentation.</a></div>
             </div>
           </div>
 
@@ -379,7 +397,7 @@
                   <div class="feature-list-item__title mdl-typography--display-1">Visualize inference results
                   </div>
                   <div class="feature-list-item__text mdl-typography--body-1">
-                    Examples are colored by inference results until changed. Organize results into confusion matrices and other custom layouts to show inference results faceted by numerous features.
+                    A functional integration with <a class="inline">Facets Dive</a> helps you create custom visualizations using features in your dataset. Compare the performance of two models, or inspect a single model's performance by organizing inference results into confusion matrices, scatterplots or histograms. 
                   </div>
                 </div>
               </div>
@@ -415,10 +433,10 @@
               <div class="mdl-grid mdl-grid--nesting counterfactual-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--display-1">Explore counterfactual examples
+                  <div class="feature-list-item__title mdl-typography--display-1">Compare counterfactuals to datapoints
                   </div>
                   <div class="feature-list-item__text mdl-typography--body-1">
-                    Seek out the most similar example of a different classification for any datapoint for classification models along L1 and L2 distances calculated using the distribution of feature values across all loaded examples. WIT highlights the delta between the initial example and its counterfactual<a class="citation" href=#ref2 id="cite1">[1]</a><span class="mdl-tooltip mdl-tooltip--right" for="cite1">Wachter, S., Mittelstadt, B., & Russell, C. (2017). Counterfactual explanations without opening the black box: Automated decisions and the GDPR.</span>.
+                    For any selected datapoint, find the most similar datapoint of a different classification<a class="citation" href=#ref2 id="cite1">[1]</a><span class="mdl-tooltip mdl-tooltip--right" for="cite1">Wachter, S., Mittelstadt, B., & Russell, C. (2017). Counterfactual explanations without opening the black box: Automated decisions and the GDPR.</span>. Compare them side-by-side to see what makes the similar and what makes them different.
                   </div>
                 </div>
               </div>
@@ -428,10 +446,10 @@
               <div class="mdl-grid mdl-grid--nesting distance-feature-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--display-1">Arrange examples by similarity
+                  <div class="feature-list-item__title mdl-typography--display-1">Arrange datapoints by similarity
                   </div>
                   <div class="feature-list-item__text mdl-typography--body-1">
-                    Create distance features from a selected datapoint using either L1 or L2 distances and apply it to your visualizations for further analysis.
+                    Create distance features from any datapoint and apply it to your visualizations for further analysis.
                   </div>
                 </div>
               </div>
@@ -441,10 +459,10 @@
               <div class="mdl-grid mdl-grid--nesting performance-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--display-1">View confusion matrices and ROC curves
+                  <div class="feature-list-item__title mdl-typography--display-1">Experiment using confusion matrices and ROC curves
                   </div>
                   <div class="feature-list-item__text mdl-typography--body-1">
-                    For binary classification models and examples that include a feature describing the true label, explore model performance interactively using thresholds, <a class="inline" href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic" target='_blank'>ROC curves</a>, numeric <a class="inline" href="https://en.wikipedia.org/wiki/Confusion_matrix" target='_blank'>confusion matrices</a> and cost ratios.
+                    Experiment with thresholds and cost ratios in binary models interactively. Observe results as <a class="inline" href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic" target='_blank'>ROC curves</a> and numeric <a class="inline" href="https://en.wikipedia.org/wiki/Confusion_matrix" target='_blank'>confusion matrices</a>.
                   </div>
                 </div>
               </div>
@@ -457,9 +475,9 @@
                   <div class="feature-list-item__title mdl-typography--display-1 ">Test algorithmic fairness constraints
                   </div>
                   <div class="feature-list-item__text mdl-typography--body-1">
-                    For binary classification models, slice your dataset into subgroups and explore the effect of different algorithmic fairness constraints with the push of a button, such as "equality of opportunity"<a class="citation" href=#ref2 id="cite2">[2]</a><span class="mdl-tooltip mdl-tooltip--right" for="cite2">Hardt, M., Price, E., & Srebro, N. (2016). Equality of opportunity in supervised learning. In Advances in neural information processing systems (pp. 3315-3323).</span>, for your model on those subgroups.
+                    Examine the effect of preset algorithmic fairness constraints, such as equality of opportunity<a class="citation" href=#ref2 id="cite2">[2]</a><span class="mdl-tooltip mdl-tooltip--right" for="cite2">Hardt, M., Price, E., & Srebro, N. (2016). Equality of opportunity in supervised learning. In Advances in neural information processing systems (pp. 3315-3323).</span>for binary classifiers. Go deeper in your analysis by slicing your dataset into meaningful subgroups.
                     <br><br>
-                    Read more about investigating algorithmic fairness on the What-If Tool in <a class="inline" href="./ai-fairness.html" target="_blank">this article</a> by <a class="inline" href="http://www.hyperorg.com/speaker/bio.html" target="_blank">David Weinberger</a>.
+                    Read more about using the What-If Tool to investigate <a class="inline" href="./ai-fairness.html" target="_blank">AI Fairness</a>, written by <a class="inline" href="http://www.hyperorg.com/speaker/bio.html" target="_blank">David Weinberger</a>.
                   </div>
                 </div>
               </div>
@@ -469,7 +487,7 @@
               <div class="mdl-grid mdl-grid--nesting compare-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>      
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--display-1 ">Compare mulitiple models
+                  <div class="feature-list-item__title mdl-typography--display-1 ">Compare multiple models
                   </div>
                   <div class="feature-list-item__text mdl-typography--body-1">
                     Compare the performance of two different models on the same dataset, easily seeing the datapoints and data slices on which the models differ the most.
@@ -484,12 +502,162 @@
             <div class="mdl-cell mdl-cell--11-col mdl-cell--1-offset mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-typography--display-1 section-name demo-section-title">
               Take the What-If Tool for a spin!
             </div>
+
+
+            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+
+             <div class="mdl-tabs__tab-bar">
+              <a href="#demo-panel-all" class="mdl-tabs__tab is-active">All</a>
+              <a href="#demo-panel-web" class="mdl-tabs__tab">Web Demos</a>
+              <a href="#demo-panel-notebook" class="mdl-tabs__tab">Notebook Demos</a>
+            </div>
+
+            <div class="mdl-tabs__panel is-active " id="demo-panel-all">
+              <div class="mdl-grid">
+              <div class="mdl-cell demo-card-cell mdl-cell--4-col mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone">
+                <div class="income-classification-demo">
+                  <div class="demo-title">
+                    <h2 class="demo-title mdl-typography--headline">Income Classification</h2>
+                  </div>
+                  <div class="demo-description">
+                  <div class="demo-content mdl-typography--body-1"> Compare two binary classification models that predict whether a person earns more than $50k a year, based on their census information<a class="citation" href=#ref3 id="cite3a">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3a">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Examine how different features affect each models' prediction, in relation to each other.
+                  </div>
+
+                  <div class="demo-links">
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="uci.html" target="_blank"> Web Demo <i class="material-icons">chevron_right</i></a><br>
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+              <div class="mdl-cell demo-card-cell mdl-cell--4-col mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone">
+                <div class="age-prediction-demo">
+                  <div class="demo-title">
+                    <h2 class="demo-title mdl-typography--headline">Age Prediction</h2>
+                  </div>
+                  <div class="demo-description">
+                  <div class="demo-content mdl-typography--body-1"> Explore the performance of a regression model which predicts a person's age from their census information<a class="citation" href=#ref3 id="cite3b">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3b">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>.Slice your dataset to evaluate performance metrics such as aggregated inference error measures for each subgroup.
+                  </div>
+
+                  <div class="demo-links">
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="age.html" target="_blank"> Web Demo <i class="material-icons">chevron_right</i></a><br>
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Age_Regression.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+              <div class="mdl-cell demo-card-cell mdl-cell--4-col mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone">
+                <div class="smile-detection-demo">
+                  <div class="demo-title">
+                    <h2 class="demo-title mdl-typography--headline">Smile Detection</h2>
+                  </div>
+                  <div class="demo-description">
+                  <div class="demo-content mdl-typography--body-1"> Predict whether an image contains a smiling face using this binary classification model<a class="citation" href=#ref5 id="cite5">[5]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite5">Liu, Z, Luo, P, Wang, X, Tang, X. Deep Learning Face Attributes in the Wild. Proceedings of International Conference on Computer Vision (ICCV) 2015.</span> on the CelebA dataset. Can you identify which group was missing from the training data, resulting in a biased model?
+                  </div>
+
+                  <div class="demo-links">
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="image.html" target="_blank"> Web Demo <i class="material-icons">chevron_right</i></a><br>
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+
+              <div class="mdl-cell demo-card-cell mdl-cell--4-col mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone">
+                <div class="flower-classification-demo">
+                  <div class="demo-title">
+                    <h2 class="demo-title mdl-typography--headline">Flower Species Classification</h2>
+                  </div>
+                  <div class="demo-description">
+                  <div class="demo-content mdl-typography--body-1"> This multi-class classification model predicts the species of iris flowers from sepal and petal measurements.<a class="citation" href=#ref4 id="cite4">[4]</a><span class="mdl-tooltip mdl-tooltip--top" for="cite4">Lichman, M. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Look for correlations between different features and flower types.
+                  </div>
+
+                  <div class="demo-links">
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="image.html" target="_blank"> Web Demo <i class="material-icons">chevron_right</i></a><br>
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+
+              <div class="mdl-cell demo-card-cell mdl-cell--4-col mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone">
+                <div class="compas-demo">
+                  <div class="demo-title">
+                    <h2 class="demo-title mdl-typography--headline">COMPAS Recidivism Classifier</h2>
+                  </div>
+                  <div class="demo-description">
+                  <div class="demo-content mdl-typography--body-1">Inspired by <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" class="inline" target="_blank"> Propublica</a>, investigate fairness using this linear classifier that mimics the behavior of the COMPAS recidivism classifier. Trained on the <a href="https://www.kaggle.com/danofer/compass" class="inline" target="_blank">COMPAS dataset</a>, this model determines if a person belongs in the "Low" risk (negative) or "Medium or High" risk (positive) class for recidivism according to COMPAS.
+                  </div>
+
+                  <div class="demo-links">
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+              <div class="mdl-cell demo-card-cell mdl-cell--4-col mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone">
+                <div class="text-toxicity-demo">
+                  <div class="demo-title">
+                    <h2 class="demo-title mdl-typography--headline">Text Toxicity</h2>
+                  </div>
+                  <div class="demo-description">
+                  <div class="demo-content mdl-typography--body-1"> Use the What-If Tool to compare two pre-trained models from ConversationAI that determine sentence toxicity, one of which was trained on a more <a href="https://github.com/conversationai/unintended-ml-bias-analysis" class="inline" target="_blank">balanced dataset</a>. Examine their performance side-by-side on the <a href="https://figshare.com/articles/Wikipedia_Talk_Labels_Toxicity/4563973" class="inline" target="_blank">Wikipedia Comments dataset</a>. These are <a href="https://www.tensorflow.org/guide/keras" class="inline" target="_blank">keras</a> models which do not use TensorFlow examples as an input format.
+                  </div>
+
+                  <div class="demo-links">
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+              <!-- grid ends -->
+            </div>
+
+
+            <div class="mdl-tabs__panel" id="demo-panel-web">
+              <ul>
+                <li>Binary Classification - UCI Census</li>
+                <li>Regression - UCI Census</li>
+                <li>Smile Detection</li>
+                <li>Multi-class classification - Iris</li>
+              </ul>
+            </div>
+
+            <div class="mdl-tabs__panel" id="demo-panel-notebook">
+              <ul>
+                <li>Binary Classification - UCI Census</li>
+                <li>Regression - UCI Census</li>
+                <li>Smile Detection</li>
+                <li>Multi-class classification - Iris</li>
+                <li>Binary Classification - COMPAS </li>
+                <li>Model Comparison - Text Toxicity </li>
+              </ul>
+            </div>
+
+
+          </div>
+
+
+
+
+
+
+
+
+
+<!-- 
             <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone demo-card-cell">
               <div class="mdl-card demo-card-wide binary-classification-demo">
                 <div class="mdl-card__title demo-card-title">
                   <h2 class="mdl-card__title-text demo-title demo-content">Income Classification</h2>
                 </div>
-                <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1"> Two binary classification models predict whether a person earns more than $50k a year based on their census information<a class="citation" href=#ref3 id="cite3a">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3a">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Discover how different features affect the models' predictions and how the models differ from each other.
+                <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1"> Compare two binary classification models that predict whether a person earns more than $50k a year, based on their census information<a class="citation" href=#ref3 id="cite3a">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3a">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Examine how different features affect each models' prediction, in relation to each other.
                 </div>
                 <div class="chip">
                   <span class="mdl-chip">
@@ -506,17 +674,17 @@
                   </span>
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
-                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="uci.html" target="_blank"> Go to demo </a>
+                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="uci.html" target="_blank"> Web Demo </a>
                 </div>
               </div>
-            </div>
-
+            </div> -->
+<!-- 
             <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone demo-card-cell">
               <div class="mdl-card demo-card-wide regression-demo">
                 <div class="mdl-card__title demo-card-title">
                   <h2 class="mdl-card__title-text demo-title demo-content">Age Prediction</h2>
                 </div>
-                <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1"> This regression model predicts a person's age from their census information<a class="citation" href=#ref3 id="cite3b">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3b">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Slice data and explore inference results, such as aggregated inference error measures across different subgroups. 
+                <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1"> Explore the performance of a regression model which predicts a person's age from their census information<a class="citation" href=#ref3 id="cite3b">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3b">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>.Slice your dataset to evaluate performance metrics such as aggregated inference error measures for each subgroup.
                 </div>
                 <div class="chip">
                   <span class="mdl-chip">
@@ -533,14 +701,14 @@
                   <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="age.html" target="_blank"> Go to demo </a>
                 </div>
               </div>
-            </div>
+            </div> -->
 
-            <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone demo-card-cell">
+           <!--  <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone demo-card-cell">
               <div class="mdl-card demo-card-wide image-binary-classification-demo">
                 <div class="mdl-card__title demo-card-title">
                   <h2 class="mdl-card__title-text demo-title demo-content">Smile Detection</h2>
                 </div>
-                <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1">This binary classification model predicts whether an image contains a smiling face<a class="citation" href=#ref5 id="cite5">[5]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite5">Liu, Z, Luo, P, Wang, X, Tang, X. Deep Learning Face Attributes in the Wild. Proceedings of International Conference on Computer Vision (ICCV) 2015.</span>. Can you figure out what group was missing from the training data, resulting in a biased model?
+                <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1">This binary classification model predicts whether an image contains a smiling face <a class="citation" href=#ref5 id="cite5">[5]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite5">Liu, Z, Luo, P, Wang, X, Tang, X. Deep Learning Face Attributes in the Wild. Proceedings of International Conference on Computer Vision (ICCV) 2015.</span>. Can you figure out what group was missing from the training data, resulting in a biased model?
                 </div>
                 <div class="chip">
                   <span class="mdl-chip">
@@ -554,9 +722,9 @@
                   <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="image.html" target="_blank"> Go to demo </a>
                 </div>
               </div>
-            </div>
+            </div> -->
 
-            <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone demo-card-cell">
+           <!--  <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone demo-card-cell">
               <div class="mdl-card demo-card-wide multiclass-classification-demo">
                 <div class="mdl-card__title demo-card-title">
                   <h2 class="mdl-card__title-text demo-title demo-content">Iris Flower</h2>
@@ -575,7 +743,7 @@
                   <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="iris.html" target="_blank"> Go to demo </a>
                 </div>
               </div>
-            </div>
+            </div> -->
 
           </div>
           <div class="about mdl-grid page-section" id="about">
