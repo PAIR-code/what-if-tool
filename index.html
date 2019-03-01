@@ -25,13 +25,7 @@
   body {
     font-family: 'Roboto', sans-serif;
   }
-
-  .section-name {
-    color: #202124;
-    margin: 36px auto;
-    padding: 36px auto;
-  }
-
+  /*Hero Banner*/
   .hero {
     min-height: 22vw;
   }
@@ -49,6 +43,7 @@
     background: #ffffff;
     border-top: solid 1px #DADCE0;
   }
+
   .page-content{
     max-width: 1600px;
     margin: 0 auto;
@@ -61,22 +56,55 @@
   }
 
   /*Typography*/
+
+  .section-name {
+    margin: 36px auto;
+    padding: 36px auto;
+  }
+  /* banner title What-If Title*/
   .mdl-typography--display-4 {
     color: #FF9801;
   }
-
-  .mdl-typography--display-1 {
+  /*banner Subtile*/
+  .mdl-typography--display-2 {
     font-weight: 300;
     color: #3C4043;
     line-height: 1.4em;
   }
+  /*section names*/
+  .mdl-typography--display-1 {
+    font-weight: 300;
+    color: #3C4043;
+    line-height: 1.4em;
+    /*background-color: yellow;*/
+  }
 
+/*emphasis paragraph, demo names*/
   .mdl-typography--headline {
     font-weight: 300;
     margin-bottom: 12px;
+    /*background-color: pink;*/
+    line-height: 1.6em;
+  }
+
+  .mdl-typography--title {
+    /*background-color: aliceblue;*/
+    font-weight: 400;
+    color: #3C4043;
+    margin: 12px auto;
   }
 
   .mdl-typography--body-1 {
+    font-size: 16px;
+    line-height: 1.8em;
+    color: #202124;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .mdl-typography--body-2 {
+    color: #5F6368;
+    font-weight: 400;
     font-family: 'Roboto', sans-serif;
   }
 
@@ -90,14 +118,14 @@
   }
 
   .inline {
-    background: rgba(255,179,68,0.3);
-    color: #202124;
-    padding: 2px 2px 2px 4px;
-    text-decoration: underline;
+    background: rgba(255,179,68,0.2);
+    color: #3C4043;
+    padding: 2px 2px 2px 2px;
+    text-decoration: none;
   }
 
   .inline:hover {
-    color: #3C4043;
+    color: #202124;
     background: rgba(255,179,68,0.7);
 
   }
@@ -123,12 +151,7 @@
     margin-bottom: 12px;
   }
 
-  .feature-list-item__content > .mdl-typography--body-1 {
-    font-size: 16px;
-    color: #202124;
-    font-weight: 300;
-    font-family: 'Roboto', sans-serif;
-  }
+
 
   /*feature images container*/
   .feature-list-item__image {
@@ -154,7 +177,7 @@
     background-size: cover;
   }
   .counterfactual-feature > .feature-list-item__image {
-    background-image: url('./assets/WIT-illustration-4.png');
+    background-image: url('./assets/WIT-illustration-4.jpg');
     background-position: center;
     background-size: cover;
   }
@@ -164,17 +187,17 @@
     background-size: cover;
   }
   .performance-feature > .feature-list-item__image {
-    background-image: url('./assets/WIT-illustration-6.png');
+    background-image: url('./assets/WIT-illustration-6.jpg');
     background-position: center;
     background-size: cover;
   }
   .fairness-feature > .feature-list-item__image {
-    background-image: url('./assets/WIT-illustration-7.png');
+    background-image: url('./assets/WIT-illustration-7.jpg');
     background-position: center;
     background-size: cover;
   }
   .compare-feature > .feature-list-item__image {
-    background-image: url('./assets/WIT-illustration-8.png');
+    background-image: url('./assets/WIT-illustration-8.jpg');
     background-position: center;
     background-size: cover;
   }
@@ -184,14 +207,17 @@
   .page-section {
     padding: 48px 0;
   }
+
   .demo-section-title {
     margin-bottom: 24px;
   }
-  .demo-card-cell.mdl-card {
-    /*width: 512px;*/
-    border: solid 1px #DADCE0;
-    margin: 16px;
-    border-radius: 3px;
+
+  .demo-tabs {
+    margin: 48px;
+  }
+
+  .demo-container {
+    margin: auto 48px;
   }
 
   #demo-panel-all > .mdl-grid {
@@ -199,33 +225,35 @@
     overflow-y: none;
   }
 
-  .demo-card-cell > .mdl-card__title {
-    height: 160px;
+  .demo-card-cell {
+    border: 1px solid #DADCE0;
+    border-radius: 4px;
+    padding: 12px;
+    max-width: 400px;
   }
 
-  .demo-card-cell > .mdl-typography--body-1 {
-    font-size:  16px;
-    color: #202124;
-    font-weight: 300;
-    font-family: 'Roboto', sans-serif;
-    line-height: 28px;
-
-  }
-
-  .demo-card-title {
-    height: 120px; 
+  .demo-card-cell:hover {
+    box-shadow: 0px 1px 2px 0px rgba(60, 64, 67, 0.3), 0px 2px 6px 2px rgba(60, 64, 67, 0.15);
+    border-radius: 4px;
   }
 
   .demo-title {
     color: #202124;
+    padding: 12px 0px;
+    margin: 0px;
+
   }
 
   .demo-content {
     color: #3C4043;
-    padding: 24px;
-    background: yellow;
+    /*padding: 12px;*/
     min-height: 140px;
   }
+  .demo-links {
+    margin-top: 24px;
+  }
+
+
   /*demo card images*/
 
   .binary-classification-demo > .mdl-card__title {
@@ -365,7 +393,7 @@
         <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--11-col mdl-cell--1-offset mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone section-name big-title">
             <div class="mdl-typography--display-4 what-if">What If...</div>
-            <div class="mdl-typography--display-1 tagline">you could inspect a machine learning model,<br> with minimal coding required?
+            <div class="mdl-typography--display-2 tagline">you could inspect a machine learning model,<br> with minimal coding required?
             </div>
           </div>
         </div>
@@ -394,9 +422,9 @@
               <div class="mdl-grid mdl-grid--nesting visualize-inference-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet"></div>
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
-                  <div class="feature-list-item__title mdl-typography--display-1">Visualize inference results
+                  <div class="feature-list-item__title mdl-typography--title">Visualize inference results
                   </div>
-                  <div class="feature-list-item__text mdl-typography--body-1">
+                  <div class="mdl-typography--body-1">
                     A functional integration with <a class="inline">Facets Dive</a> helps you create custom visualizations using features in your dataset. Compare the performance of two models, or inspect a single model's performance by organizing inference results into confusion matrices, scatterplots or histograms. 
                   </div>
                 </div>
@@ -407,9 +435,9 @@
               <div class="mdl-grid mdl-grid--nesting edit-example-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--display-1">Edit a datapoint and see how your model performs
+                  <div class="feature-list-item__title mdl-typography--title">Edit a datapoint and see how your model performs
                   </div>
-                  <div class="feature-list-item__text mdl-typography--body-1">
+                  <div class="mdl-typography--body-1">
                     Edit, add or remove features or feature values for any selected datapoint and then run inference to test model performance. Alternatively, you can duplicate or upload a whole new example to see where it stands vis-&#224;-vis loaded examples.
                   </div>
                 </div>
@@ -420,9 +448,9 @@
               <div class="mdl-grid mdl-grid--nesting pd-plot-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col  mdl-cell--4-col-tablet "></div>
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--display-1">Explore the effects of a single feature
+                  <div class="feature-list-item__title mdl-typography--title">Explore the effects of a single feature
                   </div>
-                  <div class="feature-list-item__text mdl-typography--body-1">
+                  <div class="mdl-typography--body-1">
                     Explore auto-generated plots for individual features of a selected datapoint that show the change in inference results for different valid values of the feature.
                   </div>
                 </div>
@@ -433,9 +461,9 @@
               <div class="mdl-grid mdl-grid--nesting counterfactual-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--display-1">Compare counterfactuals to datapoints
+                  <div class="feature-list-item__title mdl-typography--title">Compare counterfactuals to datapoints
                   </div>
-                  <div class="feature-list-item__text mdl-typography--body-1">
+                  <div class="mdl-typography--body-1">
                     For any selected datapoint, find the most similar datapoint of a different classification<a class="citation" href=#ref2 id="cite1">[1]</a><span class="mdl-tooltip mdl-tooltip--right" for="cite1">Wachter, S., Mittelstadt, B., & Russell, C. (2017). Counterfactual explanations without opening the black box: Automated decisions and the GDPR.</span>. Compare them side-by-side to see what makes the similar and what makes them different.
                   </div>
                 </div>
@@ -446,9 +474,9 @@
               <div class="mdl-grid mdl-grid--nesting distance-feature-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--display-1">Arrange datapoints by similarity
+                  <div class="feature-list-item__title mdl-typography--title">Arrange datapoints by similarity
                   </div>
-                  <div class="feature-list-item__text mdl-typography--body-1">
+                  <div class="mdl-typography--body-1">
                     Create distance features from any datapoint and apply it to your visualizations for further analysis.
                   </div>
                 </div>
@@ -459,9 +487,9 @@
               <div class="mdl-grid mdl-grid--nesting performance-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--display-1">Experiment using confusion matrices and ROC curves
+                  <div class="feature-list-item__title mdl-typography--title">Experiment using confusion matrices and ROC curves
                   </div>
-                  <div class="feature-list-item__text mdl-typography--body-1">
+                  <div class="mdl-typography--body-1">
                     Experiment with thresholds and cost ratios in binary models interactively. Observe results as <a class="inline" href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic" target='_blank'>ROC curves</a> and numeric <a class="inline" href="https://en.wikipedia.org/wiki/Confusion_matrix" target='_blank'>confusion matrices</a>.
                   </div>
                 </div>
@@ -472,9 +500,9 @@
               <div class="mdl-grid mdl-grid--nesting fairness-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>      
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--display-1 ">Test algorithmic fairness constraints
+                  <div class="feature-list-item__title mdl-typography--title ">Test algorithmic fairness constraints
                   </div>
-                  <div class="feature-list-item__text mdl-typography--body-1">
+                  <div class="mdl-typography--body-1">
                     Examine the effect of preset algorithmic fairness constraints, such as equality of opportunity<a class="citation" href=#ref2 id="cite2">[2]</a><span class="mdl-tooltip mdl-tooltip--right" for="cite2">Hardt, M., Price, E., & Srebro, N. (2016). Equality of opportunity in supervised learning. In Advances in neural information processing systems (pp. 3315-3323).</span>for binary classifiers. Go deeper in your analysis by slicing your dataset into meaningful subgroups.
                     <br><br>
                     Read more about using the What-If Tool to investigate <a class="inline" href="./ai-fairness.html" target="_blank">AI Fairness</a>, written by <a class="inline" href="http://www.hyperorg.com/speaker/bio.html" target="_blank">David Weinberger</a>.
@@ -487,9 +515,9 @@
               <div class="mdl-grid mdl-grid--nesting compare-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>      
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--display-1 ">Compare multiple models
+                  <div class="feature-list-item__title mdl-typography--title ">Compare multiple models
                   </div>
-                  <div class="feature-list-item__text mdl-typography--body-1">
+                  <div class="mdl-typography--body-1">
                     Compare the performance of two different models on the same dataset, easily seeing the datapoints and data slices on which the models differ the most.
                   </div>
                 </div>
@@ -506,14 +534,14 @@
 
             <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 
-             <div class="mdl-tabs__tab-bar">
+             <div class="mdl-tabs__tab-bar demo-tabs">
               <a href="#demo-panel-all" class="mdl-tabs__tab is-active">All</a>
               <a href="#demo-panel-web" class="mdl-tabs__tab">Web Demos</a>
               <a href="#demo-panel-notebook" class="mdl-tabs__tab">Notebook Demos</a>
             </div>
 
             <div class="mdl-tabs__panel is-active " id="demo-panel-all">
-              <div class="mdl-grid">
+              <div class="mdl-grid demo-container">
                 <div class="mdl-cell demo-card-cell mdl-cell--4-col mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone">
                   <div class="income-classification-demo">
                     <div class="demo-title">
@@ -622,7 +650,7 @@
 
 
             <div class="mdl-tabs__panel" id="demo-panel-web">
-             <div class="mdl-grid">
+             <div class="mdl-grid demo-container">
               <div class="mdl-cell demo-card-cell mdl-cell--4-col mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone">
                 <div class="income-classification-demo">
                   <div class="demo-title">
@@ -692,7 +720,7 @@
           </div>
 
           <div class="mdl-tabs__panel" id="demo-panel-notebook">
-           <div class="mdl-grid">
+           <div class="mdl-grid demo-container">
             <div class="mdl-cell demo-card-cell mdl-cell--4-col mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone">
               <div class="income-classification-demo">
                 <div class="demo-title">
@@ -794,113 +822,10 @@
             <!-- grid ends -->
           </div>
         </div>
-
-
       </div>
 
-
-
-
-
-
-
-
-
-<!-- 
-            <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone demo-card-cell">
-              <div class="mdl-card demo-card-wide binary-classification-demo">
-                <div class="mdl-card__title demo-card-title">
-                  <h2 class="mdl-card__title-text demo-title demo-content">Income Classification</h2>
-                </div>
-                <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1"> Compare two binary classification models that predict whether a person earns more than $50k a year, based on their census information<a class="citation" href=#ref3 id="cite3a">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3a">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Examine how different features affect each models' prediction, in relation to each other.
-                </div>
-                <div class="chip">
-                  <span class="mdl-chip">
-                    <span class="mdl-chip__text">Binary Classification</span>
-                  </span>
-                  <span class="mdl-chip">
-                    <span class="mdl-chip__text">Numeric Data</span>
-                  </span>
-                  <span class="mdl-chip">
-                    <span class="mdl-chip__text">Categorical Data</span>
-                  </span>
-                  <span class="mdl-chip">
-                    <span class="mdl-chip__text">Model Comparison</span>
-                  </span>
-                </div>
-                <div class="mdl-card__actions mdl-card--border">
-                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="uci.html" target="_blank"> Web Demo </a>
-                </div>
-              </div>
-            </div> -->
-<!-- 
-            <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone demo-card-cell">
-              <div class="mdl-card demo-card-wide regression-demo">
-                <div class="mdl-card__title demo-card-title">
-                  <h2 class="mdl-card__title-text demo-title demo-content">Age Prediction</h2>
-                </div>
-                <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1"> Explore the performance of a regression model which predicts a person's age from their census information<a class="citation" href=#ref3 id="cite3b">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3b">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>.Slice your dataset to evaluate performance metrics such as aggregated inference error measures for each subgroup.
-                </div>
-                <div class="chip">
-                  <span class="mdl-chip">
-                    <span class="mdl-chip__text">Regression Model</span>
-                  </span>
-                  <span class="mdl-chip">
-                    <span class="mdl-chip__text">Numeric Data</span>
-                  </span>
-                  <span class="mdl-chip">
-                    <span class="mdl-chip__text">Categorical Data</span>
-                  </span>
-                </div>
-                <div class="mdl-card__actions mdl-card--border">
-                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="age.html" target="_blank"> Go to demo </a>
-                </div>
-              </div>
-            </div> -->
-
-           <!--  <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone demo-card-cell">
-              <div class="mdl-card demo-card-wide image-binary-classification-demo">
-                <div class="mdl-card__title demo-card-title">
-                  <h2 class="mdl-card__title-text demo-title demo-content">Smile Detection</h2>
-                </div>
-                <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1">This binary classification model predicts whether an image contains a smiling face <a class="citation" href=#ref5 id="cite5">[5]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite5">Liu, Z, Luo, P, Wang, X, Tang, X. Deep Learning Face Attributes in the Wild. Proceedings of International Conference on Computer Vision (ICCV) 2015.</span>. Can you figure out what group was missing from the training data, resulting in a biased model?
-                </div>
-                <div class="chip">
-                  <span class="mdl-chip">
-                    <span class="mdl-chip__text">Binary Classification</span>
-                  </span>
-                  <span class="mdl-chip">
-                    <span class="mdl-chip__text">Image Data</span>
-                  </span>
-                </div>
-                <div class="mdl-card__actions mdl-card--border">
-                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="image.html" target="_blank"> Go to demo </a>
-                </div>
-              </div>
-            </div> -->
-
-           <!--  <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone demo-card-cell">
-              <div class="mdl-card demo-card-wide multiclass-classification-demo">
-                <div class="mdl-card__title demo-card-title">
-                  <h2 class="mdl-card__title-text demo-title demo-content">Iris Flower</h2>
-                </div>
-                <div class="mdl-card__supporting-text demo-description demo-content mdl-typography--body-1"> This multi-class classification model predicts flower type from plant measurements<a class="citation" href=#ref4 id="cite4">[4]</a><span class="mdl-tooltip mdl-tooltip--top" for="cite4">Lichman, M. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Look at the correlations between different features and flower type.
-                </div>
-                <div class="chip">
-                  <span class="mdl-chip">
-                    <span class="mdl-chip__text">Multiclass Classification</span>
-                  </span>
-                  <span class="mdl-chip">
-                    <span class="mdl-chip__text">Numeric Data</span>
-                  </span>
-                </div>
-                <div class="mdl-card__actions mdl-card--border">
-                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="iris.html" target="_blank"> Go to demo </a>
-                </div>
-              </div>
-            </div> -->
-
           </div>
+          <hr>
           <div class="about mdl-grid page-section" id="about">
             <div class="mdl-cell mdl-cell--3-col mdl-cell--1-offset mdl-typography--display-1 mdl-cell--2-col-tablet">About</div>
             <div class=" mdl-cell mdl-cell--1-offset mdl-cell--5-col mdl-typography--body-1 mdl-cell--6-col-tablet ">
@@ -914,20 +839,20 @@
           <div class="references mdl-grid page-section" id="references">
             <div class="mdl-cell mdl-cell--3-col  mdl-cell--1-offset mdl-typography--display-1 mdl-cell--2-col-tablet">References</div>
             <div class=" mdl-cell mdl-cell--1-offset mdl-cell--5-col mdl-cell--6-col-tablet ">
-              <div class="mdl-typography--body-1" id="ref1"><a class="citation" href=#features>[1]</a> Wachter, S., Mittelstadt, B., & Russell, C. (2017). Counterfactual explanations without opening the black box: Automated decisions and the GDPR.<a class="inline" href="https://arxiv.org/abs/1711.00399" target="_blank">https://arxiv.org/abs/1711.00399</a>
+              <div class="mdl-typography--body-2" id="ref1"><a class="citation" href=#features>[1]</a> Wachter, S., Mittelstadt, B., & Russell, C. (2017). Counterfactual explanations without opening the black box: Automated decisions and the GDPR.<a class="inline" href="https://arxiv.org/abs/1711.00399" target="_blank">https://arxiv.org/abs/1711.00399</a>
               </div>
               <br>
-              <div class="mdl-typography--body-1" id="ref2"><a class="citation" href=#features>[2]</a> Hardt, M., Price, E., & Srebro, N. (2016). Equality of opportunity in supervised learning. In Advances in neural information processing systems (pp. 3315-3323). <a class="inline" href="https://arxiv.org/abs/1610.02413" target="_blank">https://arxiv.org/abs/1610.02413</a>
+              <div class="mdl-typography--body-2" id="ref2"><a class="citation" href=#features>[2]</a>Hardt, M., Price, E., & Srebro, N. (2016). Equality of opportunity in supervised learning. In Advances in neural information processing systems (pp. 3315-3323). <a class="inline" href="https://arxiv.org/abs/1610.02413" target="_blank">https://arxiv.org/abs/1610.02413</a>
               </div>
               <br>
-              <div class="mdl-typography--body-1" id="ref3"><a class="citation" href=#demos>[3]</a> Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science. <a class="inline" href="http://archive.ics.uci.edu/ml/datasets/Census+Income" target="_blank">http://archive.ics.uci.edu/ml/datasets/Census+Income</a>
+              <div class="mdl-typography--body-2" id="ref3"><a class="citation" href=#demos>[3]</a> Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science. <a class="inline" href="http://archive.ics.uci.edu/ml/datasets/Census+Income" target="_blank">http://archive.ics.uci.edu/ml/datasets/Census+Income</a>
               </div>
               <br>
-              <div class="mdl-typography--body-1" id="ref4">
+              <div class="mdl-typography--body-2" id="ref4">
                 <a class="citation" href=#demos>[4]</a> Lichman, M. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science. <a class="inline" href="https://archive.ics.uci.edu/ml/datasets/iris" target="_blank">https://archive.ics.uci.edu/ml/datasets/iris</a>.
               </div>
               <br>
-              <div class="mdl-typography--body-1" id="ref5">
+              <div class="mdl-typography--body-2" id="ref5">
                 <a class="citation" href=#demos>[5]</a> Liu, Z, Luo, P, Wang, X, Tang, X. Deep Learning Face Attributes in the Wild. Proceedings of International Conference on Computer Vision (ICCV) 2015. <a class="inline" href="http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html" target="_blank">http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html</a>
               </div>
             </div>
