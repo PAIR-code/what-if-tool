@@ -88,7 +88,10 @@
   }
 
   .learn {
-    color: #d32f2f;
+    color: #202124;
+    background: #CBF0F8;
+    padding-left: 6px;
+    padding-right: 6px;
   }
 
   /*inline and citation or reference links*/
@@ -117,6 +120,7 @@
     font-size:  18px;
     font-family: 'Roboto', sans-serif;
     line-height: 1.8em;
+    color: #3C4043;
   }
 
   .mdl-typography--quote {
@@ -304,7 +308,7 @@
             <div class="image-container"><img src="./assets/wit-lessperf.png" class="image"></div>
             <div class="mdl-typography--body-1 para">You'll notice in this tab, there is a setting for "cost ratio" and an "optimize threshold" button. WIT can automatically set the classification threshold to the optimal point, given the dataset loaded and the cost ratio, which specifies the relative cost of a false positive versus a false negative. This cost is something that a user needs to determine for themselves. The default cost ratio in the tool is 1, meaning false negatives and false positives are equally undesirable.</div>
             <div class="mdl-typography--display-1">Cost ratios and optimizing decision thresholds</div>
-            <div class="mdl-typography--body-1 para">In some systems, such as a medical early screening test (where a positive classification would be an indication of a possible medical condition, requiring further medical testing), it is important to be more permissive with lower-scoring examples, preferring to predict more datapoints as in the positive class, at the risk of having more false positives (which would then be weeded out by the follow-up medical testing). In this case, we would want a low cost ratio, as we prefer false positives to false negatives. A cost ratio of .25 means that we consider a false negative 4 times as costly as a false positive.</div>
+            <div class="mdl-typography--body-1 para">In some systems, such as a medical early screening test (where a positive classification would be an indication of a possible medical condition, requiring further medical testing), it is important to be more permissive with lower-scoring datapoints, preferring to predict more datapoints as in the positive class, at the risk of having more false positives (which would then be weeded out by the follow-up medical testing). In this case, we would want a low cost ratio, as we prefer false positives to false negatives. A cost ratio of .25 means that we consider a false negative 4 times as costly as a false positive.</div>
             <div class="mdl-typography--body-1 para">But in a system that unlocks a front door given a face identification match, it is more important to avoid false positives, as the expense of sometimes not incorrectly automatically opening the door for a complete stranger. In this case, we would want a high cost ratio, as we prefer false negatives to false positives. A cost ratio of 3 means that we consider a false positive 3 times as costly as a false negative.</div>
             <div class="mdl-typography--body-1 para">With the default cost ratio of 1, if we click "optimize threshold" then the positive classification threshold changes to .4. Optimizing for a cost ratio of 1 is the same as optimizing for accuracy, as it will minimize the total number of false positives and false negatives. In this case, <span class="learn">our simple linear model can be about 82% accurate over the dataset with the optimal threshold</span>. If deploying this binary classification model into a real application, this threshold setting might be ideal, assuming we don't wish to penalize false positives and false negatives differently. We say this might be a good setting, as that threshold setting should be verified over a larger test set if available, and there may be other factors to consider, such as fairness (which we will get into soon).</div>
             <div class="image-container"><img src="./assets/wit-opt.png" class="image"></div>
@@ -315,7 +319,7 @@
             <div class="mdl-typography--body-1 para">WIT can help investigate fairness concerns in a few different ways. First, the "Features" tab shows an overview of the provided dataset, using a visualization called <a href="https://pair-code.github.io/facets/">Facets Overview</a>. Also, the tool can break down model performance by subsets of the data and look at fairness metrics between those subsets.</div>
             <div class="mdl-typography--display-1">Exploring feature overviews</div>
             <div class="image-container"><img src="./assets/wit-facets-overview.png" class="image"></div>
-            <div class="mdl-typography--body-1 para">In the Features tab, we can look to see the distribution of values for each feature in the dataset. We can see that of the 5,000 test examples, over 3,300 are from men and over 4,200 are from caucasions. <span class="learn">Women and minorities seem under-represented in this dataset</span>. That may lead to the model not learning an accurate representation of the world in which it is trying to make predictions (of course, even if it does learn an accurate representation, is that what we want the model to perpetuate? This is a much deeper question still falling under the ML fairness umbrella and worthy of discussion outside of WIT). Predictions on those under-represented groups are more likely to be inaccurate than predictions on the over-represented groups.</div>
+            <div class="mdl-typography--body-1 para">In the Features tab, we can look to see the distribution of values for each feature in the dataset. We can see that of the 5,000 test datapoints, over 3,300 are from men and over 4,200 are from caucasions. <span class="learn">Women and minorities seem under-represented in this dataset</span>. That may lead to the model not learning an accurate representation of the world in which it is trying to make predictions (of course, even if it does learn an accurate representation, is that what we want the model to perpetuate? This is a much deeper question still falling under the ML fairness umbrella and worthy of discussion outside of WIT). Predictions on those under-represented groups are more likely to be inaccurate than predictions on the over-represented groups.</div>
             <div class="mdl-typography--body-1 para">The features in this visualization can be sorted by a number of different metrics, including non-uniformity. With this sorting, the features that have the most non-uniform distributions are shown first. For numeric features, <span class="learn">capital gain is very non-uniform, with most datapoints having it set to 0, but a small number having non-zero capital gains, all the way up to a maximum of 100,000</span>. For categorical features, <span class="learn">country is the most non-uniform with most datapoints being from the USA, but there is a long tail of 40 other countries which are not well represented.</span></div>
             <div class="image-container"><img src="./assets/wit-non-uniform.png" class="image"></div>
             <div class="mdl-typography--display-1">Analyzing ML fairness</div>
