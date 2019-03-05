@@ -308,6 +308,11 @@
     background-size: cover;
     border-bottom: solid 1px #DADCE0;
   }
+  .join-community {
+    padding: 12px;
+    background-color: #E4F7FB;
+    color: #007B83;
+  }
 
 
   /*to organize */
@@ -413,7 +418,9 @@
             </div>
             <div class="mdl-cell mdl-cell--5-col mdl-cell--2-offset mdl-cell--6-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone introduction-content ">
               <div class="mdl-typography--headline">Check out this <a class="inline" href="./walkthrough.html">walkthrough</a> to find out what you can learn about your models with the What-If Tool.</div><br>
-              <div class="mdl-typography--headline">Fore more details, refer to the <a class="inline" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference">documentation.</a> Join our <a class="inline">mailing list</a>for the latest updates.</div>
+              <div class="mdl-typography--headline">Fore more details, refer to the <a class="inline" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference">documentation.</a> </div>
+              <div class="mdl-typography--title join-community">
+                Join the What-If Tool community on our<a class="inline" href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">Google Group</a>.</div>
             </div>
           </div>
 
@@ -557,7 +564,7 @@
 
                       <div class="demo-links">
                         <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="uci.html" target="_blank"> Web Demo <i class="material-icons">chevron_right</i></a><br>
-                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Model_Comparison.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
                       </div>
                     </div>
                   </div>
@@ -604,12 +611,11 @@
                       <h2 class="demo-title mdl-typography--headline">Flower Species Classification</h2>
                     </div>
                     <div class="demo-description">
-                      <div class="demo-content mdl-typography--body-1"> This multi-class classification model predicts the species of iris flowers from sepal and petal measurements.<a class="citation" href=#ref4 id="cite4">[4]</a><span class="mdl-tooltip mdl-tooltip--top" for="cite4">Lichman, M. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Look for correlations between different features and flower types.
+                      <div class="demo-content mdl-typography--body-1"> This multi-class classification model predicts the species of iris flowers from sepal and petal measurements<a class="citation" href=#ref4 id="cite4">[4]</a><span class="mdl-tooltip mdl-tooltip--top" for="cite4">Lichman, M. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Look for correlations between different features and flower types.
                       </div>
 
                       <div class="demo-links">
-                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="image.html" target="_blank">Web Demo<i class="material-icons">chevron_right</i></a><br>
-                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
+                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="iris.html" target="_blank">Web Demo<i class="material-icons">chevron_right</i></a><br>
                       </div>
                     </div>
                   </div>
@@ -710,11 +716,11 @@
                     <h2 class="demo-title mdl-typography--headline">Flower Species Classification</h2>
                   </div>
                   <div class="demo-description">
-                    <div class="demo-content mdl-typography--body-1"> This multi-class classification model predicts the species of iris flowers from sepal and petal measurements.<a class="citation" href=#ref4 id="cite4">[4]</a><span class="mdl-tooltip mdl-tooltip--top" for="cite4">Lichman, M. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Look for correlations between different features and flower types.
+                    <div class="demo-content mdl-typography--body-1"> This multi-class classification model predicts the species of iris flowers from sepal and petal measurements<a class="citation" href=#ref4 id="cite4">[4]</a><span class="mdl-tooltip mdl-tooltip--top" for="cite4">Lichman, M. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Look for correlations between different features and flower types.
                     </div>
 
                     <div class="demo-links">
-                      <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="image.html" target="_blank">Web Demo<i class="material-icons">chevron_right</i></a>
+                      <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="iris.html" target="_blank">Web Demo<i class="material-icons">chevron_right</i></a>
                     </div>
                   </div>
                 </div>
@@ -735,7 +741,7 @@
                   </div>
 
                   <div class="demo-links">
-                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Model_Comparison.ipynb" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
                   </div>
                 </div>
               </div>
@@ -764,23 +770,6 @@
                 </div>
                 <div class="demo-description">
                   <div class="demo-content mdl-typography--body-1"> Predict whether an image contains a smiling face using this binary classification model<a class="citation" href=#ref5 id="cite5">[5]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite5">Liu, Z, Luo, P, Wang, X, Tang, X. Deep Learning Face Attributes in the Wild. Proceedings of International Conference on Computer Vision (ICCV) 2015.</span> on the CelebA dataset. Can you identify which group was missing from the training data, resulting in a biased model?
-                  </div>
-
-                  <div class="demo-links">
-                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="mdl-cell demo-card-cell mdl-cell--4-col mdl-cell--7-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone">
-              <div class="flower-classification-demo">
-                <div class="demo-title">
-                  <h2 class="demo-title mdl-typography--headline">Flower Species Classification</h2>
-                </div>
-                <div class="demo-description">
-                  <div class="demo-content mdl-typography--body-1"> This multi-class classification model predicts the species of iris flowers from sepal and petal measurements.<a class="citation" href=#ref4 id="cite4">[4]</a><span class="mdl-tooltip mdl-tooltip--top" for="cite4">Lichman, M. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Look for correlations between different features and flower types.
                   </div>
 
                   <div class="demo-links">
