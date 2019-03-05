@@ -79,7 +79,7 @@
     /*background-color: yellow;*/
   }
 
-/*emphasis paragraph, demo names*/
+  /*emphasis paragraph, demo names*/
   .mdl-typography--headline {
     font-weight: 300;
     margin-bottom: 12px;
@@ -423,52 +423,26 @@
             </div>
 
             <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+              <div class="mdl-grid mdl-grid--nesting compare-feature">
+                <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>      
+                <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
+                  <div class="feature-list-item__title mdl-typography--title ">Compare multiple models within the same workflow
+                  </div>
+                  <div class="mdl-typography--body-1">
+                    Compare and experiment on the performance of two different models on the same dataset simultaneously. Identify individual datapoints or entire dataset slices on which the models differ the most.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
               <div class="mdl-grid mdl-grid--nesting visualize-inference-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet"></div>
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
                   <div class="feature-list-item__title mdl-typography--title">Visualize inference results
                   </div>
                   <div class="mdl-typography--body-1">
-                    A functional integration with <a class="inline">Facets Dive</a> helps you create custom visualizations using features in your dataset. Compare the performance of two models, or inspect a single model's performance by organizing inference results into confusion matrices, scatterplots or histograms. 
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-              <div class="mdl-grid mdl-grid--nesting edit-example-feature">
-                <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
-                <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--title">Edit a datapoint and see how your model performs
-                  </div>
-                  <div class="mdl-typography--body-1">
-                    Edit, add or remove features or feature values for any selected datapoint and then run inference to test model performance. Alternatively, you can duplicate or upload a whole new example to see where it stands vis-&#224;-vis loaded examples.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-              <div class="mdl-grid mdl-grid--nesting pd-plot-feature">
-                <div class="feature-list-item__image mdl-cell mdl-cell--4-col  mdl-cell--4-col-tablet "></div>
-                <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--title">Explore the effects of a single feature
-                  </div>
-                  <div class="mdl-typography--body-1">
-                    Explore auto-generated plots for individual features of a selected datapoint that show the change in inference results for different valid values of the feature.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-              <div class="mdl-grid mdl-grid--nesting counterfactual-feature">
-                <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
-                <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--title">Compare counterfactuals to datapoints
-                  </div>
-                  <div class="mdl-typography--body-1">
-                    For any selected datapoint, find the most similar datapoint of a different classification<a class="citation" href=#ref2 id="cite1">[1]</a><span class="mdl-tooltip mdl-tooltip--right" for="cite1">Wachter, S., Mittelstadt, B., & Russell, C. (2017). Counterfactual explanations without opening the black box: Automated decisions and the GDPR.</span>. Compare them side-by-side to see what makes the similar and what makes them different.
+                    A functional integration with <a class="inline" href="https://pair-code.github.io/facets">Facets Dive</a> helps you create custom visualizations using features in your dataset. Compare the performance of two models, or inspect a single model's performance by organizing inference results into confusion matrices, scatterplots or histograms. 
                   </div>
                 </div>
               </div>
@@ -488,6 +462,45 @@
             </div>
 
             <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+              <div class="mdl-grid mdl-grid--nesting edit-example-feature">
+                <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
+                <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
+                  <div class="feature-list-item__title mdl-typography--title">Edit a datapoint and see how your model performs
+                  </div>
+                  <div class="mdl-typography--body-1">
+                    Edit, add or remove features or feature values for any selected datapoint and then run inference to test model performance. Alternatively, you can duplicate or upload a whole new example to see where it stands vis-&#224;-vis loaded examples.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+              <div class="mdl-grid mdl-grid--nesting counterfactual-feature">
+                <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
+                <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
+                  <div class="feature-list-item__title mdl-typography--title">Compare counterfactuals to datapoints
+                  </div>
+                  <div class="mdl-typography--body-1">
+                    For any selected datapoint, find the most similar datapoint of a different classification<a class="citation" href=#ref2 id="cite1">[1]</a><span class="mdl-tooltip mdl-tooltip--right" for="cite1">Wachter, S., Mittelstadt, B., & Russell, C. (2017). Counterfactual explanations without opening the black box: Automated decisions and the GDPR.</span>. Compare them side-by-side to see what makes the similar and what makes them different.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+              <div class="mdl-grid mdl-grid--nesting pd-plot-feature">
+                <div class="feature-list-item__image mdl-cell mdl-cell--4-col  mdl-cell--4-col-tablet "></div>
+                <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
+                  <div class="feature-list-item__title mdl-typography--title">Use feature values as lenses into model performance
+                  </div>
+                  <div class="mdl-typography--body-1">
+                    Auto-generated partial dependence plots for individual features show changes in inference results across their different valid values.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
               <div class="mdl-grid mdl-grid--nesting performance-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
@@ -499,6 +512,7 @@
                 </div>
               </div>
             </div>
+
 
             <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
               <div class="mdl-grid mdl-grid--nesting fairness-feature">
@@ -514,20 +528,6 @@
                 </div>
               </div>
             </div>
-
-            <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-              <div class="mdl-grid mdl-grid--nesting compare-feature">
-                <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>      
-                <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
-                  <div class="feature-list-item__title mdl-typography--title ">Compare multiple models
-                  </div>
-                  <div class="mdl-typography--body-1">
-                    Compare the performance of two different models on the same dataset, easily seeing the datapoints and data slices on which the models differ the most.
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
 
           <div class="demos mdl-grid mdl-grid--no-spacing page-section" id="demos">
@@ -591,7 +591,7 @@
 
                       <div class="demo-links">
                         <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="image.html" target="_blank"> Web Demo <i class="material-icons">chevron_right</i></a><br>
-                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
                       </div>
                     </div>
                   </div>
@@ -608,8 +608,8 @@
                       </div>
 
                       <div class="demo-links">
-                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="image.html" target="_blank"> Web Demo <i class="material-icons">chevron_right</i></a><br>
-                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="image.html" target="_blank">Web Demo<i class="material-icons">chevron_right</i></a><br>
+                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
                       </div>
                     </div>
                   </div>
@@ -642,7 +642,7 @@
                       </div>
 
                       <div class="demo-links">
-                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
                       </div>
                     </div>
                   </div>
@@ -697,7 +697,7 @@
                     </div>
 
                     <div class="demo-links">
-                      <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="image.html" target="_blank"> Web Demo <i class="material-icons">chevron_right</i></a>
+                      <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="image.html" target="_blank">Web Demo<i class="material-icons">chevron_right</i></a>
                     </div>
                   </div>
                 </div>
@@ -714,7 +714,7 @@
                     </div>
 
                     <div class="demo-links">
-                      <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="image.html" target="_blank"> Web Demo <i class="material-icons">chevron_right</i></a>
+                      <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="image.html" target="_blank">Web Demo<i class="material-icons">chevron_right</i></a>
                     </div>
                   </div>
                 </div>
@@ -735,7 +735,7 @@
                   </div>
 
                   <div class="demo-links">
-                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
                   </div>
                 </div>
               </div>
@@ -751,7 +751,7 @@
                   </div>
 
                   <div class="demo-links">
-                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Age_Regression.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Age_Regression.ipynb" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
                   </div>
                 </div>
               </div>
@@ -767,7 +767,7 @@
                   </div>
 
                   <div class="demo-links">
-                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
                   </div>
                 </div>
               </div>
@@ -784,7 +784,7 @@
                   </div>
 
                   <div class="demo-links">
-                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
                   </div>
                 </div>
               </div>
@@ -801,7 +801,7 @@
                   </div>
 
                   <div class="demo-links">
-                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS.ipynb" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
                   </div>
                 </div>
               </div>
@@ -817,7 +817,7 @@
                   </div>
 
                   <div class="demo-links">
-                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
                   </div>
                 </div>
               </div>
@@ -828,42 +828,42 @@
         </div>
       </div>
 
-          </div>
-          <hr>
-          <div class="about mdl-grid page-section" id="about">
-            <div class="mdl-cell mdl-cell--3-col mdl-cell--1-offset mdl-typography--display-1 mdl-cell--2-col-tablet">About</div>
-            <div class=" mdl-cell mdl-cell--1-offset mdl-cell--5-col mdl-typography--body-1 mdl-cell--6-col-tablet ">
-              <br><span class="mdl-typography--headline">PAIR </span><br>
-              The <a class="inline" href="https://www.google.ai/pair" target='_blank'>People + AI Research initiative (PAIR)</a> brings together researchers across <a class='inline' href='https://ai.google' target='_blank'>Google</a> to study and redesign the ways people interact with AI systems. We focus on the &quot;human side&quot; of AI: the relationship between users and technology, the new applications it enables, and how to make it broadly inclusive. Our goal isn't just to publish research; we're also releasing open source tools for researchers and other experts to use.
-              <br><br><span class="mdl-typography--headline">Acknowledgements</span><br>
-              The What-If Tool was a collaborative effort. We would like to thank the Google teams that piloted the tool and provided valuable feedback and the TensorBoard team for all their help.
-            </div>
-          </div>
-          <hr>
-          <div class="references mdl-grid page-section" id="references">
-            <div class="mdl-cell mdl-cell--3-col  mdl-cell--1-offset mdl-typography--display-1 mdl-cell--2-col-tablet">References</div>
-            <div class=" mdl-cell mdl-cell--1-offset mdl-cell--5-col mdl-cell--6-col-tablet ">
-              <div class="mdl-typography--body-2" id="ref1"><a class="citation" href=#features>[1]</a> Wachter, S., Mittelstadt, B., & Russell, C. (2017). Counterfactual explanations without opening the black box: Automated decisions and the GDPR.<a class="inline" href="https://arxiv.org/abs/1711.00399" target="_blank">https://arxiv.org/abs/1711.00399</a>
-              </div>
-              <br>
-              <div class="mdl-typography--body-2" id="ref2"><a class="citation" href=#features>[2]</a>Hardt, M., Price, E., & Srebro, N. (2016). Equality of opportunity in supervised learning. In Advances in neural information processing systems (pp. 3315-3323). <a class="inline" href="https://arxiv.org/abs/1610.02413" target="_blank">https://arxiv.org/abs/1610.02413</a>
-              </div>
-              <br>
-              <div class="mdl-typography--body-2" id="ref3"><a class="citation" href=#demos>[3]</a> Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science. <a class="inline" href="http://archive.ics.uci.edu/ml/datasets/Census+Income" target="_blank">http://archive.ics.uci.edu/ml/datasets/Census+Income</a>
-              </div>
-              <br>
-              <div class="mdl-typography--body-2" id="ref4">
-                <a class="citation" href=#demos>[4]</a> Lichman, M. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science. <a class="inline" href="https://archive.ics.uci.edu/ml/datasets/iris" target="_blank">https://archive.ics.uci.edu/ml/datasets/iris</a>.
-              </div>
-              <br>
-              <div class="mdl-typography--body-2" id="ref5">
-                <a class="citation" href=#demos>[5]</a> Liu, Z, Luo, P, Wang, X, Tang, X. Deep Learning Face Attributes in the Wild. Proceedings of International Conference on Computer Vision (ICCV) 2015. <a class="inline" href="http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html" target="_blank">http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html</a>
-              </div>
-            </div>
-          </div>
+    </div>
+    <hr>
+    <div class="about mdl-grid page-section" id="about">
+      <div class="mdl-cell mdl-cell--3-col mdl-cell--1-offset mdl-typography--display-1 mdl-cell--2-col-tablet">About</div>
+      <div class=" mdl-cell mdl-cell--1-offset mdl-cell--5-col mdl-typography--body-1 mdl-cell--6-col-tablet ">
+        <br><span class="mdl-typography--headline">PAIR </span><br>
+        The <a class="inline" href="https://www.google.ai/pair" target='_blank'>People + AI Research initiative (PAIR)</a> brings together researchers across <a class='inline' href='https://ai.google' target='_blank'>Google</a> to study and redesign the ways people interact with AI systems. We focus on the &quot;human side&quot; of AI: the relationship between users and technology, the new applications it enables, and how to make it broadly inclusive. Our goal isn't just to publish research; we're also releasing open source tools for researchers and other experts to use.
+        <br><br><span class="mdl-typography--headline">Acknowledgements</span><br>
+        The What-If Tool was a collaborative effort. We would like to thank the Google teams that piloted the tool and provided valuable feedback and the TensorBoard team for all their help.
+      </div>
+    </div>
+    <hr>
+    <div class="references mdl-grid page-section" id="references">
+      <div class="mdl-cell mdl-cell--3-col  mdl-cell--1-offset mdl-typography--display-1 mdl-cell--2-col-tablet">References</div>
+      <div class=" mdl-cell mdl-cell--1-offset mdl-cell--5-col mdl-cell--6-col-tablet ">
+        <div class="mdl-typography--body-2" id="ref1"><a class="citation" href=#features>[1]</a> Wachter, S., Mittelstadt, B., & Russell, C. (2017). Counterfactual explanations without opening the black box: Automated decisions and the GDPR.<a class="inline" href="https://arxiv.org/abs/1711.00399" target="_blank">https://arxiv.org/abs/1711.00399</a>
+        </div>
+        <br>
+        <div class="mdl-typography--body-2" id="ref2"><a class="citation" href=#features>[2]</a>Hardt, M., Price, E., & Srebro, N. (2016). Equality of opportunity in supervised learning. In Advances in neural information processing systems (pp. 3315-3323). <a class="inline" href="https://arxiv.org/abs/1610.02413" target="_blank">https://arxiv.org/abs/1610.02413</a>
+        </div>
+        <br>
+        <div class="mdl-typography--body-2" id="ref3"><a class="citation" href=#demos>[3]</a> Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science. <a class="inline" href="http://archive.ics.uci.edu/ml/datasets/Census+Income" target="_blank">http://archive.ics.uci.edu/ml/datasets/Census+Income</a>
+        </div>
+        <br>
+        <div class="mdl-typography--body-2" id="ref4">
+          <a class="citation" href=#demos>[4]</a> Lichman, M. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science. <a class="inline" href="https://archive.ics.uci.edu/ml/datasets/iris" target="_blank">https://archive.ics.uci.edu/ml/datasets/iris</a>.
+        </div>
+        <br>
+        <div class="mdl-typography--body-2" id="ref5">
+          <a class="citation" href=#demos>[5]</a> Liu, Z, Luo, P, Wang, X, Tang, X. Deep Learning Face Attributes in the Wild. Proceedings of International Conference on Computer Vision (ICCV) 2015. <a class="inline" href="http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html" target="_blank">http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html</a>
         </div>
       </div>
-    </main>
+    </div>
   </div>
+</div>
+</main>
+</div>
 </body>
 </html>
