@@ -185,6 +185,10 @@
       font-size: 1.6em;
     }
 
+    .code {
+      font-family: "Courier New", Courier, monospace;
+    }
+
   </style>
 </head>
 
@@ -271,8 +275,10 @@
 
             <div class="mdl-typography--title section-subhead">WIT in Notebooks</div>
 
-            <div class="mdl-typography--body-1 para">To use WIT inside a notebook, create a WitConfigBuilder object that specifies the data and model to be analyzed. Then, provide this object to the WitWidget object. This <a class="inline" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference#notebook-mode-details">documentation</a> provides a step-by-step outline for using WIT in a notebook. Follow along this walkthrough using <a class="inline" href="https://colab.sandbox.google.com/github/tensorflow/tensorboard/blob/master/tensorboard/plugins/interactive_inference/What_If_Tool_Notebook_Usage.ipynb">this colab notebook</a> in which we train a UCI census model and visualize it on the test set.</div>
+            <div class="mdl-typography--body-1 para">To use WIT inside a notebook, create a WitConfigBuilder object that specifies the data and model to be analyzed. Then, provide this object to the WitWidget object. This <a class="inline" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference#notebook-mode-details">documentation</a> provides a step-by-step outline for using WIT in a notebook with a <a class ="inline" href="https://www.tensorflow.org/guide/estimators">TensorFlow Estimator</a>. Follow along this walkthrough using <a class="inline" href="https://colab.sandbox.google.com/github/tensorflow/tensorboard/blob/master/tensorboard/plugins/interactive_inference/What_If_Tool_Notebook_Usage.ipynb">this colab notebook</a> in which we train a UCI census model and visualize it on the test set.</div>
             <div class="image-container"><img src="./assets/wit-notebook-code.png" class="image"></div>
+
+            <div class="mdl-typography--body-1 para">In notebooks, WIT can also be used on models served through <a class ="inline" href="https://cloud.google.com/ml-engine/docs/tensorflow/prediction-overview">Cloud AI Platform Prediction</a>, through the <span class="code">set_ai_platform_model</span> method, or with any model you can query from python through the <span class="code">set_custom_predict_fn</span> method.</a></div>
 
             <div class="mdl-typography--title section-subhead">WIT in TensorBoard</div>
             
