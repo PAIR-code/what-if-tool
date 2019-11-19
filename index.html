@@ -170,6 +170,11 @@
     background-position: center;
     background-size: cover;
   }
+  .visualize-attribution-feature > .feature-list-item__image {
+    background-image: url('./assets/WIT-illustration-1.png');
+    background-position: center;
+    background-size: cover;
+  }
   .edit-example-feature > .feature-list-item__image {
     background-image: url('./assets/WIT-illustration-2.png');
     background-position: center;
@@ -466,6 +471,19 @@
             </div>
 
             <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+              <div class="mdl-grid mdl-grid--nesting visualize-attribution-feature">
+                <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet"></div>
+                <div class="feature-list-item__content mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet">
+                  <div class="feature-list-item__title mdl-typography--title">Visualize feature attributions
+                  </div>
+                  <div class="mdl-typography--body-1">
+                    Visualize the importance of each feature value on each prediction, if a model's prediction function returns feature attributions. Understand which inputs most strongly affect a model's output.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-list-item mdl-cell mdl-cell--10-col mdl-cell--1-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
               <div class="mdl-grid mdl-grid--nesting distance-feature-feature">
                 <div class="feature-list-item__image mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet "></div>
                 <div class="feature-list-item__content mdl-cell mdl-cell--6-col  mdl-cell--4-col-tablet ">
@@ -586,11 +604,11 @@
                       <h2 class="demo-title mdl-typography--headline">Age Prediction</h2>
                     </div>
                     <div class="demo-description">
-                      <div class="demo-content mdl-typography--body-1"> Explore the performance of a regression model which predicts a person's age from their census information<a class="citation" href=#ref3 id="cite3b">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3b">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>.Slice your dataset to evaluate performance metrics such as aggregated inference error measures for each subgroup.
+                      <div class="demo-content mdl-typography--body-1"> Explore the performance of a regression model which predicts a person's age from their census information<a class="citation" href=#ref3 id="cite3b">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3b">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Slice your dataset to evaluate performance metrics such as aggregated inference error measures for each subgroup. The web demo includes feature attributions calculated by vanilla gradients.
                       </div>
 
                       <div class="demo-links">
-                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="age.html" target="_blank"> Web Demo <i class="material-icons">chevron_right</i></a><br>
+                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="age.html" target="_blank"> Web Demo with attributions<i class="material-icons">chevron_right</i></a><br>
                         <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Age_Regression.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
                       </div>
                     </div>
@@ -638,11 +656,12 @@
                       <h2 class="demo-title mdl-typography--headline">COMPAS Recidivism Classifier</h2>
                     </div>
                     <div class="demo-description">
-                      <div class="demo-content mdl-typography--body-1">Inspired by <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" class="inline" target="_blank"> Propublica</a>, investigate fairness using this linear classifier that mimics the behavior of the COMPAS recidivism classifier. Trained on the <a href="https://www.kaggle.com/danofer/compass" class="inline" target="_blank">COMPAS dataset</a>, this model determines if a person belongs in the "Low" risk (negative) or "Medium or High" risk (positive) class for recidivism according to COMPAS.
+                      <div class="demo-content mdl-typography--body-1">Inspired by <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" class="inline" target="_blank"> Propublica</a>, investigate fairness using this linear classifier that mimics the behavior of the COMPAS recidivism classifier. Trained on the <a href="https://www.kaggle.com/danofer/compass" class="inline" target="_blank">COMPAS dataset</a>, this model determines if a person belongs in the "Low" risk (negative) or "Medium or High" risk (positive) class for recidivism according to COMPAS. A version of this notebook includes displaying feature attributions calculated through use of the <a href="https://github.com/slundberg/shap" class="inline" target="_blank">SHAP library</a>.
                       </div>
 
                       <div class="demo-links">
                         <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS.ipynb" target="_blank"> Notebook Demo <i class="material-icons">chevron_right</i></a>
+                        <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS_with_SHAP.ipynb" target="_blank">Notebook Demo with attributions<i class="material-icons">chevron_right</i></a>
                       </div>
                     </div>
                   </div>
@@ -740,11 +759,11 @@
                     <h2 class="demo-title mdl-typography--headline">Age Prediction</h2>
                   </div>
                   <div class="demo-description">
-                    <div class="demo-content mdl-typography--body-1"> Explore the performance of a regression model which predicts a person's age from their census information<a class="citation" href=#ref3 id="cite3b">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3b">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>.Slice your dataset to evaluate performance metrics such as aggregated inference error measures for each subgroup.
+                    <div class="demo-content mdl-typography--body-1"> Explore the performance of a regression model which predicts a person's age from their census information<a class="citation" href=#ref3 id="cite3b">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3b">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Slice your dataset to evaluate performance metrics such as aggregated inference error measures for each subgroup. This demo includes feature attributions calculated by vanilla gradients.
                     </div>
 
                     <div class="demo-links">
-                      <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="age.html" target="_blank"> Web Demo <i class="material-icons">chevron_right</i></a>
+                      <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="age.html" target="_blank"> Web Demo with attributions <i class="material-icons">chevron_right</i></a>
                     </div>
                   </div>
                 </div>
@@ -810,7 +829,7 @@
                   <h2 class="demo-title mdl-typography--headline">Age Prediction</h2>
                 </div>
                 <div class="demo-description">
-                  <div class="demo-content mdl-typography--body-1"> Explore the performance of a regression model which predicts a person's age from their census information<a class="citation" href=#ref3 id="cite3b">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3b">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>.Slice your dataset to evaluate performance metrics such as aggregated inference error measures for each subgroup.
+                  <div class="demo-content mdl-typography--body-1"> Explore the performance of a regression model which predicts a person's age from their census information<a class="citation" href=#ref3 id="cite3b">[3]</a><span class="mdl-tooltip--top mdl-tooltip" for="cite3b">Fisher, R. A. UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.</span>. Slice your dataset to evaluate performance metrics such as aggregated inference error measures for each subgroup.
                   </div>
 
                   <div class="demo-links">
@@ -843,11 +862,12 @@
                   <h2 class="demo-title mdl-typography--headline">COMPAS Recidivism Classifier</h2>
                 </div>
                 <div class="demo-description">
-                  <div class="demo-content mdl-typography--body-1">Inspired by <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" class="inline" target="_blank"> Propublica</a>, investigate fairness using this linear classifier that mimics the behavior of the COMPAS recidivism classifier. Trained on the <a href="https://www.kaggle.com/danofer/compass" class="inline" target="_blank">COMPAS dataset</a>, this model determines if a person belongs in the "Low" risk (negative) or "Medium or High" risk (positive) class for recidivism according to COMPAS.
+                  <div class="demo-content mdl-typography--body-1">Inspired by <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" class="inline" target="_blank"> Propublica</a>, investigate fairness using this linear classifier that mimics the behavior of the COMPAS recidivism classifier. Trained on the <a href="https://www.kaggle.com/danofer/compass" class="inline" target="_blank">COMPAS dataset</a>, this model determines if a person belongs in the "Low" risk (negative) or "Medium or High" risk (positive) class for recidivism according to COMPAS. A version of this notebook includes displaying feature attributions calculated through use of the <a href="https://github.com/slundberg/shap" class="inline" target="_blank">SHAP library</a>.
                   </div>
 
                   <div class="demo-links">
                     <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS.ipynb" target="_blank">Notebook Demo<i class="material-icons">chevron_right</i></a>
+                    <a class="mdl-button mdl-js-button mdl-js-ripple-effect" href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS_with_SHAP.ipynb" target="_blank">Notebook Demo with attributions<i class="material-icons">chevron_right</i></a>
                   </div>
                 </div>
               </div>
