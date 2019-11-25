@@ -7,6 +7,7 @@ py_library(
     srcs = ["wit_plugin.py"],
     srcs_version = "PY2AND3",
     deps = [
+        "@org_tensorflow_tensorboard//tensorboard:expect_numpy_installed",
         "@org_tensorflow_tensorboard//tensorboard/backend:http_util",
         "@org_tensorflow_tensorboard//tensorboard/plugins:base_plugin",
         "//utils:common_utils",
@@ -22,6 +23,7 @@ py_test(
     srcs = ["wit_plugin_test.py"],
     deps = [
         ":wit_plugin",
+        "@org_tensorflow_tensorboard//tensorboard:expect_numpy_installed",
         "@org_tensorflow_tensorboard//tensorboard/backend:application",
         "@org_tensorflow_tensorboard//tensorboard/backend/event_processing:event_multiplexer",
         "//utils:inference_utils",
