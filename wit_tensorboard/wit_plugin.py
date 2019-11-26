@@ -22,6 +22,9 @@ import json
 import logging
 import math
 import numpy as np
+import os
+import werkzeug
+from werkzeug import wrappers
 from six.moves import xrange  # pylint: disable=redefined-builtin
 
 from google.protobuf import json_format
@@ -56,7 +59,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
   # provided by this plugin. It must thus be URL-friendly. This field is also
   # used to uniquely identify this plugin throughout TensorBoard. See BasePlugin
   # for details.
-  plugin_name = 'whatiftool'
+  plugin_name = 'whatif'
   examples = []
   updated_example_indices = set()
   sprite = None
@@ -112,7 +115,9 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
     return False
 
   def frontend_metadata(self):
-    return base_plugin.FrontendMetadata(es_module_path="/index.js")
+    return base_plugin.FrontendMetadata(
+      es_module_path="/index.js",
+      tab_name='What-If Tool')
 
   @wrappers.Request.application
   def _serve_js(self, request):
