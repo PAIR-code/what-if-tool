@@ -14,22 +14,18 @@
 // ==============================================================================
 
 export async function render() {
-  const msg = createElement('p', 'Pebbles and marbles like things on my mind');
-  document.body.appendChild(msg);
-}
-
-function createElement(tag, children) {
-  const result = document.createElement(tag);
-  if (children != null) {
-    if (typeof children === 'string') {
-      result.textContent = children;
-    } else if (Array.isArray(children)) {
-      for (const child of children) {
-        result.appendChild(child);
-      }
-    } else {
-      result.appendChild(children);
-    }
-  }
-  return result;
+ const style = document.createElement('style');
+  style.innerText = `
+    html,
+    body,
+    iframe {
+      border: 0;
+      height: 100%;
+      margin: 0;
+      width: 100%;
+    }`;
+  document.head.appendChild(style);
+  const iframe = document.createElement('iframe');
+  iframe.src = './wit_tb_bin.html';
+  document.body.appendChild(iframe);
 }

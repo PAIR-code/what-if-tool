@@ -102,6 +102,31 @@ genrule(
 )
 
 tf_web_library(
+    name = "wit_tensorboard",
+    srcs = [
+        "wit-tensorboard.html",
+    ],
+    path = "/tf-interactive-inference-dashboard",
+    deps = [
+        ":tf_interactive_inference_dashboard",
+        "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
+        "@org_tensorflow_tensorboard//tensorboard/components:security",
+    ],
+)
+
+tensorboard_html_binary(
+    name = "wit_tb_bin",
+    compile = True,
+    input_path = "/tf-interactive-inference-dashboard/wit-tensorboard.html",
+    output_path = "/wit_tb_bin.html",
+    js_path = "/wit_tb_bin.js",
+    deps = [
+        ":wit_tensorboard",
+    ],
+)
+    
+
+tf_web_library(
     name = "tf_inference_viewer",
     srcs = [
         "tf-inference-viewer.html",

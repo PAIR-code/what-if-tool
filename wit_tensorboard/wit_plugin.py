@@ -94,6 +94,8 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
     """
     return {
         '/index.js': self._serve_js,
+        '/wit_tb_bin.html': self._serve_wit,
+        '/wit_tb_bin.js': self._serve_wit_js,
         '/infer': self._infer,
         '/update_example': self._update_example,
         '/examples_from_path': self._examples_from_path_handler,
@@ -126,7 +128,22 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
     with open(filepath) as infile:
       contents = infile.read()
     return werkzeug.Response(contents, content_type="application/javascript")
+  
+  @wrappers.Request.application
+  def _serve_wit(self, request):
+    del request  # unused
+    filepath = os.path.join(os.path.dirname(__file__), "static", "wit_tb_bin.html")
+    with open(filepath) as infile:
+      contents = infile.read()
+    return werkzeug.Response(contents, content_type="text/html")
 
+  @wrappers.Request.application
+  def _serve_wit_js(self, request):
+    del request  # unused
+    filepath = os.path.join(os.path.dirname(__file__), "static", "wit_tb_bin.js")
+    with open(filepath) as infile:
+      contents = infile.read()
+    return werkzeug.Response(contents, content_type="application/javascript")
   def generate_sprite(self, example_strings):
     # Generate a sprite image for the examples if the examples contain the
     # standard encoded image feature.
