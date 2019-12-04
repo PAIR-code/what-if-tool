@@ -1,6 +1,6 @@
 # What-If Tool
 
-![What-If Tool Screenshot](/tensorboard/plugins/interactive_inference/img/wit-smile-intro.png "What-If Tool Screenshot")
+![What-If Tool Screenshot](/img/wit-smile-intro.png "What-If Tool Screenshot")
 
 The [What-If Tool](https://pair-code.github.io/what-if-tool) (WIT) provides an easy-to-use interface for expanding
 understanding of a black-box classification or regression ML model.
@@ -17,7 +17,7 @@ with absolutely no code required.
 
 The tool can be accessed through TensorBoard or as an extension in a Jupyter
 or
-[Colab](https://colab.research.google.com/github/tensorflow/tensorboard/blob/master/tensorboard/plugins/interactive_inference/What_If_Tool_Notebook_Usage.ipynb)
+[Colab](https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/What_If_Tool_Notebook_Usage.ipynb)
 notebook.
 
 ## I don’t want to read this document. Can I just play with a demo?
@@ -31,26 +31,26 @@ To build the web demos yourself:
   * Task: Predict whether a person earns more or less than $50k based on their
     census information
   * To build and run the demo from code:
-    `bazel run tensorboard/plugins/interactive_inference/tf_interactive_inference_dashboard/demo:demoserver`
+    `bazel run tf_interactive_inference_dashboard/demo:demoserver`
     then navigate to `http://localhost:6006/tf-interactive-inference-dashboard/demo.html`
 * [Binary classifier for smile detection in images](https://pair-code.github.io/what-if-tool/image.html)
   * Dataset: [CelebA](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
   * Task: Predict whether the person in an image is smiling
   * To build and run the demo from code:
-    `bazel run tensorboard/plugins/interactive_inference/tf_interactive_inference_dashboard/demo:imagedemoserver`
+    `bazel run tf_interactive_inference_dashboard/demo:imagedemoserver`
     then navigate to `http://localhost:6006/tf-interactive-inference-dashboard/image_demo.html`
 * [Multiclass classifier for Iris dataset](https://pair-code.github.io/what-if-tool/iris.html)
   * Dataset: [UCI Iris](https://archive.ics.uci.edu/ml/datasets/iris)
   * Task: Predict which of three classes of iris flowers that a flower falls
     into based on 4 measurements of the flower
   * To build and run the demo from code:
-    `bazel run tensorboard/plugins/interactive_inference/tf_interactive_inference_dashboard/demo:irisdemoserver`
+    `bazel run tf_interactive_inference_dashboard/demo:irisdemoserver`
     then navigate to `http://localhost:6006/tf-interactive-inference-dashboard/iris_demo.html`
 * [Regression model for UCI Census dataset age prediction](https://pair-code.github.io/what-if-tool/age.html)
   * Dataset: [UCI Census](https://archive.ics.uci.edu/ml/datasets/census+income)
   * Task: Predict the age of a person based on their census information
   * To build and run the demo from code:
-    `bazel run tensorboard/plugins/interactive_inference/tf_interactive_inference_dashboard/demo:agedemoserver`
+    `bazel run tf_interactive_inference_dashboard/demo:agedemoserver`
     then navigate to `http://localhost:6006/tf-interactive-inference-dashboard/age_demo.html`
   * This demo model returns attribution values in addition to predictions (through the use of vanilla gradients)
     in order to demonstate how the tool can display attribution values from predictions.
@@ -77,7 +77,7 @@ display and make use of attribution values for each input feature in relation to
 prediction. See the below section on attribution values for more information.
 
 If you want to train an ML model from a dataset and explore the dataset and
-model, check out the [What_If_Tool_Notebook_Usage.ipynb notebook](https://colab.research.google.com/github/tensorflow/tensorboard/blob/master/tensorboard/plugins/interactive_inference/What_If_Tool_Notebook_Usage.ipynb) in colab, which starts from a CSV file,
+model, check out the [What_If_Tool_Notebook_Usage.ipynb notebook](https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/What_If_Tool_Notebook_Usage.ipynb) in colab, which starts from a CSV file,
 converts the data to tf.Example protos, trains a classifier, and then uses the
 What-If Tool to show the classifier performance on the data.
 
@@ -271,7 +271,7 @@ We imagine WIT to be useful for a wide variety of users.
 
 ## Notebook mode details
 
-As seen in the [example notebook](https://colab.research.google.com/github/tensorflow/tensorboard/blob/master/tensorboard/plugins/interactive_inference/What_If_Tool_Notebook_Usage.ipynb),
+As seen in the [example notebook](https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/What_If_Tool_Notebook_Usage.ipynb),
 creating the `WitWidget` object is what causes the What-If Tool to be displayed
 in an output cell. The `WitWidget` object takes a `WitConfigBuilder` object as a
 constructor argument. The `WitConfigBuilder` object specifies the data and model
@@ -297,7 +297,7 @@ The model to be used for inference by the tool can be specified in many ways:
   builder
   `builder.set_inference_address('localhost:8888').set_model_name('my_model')`.
 
-See the documentation of [WitConfigBuilder](https://github.com/tensorflow/tensorboard/blob/master/tensorboard/plugins/interactive_inference/witwidget/notebook/visualization.py)
+See the documentation of [WitConfigBuilder](https://github.com/pair-code/what-if-tool/blob/master/witwidget/notebook/visualization.py)
 for all options you can provide, including how to specify other model types
 (defaults to binary classification) and how to specify an optional second model
 to compare to the first model.
@@ -326,7 +326,7 @@ If you wish to view attribution values for a different model setup, this can be 
 use of the custom prediction function.
 
 As described in the `set_custom_predict_fn` documentation in
-[WitConfigBuilder](https://github.com/tensorflow/tensorboard/blob/master/tensorboard/plugins/interactive_inference/witwidget/notebook/visualization.py), this method must return a list of the same size as the number of examples
+[WitConfigBuilder](https://github.com/pair-code/what-if-tool/blob/master/witwidget/notebook/visualization.py), this method must return a list of the same size as the number of examples
 provided to it, with each list entry representing the prediction-time information for that example.
 In the case of a standard model with no attribution information, the list entry is just a number
 (in the case of a regression model), or a list of class probabilities (in the case of a classification model).
@@ -389,7 +389,7 @@ containing:
 For TensorFlow GPU support, use the `witwidget-gpu` package instead of `witwidget`.
 
 Then, use it as seen at the bottom of the
-[What_If_Tool_Notebook_Usage.ipynb notebook](https://colab.research.google.com/github/tensorflow/tensorboard/blob/master/tensorboard/plugins/interactive_inference/What_If_Tool_Notebook_Usage.ipynb).
+[What_If_Tool_Notebook_Usage.ipynb notebook](https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/What_If_Tool_Notebook_Usage.ipynb).
 
 ### How do I enable it for use in a JupyterLab or Cloud AI Platform notebook?
 Install and enable WIT for JupyterLab by running a cell containing:
