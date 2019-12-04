@@ -69,7 +69,7 @@ class InferencePluginTest(tf.test.TestCase):
     test_utils.write_out_examples(examples, examples_path)
 
     response = self.server.get(
-        '/data/plugin/whatiftool/examples_from_path?' +
+        '/data/plugin/whatif/examples_from_path?' +
         urllib_parse.urlencode({
             'examples_path': examples_path,
             'max_examples': 2,
@@ -88,7 +88,7 @@ class InferencePluginTest(tf.test.TestCase):
 
   def test_examples_from_path_if_path_does_not_exist(self):
     response = self.server.get(
-        '/data/plugin/whatiftool/examples_from_path?' +
+        '/data/plugin/whatif/examples_from_path?' +
         urllib_parse.urlencode({
             'examples_path': 'does_not_exist',
             'max_examples': 2,
@@ -101,7 +101,7 @@ class InferencePluginTest(tf.test.TestCase):
     self.plugin.examples = [tf.train.Example()]
     example = self.get_fake_example()
     response = self.server.post(
-        '/data/plugin/whatiftool/update_example',
+        '/data/plugin/whatif/update_example',
         data=dict(example=json_format.MessageToJson(example), index='0'))
     self.assertEqual(200, response.status_code)
     self.assertEqual(example, self.plugin.examples[0])
@@ -111,7 +111,7 @@ class InferencePluginTest(tf.test.TestCase):
     self.plugin.examples = [tf.train.Example()]
     example = self.get_fake_example()
     response = self.server.post(
-        '/data/plugin/whatiftool/update_example',
+        '/data/plugin/whatif/update_example',
         data=dict(example=json_format.MessageToJson(example), index='1'))
     error = json.loads(response.get_data().decode('utf-8'))['error']
     self.assertTrue(error)
@@ -133,7 +133,7 @@ class InferencePluginTest(tf.test.TestCase):
     mock_call_servo.return_value = inference_result_proto
 
     response = self.server.get(
-        '/data/plugin/whatiftool/infer?' + urllib_parse.urlencode({
+        '/data/plugin/whatif/infer?' + urllib_parse.urlencode({
             'inference_address': 'addr',
             'model_name': 'name',
             'model_type': 'regression',
@@ -164,7 +164,7 @@ class InferencePluginTest(tf.test.TestCase):
     example = test_utils.make_fake_example(single_int_val=2)
     self.plugin.examples = [example]
 
-    response = self.server.get('/data/plugin/whatiftool/eligible_features')
+    response = self.server.get('/data/plugin/whatif/eligible_features')
     self.assertEqual(200, response.status_code)
 
     # Returns a list of dict objects that have been sorted by feature_name.
@@ -211,7 +211,7 @@ class InferencePluginTest(tf.test.TestCase):
     self.plugin.examples = [example]
 
     response = self.server.get(
-        '/data/plugin/whatiftool/infer_mutants?' + urllib_parse.urlencode({
+        '/data/plugin/whatif/infer_mutants?' + urllib_parse.urlencode({
             'feature_name': 'single_int',
             'model_name': '/ml/cassandrax/iris_classification',
             'inference_address': 'ml-serving-temp.prediction',
@@ -257,7 +257,7 @@ class InferencePluginTest(tf.test.TestCase):
         'model_signature': '',
     })
     response = self.server.get(
-        '/data/plugin/whatiftool/sort_eligible_features?' + url_options)
+        '/data/plugin/whatif/sort_eligible_features?' + url_options)
 
     self.assertEqual(200, response.status_code)
     self.assertEqual(0, len(self.plugin.updated_example_indices))

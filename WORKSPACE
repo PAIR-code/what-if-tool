@@ -104,7 +104,7 @@ tf_workspace()
 #)
 local_repository(
     name = "org_tensorflow_tensorboard",
-    path = "/Users/jwexler/jameswex/tensorboard",
+    path = "/usr/local/google/home/jwexler/jameswex/tensorboard",
 )
 
 load("@org_tensorflow_tensorboard//third_party:workspace.bzl", "tensorboard_workspace")
