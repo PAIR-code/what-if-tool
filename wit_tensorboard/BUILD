@@ -4,7 +4,10 @@ licenses(["notice"])  # Apache 2.0
 
 py_library(
     name = "wit_plugin",
-    srcs = ["wit_plugin.py"],
+    srcs = [
+        "__init__.py",
+        "wit_plugin.py"
+    ],
     srcs_version = "PY2AND3",
     deps = [
         "@org_tensorflow_tensorboard//tensorboard:expect_numpy_installed",

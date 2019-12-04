@@ -24,7 +24,7 @@ setuptools.setup(
     name="wit-tensorboard",
     version="0.1.0",
     description="What-If Tool TensorBoard plugin.",
-    packages=["wit_tensorboard"],
+    packages=setuptools.find_packages(),
     package_data={
         "wit_tensorboard": ["static/**"],
     },

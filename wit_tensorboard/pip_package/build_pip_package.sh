@@ -38,16 +38,20 @@ cd "$dest"
 mkdir -p release
 pushd release
 
-# Copy over all necessary files from witwidget
+rm -rf wit_tensorboard
+# Copy over all necessary files from wit_tensorboard
 cp -LR "$plugin_runfile_dir/wit_tensorboard" .
+cp -LR "$plugin_runfile_dir/utils" .
 
 # Move files related to pip building to pwd.
 mv -f "wit_tensorboard/pip_package/README.rst" .
 mv -f "wit_tensorboard/pip_package/setup.py" .
-rm -rf wit_tensorboard/pip_package
 
 # Copy over other built resources
-cp "$plugin_runfile_dir/tf_interactive_inference_dashboard/wit_jupyter.*" witwidget/static
+mkdir -p wit_tensorboard/static
+mv -f "wit_tensorboard/pip_package/index.js" wit_tensorboard/static
+rm -rf wit_tensorboard/pip_package
+cp "$plugin_runfile_dir/tf_interactive_inference_dashboard/wit_tb_bin.html" "$plugin_runfile_dir/tf_interactive_inference_dashboard/wit_tb_bin.js" wit_tensorboard/static
 
 find . -name __init__.py | xargs chmod -x  # which goes for all genfiles
 
@@ -73,9 +77,7 @@ unset PYTHON_HOME
 # # env markers are handled (https://github.com/pypa/setuptools/pull/1081)
 pip install -qU wheel 'setuptools>=36.2.0'
 
-python setup.py bdist_wheel --python-tag py3 --project_name witwidget >/dev/null
-python setup.py bdist_wheel --python-tag py2 --project_name witwidget >/dev/null
-python setup.py bdist_wheel --python-tag py3 --project_name witwidget-gpu >/dev/null
-python setup.py bdist_wheel --python-tag py2 --project_name witwidget-gpu >/dev/null
+python setup.py bdist_wheel --python-tag py3 >/dev/null
+python setup.py bdist_wheel --python-tag py2 >/dev/null
 
 ls -hal "$PWD/dist"
