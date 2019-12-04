@@ -8,26 +8,28 @@
 when testing WIT in TensorBoard).
 2. Install pip and virtualenv
    `sudo apt-get install python-pip python3-pip virtualenv`
-3. Create a virtualenv for OSS TensorBoard development
-   `virtualenv ~/tf` (or whereever you want to save this environment)
-4. Create a fork of the official TensorBoard github repo through the GitHub UI
+3. Create a virtualenv for WIT development
+   `virtualenv ~/tf` (or wherever you want to save this environment)
+4. Create a fork of the official What-If Tool github repo through the GitHub UI
 5. Clone your fork to your computer
-   `cd ~/github && git clone https://github.com/[yourGitHubUsername]/tensorboard.git`
+   `cd ~/github && git clone https://github.com/[yourGitHubUsername]/what-if-tool.git`
 6. Install TensorFlow Serving through docker
-   `docker pull tensorflow/serving`
+   `docker pull tensorflow/serving` (Only needed if testing WIT in TensorBoard)
+7. Install TensorFlow through pip `pip install tensorflow` to get TensorFlow and
+   TensorBoard.
 
 ## Development Workflow
 
-1. Enter your TF/TB development virtualenv
+1. Enter your development virtualenv
    `source ~/tf/bin/activate`
 2. Run TensorBoard, WIT notebooks, and/or WIT demos
    `cd ~/github/tensorboard`
     - For WIT demos, follow the directions in the [README](./README.md#i-dont-want-to-read-this-document-can-i-just-play-with-a-demo).
-        1. `bazel run tensorboard/plugins/interactive_inference/tf_interactive_inference_dashboard/demo:<demoRule>`
+        1. `bazel run tf_interactive_inference_dashboard/demo:<demoRule>`
         2. Navigate to `http://localhost:6006/tf-interactive-inference-dashboard/<demoName>.html`
     - For use in notebook mode, build the witwidget pip package locally and use it in a notebook.
         1. `rm -rf /tmp/wit-pip` (if it already exists)
-        2. `bazel run tensorboard/plugins/interactive_inference/witwidget/pip_package:build_pip_package`
+        2. `bazel run witwidget/pip_package:build_pip_package`
         3. Install the package
             - For use in Jupyter notebooks, install and enable the locally-build pip package per instructions in the [README](./README.md#how-do-i-enable-it-for-use-in-a-jupyter-notebook), but instead use `pip install <pathToBuiltPipPackageWhlFile>`, then launch the jupyter notebook kernel.
             - For use in Colab notebooks, upload the package to the notebook and install it from there
@@ -38,25 +40,36 @@ when testing WIT in TensorBoard).
                     ```
                 2. In a notebook cell, to install the uploaded pip package, run `!pip install <nameOfPackage.whl>`.
                    If witwidget was previously installed, uninstall it first.<br>
-    - For TensorBoard use, run tensorboard with any logdir (as WIT does not rely on logdir).<br>
-      `bazel run tensorboard -- --logdir /tmp`
-        1. WIT needs a served model to query, so serve your trained model through the TF serving docker container.<br>
+    - For TensorBoard use, build and install the wit_tensorboard package, then run tensorboard with any logdir
+      (as WIT does not rely on logdir).<br>
+        1. Build the wit_tensorboard pip package as per instuctions in the
+           [wit_tensorboard release instructions](wit_tensorboard/pip_package/RELEASE.md).
+        2. Install the locally-build wit_tensorboard pip package with `pip install /tmp/wit-pip/release/dist/<packageName>`
+        3. WIT needs a served model to query, so serve your trained model through the TF serving docker container.<br>
            `sudo docker run -p 8500:8500 --mount type=bind,source=<pathToSavedModel>,target=/models/my_model/ -e MODEL_NAME=my_model -t tensorflow/serving`
             - When developing model comparison, serve multiple models at once using the proper config as seen in the appendix.<br>
                 `sudo docker run -p 8500:8500 --mount type=bind,source=<pathToSavedModel1>,target=/models/my_model1 -e When you want to shutdown the served model, find the container ID and stop the container.MODEL_NAME=my_model_1 --mount type=bind,source=<pathToSavedModel2>,target=/models/my_model_2 -e MODEL_NAME=my_model_2 When you want to shutdown the served model, find the container ID and stop the container.--mount type=bind,source=<pathToConfigFile>,target=/models/models.config -t tensorflow/serving --model_config_file="/models/models.config"`
-        2. Navigate to the WIT tab in TensorBoard and set-up WIT (`http://localhost:6006/#whatif&inferenceAddress=localhost%3A8500&modelName=my_model`).<br>
+        4. Run TensorBoard `tensorboard --logdir /tmp`
+        5. Navigate to the WIT tab in TensorBoard and set-up WIT (`http://localhost:6006/#whatif&inferenceAddress=localhost%3A8500&modelName=my_model`).<br>
            The inferenceAddress and modelName settings point to the model you served in the previous step. Set all other appropriate options and click “accept”.
-        3. When you want to shutdown the served model, find the container ID and stop the container.
+        6. When you want to shutdown the served model, find the container ID and stop the container.
             ```
             sudo docker container ls
             sudo docker stop <containerIdFromLsOutput>
             ```
 3. The python code has unit tests
    ```
-   bazel test tensorboard/plugins/interactive_inference/...
+   bazel test ...
    ```
 4. Add/commit your code changes on a branch in your fork and push it to github.
-5. In the github UI for the master tensorboard repo, create a pull request from your pushed branch.
+5. In the github UI for the master what-if-tool repo, create a pull request from your pushed branch.
+
+For notebook users to see new changes to the code, we need to push out a new version of the witwidget pip packages.
+Instructions for that can be found in the [witwidget release instructions](witwidget/pip_package/RELEASE.md).
+
+For TensorBoard users to see new changes to the code, we need to push out a new version of the wit_tensorboard pip packages,
+and then TensorBoard must be updated to use the new wit_tensorboard package version.
+Instructions for building and releasing new wit_tensorboard packages can be found in the [wit_tensorboard release instructions](wit_tensorboard/pip_package/RELEASE.md).
 
 ## Code Overview
 

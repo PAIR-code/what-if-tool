@@ -406,3 +406,7 @@ Use of WIT after installation is the same as with the other notebook installatio
 ## How can I help develop it?
 
 Check out the [developement guide](./DEVELOPMENT.md).
+
+## What's new in WIT?
+
+Check out the [release notes](./RELEASE.md).

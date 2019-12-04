@@ -26,3 +26,7 @@ information on using pull requests.
 
 This project follows [Google's Open Source Community
 Guidelines](https://opensource.google.com/conduct/).
+
+## Developerment Guide
+
+See the [development guide](./DEVELOPMENT.md) for details on how to write/test code.
