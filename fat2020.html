@@ -62,6 +62,12 @@
     margin-bottom: 24px;
     }
 
+  .para-large-top {
+    margin-top: 48px;
+    margin-bottom: 24px;
+    }
+
+
 /*  .bullet1 {
     padding-left: 8px;
   }
@@ -122,6 +128,15 @@
       line-height: 1.8em;
     }
 
+    .mdl-typography--body-1-red {
+      font-size:  18px;
+      color: #3C4043;
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.8em;
+      color: #c54a4a;
+      font-weight: 600;
+    }
+
     .mdl-typography--body-2 {
       font-size:  18px;
       font-family: 'Roboto', sans-serif;
@@ -140,6 +155,13 @@
     .mdl-typography--headline {
       font-size: 22px;
       font-weight: 300;
+      margin-bottom: 12px;
+      line-height: 1.6em;
+    }
+
+    .mdl-typography--headline-bold {
+      font-size: 22px;
+      font-weight: 600;
       margin-bottom: 12px;
       line-height: 1.6em;
     }
@@ -253,31 +275,31 @@
       <div class="page-content">
         <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--6-col mdl-cell--2-offset article-title">
-            <div class="article-headline mdl-typography--display-3">FAT* 2020 Hands-on Tutorial: Probing ML Models for Fairness with the What-If Tool and SHAP</div>
+            <div class="article-headline mdl-typography--display-3">FAT* 2020 Hands-on Tutorial: <span class="bold">Probing ML Models for Fairness with the What-If Tool and SHAP</span></div>
           </div>
         </div>
       </div>
 
       <div class="mdl-grid article-content">
         <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-          <div class="mdl-typography--headline para">Presented by James Wexler (Software Developer, Google) and Andrew Zaldivar (Responsible AI Developer Advocate, Google).
+          <div class="mdl-typography--headline-bold para">Presented by James Wexler (Software Developer, Google) and Andrew Zaldivar (Responsible AI Developer Advocate, Google).
           </div>
-          <div class="mdl-typography--headline para">Additional work by Tolga Bolukbasi (Software Developer, Google), Mahima Pushkarna (UX Designer, Google), and Sara Robinson (Cloud Developer Advocate, Google).
+          <div class="mdl-typography--headline para">Monday, January 27th 2020. Barcelona, Spain. Location will be updated before tutorial.
           </div>
-          <div class="mdl-typography--headline para">Monday, January 27th 2020. Barcelona, Spain.
+          <div class="mdl-typography--body-1 para-large-top">Additional work by Tolga Bolukbasi (Software Developer, Google), Mahima Pushkarna (UX Designer, Google), and Sara Robinson (Cloud Developer Advocate, Google).
           </div>
           <hr>
-            <div class="mdl-typography--display-1 section-title">Details</div>
-            <div class="mdl-typography--body-1 para">As more and more industries use machine learning, it's important to understand how these models make predictions, and where bias can be introduced in the process. In this tutorial we'll walk through two open source frameworks for analyzing your models from a fairness perspective.</div>
+            <div class="mdl-typography--display-1 section-title">About the Tutorial</div>
+            <div class="mdl-typography--body-1-red para">As more and more industries use machine learning, it's important to understand how these models make predictions, and where bias can be introduced in the process. This tutorial will walk you through two open source frameworks for analyzing machine learning (ML) models from a fairness perspective.</div>
 
-            <div class="mdl-typography--body-1 para">We'll start with the <a class="inline" target="-_blank" href="https://pair-code.github.io/what-if-tool">What-If Tool</a>, a visualization tool that you can run inside a Python notebook to analyze an ML model. With the What-If Tool, you can identify dataset imbalances, see how individual features impact your model's prediction through partial dependence plots, and analyze human-centered ML models from a fairness perspective using various optimization strategies.</div>
+            <div class="mdl-typography--body-1 para">The tutorial will first introduce the <a class="inline" target="-_blank" href="https://pair-code.github.io/what-if-tool">What-If Tool</a>, a visualization tool that you can run inside a Python notebook to analyze an ML model. With the What-If Tool, you will learn to identify dataset imbalances, see how individual features impact your model's prediction through partial dependence plots, and analyze human-centered ML models from a fairness perspective using various optimization strategies.</div>
 
-            <div class="mdl-typography--body-1 para">Then we'll look at <a class="inline" target="-_blank" href="https://github.com/slundberg/shap">SHAP</a>, a tool for interpreting the output of any machine learning model, and seeing how a model arrived at predictions for individual datapoints.</div>
-            <div class="mdl-typography--body-1 para">Finally, we will use SHAP and the What-If Tool together. After the tutorial, you'll have the skills to get started with both of these tools on your own datasets, and be better equipped to analyze your models from a fairness perspective.</div>
+            <div class="mdl-typography--body-1 para">Then we will look at <a class="inline" target="-_blank" href="https://github.com/slundberg/shap">SHAP</a>, a tool for interpreting the output of any ML model and seeing how a model arrived at predictions for individual datapoints. We will then use SHAP and the What-If Tool together.</div>
+            <div class="mdl-typography--body-1 para">After the tutorial, you'll have the skills to get started with both of these tools on your own datasets, and be better equipped to analyze your models from a fairness perspective.</div>
 
             <div class="mdl-typography--display-1 section-title">Participant Information</div>
 
-            <div class="mdl-typography--body-1 para">Participants should have a basic knowledge of Python (although all tutorial steps can be run with no python knowledge), and should bring a laptop in order to run the Colaboratory notebook containing the code for the tutorial. The only requirement for running Colaboratory notebooks is either a GMail or GSuite account. No software installations are necessary, you can run Colaboratory notebooks directly from the browser.</div>
+            <div class="mdl-typography--body-1 para">Participants should have a basic knowledge of Python (although all tutorial steps can be run with no python knowledge), and should bring a laptop in order to run the Colaboratory notebook containing the code for the tutorial. The only requirement for running Colaboratory notebooks is either a GMail or GSuite account. No software installations are necessary; you can run Colaboratory notebooks directly from the browser.</div>
             <div class="mdl-typography--body-1 para"><a class="inline" target="-_blank" href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_COMPAS_with_SHAP.ipynb">Click here to open the notebook for the tutorial</a> (note that this notebook is not yet final and will be updated before the tutorial).</div>
             <div class="mdl-typography--body-1 para">The slides presented at the tutorial will be available on this page before the tutorial date.</div>
 
