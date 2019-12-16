@@ -29,8 +29,8 @@ sh_binary(
 tf_web_library(
     name = "assets",
     srcs = [
-        "//tf_interactive_inference_dashboard:wit_tb_bin.html",
-        "//tf_interactive_inference_dashboard:wit_tb_bin.js",
+        "//wit_dashboard:wit_tb_bin.html",
+        "//wit_dashboard:wit_tb_bin.js",
     ],
     path = "/",
 )

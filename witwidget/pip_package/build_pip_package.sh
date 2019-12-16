@@ -40,7 +40,7 @@ mkdir -p js
 pushd js
 
 cp -LR "$plugin_runfile_dir"/witwidget/notebook/jupyter/js/* .
-cp "$plugin_runfile_dir/tf_interactive_inference_dashboard/wit_jupyter.html" lib/
+cp "$plugin_runfile_dir/wit_dashboard/wit_jupyter.html" lib/
 
 # Install Node dependencies
 npm install
@@ -66,7 +66,7 @@ rm -rf witwidget/pip_package
 # Copy over other built resources
 rm -rf witwidget/notebook/jupyter/js # already built JS bundle out of it
 cp -LR "$js_dir" witwidget/static # move the built JS bundle to static
-cp "$plugin_runfile_dir/tf_interactive_inference_dashboard/wit_jupyter.html" witwidget/static
+cp "$plugin_runfile_dir/wit_dashboard/wit_jupyter.html" witwidget/static
 
 find . -name __init__.py | xargs chmod -x  # which goes for all genfiles
 

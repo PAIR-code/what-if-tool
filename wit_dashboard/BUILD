@@ -6,12 +6,12 @@ load("@org_tensorflow_tensorboard//tensorboard/defs:vulcanize.bzl", "tensorboard
 licenses(["notice"])  # Apache 2.0
 
 tf_web_library(
-    name = "vz_example_viewer",
+    name = "wit_example_viewer",
     srcs = [
-        "vz-example-viewer.html",
-        "vz-example-viewer.ts",
+        "wit-example-viewer.html",
+        "wit-example-viewer.ts",
     ],
-    path = "/vz-example-viewer",
+    path = "/wit-dashboard",
     deps = [
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:d3",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
@@ -31,16 +31,16 @@ tf_web_library(
 )
 
 tf_web_library(
-    name = "tf_interactive_inference_dashboard",
+    name = "wit_dashboard",
     srcs = [
-        "tf-interactive-inference-dashboard.html",
+        "wit-dashboard.html",
     ],
-    path = "/tf-interactive-inference-dashboard",
+    path = "/wit-dashboard",
     deps = [
-        ":tf_confusion_matrix",
-        ":tf_inference_panel",
-        ":tf_inference_viewer",
-        ":vz_example_viewer",
+        ":wit_confusion_matrix",
+        ":wit_example_viewer",
+        ":wit_inference_panel",
+        ":wit_inference_viewer",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_backend",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_dashboard_common",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
@@ -77,9 +77,9 @@ tf_web_library(
     srcs = [
         "wit.html",
     ],
-    path = "/tf-interactive-inference-dashboard",
+    path = "/wit-dashboard",
     deps = [
-        ":tf_interactive_inference_dashboard",
+        ":wit_dashboard",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
     ],
 )
@@ -87,7 +87,7 @@ tf_web_library(
 tensorboard_html_binary(
     name = "wit_bin",
     compile = True,
-    input_path = "/tf-interactive-inference-dashboard/wit.html",
+    input_path = "/wit-dashboard/wit.html",
     output_path = "/all/wit.html",
     deps = [
         ":wit_lib",
@@ -106,9 +106,9 @@ tf_web_library(
     srcs = [
         "wit-tensorboard.html",
     ],
-    path = "/tf-interactive-inference-dashboard",
+    path = "/wit-dashboard",
     deps = [
-        ":tf_interactive_inference_dashboard",
+        ":wit_dashboard",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
         "@org_tensorflow_tensorboard//tensorboard/components:security",
     ],
@@ -117,7 +117,7 @@ tf_web_library(
 tensorboard_html_binary(
     name = "wit_tb_bin",
     compile = True,
-    input_path = "/tf-interactive-inference-dashboard/wit-tensorboard.html",
+    input_path = "/wit-dashboard/wit-tensorboard.html",
     output_path = "/wit_tb_bin.html",
     js_path = "/wit_tb_bin.js",
     deps = [
@@ -127,11 +127,11 @@ tensorboard_html_binary(
     
 
 tf_web_library(
-    name = "tf_inference_viewer",
+    name = "wit_inference_viewer",
     srcs = [
-        "tf-inference-viewer.html",
+        "wit-inference-viewer.html",
     ],
-    path = "/tf-interactive-inference-dashboard",
+    path = "/wit-dashboard",
     deps = [
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
         "@org_polymer_iron_icons",
@@ -139,22 +139,22 @@ tf_web_library(
 )
 
 tf_web_library(
-    name = "tf_confusion_matrix",
+    name = "wit_confusion_matrix",
     srcs = [
-        "tf-confusion-matrix.html",
+        "wit-confusion-matrix.html",
     ],
-    path = "/tf-interactive-inference-dashboard",
+    path = "/wit-dashboard",
     deps = [
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
     ],
 )
 
 tf_web_library(
-    name = "tf_inference_panel",
+    name = "wit_inference_panel",
     srcs = [
-        "tf-inference-panel.html",
+        "wit-inference-panel.html",
     ],
-    path = "/tf-interactive-inference-dashboard",
+    path = "/wit-dashboard",
     deps = [
         "@org_tensorflow_tensorboard//tensorboard/components/tf_storage",
         "@org_polymer_paper_button",

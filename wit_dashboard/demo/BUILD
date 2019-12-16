@@ -10,13 +10,13 @@ tf_web_library(
     testonly = True,
     srcs = [
         "multi_index.html",
-        "tf-interactive-inference-multi-demo.html",
+        "wit-multi-demo.html",
         "@org_tf_tfjs//:tf.min.js",
     ] + glob(["data/**"]),
-    path = "/tf-interactive-inference-dashboard",
+    path = "/wit-dashboard",
     deps = [
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
-        "//tf_interactive_inference_dashboard",
+        "//wit_dashboard",
     ],
 )
 
@@ -24,8 +24,8 @@ tensorboard_html_binary(
     name = "multidemoserver",
     testonly = True,  # Keeps JavaScript somewhat readable
     compile = True,  # Run Closure Compiler
-    input_path = "/tf-interactive-inference-dashboard/multi_index.html",
-    output_path = "/tf-interactive-inference-dashboard/multi_demo.html",
+    input_path = "/wit-dashboard/multi_index.html",
+    output_path = "/wit-dashboard/multi_demo.html",
     deps = [":multidemo"],
 )
 
@@ -34,13 +34,13 @@ tf_web_library(
     testonly = True,
     srcs = [
         "index.html",
-        "tf-interactive-inference-demo.html",
+        "wit-demo.html",
         "@org_tf_tfjs//:tf.min.js",
     ] + glob(["data/**"]),
-    path = "/tf-interactive-inference-dashboard",
+    path = "/wit-dashboard",
     deps = [
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
-        "//tf_interactive_inference_dashboard",
+        "//wit_dashboard",
     ],
 )
 
@@ -48,8 +48,8 @@ tensorboard_html_binary(
     name = "demoserver",
     testonly = True,  # Keeps JavaScript somewhat readable
     compile = True,  # Run Closure Compiler
-    input_path = "/tf-interactive-inference-dashboard/index.html",
-    output_path = "/tf-interactive-inference-dashboard/demo.html",
+    input_path = "/wit-dashboard/index.html",
+    output_path = "/wit-dashboard/demo.html",
     deps = [":demo"],
 )
 
@@ -58,14 +58,14 @@ tf_web_library(
     testonly = True,
     srcs = [
         "image_index.html",
-        "tf-interactive-inference-image-demo.html",
+        "wit-image-demo.html",
         "@org_tf_tfjs//:tf.min.js",
         "@org_tf_tfjs_mobilenet//:mobilenet.js",
     ] + glob(["data/**"]),
-    path = "/tf-interactive-inference-dashboard",
+    path = "/wit-dashboard",
     deps = [
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
-        "//tf_interactive_inference_dashboard",
+        "//wit_dashboard",
     ],
 )
 
@@ -73,8 +73,8 @@ tensorboard_html_binary(
     name = "imagedemoserver",
     testonly = True,  # Keeps JavaScript somewhat readable
     compile = True,  # Run Closure Compiler
-    input_path = "/tf-interactive-inference-dashboard/image_index.html",
-    output_path = "/tf-interactive-inference-dashboard/image_demo.html",
+    input_path = "/wit-dashboard/image_index.html",
+    output_path = "/wit-dashboard/image_demo.html",
     deps = [":imagedemo"],
 )
 
@@ -83,13 +83,13 @@ tf_web_library(
     testonly = True,
     srcs = [
         "iris_index.html",
-        "tf-interactive-inference-iris-demo.html",
+        "wit-iris-demo.html",
         "@org_tf_tfjs//:tf.min.js",
     ] + glob(["data/**"]),
-    path = "/tf-interactive-inference-dashboard",
+    path = "/wit-dashboard",
     deps = [
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
-        "//tf_interactive_inference_dashboard",
+        "//wit_dashboard",
     ],
 )
 
@@ -97,8 +97,8 @@ tensorboard_html_binary(
     name = "irisdemoserver",
     testonly = True,  # Keeps JavaScript somewhat readable
     compile = True,  # Run Closure Compiler
-    input_path = "/tf-interactive-inference-dashboard/iris_index.html",
-    output_path = "/tf-interactive-inference-dashboard/iris_demo.html",
+    input_path = "/wit-dashboard/iris_index.html",
+    output_path = "/wit-dashboard/iris_demo.html",
     deps = [":irisdemo"],
 )
 
@@ -107,13 +107,13 @@ tf_web_library(
     testonly = True,
     srcs = [
         "age_index.html",
-        "tf-interactive-inference-age-demo.html",
+        "wit-age-demo.html",
         "@org_tf_tfjs//:tf.min.js",
     ] + glob(["data/**"]),
-    path = "/tf-interactive-inference-dashboard",
+    path = "/wit-dashboard",
     deps = [
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
-        "//tf_interactive_inference_dashboard",
+        "//wit_dashboard",
     ],
 )
 
@@ -121,7 +121,7 @@ tensorboard_html_binary(
     name = "agedemoserver",
     testonly = True,  # Keeps JavaScript somewhat readable
     compile = True,  # Run Closure Compiler
-    input_path = "/tf-interactive-inference-dashboard/age_index.html",
-    output_path = "/tf-interactive-inference-dashboard/age_demo.html",
+    input_path = "/wit-dashboard/age_index.html",
+    output_path = "/wit-dashboard/age_demo.html",
     deps = [":agedemo"],
 )

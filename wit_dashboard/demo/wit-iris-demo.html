@@ -15,9 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <link rel="import" href="../tf-imports/polymer.html" />
-<link rel="import" href="tf-interactive-inference-dashboard.html" />
+<link rel="import" href="wit-dashboard.html" />
 <script src="tf.min.js"></script>
-<dom-module id="tf-interactive-inference-demo">
+<dom-module id="wit-demo">
   <template>
     <style>
       :host {
@@ -29,169 +29,43 @@ limitations under the License.
         width: 100%;
       }
     </style>
-    <tf-interactive-inference-dashboard
+    <wit-dashboard
       id="dash"
       local="true"
       label-vocab="[[labelVocab]]"
     >
-    </tf-interactive-inference-dashboard>
+    </wit-dashboard>
   </template>
   <script>
     Polymer({
-      is: 'tf-interactive-inference-demo',
+      is: 'wit-demo',
       properties: {
         model: Object,
         data: Array,
         indicesToInfer: {type: Object, value: () => ({})},
-        means: Object,
-        categories: Object,
-        labelVocab: {type: Array, value: ['<=50k', '>50k']},
+        labelVocab: {
+          type: Array,
+          value: ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'],
+        },
       },
       ready: async function() {
-        this.$.dash.modelName = '1, 2';
-        this.$.dash.inferenceAddress = 'demo1, demo2';
+        this.$.dash.modelName = 'demo';
+        this.$.dash.inferenceAddress = 'demo';
+        this.$.dash.multiClass = true;
         this.$.dash.updateNumberOfModels();
-        this.means = {
-          age: 38.64358543876172,
-          'education-num': 10.078088530363212,
-          'capital-gain': 1079.0676262233324,
-          'capital-loss': 87.50231358257237,
-          'hours-per-week': 40.422382375824085,
-        };
-        this.categories = {};
-        this.categories['workclass'] = [
-          'Private',
-          'Self-emp-not-inc',
-          'Self-emp-inc',
-          'Federal-gov',
-          'Local-gov',
-          'State-gov',
-          'Without-pay',
-          'Never-worked',
-        ];
-        this.categories['education'] = [
-          'Bachelors',
-          'Some-college',
-          '11th',
-          'HS-grad',
-          'Prof-school',
-          'Assoc-acdm',
-          'Assoc-voc',
-          '9th',
-          '7th-8th',
-          '12th',
-          'Masters',
-          '1st-4th',
-          '10th',
-          'Doctorate',
-          '5th-6th',
-          'Preschool',
-        ];
-        this.categories['marital-status'] = [
-          'Married-civ-spouse',
-          'Divorced',
-          'Never-married',
-          'Separated',
-          'Widowed',
-          'Married-spouse-absent',
-          'Married-AF-spouse',
-        ];
-        this.categories['occupation'] = [
-          'Tech-support',
-          'Craft-repair',
-          'Other-service',
-          'Sales',
-          'Exec-managerial',
-          'Prof-specialty',
-          'Handlers-cleaners',
-          'Machine-op-inspct',
-          'Adm-clerical',
-          'Farming-fishing',
-          'Transport-moving',
-          'Priv-house-serv',
-          'Protective-serv',
-          'Armed-Forces',
-        ];
-        this.categories['relationship'] = [
-          'Wife',
-          'Own-child',
-          'Husband',
-          'Not-in-family',
-          'Other-relative',
-          'Unmarried',
-        ];
-        this.categories['race'] = [
-          'White',
-          'Asian-Pac-Islander',
-          'Amer-Indian-Eskimo',
-          'Other',
-          'Black',
-        ];
-        this.categories['sex'] = ['Female', 'Male'];
-        this.categories['native-country'] = [
-          'United-States',
-          'Cambodia',
-          'England',
-          'Puerto-Rico',
-          'Canada',
-          'Germany',
-          'Outlying-US(Guam-USVI-etc)',
-          'India',
-          'Japan',
-          'Greece',
-          'South',
-          'China',
-          'Cuba',
-          'Iran',
-          'Honduras',
-          'Philippines',
-          'Italy',
-          'Poland',
-          'Jamaica',
-          'Vietnam',
-          'Mexico',
-          'Portugal',
-          'Ireland',
-          'France',
-          'Dominican-Republic',
-          'Laos',
-          'Ecuador',
-          'Taiwan',
-          'Haiti',
-          'Columbia',
-          'Hungary',
-          'Guatemala',
-          'Nicaragua',
-          'Scotland',
-          'Thailand',
-          'Yugoslavia',
-          'El-Salvador',
-          'Trinadad&Tobago',
-          'Peru',
-          'Hong',
-          'Holand-Netherlands',
-        ];
-
         this.model = await tf.loadLayersModel(
-          tf.io.browserHTTPRequest('data/uci/model.json', {
+          tf.io.browserHTTPRequest('data/iris/model.json', {
             credentials: 'include',
           })
         );
-        this.model2 = await tf.loadLayersModel(
-          tf.io.browserHTTPRequest('data/uci/model_comparison/model.json', {
-            credentials: 'include',
-          })
-        );
-
-        const DATA_PATH = 'data/uci/uci_test_examples.json';
+        const DATA_PATH = 'data/iris/iris.json';
         const testData = d3.json(DATA_PATH).then((data) => {
-          data = data.slice(0, 500);
           this.data = data;
-          for (let i = 0; i < data.length; i++) {
+          for (let i = 0; i < this.data.length; i++) {
             this.indicesToInfer[i] = true;
           }
           this.$.dash.updateExampleContents(
-            data.map((item) => JSON.stringify(item)),
+            this.data.map((item) => JSON.stringify(item)),
             false
           );
           this.$.dash.addEventListener('update-example', (e) => {
@@ -224,34 +98,25 @@ limitations under the License.
             inferences.indices = indices;
             inferences.results = [
               {classificationResult: {classifications: []}},
-              {classificationResult: {classifications: []}},
             ];
             const tensorArr = indices.map((idx) =>
               this.convertExToTensor(this.data[idx])
             );
             const tensors = tf.concat(tensorArr);
-            const input = tensors.reshape([indices.length, 104]);
+            const input = tensors.reshape([indices.length, 4]);
             const res = this.model.predict(input, {batchSize: 128});
-            const res2 = this.model2.predict(input, {batchSize: 128});
             const predValues = await res.data();
-            const predValues2 = await res2.data();
+            input.dispose();
             tensors.dispose();
             tensorArr.forEach((tensor) => tensor.dispose());
-            input.dispose();
             res.dispose();
-            res2.dispose();
-            const PRED_SIZE = 2;
+            const PRED_SIZE = 3;
             for (let i = 0; i < indices.length; i++) {
               inferences.results[0].classificationResult.classifications[i] = {
                 classes: [
-                  {label: '0', score: predValues[i * PRED_SIZE + 1]},
-                  {label: '1', score: predValues[i * PRED_SIZE]},
-                ],
-              };
-              inferences.results[1].classificationResult.classifications[i] = {
-                classes: [
-                  {label: '0', score: predValues2[i * PRED_SIZE + 1]},
-                  {label: '1', score: predValues2[i * PRED_SIZE]},
+                  {label: '0', score: predValues[i * PRED_SIZE]},
+                  {label: '1', score: predValues[i * PRED_SIZE + 1]},
+                  {label: '2', score: predValues[i * PRED_SIZE + 2]},
                 ],
               };
             }
@@ -260,97 +125,10 @@ limitations under the License.
           });
           this.$.dash.addEventListener('get-eligible-features', (e) => {
             this.$.dash.partialDepPlotEligibleFeatures = [
-              {observedMax: 59.0, name: 'age', observedMin: 19.0},
-              {observedMax: 14084.0, name: 'capital-gain', observedMin: 0.0},
-              {observedMax: 2042.0, name: 'capital-loss', observedMin: 0.0},
-              {
-                name: 'education',
-                samples: [
-                  'HS-grad',
-                  'Bachelors',
-                  'Some-college',
-                  '11th',
-                  'Masters',
-                  '9th',
-                  'Assoc-voc',
-                  'Assoc-acdm',
-                  'Doctorate',
-                  '7th-8th',
-                ],
-              },
-              {observedMax: 16.0, name: 'education-num', observedMin: 4.0},
-              {observedMax: 80.0, name: 'hours-per-week', observedMin: 13.0},
-              {
-                name: 'marital-status',
-                samples: [
-                  'Married-civ-spouse',
-                  'Never-married',
-                  'Divorced',
-                  'Separated',
-                  'Married-AF-spouse',
-                  'Married-spouse-absent',
-                ],
-              },
-              {
-                name: 'native-country',
-                samples: [
-                  'United-States',
-                  '?',
-                  'Mexico',
-                  'India',
-                  'South',
-                  'Puerto-Rico',
-                  'Cuba',
-                  'Jamaica',
-                ],
-              },
-              {
-                name: 'occupation',
-                samples: [
-                  'Exec-managerial',
-                  'Prof-specialty',
-                  'Machine-op-inspct',
-                  'Adm-clerical',
-                  'Craft-repair',
-                  'Sales',
-                  'Other-service',
-                  'Tech-support',
-                  'Handlers-cleaners',
-                  'Transport-moving',
-                ],
-              },
-              {observedMax: 1.0, name: 'over_50k', observedMin: 0.0},
-              {
-                name: 'race',
-                samples: [
-                  'White',
-                  'Black',
-                  'Asian-Pac-Islander',
-                  'Amer-Indian-Eskimo',
-                ],
-              },
-              {
-                name: 'relationship',
-                samples: [
-                  'Husband',
-                  'Not-in-family',
-                  'Unmarried',
-                  'Own-child',
-                  'Wife',
-                ],
-              },
-              {name: 'sex', samples: ['Male', 'Female']},
-              {
-                name: 'workclass',
-                samples: [
-                  'Private',
-                  'Self-emp-not-inc',
-                  'State-gov',
-                  'Federal-gov',
-                  'Local-gov',
-                  '?',
-                ],
-              },
+              {observedMax: 7.9, name: 'sepal-length', observedMin: 4.3},
+              {observedMax: 4.4, name: 'sepal-width', observedMin: 2.0},
+              {observedMax: 6.9, name: 'petal-length', observedMin: 1.0},
+              {observedMax: 2.5, name: 'petal-width', observedMin: 0.1},
             ];
           });
           this.$.dash.addEventListener('infer-mutants', async (e) => {
@@ -433,7 +211,7 @@ limitations under the License.
           });
           requestAnimationFrame(() => {
             this.$.dash.inferClicked_();
-            this.$.dash.selectedLabelFeature = 'over_50k';
+            this.$.dash.selectedLabelFeature = 'class';
           });
         });
       },
@@ -468,12 +246,10 @@ limitations under the License.
             examples.push(ex);
           }
         }
-        const PRED_SIZE = 2;
+        const PRED_SIZE = 3;
         const BATCH_SIZE = 128;
-        const results = [];
-        const results2 = [];
+        const results = [[], [], []];
         const predValuesList = [];
-        const predValuesList2 = [];
         for (let i = 0; i < examples.length; i += BATCH_SIZE) {
           let tlist = [];
           for (
@@ -485,87 +261,68 @@ limitations under the License.
           }
           const tconcat = tf.concat(tlist);
           tlist.forEach((tensor) => tensor.dispose());
-          const input = tconcat.reshape([tlist.length, 104]);
+          const input = tconcat.reshape([tlist.length, 4]);
           const res = this.model.predict(input, {batchSize: BATCH_SIZE});
-          const res2 = this.model2.predict(input, {batchSize: BATCH_SIZE});
           const vals = await res.data();
-          const vals2 = await res2.data();
           predValuesList.push(vals);
-          predValuesList2.push(vals2);
           input.dispose();
           res.dispose();
-          res2.dispose();
           tconcat.dispose();
         }
         const predSize = predValuesList.reduce((a, b) => a + b.length, 0);
         const predValues = new Float32Array(predSize);
-        const predValues2 = new Float32Array(predSize);
         let curIdx = 0;
         for (let i = 0; i < predValuesList.length; i++) {
           predValues.set(predValuesList[i], curIdx);
-          predValues2.set(predValuesList2[i], curIdx);
           curIdx += predValuesList[i].length;
         }
         for (let trialIdx = 0; trialIdx < numTrials; trialIdx++) {
           const startingPredIdx = trialIdx * exampleIndices.length * PRED_SIZE;
-          const scores = [];
-          const scores2 = [];
+          const scores = [[], [], []];
           for (
             let exampleIdx = 0;
             exampleIdx < exampleIndices.length;
             exampleIdx++
           ) {
-            scores.push(predValues[startingPredIdx + exampleIdx * PRED_SIZE]);
-            scores2.push(predValues2[startingPredIdx + exampleIdx * PRED_SIZE]);
+            scores[0].push(
+              predValues[startingPredIdx + exampleIdx * PRED_SIZE]
+            );
+            scores[1].push(
+              predValues[startingPredIdx + exampleIdx * PRED_SIZE + 1]
+            );
+            scores[2].push(
+              predValues[startingPredIdx + exampleIdx * PRED_SIZE + 2]
+            );
           }
-          const score =
-            scores.reduce((prev, cur) => prev + cur, 0) / scores.length;
-          const score2 =
-            scores2.reduce((prev, cur) => prev + cur, 0) / scores.length;
+          const score = [
+            scores[0].reduce((prev, cur) => prev + cur, 0) / scores[0].length,
+            scores[1].reduce((prev, cur) => prev + cur, 0) / scores[1].length,
+            scores[2].reduce((prev, cur) => prev + cur, 0) / scores[2].length,
+          ];
           const ex = examples[trialIdx * exampleIndices.length];
           const step = isNum
             ? ex.features.feature[featureName].floatList.value[0]
             : [atob(ex.features.feature[featureName].bytesList.value[0])];
-          results.push({step: step, scalar: score});
-          results2.push({step: step, scalar: score2});
+          results[0].push({step: step, scalar: score[0]});
+          results[1].push({step: step, scalar: score[1]});
+          results[2].push({step: step, scalar: score[2]});
         }
-        return [[{'1': results}, {'1': results2}]];
+        return [[{'0': results[0], '1': results[1], '2': results[2]}]];
       },
       convertExToTensor: function(ex) {
         const vals = [];
 
-        vals.push(this.getValueListForFeature(ex, 'age'));
-        vals.push(this.getValueListForFeature(ex, 'workclass'));
-        vals.push(this.getValueListForFeature(ex, 'education'));
-        vals.push(this.getValueListForFeature(ex, 'education-num'));
-        vals.push(this.getValueListForFeature(ex, 'marital-status'));
-        vals.push(this.getValueListForFeature(ex, 'occupation'));
-        vals.push(this.getValueListForFeature(ex, 'relationship'));
-        vals.push(this.getValueListForFeature(ex, 'race'));
-        vals.push(this.getValueListForFeature(ex, 'sex'));
-        vals.push(this.getValueListForFeature(ex, 'capital-gain'));
-        vals.push(this.getValueListForFeature(ex, 'capital-loss'));
-        vals.push(this.getValueListForFeature(ex, 'hours-per-week'));
-        vals.push(this.getValueListForFeature(ex, 'native-country'));
+        vals.push(this.getValueListForFeature(ex, 'sepal-length'));
+        vals.push(this.getValueListForFeature(ex, 'sepal-width'));
+        vals.push(this.getValueListForFeature(ex, 'petal-length'));
+        vals.push(this.getValueListForFeature(ex, 'petal-width'));
 
         const arr = vals.reduce((a, b) => a.concat(b), []);
         return tf.tensor1d(arr);
       },
 
       getValueListForFeature(ex, feat) {
-        if (this.means[feat]) {
-          return [
-            (ex.features.feature[feat].floatList.value[0] * 1) /
-              (2 * this.means[feat]),
-          ];
-        }
-        const onehot = Array(this.categories[feat].length).fill(0);
-        onehot[
-          this.categories[feat].indexOf(
-            atob(ex.features.feature[feat].bytesList.value[0])
-          )
-        ] = 1;
-        return onehot;
+        return [ex.features.feature[feat].floatList.value[0]];
       },
     });
   </script>
