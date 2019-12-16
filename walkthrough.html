@@ -214,7 +214,7 @@
             <i class="material-icons icon-style">open_in_new</i>
             <span>PAIR</span>
           </a>
-          <a class="mdl-navigation__link button-style mdl-typography--text-uppercase" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference" target="-_blank">
+          <a class="mdl-navigation__link button-style mdl-typography--text-uppercase" href="https://github.com/pair-code/what-if-tool" target="-_blank">
             <i class="material-icons icon-style">link</i>
             <span>Github</span>
           </a>
@@ -234,7 +234,7 @@
         <a class="mdl-navigation__link" href="./ai-fairness.html">AI Fairness</a>
         <hr>
         <a class="mdl-navigation__link" href="https://ai.google/research/teams/brain/pair">About PAIR</a>
-        <a class="mdl-navigation__link" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference">Github</a>
+        <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool">Github</a>
         <a class="mdl-navigation__link" href="https://pair-code.github.io/facets/" target="-_blank">
           <i class="material-icons icon-style">star</i>
           <span>Facets</span>
@@ -275,14 +275,14 @@
 
             <div class="mdl-typography--title section-subhead">WIT in Notebooks</div>
 
-            <div class="mdl-typography--body-1 para">To use WIT inside a notebook, create a WitConfigBuilder object that specifies the data and model to be analyzed. Then, provide this object to the WitWidget object. This <a class="inline" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference#notebook-mode-details">documentation</a> provides a step-by-step outline for using WIT in a notebook with a <a class ="inline" href="https://www.tensorflow.org/guide/estimators">TensorFlow Estimator</a>. Follow along this walkthrough using <a class="inline" href="https://colab.sandbox.google.com/github/tensorflow/tensorboard/blob/master/tensorboard/plugins/interactive_inference/What_If_Tool_Notebook_Usage.ipynb">this colab notebook</a> in which we train a UCI census model and visualize it on the test set.</div>
+            <div class="mdl-typography--body-1 para">To use WIT inside a notebook, create a WitConfigBuilder object that specifies the data and model to be analyzed. Then, provide this object to the WitWidget object. This <a class="inline" href="https://github.com/pair-code/what-if-tool#notebook-mode-details">documentation</a> provides a step-by-step outline for using WIT in a notebook with a <a class ="inline" href="https://www.tensorflow.org/guide/estimators">TensorFlow Estimator</a>. Follow along this walkthrough using <a class="inline" href="https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/What_If_Tool_Notebook_Usage.ipynb">this colab notebook</a> in which we train a UCI census model and visualize it on the test set.</div>
             <div class="image-container"><img src="./assets/wit-notebook-code.png" class="image"></div>
 
             <div class="mdl-typography--body-1 para">In notebooks, WIT can also be used on models served through <a class ="inline" href="https://cloud.google.com/ml-engine/docs/tensorflow/prediction-overview">Cloud AI Platform Prediction</a>, through the <span class="code">set_ai_platform_model</span> method, or with any model you can query from python through the <span class="code">set_custom_predict_fn</span> method.</a></div>
 
             <div class="mdl-typography--title section-subhead">WIT in TensorBoard</div>
             
-            <div class="mdl-typography--body-1 para">To use WIT within TensorBoard, your model needs to be served through a <a class="inline" href="https://www.tensorflow.org/serving">TensorFlow Model Server</a>, and the data to be analyze must be available on disk as a <a class="inline" href="https://medium.com/mostly-ai/tensorflow-records-what-they-are-and-how-to-use-them-c46bc4bbb564">TFRecords</a> file. Navigate to the web address of your TensorBoard, select "What-If Tool" from TensorBoard's dashboard selector. Fill out the path to the TFRecords file, the host/port of the running TensorFlow Model Server, and the name of the model on that model server, that you wish to test. Click "Accept". For more details, refer to the <a class="inline" href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference#what-do-i-need-to-use-it-in-tensorboard">documentation</a> for using WIT in TensorBoard.</div>
+            <div class="mdl-typography--body-1 para">To use WIT within TensorBoard, your model needs to be served through a <a class="inline" href="https://www.tensorflow.org/serving">TensorFlow Model Server</a>, and the data to be analyze must be available on disk as a <a class="inline" href="https://medium.com/mostly-ai/tensorflow-records-what-they-are-and-how-to-use-them-c46bc4bbb564">TFRecords</a> file. Navigate to the web address of your TensorBoard, select "What-If Tool" from TensorBoard's dashboard selector. Fill out the path to the TFRecords file, the host/port of the running TensorFlow Model Server, and the name of the model on that model server, that you wish to test. Click "Accept". For more details, refer to the <a class="inline" href="https://github.com/pair-code/what-if-tool#what-do-i-need-to-use-it-in-tensorboard">documentation</a> for using WIT in TensorBoard.</div>
 
             <div class="image-container"><img src="./assets/wit-tb-dialog.png" class="image"></div>
             
