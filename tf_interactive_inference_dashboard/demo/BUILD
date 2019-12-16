@@ -11,7 +11,7 @@ tf_web_library(
     srcs = [
         "multi_index.html",
         "tf-interactive-inference-multi-demo.html",
-        "@org_tensorflow_tfjs//:tf.min.js",
+        "@org_tf_tfjs//:tf.min.js",
     ] + glob(["data/**"]),
     path = "/tf-interactive-inference-dashboard",
     deps = [
@@ -35,7 +35,7 @@ tf_web_library(
     srcs = [
         "index.html",
         "tf-interactive-inference-demo.html",
-        "@org_tensorflow_tfjs//:tf.min.js",
+        "@org_tf_tfjs//:tf.min.js",
     ] + glob(["data/**"]),
     path = "/tf-interactive-inference-dashboard",
     deps = [
@@ -59,8 +59,8 @@ tf_web_library(
     srcs = [
         "image_index.html",
         "tf-interactive-inference-image-demo.html",
-        "@org_tensorflow_tfjs//:tf.min.js",
-        "@org_tensorflow_tfjs_mobilenet//:mobilenet.js",
+        "@org_tf_tfjs//:tf.min.js",
+        "@org_tf_tfjs_mobilenet//:mobilenet.js",
     ] + glob(["data/**"]),
     path = "/tf-interactive-inference-dashboard",
     deps = [
@@ -84,7 +84,7 @@ tf_web_library(
     srcs = [
         "iris_index.html",
         "tf-interactive-inference-iris-demo.html",
-        "@org_tensorflow_tfjs//:tf.min.js",
+        "@org_tf_tfjs//:tf.min.js",
     ] + glob(["data/**"]),
     path = "/tf-interactive-inference-dashboard",
     deps = [
@@ -108,7 +108,7 @@ tf_web_library(
     srcs = [
         "age_index.html",
         "tf-interactive-inference-age-demo.html",
-        "@org_tensorflow_tfjs//:tf.min.js",
+        "@org_tf_tfjs//:tf.min.js",
     ] + glob(["data/**"]),
     path = "/tf-interactive-inference-dashboard",
     deps = [

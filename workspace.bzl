@@ -1,4 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@io_bazel_rules_closure//closure:defs.bzl", "filegroup_external")
 
 def wit_workspace():
     # We use `mock==1.0.0` because later versions depend on `pbr`, which
@@ -35,4 +36,26 @@ def wit_workspace():
         sha256 = "105f8d68616f8248e24bf0e9372ef04d3cc10104f1980f54d57b2ce73a5ad56a",
         strip_prefix = "six-1.10.0",
         build_file = str(Label("//third_party:six.BUILD")),
+    )
+
+    filegroup_external(
+      name = "org_tf_tfjs",
+      licenses = ["notice"],  # Apache 2.0
+      sha256_urls = {
+          "3870fc1d4eaefce7370b5bce3992e4dadcad8e3a5999b034302e38b2094873ea": [
+              "http://mirror.tensorflow.org/cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.1/dist/tf.min.js",
+              "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.1/dist/tf.min.js",
+          ],
+      },
+    )
+
+    filegroup_external(
+        name = "org_tf_tfjs_mobilenet",
+        licenses = ["notice"],  # Apache 2.0
+        sha256_urls = {
+            "aca32ec8a778d17acb623bf495c6e60ec38312b761b9a8c88af4c841c25eba70": [
+                "http://mirror.tensorflow.org/cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0/dist/mobilenet.js",
+                "https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0/dist/mobilenet.js",
+            ],
+        },
     )
