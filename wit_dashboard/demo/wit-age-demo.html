@@ -14,11 +14,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
 <link rel="import" href="../tf-imports/polymer.html" />
-<link rel="import" href="tf-interactive-inference-dashboard.html" />
+<link rel="import" href="wit-dashboard.html" />
 <script src="tf.min.js"></script>
-<dom-module id="tf-interactive-inference-demo">
+<dom-module id="wit-age-demo">
   <template>
     <style>
       :host {
@@ -30,27 +29,27 @@ limitations under the License.
         width: 100%;
       }
     </style>
-    <tf-interactive-inference-dashboard
+    <wit-dashboard
       id="dash"
       local="true"
-      label-vocab="[[labelVocab]]"
-      model-name="demo"
-      inference-address="demo"
+      model-type="regression"
     >
-    </tf-interactive-inference-dashboard>
+    </wit-dashboard>
   </template>
   <script>
+    const TENSOR_SIZE = 105;
     Polymer({
-      is: 'tf-interactive-inference-demo',
+      is: 'wit-age-demo',
       properties: {
         model: Object,
         data: Array,
         indicesToInfer: {type: Object, value: () => ({})},
         means: Object,
         categories: Object,
-        labelVocab: {type: Array, value: ['<=50k', '>50k']},
       },
       ready: async function() {
+        this.$.dash.modelName = 'demo';
+        this.$.dash.inferenceAddress = 'demo';
         this.$.dash.updateNumberOfModels();
         this.means = {
           age: 38.64358543876172,
@@ -172,13 +171,14 @@ limitations under the License.
           'Hong',
           'Holand-Netherlands',
         ];
+        this.categories['over_50k'] = ['1', '0'];
 
         this.model = await tf.loadLayersModel(
-          tf.io.browserHTTPRequest('data/uci/model.json', {
+          tf.io.browserHTTPRequest('data/age_uci/model.json', {
             credentials: 'include',
           })
         );
-        const DATA_PATH = 'data/uci/uci_test_examples.json';
+        const DATA_PATH = 'data/age_uci/uci_test_examples.json';
         const testData = d3.json(DATA_PATH).then((data) => {
           data = data.slice(0, 500);
           this.data = data;
@@ -217,35 +217,54 @@ limitations under the License.
             const inferences = {};
             const indices = Object.keys(this.indicesToInfer).sort();
             inferences.indices = indices;
-            inferences.results = [
-              {classificationResult: {classifications: []}},
-            ];
+            inferences.results = [{regressionResult: {regressions: []}}];
+            const extraOutputs = {};
+            extraOutputs.indices = indices;
+            const attributions = [];
+            extraOutputs.extra = [{attributions: attributions}];
             const tensorArr = indices.map((idx) =>
               this.convertExToTensor(this.data[idx])
             );
             const tensors = tf.concat(tensorArr);
-            const input = tensors.reshape([indices.length, 104]);
-            const res = this.model.predict(input, {batchSize: 128});
+            const input = tensors.reshape([indices.length, TENSOR_SIZE]);
+
+            // Get the gradient of the prediction with respect to the inputs
+            // for displaying attributions.
+            const func = (x) =>
+              this.model.apply(x, {batchSize: 128, training: true});
+            const gradFunc = tf.grad(func);
+            const grads = gradFunc(input);
+            const res = func(input);
+            const gradValues = await grads.data();
             const predValues = await res.data();
+            grads.dispose();
+            input.dispose();
             tensors.dispose();
             tensorArr.forEach((tensor) => tensor.dispose());
-            input.dispose();
             res.dispose();
             const PRED_SIZE = 2;
             for (let i = 0; i < indices.length; i++) {
-              inferences.results[0].classificationResult.classifications[i] = {
-                classes: [
-                  {label: '0', score: predValues[i * PRED_SIZE + 1]},
-                  {label: '1', score: predValues[i * PRED_SIZE]},
-                ],
+              const adjustedScore = 2 * this.means['age'] * predValues[i];
+              inferences.results[0].regressionResult.regressions[i] = {
+                value: adjustedScore,
               };
+              // Get the attributions from the gradients for each example.
+              attributions.push(
+                this.getAttributions(
+                  gradValues.slice(
+                    i * TENSOR_SIZE,
+                    i * TENSOR_SIZE + TENSOR_SIZE
+                  ),
+                  this.data[indices[i]]
+                )
+              );
             }
             this.$.dash.inferences = inferences;
+            this.$.dash.extraOutputs = extraOutputs;
             this.indicesToInfer = {};
           });
           this.$.dash.addEventListener('get-eligible-features', (e) => {
             this.$.dash.partialDepPlotEligibleFeatures = [
-              {observedMax: 59.0, name: 'age', observedMin: 19.0},
               {observedMax: 14084.0, name: 'capital-gain', observedMin: 0.0},
               {observedMax: 2042.0, name: 'capital-loss', observedMin: 0.0},
               {
@@ -304,7 +323,6 @@ limitations under the License.
                   'Transport-moving',
                 ],
               },
-              {observedMax: 1.0, name: 'over_50k', observedMin: 0.0},
               {
                 name: 'race',
                 samples: [
@@ -418,7 +436,7 @@ limitations under the License.
           });
           requestAnimationFrame(() => {
             this.$.dash.inferClicked_();
-            this.$.dash.selectedLabelFeature = 'over_50k';
+            this.$.dash.selectedLabelFeature = 'age';
           });
         });
       },
@@ -453,10 +471,9 @@ limitations under the License.
             examples.push(ex);
           }
         }
-        const PRED_SIZE = 2;
-        const BATCH_SIZE = 128;
         const results = [];
         const predValuesList = [];
+        const BATCH_SIZE = 128;
         for (let i = 0; i < examples.length; i += BATCH_SIZE) {
           let tlist = [];
           for (
@@ -468,7 +485,7 @@ limitations under the License.
           }
           const tconcat = tf.concat(tlist);
           tlist.forEach((tensor) => tensor.dispose());
-          const input = tconcat.reshape([tlist.length, 104]);
+          const input = tconcat.reshape([tlist.length, TENSOR_SIZE]);
           const res = this.model.predict(input, {batchSize: BATCH_SIZE});
           const vals = await res.data();
           predValuesList.push(vals);
@@ -484,29 +501,29 @@ limitations under the License.
           curIdx += predValuesList[i].length;
         }
         for (let trialIdx = 0; trialIdx < numTrials; trialIdx++) {
-          const startingPredIdx = trialIdx * exampleIndices.length * PRED_SIZE;
+          const startingPredIdx = trialIdx * exampleIndices.length;
           const scores = [];
           for (
             let exampleIdx = 0;
             exampleIdx < exampleIndices.length;
             exampleIdx++
           ) {
-            scores.push(predValues[startingPredIdx + exampleIdx * PRED_SIZE]);
+            scores.push(predValues[startingPredIdx + exampleIdx]);
           }
           const score =
             scores.reduce((prev, cur) => prev + cur, 0) / scores.length;
+          const adjustedScore = 2 * this.means['age'] * score;
           const ex = examples[trialIdx * exampleIndices.length];
           const step = isNum
             ? ex.features.feature[featureName].floatList.value[0]
             : [atob(ex.features.feature[featureName].bytesList.value[0])];
-          results.push({step: step, scalar: score});
+          results.push({step: step, scalar: adjustedScore});
         }
         return [[{'1': results}]];
       },
       convertExToTensor: function(ex) {
         const vals = [];
 
-        vals.push(this.getValueListForFeature(ex, 'age'));
         vals.push(this.getValueListForFeature(ex, 'workclass'));
         vals.push(this.getValueListForFeature(ex, 'education'));
         vals.push(this.getValueListForFeature(ex, 'education-num'));
@@ -519,6 +536,7 @@ limitations under the License.
         vals.push(this.getValueListForFeature(ex, 'capital-loss'));
         vals.push(this.getValueListForFeature(ex, 'hours-per-week'));
         vals.push(this.getValueListForFeature(ex, 'native-country'));
+        vals.push(this.getValueListForFeature(ex, 'over_50k'));
 
         const arr = vals.reduce((a, b) => a.concat(b), []);
         return tf.tensor1d(arr);
@@ -532,12 +550,64 @@ limitations under the License.
           ];
         }
         const onehot = Array(this.categories[feat].length).fill(0);
-        onehot[
-          this.categories[feat].indexOf(
-            atob(ex.features.feature[feat].bytesList.value[0])
-          )
-        ] = 1;
+        if (feat == 'over_50k') {
+          onehot[
+            this.categories[feat].indexOf(
+              +ex.features.feature[feat].floatList.value[0]
+            )
+          ] = 1;
+        } else {
+          onehot[
+            this.categories[feat].indexOf(
+              atob(ex.features.feature[feat].bytesList.value[0])
+            )
+          ] = 1;
+        }
         return onehot;
+      },
+
+      getAttributions(attrValues, ex) {
+        const attributions = {};
+        let curIndex = 0;
+
+        const getValue = (feat) => {
+          if (ex.features.feature[feat].bytesList != null) {
+            return atob(ex.features.feature[feat].bytesList.value[0]);
+          } else {
+            return String(ex.features.feature[feat].floatList.value[0]);
+          }
+        };
+        const extractAttribution = (feat) => {
+          if (this.categories[feat] != null) {
+            // For one-hot encoded features, use the gradient of the
+            // entry that corresponds to the feature value that was set to 1.
+            let featureAttrs = attrValues.slice(
+              curIndex,
+              curIndex + this.categories[feat].length
+            );
+            curIndex += this.categories[feat].length;
+            attributions[feat] =
+              featureAttrs[this.categories[feat].indexOf(getValue(feat))] || 0;
+          } else {
+            attributions[feat] = attrValues[curIndex++];
+          }
+        };
+
+        extractAttribution('workclass');
+        extractAttribution('education');
+        extractAttribution('education-num');
+        extractAttribution('marital-status');
+        extractAttribution('occupation');
+        extractAttribution('relationship');
+        extractAttribution('race');
+        extractAttribution('sex');
+        extractAttribution('capital-gain');
+        extractAttribution('capital-loss');
+        extractAttribution('hours-per-week');
+        extractAttribution('native-country');
+        extractAttribution('over_50k');
+
+        return attributions;
       },
     });
   </script>

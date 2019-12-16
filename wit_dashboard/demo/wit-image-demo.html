@@ -15,11 +15,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <link rel="import" href="../tf-imports/polymer.html" />
-<link rel="import" href="tf-interactive-inference-dashboard.html" />
+<link rel="import" href="wit-dashboard.html" />
 <script src="tf.min.js"></script>
 <script src="mobilenet.js"></script>
 
-<dom-module id="tf-interactive-inference-image-demo">
+<dom-module id="wit-image-demo">
   <template>
     <style>
       :host {
@@ -36,16 +36,16 @@ limitations under the License.
       }
     </style>
     <canvas id="spritecanvas"></canvas>
-    <tf-interactive-inference-dashboard
+    <wit-dashboard
       id="dash"
       local="true"
       label-vocab="[[labelVocab]]"
     >
-    </tf-interactive-inference-dashboard>
+    </wit-dashboard>
   </template>
   <script>
     Polymer({
-      is: 'tf-interactive-inference-image-demo',
+      is: 'wit-image-demo',
       properties: {
         model: Object,
         data: Array,

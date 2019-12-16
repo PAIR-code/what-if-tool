@@ -58,7 +58,7 @@ var WITView = widgets.DOMWidgetView.extend({
     }
 
     const src = `<link rel="import" href="${witHtmlLocation}">
-    <tf-interactive-inference-dashboard local id="wit"></tf-interactive-inference-dashboard>
+    <wit-dashboard local id="wit"></wit-dashboard>
     <script>
       const wit = document.getElementById('wit');
       wit.style.height = "${height}px";

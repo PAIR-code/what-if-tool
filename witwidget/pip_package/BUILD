@@ -15,7 +15,7 @@ sh_binary(
         "README.rst",
         "setup.py",
         "wit-widget.json",
-        "//tf_interactive_inference_dashboard:wit_jupyter", # For HTML payload
+        "//wit_dashboard:wit_jupyter", # For HTML payload
         "//witwidget/notebook/jupyter/js:js_files",
         "//utils:inference_utils",  # Utility method that visualization code uses.
         "//witwidget",  # WitWidget code

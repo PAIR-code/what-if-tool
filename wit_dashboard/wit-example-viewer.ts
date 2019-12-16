@@ -23,7 +23,7 @@ import FloatList from 'goog:proto.tensorflow.FloatList';
 import Int64List from 'goog:proto.tensorflow.Int64List';
 import SequenceExample from 'goog:proto.tensorflow.SequenceExample';
 
-namespace vz_example_viewer {
+namespace wit_example_viewer {
   // SaliencyMap is a map of feature names to saliency values for their feature
   // values. The saliency can be a single number for all values in a feature value
   // list, or a number per value. For sequence examples, there is saliency
@@ -109,7 +109,7 @@ namespace vz_example_viewer {
   const DEFAULT_WINDOW_CENTER = 128;
 
   Polymer({
-    is: 'vz-example-viewer',
+    is: 'wit-example-viewer',
     properties: {
       example: {type: Object},
       serializedExample: {type: String, observer: 'updateExample'},

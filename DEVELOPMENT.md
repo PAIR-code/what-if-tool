@@ -23,10 +23,10 @@ when testing WIT in TensorBoard).
 1. Enter your development virtualenv
    `source ~/tf/bin/activate`
 2. Run TensorBoard, WIT notebooks, and/or WIT demos
-   `cd ~/github/tensorboard`
+   `cd ~/github/what-if-tool`
     - For WIT demos, follow the directions in the [README](./README.md#i-dont-want-to-read-this-document-can-i-just-play-with-a-demo).
-        1. `bazel run tf_interactive_inference_dashboard/demo:<demoRule>`
-        2. Navigate to `http://localhost:6006/tf-interactive-inference-dashboard/<demoName>.html`
+        1. `bazel run wit_dashboard/demo:<demoRule>`
+        2. Navigate to `http://localhost:6006/wit-dashboard/<demoName>.html`
     - For use in notebook mode, build the witwidget pip package locally and use it in a notebook.
         1. `rm -rf /tmp/wit-pip` (if it already exists)
         2. `bazel run witwidget/pip_package:build_pip_package`
@@ -75,8 +75,8 @@ Instructions for building and releasing new wit_tensorboard packages can be foun
 
 ### Backend (Python)
 
-[interactive_inference_plugin.py](interactive_inference_plugin.py) - the python web backend code for the WIT plugin to TensorBoard. Handles requests from the browser (like load examples, infer examples, …). Loads data from disk. Sends inference requests to servo. Sends responses back to the browser.<br>
-[interactive_inference_plugin_test.py]() - UT<br>
+[wit_plugin.py](wit_plugin.py) - the python web backend code for the WIT plugin to TensorBoard. Handles requests from the browser (like load examples, infer examples, …). Loads data from disk. Sends inference requests to servo. Sends responses back to the browser.<br>
+[wit_plugin_test.py]() - UT<br>
 
 [utils/common_utils.py](./utils/common_utils.py) - utilities common to other python files<br>
 [utils/inference_utils.py](./utils/inference_utils.py) - utility functions for running inference requests through a model<br>
@@ -94,18 +94,16 @@ Instructions for building and releasing new wit_tensorboard packages can be foun
 
 ### Front-end
 
-[tf_interactive_inference_dashboard/tf-interactive-inference-dashboard.html](tf_interactive_inference_dashboard/tf-interactive-inference-dashboard.html) - top-level polymer element and most of the code for the WIT front-end<br>
-[tf_interactive_inference_dashboard/tf-confusion-matrix.html](tf_interactive_inference_dashboard/tf-confusion-matrix.html) - polymer element for the confusion matrix<br>
-[tf_interactive_inference_dashboard/tf-inference-panel.html](tf_interactive_inference_dashboard/tf-inference-panel.html) - polymer element for the set-up controls<br>
-[tf_interactive_inference_dashboard/tf-inference-viewer.html](tf_interactive_inference_dashboard/tf-inference-viewer.html) - polymer element for the inference results table<br>
+[wit_dashboard/wit-dashboard.html](wit_dashboard/wit-dashboard.html) - top-level polymer element and most of the code for the WIT front-end<br>
+[wit_dashboard/wit-confusion-matrix.html](wit_dashboard/wit-confusion-matrix.html) - polymer element for the confusion matrix<br>
+[wit_dashboard/wit-inference-panel.html](wit_dashboard/wit-inference-panel.html) - polymer element for the set-up controls<br>
+[wit_dashboard/wit-inference-viewer.html](wit_dashboard/wit-inference-viewer.html) - polymer element for the inference results table<br>
+[wit_dashboard/wit-example-viewer.html](wit_dashboard/wit-example-viewer.html) - HTML code for polymer element for the individual example viewer/editor<br>
+[wit_dashboard/wit-example-viewer.ts](wit_dashboard/wit-example-viewer.ts) - Typescript code for polymer element for the individual example viewer/editor<br>
 
 ### Demos
 
-[tf_interactive_inference_dashboard/demo/tf-interactive-inference-*-demo.html](tf_interactive_inference_dashboard/demo/) - the code for the standalone web demos of WIT that load a tensorflow.js model and some data from json and runs WIT<br>
-
-### Miscellaneous
-
-[tensorboard/components/vz_example_viewer/vz-example-viewer.*](https://https://github.com/tensorflow/tensorboard/tree/master/tensorboard/components/vz_example_viewer) - polymer element for the individual example viewer/editor<br>
+[wit_dashboard/demo/wit-*-demo.html](wit_dashboard/demo/) - the code for the standalone web demos of WIT that load a tensorflow.js model and some data from json and runs WIT<br>
 
 ## Appendix
 

@@ -51,7 +51,7 @@ mv -f "wit_tensorboard/pip_package/setup.py" .
 mkdir -p wit_tensorboard/static
 mv -f "wit_tensorboard/pip_package/index.js" wit_tensorboard/static
 rm -rf wit_tensorboard/pip_package
-cp "$plugin_runfile_dir/tf_interactive_inference_dashboard/wit_tb_bin.html" "$plugin_runfile_dir/tf_interactive_inference_dashboard/wit_tb_bin.js" wit_tensorboard/static
+cp "$plugin_runfile_dir/wit_dashboard/wit_tb_bin.html" "$plugin_runfile_dir/wit_dashboard/wit_tb_bin.js" wit_tensorboard/static
 
 find . -name __init__.py | xargs chmod -x  # which goes for all genfiles
 

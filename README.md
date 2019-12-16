@@ -31,27 +31,27 @@ To build the web demos yourself:
   * Task: Predict whether a person earns more or less than $50k based on their
     census information
   * To build and run the demo from code:
-    `bazel run tf_interactive_inference_dashboard/demo:demoserver`
-    then navigate to `http://localhost:6006/tf-interactive-inference-dashboard/demo.html`
+    `bazel run wit_dashboard/demo:demoserver`
+    then navigate to `http://localhost:6006/wit-dashboard/demo.html`
 * [Binary classifier for smile detection in images](https://pair-code.github.io/what-if-tool/image.html)
   * Dataset: [CelebA](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
   * Task: Predict whether the person in an image is smiling
   * To build and run the demo from code:
-    `bazel run tf_interactive_inference_dashboard/demo:imagedemoserver`
-    then navigate to `http://localhost:6006/tf-interactive-inference-dashboard/image_demo.html`
+    `bazel run wit_dashboard/demo:imagedemoserver`
+    then navigate to `http://localhost:6006/wit-dashboard/image_demo.html`
 * [Multiclass classifier for Iris dataset](https://pair-code.github.io/what-if-tool/iris.html)
   * Dataset: [UCI Iris](https://archive.ics.uci.edu/ml/datasets/iris)
   * Task: Predict which of three classes of iris flowers that a flower falls
     into based on 4 measurements of the flower
   * To build and run the demo from code:
-    `bazel run tf_interactive_inference_dashboard/demo:irisdemoserver`
-    then navigate to `http://localhost:6006/tf-interactive-inference-dashboard/iris_demo.html`
+    `bazel run wit_dashboard/demo:irisdemoserver`
+    then navigate to `http://localhost:6006/wit-dashboard/iris_demo.html`
 * [Regression model for UCI Census dataset age prediction](https://pair-code.github.io/what-if-tool/age.html)
   * Dataset: [UCI Census](https://archive.ics.uci.edu/ml/datasets/census+income)
   * Task: Predict the age of a person based on their census information
   * To build and run the demo from code:
-    `bazel run tf_interactive_inference_dashboard/demo:agedemoserver`
-    then navigate to `http://localhost:6006/tf-interactive-inference-dashboard/age_demo.html`
+    `bazel run wit_dashboard/demo:agedemoserver`
+    then navigate to `http://localhost:6006/wit-dashboard/age_demo.html`
   * This demo model returns attribution values in addition to predictions (through the use of vanilla gradients)
     in order to demonstate how the tool can display attribution values from predictions.
 

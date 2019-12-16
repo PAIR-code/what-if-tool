@@ -42,13 +42,14 @@ limitations under the License.
 <link rel="import" href="../tf-dashboard-common/tf-option-selector.html" />
 <link rel="import" href="../tf-imports/polymer.html" />
 <link rel="import" href="../tf-storage/tf-storage.html" />
-<link rel="import" href="./tf-inference-panel.html" />
+<link rel="import" href="./wit-inference-panel.html" />
 <link rel="import" href="../tf-tensorboard/plugin-dialog.html" />
 <link rel="import" href="../tf-tensorboard/registry.html" />
 <link rel="import" href="../vz-bar-chart/vz-bar-chart.html" />
 <link rel="import" href="../vz-line-chart2/vz-line-chart2.html" />
-<link rel="import" href="./tf-confusion-matrix.html" />
-<link rel="import" href="./tf-inference-viewer.html" />
+<link rel="import" href="./wit-confusion-matrix.html" />
+<link rel="import" href="./wit-example-viewer.html" />
+<link rel="import" href="./wit-inference-viewer.html" />
 <link
   rel="import"
   href="../facets-dive/components/facets-dive/facets-dive.html"
@@ -57,12 +58,11 @@ limitations under the License.
   rel="import"
   href="../facets-overview/components/facets-overview/facets-overview.html"
 />
-<link rel="import" href="../vz-example-viewer/vz-example-viewer.html" />
 <!--
   A frontend that displays a set of editable examples and enables inference of those examples,
   visualizing the results.
 -->
-<dom-module id="tf-interactive-inference-dashboard">
+<dom-module id="wit-dashboard">
   <template>
     <style id="linter-paper-button-style">
       /**
@@ -373,7 +373,7 @@ limitations under the License.
         margin: 4px;
       }
 
-      tf-confusion-matrix {
+      wit-confusion-matrix {
         display: block;
       }
 
@@ -1278,7 +1278,7 @@ limitations under the License.
       class="inference-settings"
       opened="[[!local]]"
     >
-      <tf-inference-panel
+      <wit-inference-panel
         inference-address="{{inferenceAddress}}"
         model-name="{{modelName}}"
         examples-path="{{examplesPath}}"
@@ -1295,7 +1295,7 @@ limitations under the License.
         predict-output-tensor="{{predictOutputTensor}}"
         predict-input-tensor="{{predictInputTensor}}"
       >
-      </tf-inference-panel>
+      </wit-inference-panel>
       <div class="accept-button-holder">
         <paper-button
           on-tap="getExamplesAndCloseSettings_"
@@ -1399,7 +1399,7 @@ limitations under the License.
               <a
                 target="_blank"
                 class="control"
-                href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference/README.md"
+                href="https://github.com/pair-code/what-if-tool/tree/master/README.md"
                 rel="noopener noreferrer"
               >
                 <paper-icon-button
@@ -1724,7 +1724,7 @@ limitations under the License.
                         if="[[hasSelected(selectedExampleAndInference)]]"
                       >
                         <div class="example-and-inference-holder">
-                          <vz-example-viewer
+                          <wit-example-viewer
                             class="example-holder"
                             json="{{selectedExampleAndInference.example}}"
                             compare-json="{{counterfactualExampleAndInference.example}}"
@@ -1742,7 +1742,7 @@ limitations under the License.
                             colors="[[attributionColorScale]]"
                             highlight-differences="[[showNearestCounterfactual]]"
                           >
-                          </vz-example-viewer>
+                          </wit-example-viewer>
                         </div>
                       </template>
                       <template
@@ -1813,7 +1813,7 @@ limitations under the License.
                             is="dom-if"
                             if="[[hasSelected(selectedExampleAndInference)]]"
                           >
-                            <tf-inference-viewer
+                            <wit-inference-viewer
                               class="inference-viewer"
                               inferences="[[selectedExampleAndInference.inferences]]"
                               id$="[[getInferenceHolderId_()]]"
@@ -1821,20 +1821,20 @@ limitations under the License.
                               model-names="[[parsedModelNames]]"
                               max-entries-per-run="[[maxInferenceEntriesPerRun]]"
                             >
-                            </tf-inference-viewer>
+                            </wit-inference-viewer>
                           </template>
                           <template
                             is="dom-if"
                             if="[[counterfactualExampleAndInference]]"
                           >
-                            <tf-inference-viewer
+                            <wit-inference-viewer
                               class="inference-viewer compare-inference-viewer"
                               inferences="[[counterfactualExampleAndInference.inferences]]"
                               model-type="[[modelType]]"
                               model-names="[[parsedModelNames]]"
                               max-entries-per-run="[[maxInferenceEntriesPerRun]]"
                             >
-                            </tf-inference-viewer>
+                            </wit-inference-viewer>
                           </template>
                         </div>
                       </iron-collapse>
@@ -2786,13 +2786,13 @@ limitations under the License.
                                   is="dom-repeat"
                                   items="{{featureValueThreshold.threshold}}"
                                 >
-                                  <tf-confusion-matrix
+                                  <wit-confusion-matrix
                                     counts="[[getConfusionCountsModelIndex(inferenceStats_, featureValueThreshold.threshold, index, featureValueThreshold)]]"
                                     label="[[getConfusionMatrixLabel(index, numModels)]]"
                                     background="[[getConfusionMatrixColor(index)]]"
                                     all-items="[[allConfMatrixLabels]]"
                                   >
-                                  </tf-confusion-matrix>
+                                  </wit-confusion-matrix>
                                 </template>
                               </div>
                             </div>
@@ -2975,13 +2975,13 @@ limitations under the License.
                                 is="dom-repeat"
                                 items="{{overallThresholds}}"
                               >
-                                <tf-confusion-matrix
+                                <wit-confusion-matrix
                                   counts="[[getConfusionCountsModelIndex(inferenceStats_, overallThresholds, index)]]"
                                   label="[[getConfusionMatrixLabel(index, numModels)]]"
                                   background="[[getConfusionMatrixColor(index)]]"
                                   all-items="[[allConfMatrixLabels]]"
                                 >
-                                </tf-confusion-matrix>
+                                </wit-confusion-matrix>
                               </template>
                             </div>
                           </div>
@@ -3153,13 +3153,13 @@ limitations under the License.
                                   items="[[inferenceStats_]]"
                                   as="inferenceStat"
                                 >
-                                  <tf-confusion-matrix
+                                  <wit-confusion-matrix
                                     counts="[[getMultiClassConfMatrix(inferenceStats_, index, featureValueThreshold)]]"
                                     label="[[getConfusionMatrixLabel(index, numModels)]]"
                                     background="[[getConfusionMatrixColor(index)]]"
                                     all-items="[[allConfMatrixLabels]]"
                                   >
-                                  </tf-confusion-matrix>
+                                  </wit-confusion-matrix>
                                 </template>
                               </div>
                             </div>
@@ -3330,13 +3330,13 @@ limitations under the License.
                                 items="[[inferenceStats_]]"
                                 as="inferenceStat"
                               >
-                                <tf-confusion-matrix
+                                <wit-confusion-matrix
                                   counts="[[getMultiClassConfMatrix(inferenceStats_, index)]]"
                                   label="[[getConfusionMatrixLabel(index, numModels)]]"
                                   background="[[getConfusionMatrixColor(index)]]"
                                   all-items="[[allConfMatrixLabels]]"
                                 >
-                                </tf-confusion-matrix>
+                                </wit-confusion-matrix>
                               </template>
                             </div>
                           </div>
@@ -3612,7 +3612,7 @@ limitations under the License.
       const PLUGIN_NAME = 'whatif';
 
       Polymer({
-        is: 'tf-interactive-inference-dashboard',
+        is: 'wit-dashboard',
         properties: {
           // TensorBoard plugin standard.
           _requestManager: {
@@ -8619,7 +8619,7 @@ limitations under the License.
       // `interactive_inference_plugin.py`.
       tf_tensorboard.registerDashboard({
         plugin: PLUGIN_NAME,
-        elementName: 'tf-interactive-inference-dashboard',
+        elementName: 'wit-dashboard',
         tabName: 'What-If Tool',
       });
     })();
