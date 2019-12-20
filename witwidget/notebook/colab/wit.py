@@ -64,8 +64,6 @@ output.register_callback('notebook.ComputeCustomDistance',
 
 # HTML/javascript for the WIT frontend.
 WIT_HTML = """
-  <wit-dashboard id="wit" local>
-  </wit-dashboard>
   <script>
     (function() {{
       const id = {id};
