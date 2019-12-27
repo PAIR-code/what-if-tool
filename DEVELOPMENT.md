@@ -3,9 +3,8 @@
 ## First-time Setup
 
 1. Install [Bazel](https://docs.bazel.build/versions/master/install.html)
-(for building OSS code) and [Docker](https://docs.docker.com/install/)
-(for hosting TF models using [TensorFlow Serving](https://github.com/tensorflow/serving)
-when testing WIT in TensorBoard).
+(for building OSS code) and [npm](https://www.npmjs.com/get-npm). Also, if testing the tool inside TensorBoard, install [Docker](https://docs.docker.com/install/) (for hosting TF models using [TensorFlow Serving](https://github.com/tensorflow/serving)
+when testing WIT in TensorBoard)
 2. Install pip and virtualenv
    `sudo apt-get install python-pip python3-pip virtualenv`
 3. Create a virtualenv for WIT development
@@ -19,6 +18,7 @@ when testing WIT in TensorBoard).
    TensorBoard.
 
 ## Development Workflow
+These steps have been tested when using the bash shell and may not work in other shells.
 
 1. Enter your development virtualenv
    `source ~/tf/bin/activate`
