@@ -1,5 +1,14 @@
 # What-If Tool releases
 
+## Release 1.5.1
+
+This is the first release made from the source code since it was moved into
+the pair-code/what-if-tool repository. This release ensures WitWidget will
+work in the upcoming Chrome version 80, which removes HTML import support.
+
+### Notable Bug Fixes
+- #30 - Remove link element usage from notebook mode.
+
 ## Release 1.5.0
 
 This release is the first official release with support for attribution
