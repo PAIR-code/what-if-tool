@@ -52,12 +52,17 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
   compute_custom_distance = Dict(dict()).tag(sync=True)
   custom_distance_dict = Dict(dict()).tag(sync=True)
 
-  def __init__(self, config_builder, height=1000):
+  def __init__(self, config_builder, height=1000, delay_rendering=False):
     """Constructor for Jupyter notebook WitWidget.
 
     Args:
       config_builder: WitConfigBuilder object containing settings for WIT.
       height: Optional height in pixels for WIT to occupy. Defaults to 1000.
+      delay_rendering. Optional. This argument is ignored in the Jupyter
+      implementation but is included for API compatability between Colab and
+      Jupyter implementations. Rendering in Jupyter is always delayed until
+      the render method is called or the WitWidget object is directly evaluated
+      in a notebook cell.
     """
     widgets.DOMWidget.__init__(self, layout=Layout(height='%ipx' % height))
     base.WitWidgetBase.__init__(self, config_builder)
@@ -65,6 +70,10 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
 
     # Ensure the visualization takes all available width.
     display(HTML("<style>.container { width:100% !important; }</style>"))
+
+  def render(self):
+    """Render the widget to the display."""
+    return self
 
   def set_examples(self, examples):
     base.WitWidgetBase.set_examples(self, examples)
