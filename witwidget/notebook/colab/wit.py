@@ -219,26 +219,35 @@ class WitWidget(base.WitWidgetBase):
   # WitWidget.
   index = 0
 
-  def __init__(self, config_builder, height=1000):
+  def __init__(self, config_builder, height=1000, delay_rendering=False):
     """Constructor for colab notebook WitWidget.
 
     Args:
       config_builder: WitConfigBuilder object containing settings for WIT.
       height: Optional height in pixels for WIT to occupy. Defaults to 1000.
+      delay_rendering: Optional. If true, then do not render WIT on
+      construction. Instead, only render when render method is called. Defaults
+      to False.
     """
-    self._ctor_complete = False
+    self._rendering_complete = False
     self.id = WitWidget.index
+    self.height = height
     base.WitWidgetBase.__init__(self, config_builder)
     # Add this instance to the static instance list.
     WitWidget.widgets.append(self)
 
-    # Display WIT Polymer element.
-    display.display(display.HTML(self._get_element_html()))
-    display.display(display.HTML(
-        WIT_HTML.format(height=height, id=self.id)))
+    if not delay_rendering:
+      self.render()
 
     # Increment the static instance WitWidget index counter
     WitWidget.index += 1
+
+  def render(self):
+    """Render the widget to the display."""
+    # Display WIT Polymer element.
+    display.display(display.HTML(self._get_element_html()))
+    display.display(display.HTML(
+        WIT_HTML.format(height=self.height, id=self.id)))
 
     # Send the provided config and examples to JS
     output.eval_js("""configCallback({config})""".format(
@@ -246,7 +255,7 @@ class WitWidget(base.WitWidgetBase):
     output.eval_js("""updateExamplesCallback({examples})""".format(
         examples=json.dumps(self.examples)))
     self._generate_sprite()
-    self._ctor_complete = True
+    self._rendering_complete = True
 
   def _get_element_html(self):
     return tf.io.gfile.GFile(
@@ -255,10 +264,10 @@ class WitWidget(base.WitWidgetBase):
 
   def set_examples(self, examples):
     base.WitWidgetBase.set_examples(self, examples)
-    # If this is called outside of the ctor, use a BroadcastChannel to send
+    # If this is called after rendering, use a BroadcastChannel to send
     # the updated examples to the visualization. Inside of the ctor, no action
-    # is necessary as the ctor handles all communication.
-    if self._ctor_complete:
+    # is necessary as the rendering handles all communication.
+    if self._rendering_complete:
       # Use BroadcastChannel to allow this call to be made in a separate colab
       # cell from the cell that displays WIT.
       channel_name = 'updateExamples{}'.format(self.id)
