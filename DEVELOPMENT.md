@@ -40,11 +40,11 @@ These steps have been tested when using the bash shell and may not work in other
                     ```
                 2. In a notebook cell, to install the uploaded pip package, run `!pip install <nameOfPackage.whl>`.
                    If witwidget was previously installed, uninstall it first.<br>
-    - For TensorBoard use, build and install the wit_tensorboard package, then run tensorboard with any logdir
+    - For TensorBoard use, build and install the tensorboard_plugin_wit package, then run tensorboard with any logdir
       (as WIT does not rely on logdir).<br>
-        1. Build the wit_tensorboard pip package as per instuctions in the
-           [wit_tensorboard release instructions](wit_tensorboard/pip_package/RELEASE.md).
-        2. Install the locally-build wit_tensorboard pip package with `pip install /tmp/wit-pip/release/dist/<packageName>`
+        1. Build the tensorboard_plugin_wit pip package as per instuctions in the
+           [tensorboard_plugin_wit release instructions](tensorboard_plugin_wit/pip_package/RELEASE.md).
+        2. Install the locally-build tensorboard_plugin_wit pip package with `pip install /tmp/wit-pip/release/dist/<packageName>`
         3. WIT needs a served model to query, so serve your trained model through the TF serving docker container.<br>
            `sudo docker run -p 8500:8500 --mount type=bind,source=<pathToSavedModel>,target=/models/my_model/ -e MODEL_NAME=my_model -t tensorflow/serving`
             - When developing model comparison, serve multiple models at once using the proper config as seen in the appendix.<br>
@@ -67,9 +67,9 @@ These steps have been tested when using the bash shell and may not work in other
 For notebook users to see new changes to the code, we need to push out a new version of the witwidget pip packages.
 Instructions for that can be found in the [witwidget release instructions](witwidget/pip_package/RELEASE.md).
 
-For TensorBoard users to see new changes to the code, we need to push out a new version of the wit_tensorboard pip packages,
-and then TensorBoard must be updated to use the new wit_tensorboard package version.
-Instructions for building and releasing new wit_tensorboard packages can be found in the [wit_tensorboard release instructions](wit_tensorboard/pip_package/RELEASE.md).
+For TensorBoard users to see new changes to the code, we need to push out a new version of the tensorboard_plugin_wit pip packages,
+and then TensorBoard must be updated to use the new tensorboard_plugin_wit package version.
+Instructions for building and releasing new tensorboard_plugin_wit packages can be found in the [tensorboard_plugin_wit release instructions](tensorboard_plugin_wit/pip_package/RELEASE.md).
 
 ## Code Overview
 

@@ -8,7 +8,7 @@ load("@org_tensorflow_tensorboard//tensorboard/defs:web.bzl", "tf_web_library")
 licenses(["notice"])  # Apache 2.0
 
 # rm -rf /tmp/wit-pip
-# bazel run //wit_tensorboard/pip_package:build_pip_package
+# bazel run //tensorboard_plugin_wit/pip_package:build_pip_package
 sh_binary(
     name = "build_pip_package",
     srcs = ["build_pip_package.sh"],
@@ -18,7 +18,7 @@ sh_binary(
         "setup.py",
         ":assets", # For HTML payload
         "//utils:inference_utils",  # Utility method that visualization code uses.
-        "//wit_tensorboard:wit_plugin",  # WIT TensorBoard plugin code
+        "//tensorboard_plugin_wit:wit_plugin",  # WIT TensorBoard plugin code
     ],
     tags = [
         "local",

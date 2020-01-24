@@ -38,34 +38,34 @@ cd "$dest"
 mkdir -p release
 pushd release
 
-rm -rf wit_tensorboard
-# Copy over all necessary files from wit_tensorboard
-cp -LR "$plugin_runfile_dir/wit_tensorboard" .
+rm -rf tensorboard_plugin_wit
+# Copy over all necessary files from tensorboard_plugin_wit
+cp -LR "$plugin_runfile_dir/tensorboard_plugin_wit" .
 cp -LR "$plugin_runfile_dir/utils" .
 
 # Move files related to pip building to pwd.
-mv -f "wit_tensorboard/pip_package/README.rst" .
-mv -f "wit_tensorboard/pip_package/setup.py" .
+mv -f "tensorboard_plugin_wit/pip_package/README.rst" .
+mv -f "tensorboard_plugin_wit/pip_package/setup.py" .
 
 # Copy over other built resources
-mkdir -p wit_tensorboard/static
-mv -f "wit_tensorboard/pip_package/index.js" wit_tensorboard/static
-rm -rf wit_tensorboard/pip_package
-cp "$plugin_runfile_dir/wit_dashboard/wit_tb_bin.html" "$plugin_runfile_dir/wit_dashboard/wit_tb_bin.js" wit_tensorboard/static
+mkdir -p tensorboard_plugin_wit/static
+mv -f "tensorboard_plugin_wit/pip_package/index.js" tensorboard_plugin_wit/static
+rm -rf tensorboard_plugin_wit/pip_package
+cp "$plugin_runfile_dir/wit_dashboard/wit_tb_bin.html" "$plugin_runfile_dir/wit_dashboard/wit_tb_bin.js" tensorboard_plugin_wit/static
 
 find . -name __init__.py | xargs chmod -x  # which goes for all genfiles
 
 # Copy interactive inference common utils over and ship it as part of the pip package.
-mkdir -p wit_tensorboard/_utils
-cp "$plugin_runfile_dir/utils/common_utils.py" wit_tensorboard/_utils
-cp "$plugin_runfile_dir/utils/inference_utils.py" wit_tensorboard/_utils
-cp "$plugin_runfile_dir/utils/platform_utils.py" wit_tensorboard/_utils
-touch wit_tensorboard/_utils/__init__.py
+mkdir -p tensorboard_plugin_wit/_utils
+cp "$plugin_runfile_dir/utils/common_utils.py" tensorboard_plugin_wit/_utils
+cp "$plugin_runfile_dir/utils/inference_utils.py" tensorboard_plugin_wit/_utils
+cp "$plugin_runfile_dir/utils/platform_utils.py" tensorboard_plugin_wit/_utils
+touch tensorboard_plugin_wit/_utils/__init__.py
 
 # Fix the import statements to reflect the copied over path.
-find wit_tensorboard -name \*.py |
+find tensorboard_plugin_wit -name \*.py |
   xargs $sedi -e '
-    s/^from utils/from wit_tensorboard._utils/
+    s/^from utils/from tensorboard_plugin_wit._utils/
   '
 
 virtualenv venv
