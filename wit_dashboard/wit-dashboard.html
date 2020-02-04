@@ -1325,7 +1325,7 @@ limitations under the License.
       </div>
     </paper-dialog>
     <paper-dialog id="distancedialog">
-      <h2>Show similarity to selected datapoint</h2>
+      <h2>Create similarity feature</h2>
       <paper-input
         value="{{facetDistFeatureName}}"
         label="Metric name"
@@ -1452,7 +1452,7 @@ limitations under the License.
                             checked="{{showNearestCounterfactual}}"
                             disabled$="[[!hasSelected(selectedExampleAndInference)]]"
                           >
-                            Show nearest counterfactual datapoint
+                            Nearest counterfactual
                           </paper-toggle-button>
                         </div>
                         <paper-icon-button
@@ -1493,7 +1493,7 @@ limitations under the License.
                           <paper-radio-button
                             name="Custom"
                             hidden$="[[!customDistanceFunctionSet]]"
-                            >User-specified</paper-radio-button
+                            >Custom distance</paper-radio-button
                           >
                         </paper-radio-group>
                         <template is="dom-if" if="[[isRegression_(modelType)]]">
@@ -1561,10 +1561,10 @@ limitations under the License.
                             class="control-button datapoint-button"
                             disabled$="[[!hasSelected(selectedExampleAndInference)]]"
                             on-tap="showDistanceClicked_"
-                            alt="Show similarity to selected datapoint"
-                            title="Show similarity to selected datapoint"
+                            alt="Create similarity feature"
+                            title="Creates a feature that shows similarity to selected datapoint"
                           >
-                            Show similarity to selected datapoint
+                            Create similarity feature
                           </paper-button>
                           <paper-icon-button
                             icon="info-outline"
@@ -1578,11 +1578,11 @@ limitations under the License.
                             vertical-align="auto"
                           >
                             <div class="dialog-title">
-                              Show similarity to selected datapoint
+                              Create similarity feature
                             </div>
                             <div>
                               Calculates the distance between the selected
-                              datapoint and all other datapoints and shows this
+                              datapoint and all other datapoint. Creates a new feature to visualize
                               in the datapoints visualization.
                             </div>
                           </paper-dialog>
@@ -1680,16 +1680,16 @@ limitations under the License.
                                 attr-for-selected="name"
                               >
                                 <paper-item name="alphabetical"
-                                  >Alphabetical</paper-item
+                                  >Alphabetical by features</paper-item
                                 >
                                 <paper-item name="attribution"
-                                  >Attributions</paper-item
+                                  >Descending attribution</paper-item
                                 >
                                 <paper-item name="reverse-attribution"
-                                  >Reverse attributions</paper-item
+                                  >Ascending attribution</paper-item
                                 >
                                 <paper-item name="absolute-attribution"
-                                  >Absolute attributions</paper-item
+                                  >Absolute attribution</paper-item
                                 >
                               </paper-listbox>
                             </paper-dropdown-menu>
@@ -1758,9 +1758,8 @@ limitations under the License.
                               </div>
                             </div>
                             <div class="onboarding-text">
-                              <span class="bold">Edit and Infer:</span>
-                              Edit your datapoint here and run inference in the
-                              Infer table to see differences in model behavior.
+                              <span class="bold">Edit</span>
+                              Edit a selected datapoint and click on "predict" to see changes in model prediction. Compare datapoints to their counterfactuals or visualize feature attributions where available.
                             </div>
                             <div class="onboarding-text">
                               <span class="bold">Visualize:</span>
@@ -1799,13 +1798,13 @@ limitations under the License.
                         id="collapseinference"
                         opened="{{openedInferenceResults}}"
                       >
-                        <div title="Edit a datapoint to use this feature">
+                        <div title="Select and edit a datapoint to use this feature">
                           <paper-button
                             on-tap="inferClicked_"
                             class="control-button infer-button flex-grow"
                             disabled$="[[shouldDisableInferButton_(examplesAndInferences, modelName, inferenceAddress, updatedExample)]]"
                           >
-                            Run inference
+                            Predict
                           </paper-button>
                         </div>
                         <div class="flex">
@@ -1887,33 +1886,20 @@ limitations under the License.
                         <div class="dialog-title">Partial Dependence Plots</div>
                         <div>
                           Partial dependence plots visualize the change in
-                          inference results for every feature, as the value for
-                          that feature is changed to different valid values.
+                          prediction results for different valid values of a feature.
                         </div>
                         <div>
                           For numeric features, you can set the minimum and
-                          maximum values to plot.
+                          maximum values to visualize.
                         </div>
                         <div>
-                          For string features, the most popular feature values
-                          are shown as alternatives to the feature value for the
-                          selected datapoint.
+                          For string features, the most popular feature values are shown as alternatives to the feature value for the selected datapoint.
                         </div>
                         <div>
-                          For features with multiple feature values per
-                          datapoint, a single plot is shown for for each feature
-                          value in the selected datapoint. You can override
-                          which feature values have plots created for them by
-                          specifying the indices to shown partial dependence
-                          plots for, if the datapoint contains multiple feature
-                          values for a feature.
+                          If the datapoint contains multiple feature values for a feature, each feature value is visualized as a single plot. You can override which feature values are visualized by specifying the indices for partial dependence plots.
                         </div>
                         <div>
-                          When the global toggle is turned on, the plots show
-                          the average effect of repeatedly changing a single
-                          feature across all datapoints. When it is turned off,
-                          the plots show the effect of a repeatedly changing a
-                          single feature on the selected datapoint.
+                          When the global toggle is turned on, the plots show the average effect of changing a single feature across all datapoints. When it is turned off, the plots show the effect of changing a single feature on the selected datapoint.
                         </div>
                       </paper-dialog>
                     </div>
@@ -1922,10 +1908,10 @@ limitations under the License.
                         class="control-button datapoint-button"
                         disabled$="[[shouldDisableSortFeaturesButton(partialDepPlotEligibleFeatures, isSortingEligibleFeatures)]]"
                         on-tap="sortPdFeatures_"
-                        alt="Sort features by interestingness"
-                        title="Sort features by interestingness"
+                        alt="Sort by variation"
+                        title="Sort by variation"
                       >
-                        Sort features by interestingness
+                      Sort by variation
                       </paper-button>
                       <paper-progress
                         class="sort-progress"
@@ -1947,8 +1933,7 @@ limitations under the License.
                     if="[[!areTherePdPlotFeatures_(partialDepPlotEligibleFeatures)]]"
                   >
                     <div class="pd-no-features-text">
-                      The loaded dataset has no features to show partial
-                      dependence plots for.
+                      Features for partial dependence plots unavailable in the loaded dataset.
                     </div>
                   </template>
                   <div class="pdplots-holder">
@@ -1989,9 +1974,10 @@ limitations under the License.
                             >
                               <div
                                 class="info-text"
-                                title="The range of values to test (default values are automatically inferred)."
+                                title="set a range of values to visualize in the partial dependence plot(default values are automatically inferred)."
+                                alt="set a range of values to visualize in the partial dependence plot"
                               >
-                                Set range of values to test
+                                Set range of values to visualize
                               </div>
                               <div class="flex">
                                 <input
@@ -2097,12 +2083,7 @@ limitations under the License.
                                   Ground Truth Feature
                                 </div>
                                 <div>
-                                  If the datapoints contain a feature that
-                                  represents the ground truth for what the model
-                                  is attempting to predict, then selecting that
-                                  feature here allows the tool to investigate
-                                  the performance of the model by comparing the
-                                  model's results to the ground truth feature.
+                                  Select the feature that represents the ground truth for the model's prediction to investigate the model's performance overall or on intersections of other available features by comparing the model's prediction to the ground truth feature.
                                 </div>
                               </paper-dialog>
                             </div>
@@ -2205,8 +2186,8 @@ limitations under the License.
                             </div>
                             <div class="help-text">
                               <div>
-                                Shows performance for each value of the selected
-                                feature.
+                                Shows the model's performance on datapoints 
+                                grouped by each value of the selected feature.
                               </div>
                             </div>
                           </div>
@@ -2285,10 +2266,7 @@ limitations under the License.
                           Apply an optimization strategy
                         </div>
                         <div class="control-info-text">
-                          Select a strategy to set classification thresholds
-                          based on the set cost ratio and data slices. Manually
-                          altering thresholds or changing cost ratio will
-                          default back to custom thresholds.
+                          Select a strategy to automatically set classification thresholds, based on the set cost ratio and data slices. Manually altering thresholds or changing cost ratio will revert the strategy to 'custom thresholds'.
                         </div>
                         <paper-radio-group
                           class="optimization-radio-group"
@@ -2560,13 +2538,13 @@ limitations under the License.
                           vertical-align="auto"
                         >
                           <div class="dialog-title">
-                            Exploring Classification Performance
+                            Explore classification performance
                           </div>
                           <div>
                             Use this slider to adjust the classification
                             threshold for this slice. Inference values at or
                             above this threshold are considered a positive
-                            classification, while inference values below this
+                            classification, while those below this
                             threshold are considered a negative classification.
                           </div>
                         </paper-dialog>
@@ -3014,15 +2992,14 @@ limitations under the License.
                         vertical-align="auto"
                       >
                         <div class="dialog-title">
-                          Classification Performance Table
+                          Classification performance table
                         </div>
                         <div>
                           Set the ground truth feature to explore model
                           performance including confusion matrices.
                         </div>
                         <div>
-                          Slice the dataset and explore model performance by
-                          slice.
+                          Create slices from intersections in the dataset and explore model performance on slices.
                         </div>
                       </paper-dialog>
                     </div>
@@ -3464,8 +3441,8 @@ limitations under the License.
                           performance.
                         </div>
                         <div>
-                          Slice the dataset and explore model performance by
-                          slice.
+                          Create slices from intersections in the dataset and explore model performance by
+                          slices.
                         </div>
                       </paper-dialog>
                     </div>
