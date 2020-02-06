@@ -95,13 +95,16 @@ tf_workspace()
 
 http_archive(
     name = "org_tensorflow_tensorboard",
-    sha256 = "08ddd4cddd694e8ba881a2f066ae10b23ce778d20e638715a9f456774b3471aa",
-    strip_prefix = "tensorboard-9cbf844c8b4270ef7763490dce98ff5f1100b0f9",
+    sha256 = "528afecdcc551c31baa6c7c3f702439cb6a52b711a12f9773177d0a9221f0620",
+    strip_prefix = "tensorboard-22b1f7413a917249245ab63a33d1f03514039294",
     urls = [
-        "https://github.com/tensorflow/tensorboard/archive/9cbf844c8b4270ef7763490dce98ff5f1100b0f9.tar.gz",  # 2019-12-04
+        "https://github.com/tensorflow/tensorboard/archive/22b1f7413a917249245ab63a33d1f03514039294.tar.gz",  # 2019-12-04
     ],
 )
-
+#local_repository(
+#    name = "org_tensorflow_tensorboard",
+#    path = "/usr/local/google/home/jwexler/jameswex/tensorboard",
+#)
 load("@org_tensorflow_tensorboard//third_party:workspace.bzl", "tensorboard_workspace")
 
 tensorboard_workspace()

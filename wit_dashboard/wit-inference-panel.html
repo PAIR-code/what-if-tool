@@ -19,6 +19,7 @@ limitations under the License.
 <link rel="import" href="../paper-input/paper-input.html" />
 <link rel="import" href="../paper-radio-button/paper-radio-button.html" />
 <link rel="import" href="../paper-radio-group/paper-radio-group.html" />
+<link rel="import" href="../tf-plugin-lib/polymer-interop.html" />
 
 <!--
   Setup dialog for what-if tool.
@@ -425,8 +426,12 @@ limitations under the License.
         'updateModelSignature(modelSignature1, modelSignature2)',
       ],
 
-      ready() {
-
+      async ready() {
+        console.log('ready');
+        console.log(tb_plugin_lib.experimental.core.getURLPluginData());
+        const params = await tb_plugin_lib.experimental.core.getURLPluginData();
+        console.log("WEX");
+        console.log(params);
       },
 
       updateModelName: function(modelName1, modelName2) {

@@ -41,7 +41,6 @@ tf_web_library(
         ":wit_example_viewer",
         ":wit_inference_panel",
         ":wit_inference_viewer",
-        #"@org_tensorflow_tensorboard//tensorboard/components/experimental/plugin_lib",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_backend",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_dashboard_common",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
@@ -156,6 +155,7 @@ tf_web_library(
     ],
     path = "/wit-dashboard",
     deps = [
+        "@org_tensorflow_tensorboard//tensorboard/components/experimental/plugin_lib:plugin_lib_polymer_interop",
         "@org_polymer_paper_button",
         "@org_polymer_paper_input",
         "@org_polymer_paper_radio_button",
