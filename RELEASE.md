@@ -1,5 +1,14 @@
 # What-If Tool releases
 
+## Release 1.6.0
+
+This is the first release that includes the new tensorboard_plugin_wit
+pip package as well as the existing witwidget packages. The
+tensorboard_plugin_wit package enables WIT to be a dynamic plugin of
+TensorBoard, leading to the removal of the last of the old WIT code
+from the TensorBoard repository. There is no noticable change for
+end-users of the What-If Tool through TensorBoard.
+
 ## Release 1.5.1
 
 This is the first release made from the source code since it was moved into
