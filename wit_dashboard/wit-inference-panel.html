@@ -19,7 +19,7 @@ limitations under the License.
 <link rel="import" href="../paper-input/paper-input.html" />
 <link rel="import" href="../paper-radio-button/paper-radio-button.html" />
 <link rel="import" href="../paper-radio-group/paper-radio-group.html" />
-<link rel="import" href="../tf-storage/tf-storage.html" />
+<link rel="import" href="../tf-plugin-lib/polymer-interop.html" />
 
 <!--
   Setup dialog for what-if tool.
@@ -300,18 +300,12 @@ limitations under the License.
         // Fields for interactive inference plugin.
         examplesPath: {
           type: String,
-          value: tf_storage.getStringInitializer('examplesPath', {
-            defaultValue: defaultExamplesPath,
-          }),
-          observer: 'examplesPathChanged_',
+          value: defaultExamplesPath,
           notify: true,
         },
         hideModelPane2: {
           type: Boolean,
-          value: tf_storage.getBooleanInitializer('hideModelPane2', {
-            defaultValue: defaultHideModelPane2,
-          }),
-          observer: 'hideModelPane2Changed_',
+          value: defaultHideModelPane2,
         },
         modelName: {
           type: String,
@@ -320,18 +314,12 @@ limitations under the License.
         },
         modelName1: {
           type: String,
-          value: tf_storage.getStringInitializer('modelName1', {
-            defaultValue: defaultModelName,
-          }),
-          observer: 'modelName1Changed_',
+          value: defaultModelName,
           notify: true,
         },
         modelName2: {
           type: String,
-          value: tf_storage.getStringInitializer('modelName2', {
-            defaultValue: defaultModelName,
-          }),
-          observer: 'modelName2Changed_',
+          value: defaultModelName,
           notify: true,
         },
         inferenceAddress: {
@@ -341,26 +329,17 @@ limitations under the License.
         },
         inferenceAddress1: {
           type: String,
-          value: tf_storage.getStringInitializer('inferenceAddress1', {
-            defaultValue: defaultInferenceAddress,
-          }),
-          observer: 'inferenceAddress1Changed_',
+          value: defaultInferenceAddress,
           notify: true,
         },
         inferenceAddress2: {
           type: String,
-          value: tf_storage.getStringInitializer('inferenceAddress2', {
-            defaultValue: defaultInferenceAddress,
-          }),
-          observer: 'inferenceAddress2Changed_',
+          value: defaultInferenceAddress,
           notify: true,
         },
         modelType: {
           type: String,
-          value: tf_storage.getStringInitializer('modelType', {
-            defaultValue: defaultModelType,
-          }),
-          observer: 'modelTypeChanged_',
+          value: defaultModelType,
           notify: true,
         },
         modelVersion: {
@@ -370,18 +349,12 @@ limitations under the License.
         },
         modelVersion1: {
           type: String,
-          value: tf_storage.getStringInitializer('modelVersion1', {
-            defaultValue: defaultModelVersion,
-          }),
-          observer: 'modelVersion1Changed_',
+          value: defaultModelVersion,
           notify: true,
         },
         modelVersion2: {
           type: String,
-          value: tf_storage.getStringInitializer('modelVersion2', {
-            defaultValue: defaultModelVersion,
-          }),
-          observer: 'modelVersion2Changed_',
+          value: defaultModelVersion,
           notify: true,
         },
         modelSignature: {
@@ -391,90 +364,57 @@ limitations under the License.
         },
         modelSignature1: {
           type: String,
-          value: tf_storage.getStringInitializer('modelSignature1', {
-            defaultValue: defaultModelSignature,
-          }),
-          observer: 'modelSignature1Changed_',
+          value: defaultModelSignature,
           notify: true,
         },
         modelSignature2: {
           type: String,
-          value: tf_storage.getStringInitializer('modelSignature2', {
-            defaultValue: defaultModelSignature,
-          }),
-          observer: 'modelSignature2Changed_',
+          value: defaultModelSignature,
           notify: true,
         },
         maxExamples: {
           type: Number,
-          value: tf_storage.getStringInitializer('maxExamples', {
-            defaultValue: defaultMaxExamples,
-          }),
-          observer: 'maxExamplesChanged_',
+          value: defaultMaxExamples,
           notify: true,
         },
         labelVocabPath: {
           type: String,
-          value: tf_storage.getStringInitializer('labelVocabPath', {
-            defaultValue: defaultLabelVocabPath,
-          }),
-          observer: 'labelVocabPathChanged_',
+          value: defaultLabelVocabPath,
           notify: true,
         },
         multiClass: {
           type: Boolean,
           notify: true,
-          value: tf_storage.getBooleanInitializer('multiClass', {
-            defaultValue: false,
-          }),
-          observer: 'multiClassChanged_',
+          value: false,
         },
         sequenceExamples: {
           type: Boolean,
           notify: true,
-          value: tf_storage.getBooleanInitializer('sequenceExamples', {
-            defaultValue: false,
-          }),
-          observer: 'sequenceExamplesChanged_',
+          value: false,
         },
         maxClassesToDisplay: {
           type: Number,
-          value: tf_storage.getStringInitializer('maxClassesToDisplay', {
-            defaultValue: defaultMaxClassesToDisplay,
-          }),
-          observer: 'maxClassesToDisplayChanged_',
+          value: defaultMaxClassesToDisplay,
           notify: true,
         },
         samplingOdds: {
           type: Number,
-          value: tf_storage.getStringInitializer('samplingOdds', {
-            defaultValue: defaultSamplingOdds,
-          }),
-          observer: 'samplingOddsChanged_',
+          value: defaultSamplingOdds,
           notify: true,
         },
         usePredictApi: {
           type: Boolean,
           notify: true,
-          value: tf_storage.getBooleanInitializer('usePredictApi', {
-            defaultValue: false,
-          }),
-          observer: 'usePredictApiChanged_',
+          value: false,
         },
         predictInputTensor: {
           type: String,
-          value: tf_storage.getStringInitializer('predictInputTensor', {
-            defaultValue: defaultPredictInputTensor,
-          }),
-          observer: 'predictInputTensorChanged_',
+          value: defaultPredictInputTensor,
           notify: true,
         },
         predictOutputTensor: {
           type: String,
-          value: tf_storage.getStringInitializer('predictOutputTensor', {
-            defaultValue: defaultPredictOutputTensor,
-          }),
-          observer: 'predictOutputTensorChanged_',
+          value: defaultPredictOutputTensor,
           notify: true,
         },
       },
@@ -485,6 +425,24 @@ limitations under the License.
         'updateModelVersion(modelVersion1, modelVersion2)',
         'updateModelSignature(modelSignature1, modelSignature2)',
       ],
+
+      async ready() {
+        // Early exit if this is called in environment outside of Tensorboard.
+        if (!tb_plugin_lib) {
+          return;
+        }
+        // Get URL params for the WIT plugin and set this element's properties
+        // based on those params.
+        // TODO(jameswex): When TB supports setting URL params, update them based on
+        // changes to the properties of this element.
+        const urlParams =
+          await tb_plugin_lib.experimental.core.getURLPluginData();
+        const paramList = Object.keys(urlParams);
+        for (let i = 0; i < paramList.length; i++) {
+          const param = paramList[i];
+          this.set(param, urlParams[param]);
+        }
+      },
 
       updateModelName: function(modelName1, modelName2) {
         this.modelName = modelName1 + ',' + modelName2;
@@ -511,92 +469,6 @@ limitations under the License.
       addModelClicked_: function() {
         this.hideModelPane2 = !this.hideModelPane2;
       },
-
-      examplesPathChanged_: tf_storage.getStringObserver('examplesPath', {
-        defaultValue: defaultExamplesPath,
-      }),
-
-      modelName1Changed_: tf_storage.getStringObserver('modelName1', {
-        defaultValue: defaultModelName,
-      }),
-
-      modelName2Changed_: tf_storage.getStringObserver('modelName2', {
-        defaultValue: defaultModelName,
-      }),
-
-      inferenceAddress1Changed_: tf_storage.getStringObserver(
-        'inferenceAddress1',
-        {defaultValue: defaultInferenceAddress}
-      ),
-
-      inferenceAddress2Changed_: tf_storage.getStringObserver(
-        'inferenceAddress2',
-        {defaultValue: defaultInferenceAddress}
-      ),
-
-      modelTypeChanged_: tf_storage.getStringObserver('modelType', {
-        defaultValue: defaultModelType,
-      }),
-
-      modelVersion1Changed_: tf_storage.getStringObserver('modelVersion1', {
-        defaultValue: defaultModelVersion,
-      }),
-
-      modelVersion2Changed_: tf_storage.getStringObserver('modelVersion2', {
-        defaultValue: defaultModelVersion,
-      }),
-
-      modelSignature1Changed_: tf_storage.getStringObserver('modelSignature1', {
-        defaultValue: defaultModelSignature,
-      }),
-
-      modelSignature2Changed_: tf_storage.getStringObserver('modelSignature2', {
-        defaultValue: defaultModelSignature,
-      }),
-
-      maxExamplesChanged_: tf_storage.getStringObserver('maxExamples', {
-        defaultValue: defaultMaxExamples,
-      }),
-
-      labelVocabPathChanged_: tf_storage.getStringObserver('labelVocabPath', {
-        defaultValue: defaultLabelVocabPath,
-      }),
-
-      maxClassesToDisplayChanged_: tf_storage.getStringObserver(
-        'maxClassesToDisplay',
-        {defaultValue: defaultMaxClassesToDisplay}
-      ),
-
-      samplingOddsChanged_: tf_storage.getStringObserver('samplingOdds', {
-        defaultValue: defaultSamplingOdds,
-      }),
-
-      multiClassChanged_: tf_storage.getBooleanObserver('multiClass', {
-        defaultValue: false,
-      }),
-
-      sequenceExamplesChanged_: tf_storage.getBooleanObserver(
-        'sequenceExamples',
-        {defaultValue: false}
-      ),
-
-      hideModelPane2Changed_: tf_storage.getBooleanObserver('hideModelPane2', {
-        defaultValue: defaultHideModelPane2,
-      }),
-
-      usePredictApiChanged_: tf_storage.getBooleanObserver('usePredictApi', {
-        defaultValue: false,
-      }),
-
-      predictOutputTensorChanged_: tf_storage.getStringObserver(
-        'predictOutputTensor',
-        {defaultValue: defaultPredictOutputTensor}
-      ),
-
-      predictInputTensorChanged_: tf_storage.getStringObserver(
-        'predictInputTensor',
-        {defaultValue: defaultPredictInputTensor}
-      ),
 
       shouldDisableClassificationControls_: function(modelType) {
         return modelType == 'regression';

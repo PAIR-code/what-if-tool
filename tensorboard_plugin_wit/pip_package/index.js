@@ -25,6 +25,14 @@ export async function render() {
       width: 100%;
     }`;
   document.head.appendChild(style);
+
+  /**
+   * Relay the plugin registration message from inner HTML up to the TensorBoard.
+   */
+  window.addEventListener('message', (event) => {
+    window.parent.postMessage(event.data, '*', event.ports);
+  });
+
   const iframe = document.createElement('iframe');
   iframe.src = './wit_tb_bin.html';
   document.body.appendChild(iframe);

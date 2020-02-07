@@ -44,7 +44,6 @@ tf_web_library(
         "@org_tensorflow_tensorboard//tensorboard/components/tf_backend",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_dashboard_common",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
-        "@org_tensorflow_tensorboard//tensorboard/components/tf_storage",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_tensorboard:plugin_dialog",
         "@org_tensorflow_tensorboard//tensorboard/components/tf_tensorboard:registry",
         "@org_tensorflow_tensorboard//tensorboard/components/vz_bar_chart",
@@ -156,7 +155,7 @@ tf_web_library(
     ],
     path = "/wit-dashboard",
     deps = [
-        "@org_tensorflow_tensorboard//tensorboard/components/tf_storage",
+        "@org_tensorflow_tensorboard//tensorboard/components/experimental/plugin_lib:plugin_lib_polymer_interop",
         "@org_polymer_paper_button",
         "@org_polymer_paper_input",
         "@org_polymer_paper_radio_button",
