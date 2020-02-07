@@ -40,8 +40,7 @@ These steps have been tested when using the bash shell and may not work in other
                     ```
                 2. In a notebook cell, to install the uploaded pip package, run `!pip install <nameOfPackage.whl>`.
                    If witwidget was previously installed, uninstall it first.<br>
-    - For TensorBoard use, build and install the tensorboard_plugin_wit package, then run tensorboard with any logdir
-      (as WIT does not rely on logdir).<br>
+    - For TensorBoard use, build and install the tensorboard_plugin_wit package, then run tensorboard with any logdir (e.g. ./), as WIT does not rely on logdir.<br>
         1. Build the tensorboard_plugin_wit pip package as per instuctions in the
            [tensorboard_plugin_wit release instructions](tensorboard_plugin_wit/pip_package/RELEASE.md).
         2. Install the locally-build tensorboard_plugin_wit pip package with `pip install /tmp/wit-pip/release/dist/<packageName>`

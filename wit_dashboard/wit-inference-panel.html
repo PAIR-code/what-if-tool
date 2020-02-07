@@ -433,6 +433,8 @@ limitations under the License.
         }
         // Get URL params for the WIT plugin and set this element's properties
         // based on those params.
+        // TODO(jameswex): When TB supports setting URL params, update them based on
+        // changes to the properties of this element.
         const urlParams =
           await tb_plugin_lib.experimental.core.getURLPluginData();
         const paramList = Object.keys(urlParams);
