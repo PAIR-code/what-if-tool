@@ -101,10 +101,6 @@ http_archive(
         "https://github.com/tensorflow/tensorboard/archive/22b1f7413a917249245ab63a33d1f03514039294.tar.gz",  # 2019-12-04
     ],
 )
-#local_repository(
-#    name = "org_tensorflow_tensorboard",
-#    path = "/usr/local/google/home/jwexler/jameswex/tensorboard",
-#)
 load("@org_tensorflow_tensorboard//third_party:workspace.bzl", "tensorboard_workspace")
 
 tensorboard_workspace()

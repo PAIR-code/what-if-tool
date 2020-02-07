@@ -427,11 +427,19 @@ limitations under the License.
       ],
 
       async ready() {
-        console.log('ready');
-        console.log(tb_plugin_lib.experimental.core.getURLPluginData());
-        const params = await tb_plugin_lib.experimental.core.getURLPluginData();
-        console.log("WEX");
-        console.log(params);
+        // Early exit if this is called in environment outside of Tensorboard.
+        if (!tb_plugin_lib) {
+          return;
+        }
+        // Get URL params for the WIT plugin and set this element's properties
+        // based on those params.
+        const urlParams =
+          await tb_plugin_lib.experimental.core.getURLPluginData();
+        const paramList = Object.keys(urlParams);
+        for (let i = 0; i < paramList.length; i++) {
+          const param = paramList[i];
+          this.set(param, urlParams[param]);
+        }
       },
 
       updateModelName: function(modelName1, modelName2) {
