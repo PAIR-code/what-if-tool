@@ -77,10 +77,17 @@ cp "$plugin_runfile_dir/utils/inference_utils.py" witwidget/_utils
 cp "$plugin_runfile_dir/utils/platform_utils.py" witwidget/_utils
 touch witwidget/_utils/__init__.py
 
+mkdir -p witwidget/_vendor
+>witwidget/_vendor/__init__.py
+# Vendor tensorflow-serving-api because it depends directly on TensorFlow.
+# TODO(jameswex): de-vendor if they're able to relax that dependency.
+cp -LR "${RUNFILES}/org_tensorflow_serving_api/tensorflow_serving" witwidget/_vendor
+
 # Fix the import statements to reflect the copied over path.
 find witwidget -name \*.py |
   xargs $sedi -e '
     s/^from utils/from witwidget._utils/
+    s/from tensorflow_serving/from witwidget._vendor.tensorflow_serving/
   '
 
 virtualenv venv

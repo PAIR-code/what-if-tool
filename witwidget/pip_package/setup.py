@@ -31,15 +31,13 @@ if '--project_name' in sys.argv:
 
 _TF_REQ = [
     'tensorflow>=1.12.0',
-    'tensorflow-serving-api>=1.12.0'
 ]
 
-# GPU build (note: the only difference is we depend on tensorflow-gpu and
-# tensorflow-serving-api-gpu so pip doesn't overwrite them with the CPU builds)
+# GPU build (note: the only difference is we depend on tensorflow-gpu
+# so pip doesn't overwrite it with the CPU build)
 if 'witwidget-gpu' in project_name:
   _TF_REQ = [
       'tensorflow-gpu>=1.12.0',
-      'tensorflow-serving-api-gpu>=1.12.0'
   ]
 
 REQUIRED_PACKAGES = [
