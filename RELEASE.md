@@ -1,5 +1,19 @@
 # What-If Tool releases
 
+## Release 1.6.0
+
+This is the first release that includes the tensorboard-plugin-wit package
+that enables WIT to be used in TensorBoard as a dynamic plugin. It also
+removes the dependency on the tensorflow-serving-api package.
+
+### Notable Features
+- #41 - Add delayed rendering option to WitWidget.
+- #45 - Finish WIT as a dynamic TensorBoard plugin.
+- #47 - Remove dependency on tensorflow-serving-api package.
+
+### Notable Bug Fixes
+- #43 - Update in-tool text for clearer UX.
+
 ## Release 1.5.1
 
 This is the first release made from the source code since it was moved into
