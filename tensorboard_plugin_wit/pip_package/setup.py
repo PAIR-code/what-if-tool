@@ -22,7 +22,7 @@ import setuptools
 
 setuptools.setup(
     name="tensorboard_plugin_wit",
-    version="0.1.0",
+    version="1.6.0",
     description="What-If Tool TensorBoard plugin.",
     packages=setuptools.find_packages(),
     package_data={
