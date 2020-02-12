@@ -125,3 +125,27 @@ tensorboard_html_binary(
     output_path = "/wit-dashboard/age_demo.html",
     deps = [":agedemo"],
 )
+
+tf_web_library(
+    name = "compasdemo",
+    testonly = True,
+    srcs = [
+        "compas_index.html",
+        "wit-compas-demo.html",
+        "@org_tf_tfjs//:tf.min.js",
+    ] + glob(["data/**"]),
+    path = "/wit-dashboard",
+    deps = [
+        "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
+        "//wit_dashboard",
+    ],
+)
+
+tensorboard_html_binary(
+    name = "compasdemoserver",
+    testonly = True,  # Keeps JavaScript somewhat readable
+    compile = True,  # Run Closure Compiler
+    input_path = "/wit-dashboard/compas_index.html",
+    output_path = "/wit-dashboard/compas_demo.html",
+    deps = [":compasdemo"],
+)
