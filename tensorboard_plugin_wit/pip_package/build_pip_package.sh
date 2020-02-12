@@ -62,10 +62,17 @@ cp "$plugin_runfile_dir/utils/inference_utils.py" tensorboard_plugin_wit/_utils
 cp "$plugin_runfile_dir/utils/platform_utils.py" tensorboard_plugin_wit/_utils
 touch tensorboard_plugin_wit/_utils/__init__.py
 
+mkdir -p tensorboard_plugin_wit/_vendor
+>tensorboard_plugin_wit/_vendor/__init__.py
+# Vendor tensorflow-serving-api because it depends directly on TensorFlow.
+# TODO(jameswex): de-vendor if they're able to relax that dependency.
+cp -LR "${RUNFILES}/org_tensorflow_serving_api/tensorflow_serving" tensorboard_plugin_wit/_vendor
+
 # Fix the import statements to reflect the copied over path.
 find tensorboard_plugin_wit -name \*.py |
   xargs $sedi -e '
     s/^from utils/from tensorboard_plugin_wit._utils/
+    s/from tensorflow_serving/from tensorboard_plugin_wit._vendor.tensorflow_serving/
   '
 
 virtualenv venv
