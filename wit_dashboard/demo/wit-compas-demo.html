@@ -51,6 +51,8 @@ limitations under the License.
         labelVocab: {type: Array, value: ['Low risk', 'High risk']},
       },
       ready: async function() {
+        this.$.dash.modelName = 'demo';
+        this.$.dash.inferenceAddress = 'demo';
         this.$.dash.updateNumberOfModels();
         this.categories = {};
         this.categories['sex'] = [
