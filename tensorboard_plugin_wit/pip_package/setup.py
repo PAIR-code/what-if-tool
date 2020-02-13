@@ -30,7 +30,7 @@ setuptools.setup(
     },
     entry_points={
         "tensorboard_plugins": [
-            "wit = tensorboard_plugin_wit.wit_plugin:WhatIfToolPlugin",
+            "wit = tensorboard_plugin_wit.wit_plugin_loader:WhatIfToolPluginLoader",
         ],
     },
 )
