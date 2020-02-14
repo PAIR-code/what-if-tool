@@ -20,6 +20,16 @@ py_library(
     ],
 )
 
+py_library(
+    name = "wit_plugin_loader",
+    srcs = ["wit_plugin_loader.py"],
+    srcs_version = "PY2AND3",
+    deps = [
+        ":wit_plugin",
+        "@org_tensorflow_tensorboard//tensorboard/plugins:base_plugin",
+    ],
+)
+
 py_test(
     name = "wit_plugin_test",
     size = "small",
