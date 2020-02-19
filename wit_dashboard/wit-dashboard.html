@@ -6441,15 +6441,26 @@ limitations under the License.
               ) {
                 const result = this.inferences.results[modelNum]
                   .classificationResult;
-                // For models that don't return any labels for the classes, fill
-                // them out with class indices.
                 for (
                   let j = 0;
                   j < result.classifications[i].classes.length;
                   j++
                 ) {
+                  // For models that don't return any labels for the classes,
+                  // fill them out with class indices.
                   if (result.classifications[i].classes[j].label == '') {
                     result.classifications[i].classes[j].label = j.toString();
+                  }
+                  // If the label matches a string from the label vocab, then
+                  // replace the label with the class index as that is what
+                  // WIT expects.
+                  if (this.labelVocab != null && this.labelVocab.length > 0) {
+                    const labelIndex = this.labelVocab.indexOf(
+                      result.classifications[i].classes[j].label);
+                    if (labelIndex !== -1) {
+                      result.classifications[i].classes[j].label =
+                        labelIndex.toString();
+                    }
                   }
                 }
                 inferenceMap[this.inferences.indices[i]][
