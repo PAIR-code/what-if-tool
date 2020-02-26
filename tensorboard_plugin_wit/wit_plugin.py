@@ -18,6 +18,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import io
 import json
 import logging
 import math
@@ -125,7 +126,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
   def _serve_js(self, request):
     del request  # unused
     filepath = os.path.join(os.path.dirname(__file__), "static", "index.js")
-    with open(filepath) as infile:
+    with io.open(filepath, encoding='utf-8') as infile:
       contents = infile.read()
     return werkzeug.Response(contents, content_type="application/javascript")
   
@@ -133,7 +134,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
   def _serve_wit(self, request):
     del request  # unused
     filepath = os.path.join(os.path.dirname(__file__), "static", "wit_tb_bin.html")
-    with open(filepath) as infile:
+    with io.open(filepath, encoding='utf-8') as infile:
       contents = infile.read()
     return werkzeug.Response(contents, content_type="text/html")
 
@@ -141,7 +142,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
   def _serve_wit_js(self, request):
     del request  # unused
     filepath = os.path.join(os.path.dirname(__file__), "static", "wit_tb_bin.js")
-    with open(filepath) as infile:
+    with io.open(filepath, encoding='utf-8') as infile:
       contents = infile.read()
     return werkzeug.Response(contents, content_type="application/javascript")
   def generate_sprite(self, example_strings):
