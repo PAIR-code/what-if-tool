@@ -7943,7 +7943,14 @@ limitations under the License.
                 modelInd,
                 data.length
               );
-              const thresholdData = data[0][_.keys(data[0])].map((point) => {
+              let keys = _.keys(data[0]);
+              // If using a label vocab, then adjust the keys to get the right
+              // label for the positive class.
+              if (keys.length > 1 && this.labelVocab &&
+                  this.labelVocab.length > 1) {
+                keys = [this.labelVocab[1]];
+              }
+              const thresholdData = data[0][keys].map((point) => {
                 return {
                   step: point.step,
                   scalar: this.overallThresholds[modelInd].threshold,
@@ -7989,7 +7996,16 @@ limitations under the License.
         createPdEntryForCurrentValue: function(featureName, data, modelInd) {
           // Extract the class and feature value index from the key of the PD
           // chart data .
-          const key = _.keys(data)[0];
+          const keys = _.keys(data);
+          let key = keys[0];
+          // If using a label vocab, then adjust the key to get the right
+          // label for the positive class.
+          if (this.labelVocab && this.labelVocab.length > 1) {
+            const possibleLabelKey = keys.indexOf(this.labelVocab[1]);
+            if (possibleLabelKey !== -1) {
+              key = [1];
+            }
+          }
           const indexOfIndexStr = key.indexOf('index');
           let classToChart = +key;
           let indexForValue = 0;
