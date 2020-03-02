@@ -7945,7 +7945,13 @@ limitations under the License.
               );
               let keys = _.keys(data[0]);
               // If using a label vocab, then adjust the keys to get the right
-              // label for the positive class.
+              // label for the positive class. Keys is normally of size 1 as
+              // only partial dependence plot info for the positive class in
+              // binary classification is returned by the server. But in some
+              // cases, there may be entries for both positive and negative
+              // classes. In this case, if there is a label vocab, use it
+              // to filter out the keys to only use the one for the positive
+              // class, which is array index 1 in the label vocab.
               if (keys.length > 1 && this.labelVocab &&
                   this.labelVocab.length > 1) {
                 keys = [this.labelVocab[1]];
@@ -7995,11 +8001,13 @@ limitations under the License.
          */
         createPdEntryForCurrentValue: function(featureName, data, modelInd) {
           // Extract the class and feature value index from the key of the PD
-          // chart data .
+          // chart data. In the standard case, we just need to look at the
+          // first entry to find the initial value.
           const keys = _.keys(data);
           let key = keys[0];
           // If using a label vocab, then adjust the key to get the right
-          // label for the positive class.
+          // label for the positive class. In this case, the second entry
+          // corresponds to the positive class.
           if (this.labelVocab && this.labelVocab.length > 1) {
             const possibleLabelKey = keys.indexOf(this.labelVocab[1]);
             if (possibleLabelKey !== -1) {
