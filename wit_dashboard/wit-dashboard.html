@@ -6441,15 +6441,26 @@ limitations under the License.
               ) {
                 const result = this.inferences.results[modelNum]
                   .classificationResult;
-                // For models that don't return any labels for the classes, fill
-                // them out with class indices.
                 for (
                   let j = 0;
                   j < result.classifications[i].classes.length;
                   j++
                 ) {
+                  // For models that don't return any labels for the classes,
+                  // fill them out with class indices.
                   if (result.classifications[i].classes[j].label == '') {
                     result.classifications[i].classes[j].label = j.toString();
+                  }
+                  // If the label matches a string from the label vocab, then
+                  // replace the label with the class index as that is what
+                  // WIT expects.
+                  if (this.labelVocab != null && this.labelVocab.length > 0) {
+                    const labelIndex = this.labelVocab.indexOf(
+                      result.classifications[i].classes[j].label);
+                    if (labelIndex !== -1) {
+                      result.classifications[i].classes[j].label =
+                        labelIndex.toString();
+                    }
                   }
                 }
                 inferenceMap[this.inferences.indices[i]][
@@ -7932,7 +7943,20 @@ limitations under the License.
                 modelInd,
                 data.length
               );
-              const thresholdData = data[0][_.keys(data[0])].map((point) => {
+              let keys = _.keys(data[0]);
+              // If using a label vocab, then adjust the keys to get the right
+              // label for the positive class. Keys is normally of size 1 as
+              // only partial dependence plot info for the positive class in
+              // binary classification is returned by the server. But in some
+              // cases, there may be entries for both positive and negative
+              // classes. In this case, if there is a label vocab, use it
+              // to filter out the keys to only use the one for the positive
+              // class, which is array index 1 in the label vocab.
+              if (keys.length > 1 && this.labelVocab &&
+                  this.labelVocab.length > 1) {
+                keys = [this.labelVocab[1]];
+              }
+              const thresholdData = data[0][keys].map((point) => {
                 return {
                   step: point.step,
                   scalar: this.overallThresholds[modelInd].threshold,
@@ -7977,8 +8001,19 @@ limitations under the License.
          */
         createPdEntryForCurrentValue: function(featureName, data, modelInd) {
           // Extract the class and feature value index from the key of the PD
-          // chart data .
-          const key = _.keys(data)[0];
+          // chart data. In the standard case, we just need to look at the
+          // first entry to find the initial value.
+          const keys = _.keys(data);
+          let key = keys[0];
+          // If using a label vocab, then adjust the key to get the right
+          // label for the positive class. In this case, the second entry
+          // corresponds to the positive class.
+          if (this.labelVocab && this.labelVocab.length > 1) {
+            const possibleLabelKey = keys.indexOf(this.labelVocab[1]);
+            if (possibleLabelKey !== -1) {
+              key = [1];
+            }
+          }
           const indexOfIndexStr = key.indexOf('index');
           let classToChart = +key;
           let indexForValue = 0;
