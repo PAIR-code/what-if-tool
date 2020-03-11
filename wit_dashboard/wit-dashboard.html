@@ -572,6 +572,10 @@ limitations under the License.
         position: relative;
       }
 
+      .regression-attr-holder {
+        padding-left: 48px;
+      }
+
       .perf-curve-x-label {
         position: absolute;
         bottom: 2px;
@@ -3574,12 +3578,10 @@ limitations under the License.
                           </div>
                         </div>
                         <template is="dom-if" if="[[hasAttributions_(attributions)]]">
-                          <div class="perfs-holder">
-                            <div class="perf-holder">
-                              <div class="conf-text">Mean attributions</div>
-                              <wit-attribution-table attributions="[[meanAttributions_]]" models="[[parsedModelNames]]">
-                              </wit-attribution-table>
-                            </div>
+                          <div class="perf-holder regression-attr-holder">
+                            <div class="conf-text">Mean attributions</div>
+                            <wit-attribution-table attributions="[[getRegressionAttributions(item.name)]]" models="[[parsedModelNames]]">
+                            </wit-attribution-table>
                           </div>
                         </template>
                       </div>
@@ -3742,14 +3744,21 @@ limitations under the License.
             value: {indices: [], attributions: []},
             observer: 'newAttributions_',
           },
+          // Stores all attributions for all datapoints for each model, for
+          // use in generating global attribution stats.
           allAttributions_: {
             type: Array,
             value: () => [],
           },
+          // Stores for each model the list of features and their mean
+          // attributions.
           meanAttributions_: {
             type: Array,
             value: () => [],
           },
+          // When faceting the dataset for performance evaluation, stores for
+          // each facet, for each model the list of features and their mean
+          // attributions.
           facetedMeanAttributions_: {
             type: Object,
             value: () => {},
@@ -5206,12 +5215,13 @@ limitations under the License.
 
             // Calculate global attribution stats for entire dataset and also
             // for each facet of the dataset, if dataset has been sliced.
+
+            // For each model, store a list of all attributions for each
+            // feature, in order to do the averaging. Also do the same
+            // for each facet of the dataset if sliced.
             const combinedAttributions = [
               ...new Array(this.numModels)].map(() => {return {};});
             const facetedAttributions = {};
-            const meanAttributions = [
-              ...new Array(this.numModels)].map(() => {return [];});
-            const facetedMeanAttributions = {};
             this.allAttributions_.forEach((attribution, i) => {
               for (let model = 0; model < attribution.length; model++) {
                 if (attribution[model] == null) {
@@ -5247,6 +5257,13 @@ limitations under the License.
                 });
               }
             });
+
+            // Get the mean of each of the lists of attributions collected
+            // in the previous loop. Sort each list of features from highest
+            // to lowest mean attribution.
+            const meanAttributions = [
+              ...new Array(this.numModels)].map(() => {return [];});
+            const facetedMeanAttributions = {};
             for (let model = 0; model < combinedAttributions.length; model++) {
               const keys = Object.keys(combinedAttributions[model]);
               keys.forEach(key => {
@@ -6884,7 +6901,6 @@ limitations under the License.
           ) {
             this.maxAttribution = -1 * this.minAttribution;
           }
-          console.log(this.allAttributions_);
           this.setAttributions();
           this.createAttributionLegend();
           this.refreshDive_();
@@ -8726,7 +8742,8 @@ limitations under the License.
           return str;
         },
 
-        getFacetedAttributions: function(facetedMeanAttributions, featureValueThreshold) {
+        getFacetedAttributions: function(
+            facetedMeanAttributions, featureValueThreshold) {
           const key = this.getPrintableValue_(featureValueThreshold);
           return facetedMeanAttributions[key];
         },
