@@ -2688,99 +2688,107 @@ limitations under the License.
                         <div class="perf-table-entry-expanded">
                           <template
                             is="dom-if"
-                            if="[[shouldShowFeaturePerfCharts_(selectedLabelFeature, selectedBreakdownFeature, inferences)]]"
+                            if="[[shouldShowFeaturePerfAttributionCharts_(selectedLabelFeature, selectedBreakdownFeature, inferences, attributions)]]"
                           >
                             <div class="perfs-holder">
-                              <div class="perf-holder">
-                                <div class="perf-curve-text">
-                                  ROC curve
-                                  <paper-icon-button
-                                    icon="info-outline"
-                                    class="info-icon threshold-info-icon no-padding"
-                                    on-tap="openDialog"
+                              <template
+                                is="dom-if"
+                                if="[[shouldShowFeaturePerfCharts_(selectedLabelFeature, selectedBreakdownFeature, inferences, attributions)]]"
+                              >
+                                <div class="perf-holder">
+                                  <div class="perf-curve-text">
+                                    ROC curve
+                                    <paper-icon-button
+                                      icon="info-outline"
+                                      class="info-icon threshold-info-icon no-padding"
+                                      on-tap="openDialog"
+                                    >
+                                    </paper-icon-button>
+                                    <paper-dialog
+                                      class="dialog-text"
+                                      horizontal-align="right"
+                                      vertical-align="bottom"
+                                    >
+                                      <div class="dialog-title">ROC curve</div>
+                                      <div>
+                                        A receiver operating characteristic (ROC)
+                                        curve plots the true positive rate (TPR)
+                                        against the false positive rate (FPR) at
+                                        various classification thresholds.
+                                      </div>
+                                    </paper-dialog>
+                                  </div>
+                                  <div class="perf-curve-x-label">
+                                    False positive rate
+                                  </div>
+                                  <div class="perf-curve-y-label">
+                                    True positive rate
+                                  </div>
+                                  <vz-line-chart2
+                                    id="[[getRocChartId(index)]]"
+                                    x-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
+                                    y-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
                                   >
-                                  </paper-icon-button>
-                                  <paper-dialog
-                                    class="dialog-text"
-                                    horizontal-align="right"
-                                    vertical-align="bottom"
-                                  >
-                                    <div class="dialog-title">ROC curve</div>
-                                    <div>
-                                      A receiver operating characteristic (ROC)
-                                      curve plots the true positive rate (TPR)
-                                      against the false positive rate (FPR) at
-                                      various classification thresholds.
-                                    </div>
-                                  </paper-dialog>
+                                  </vz-line-chart2>
                                 </div>
-                                <div class="perf-curve-x-label">
-                                  False positive rate
-                                </div>
-                                <div class="perf-curve-y-label">
-                                  True positive rate
-                                </div>
-                                <vz-line-chart2
-                                  id="[[getRocChartId(index)]]"
-                                  x-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
-                                  y-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
-                                >
-                                </vz-line-chart2>
-                              </div>
-                              <div class="perf-holder">
-                                <div class="perf-curve-text">
-                                  PR curve
-                                  <paper-icon-button
-                                    icon="info-outline"
-                                    class="info-icon threshold-info-icon no-padding"
-                                    on-tap="openDialog"
+                                <div class="perf-holder">
+                                  <div class="perf-curve-text">
+                                    PR curve
+                                    <paper-icon-button
+                                      icon="info-outline"
+                                      class="info-icon threshold-info-icon no-padding"
+                                      on-tap="openDialog"
+                                    >
+                                    </paper-icon-button>
+                                    <paper-dialog
+                                      class="dialog-text"
+                                      horizontal-align="right"
+                                      vertical-align="bottom"
+                                    >
+                                      <div class="dialog-title">PR curve</div>
+                                      <div>
+                                        A precision-recall (PR) curve plots
+                                        precision against recall at various
+                                        classification thresholds.
+                                      </div>
+                                    </paper-dialog>
+                                  </div>
+                                  <div class="perf-curve-x-label">Recall</div>
+                                  <div class="perf-curve-y-label">Precision</div>
+                                  <vz-line-chart2
+                                    id="[[getPrChartId(index)]]"
+                                    x-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
+                                    y-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
                                   >
-                                  </paper-icon-button>
-                                  <paper-dialog
-                                    class="dialog-text"
-                                    horizontal-align="right"
-                                    vertical-align="bottom"
-                                  >
-                                    <div class="dialog-title">PR curve</div>
-                                    <div>
-                                      A precision-recall (PR) curve plots
-                                      precision against recall at various
-                                      classification thresholds.
-                                    </div>
-                                  </paper-dialog>
+                                  </vz-line-chart2>
                                 </div>
-                                <div class="perf-curve-x-label">Recall</div>
-                                <div class="perf-curve-y-label">Precision</div>
-                                <vz-line-chart2
-                                  id="[[getPrChartId(index)]]"
-                                  x-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
-                                  y-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
-                                >
-                                </vz-line-chart2>
-                              </div>
-                              <div class="perf-holder">
-                                <div class="conf-text">Confusion matrix</div>
-                                <template
-                                  is="dom-repeat"
-                                  items="{{featureValueThreshold.threshold}}"
-                                >
-                                  <wit-confusion-matrix
-                                    counts="[[getConfusionCountsModelIndex(inferenceStats_, featureValueThreshold.threshold, index, featureValueThreshold)]]"
-                                    label="[[getConfusionMatrixLabel(index, numModels)]]"
-                                    background="[[getConfusionMatrixColor(index)]]"
-                                    all-items="[[allConfMatrixLabels]]"
+                                <div class="perf-holder">
+                                  <div class="conf-text">Confusion matrix</div>
+                                  <template
+                                    is="dom-repeat"
+                                    items="{{featureValueThreshold.threshold}}"
                                   >
-                                  </wit-confusion-matrix>
-                                </template>
-                              </div>
+                                    <wit-confusion-matrix
+                                      counts="[[getConfusionCountsModelIndex(inferenceStats_, featureValueThreshold.threshold, index, featureValueThreshold)]]"
+                                      label="[[getConfusionMatrixLabel(index, numModels)]]"
+                                      background="[[getConfusionMatrixColor(index)]]"
+                                      all-items="[[allConfMatrixLabels]]"
+                                    >
+                                    </wit-confusion-matrix>
+                                  </template>
+                                </div>
+                              </template>
+                              <template
+                                is="dom-if"
+                                if="[[hasAttributions_(attributions)]]"
+                              >
+                                <div class="perf-holder">
+                                  <div class="conf-text">Mean attributions</div>
+                                  <wit-attribution-table attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]" models="[[parsedModelNames]]">
+                                  </wit-attribution-table>
+                                </div>
+                              </template>
                             </div>
-                          </template>
-                          <template
-                            is="dom-if"
-                            if="[[hasAttributions_(attributions)]]"
-                          >
-                            <wit-attribution-table attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]" models="[[parsedModelNames]]">
-                            </wit-attribution-table>
                           </template>
                         </div>
                       </iron-collapse>
@@ -2884,99 +2892,107 @@ limitations under the License.
                       <div class="perf-table-entry-expanded flex-row-reverse">
                         <template
                           is="dom-if"
-                          if="[[shouldShowOverallPerfCharts_(selectedLabelFeature, selectedBreakdownFeature, inferences)]]"
+                          if="[[shouldShowOverallPerfAttributionCharts_(selectedLabelFeature, selectedBreakdownFeature, inferences, attributions)]]"
                         >
                           <div class="perfs-holder">
-                            <div class="perf-holder">
-                              <div class="perf-curve-text">
-                                ROC curve
-                                <paper-icon-button
-                                  icon="info-outline"
-                                  class="info-icon threshold-info-icon no-padding"
-                                  on-tap="openDialog"
+                            <template
+                              is="dom-if"
+                              if="[[shouldShowOverallPerfCharts_(selectedLabelFeature, selectedBreakdownFeature, inferences, attributions)]]"
+                            >
+                              <div class="perf-holder">
+                                <div class="perf-curve-text">
+                                  ROC curve
+                                  <paper-icon-button
+                                    icon="info-outline"
+                                    class="info-icon threshold-info-icon no-padding"
+                                    on-tap="openDialog"
+                                  >
+                                  </paper-icon-button>
+                                  <paper-dialog
+                                    class="dialog-text"
+                                    horizontal-align="right"
+                                    vertical-align="bottom"
+                                  >
+                                    <div class="dialog-title">ROC curve</div>
+                                    <div>
+                                      A receiver operating characteristic (ROC)
+                                      curve plots the true positive rate (TPR)
+                                      against the false positive rate (FPR) at
+                                      various classification thresholds.
+                                    </div>
+                                  </paper-dialog>
+                                </div>
+                                <div class="perf-curve-x-label">
+                                  False positive rate
+                                </div>
+                                <div class="perf-curve-y-label">
+                                  True positive rate
+                                </div>
+                                <vz-line-chart2
+                                  id="rocchart"
+                                  x-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
+                                  y-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
                                 >
-                                </paper-icon-button>
-                                <paper-dialog
-                                  class="dialog-text"
-                                  horizontal-align="right"
-                                  vertical-align="bottom"
-                                >
-                                  <div class="dialog-title">ROC curve</div>
-                                  <div>
-                                    A receiver operating characteristic (ROC)
-                                    curve plots the true positive rate (TPR)
-                                    against the false positive rate (FPR) at
-                                    various classification thresholds.
-                                  </div>
-                                </paper-dialog>
+                                </vz-line-chart2>
                               </div>
-                              <div class="perf-curve-x-label">
-                                False positive rate
-                              </div>
-                              <div class="perf-curve-y-label">
-                                True positive rate
-                              </div>
-                              <vz-line-chart2
-                                id="rocchart"
-                                x-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
-                                y-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
-                              >
-                              </vz-line-chart2>
-                            </div>
-                            <div class="perf-holder">
-                              <div class="perf-curve-text">
-                                PR curve
-                                <paper-icon-button
-                                  icon="info-outline"
-                                  class="info-icon threshold-info-icon no-padding"
-                                  on-tap="openDialog"
+                              <div class="perf-holder">
+                                <div class="perf-curve-text">
+                                  PR curve
+                                  <paper-icon-button
+                                    icon="info-outline"
+                                    class="info-icon threshold-info-icon no-padding"
+                                    on-tap="openDialog"
+                                  >
+                                  </paper-icon-button>
+                                  <paper-dialog
+                                    class="dialog-text"
+                                    horizontal-align="right"
+                                    vertical-align="bottom"
+                                  >
+                                    <div class="dialog-title">PR curve</div>
+                                    <div>
+                                      A precision-recall (PR) curve plots
+                                      precision against recall at various
+                                      classification thresholds.
+                                    </div>
+                                  </paper-dialog>
+                                </div>
+                                <div class="perf-curve-x-label">Recall</div>
+                                <div class="perf-curve-y-label">Precision</div>
+                                <vz-line-chart2
+                                  id="prchart"
+                                  x-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
+                                  y-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
                                 >
-                                </paper-icon-button>
-                                <paper-dialog
-                                  class="dialog-text"
-                                  horizontal-align="right"
-                                  vertical-align="bottom"
-                                >
-                                  <div class="dialog-title">PR curve</div>
-                                  <div>
-                                    A precision-recall (PR) curve plots
-                                    precision against recall at various
-                                    classification thresholds.
-                                  </div>
-                                </paper-dialog>
+                                </vz-line-chart2>
                               </div>
-                              <div class="perf-curve-x-label">Recall</div>
-                              <div class="perf-curve-y-label">Precision</div>
-                              <vz-line-chart2
-                                id="prchart"
-                                x-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
-                                y-axis-formatter="[[getSimpleAxisFormatter(axisPrecision)]]"
-                              >
-                              </vz-line-chart2>
-                            </div>
-                            <div class="perf-holder">
-                              <div class="conf-text">Confusion matrix</div>
-                              <template
-                                is="dom-repeat"
-                                items="{{overallThresholds}}"
-                              >
-                                <wit-confusion-matrix
-                                  counts="[[getConfusionCountsModelIndex(inferenceStats_, overallThresholds, index)]]"
-                                  label="[[getConfusionMatrixLabel(index, numModels)]]"
-                                  background="[[getConfusionMatrixColor(index)]]"
-                                  all-items="[[allConfMatrixLabels]]"
+                              <div class="perf-holder">
+                                <div class="conf-text">Confusion matrix</div>
+                                <template
+                                  is="dom-repeat"
+                                  items="{{overallThresholds}}"
                                 >
-                                </wit-confusion-matrix>
-                              </template>
-                            </div>
+                                  <wit-confusion-matrix
+                                    counts="[[getConfusionCountsModelIndex(inferenceStats_, overallThresholds, index)]]"
+                                    label="[[getConfusionMatrixLabel(index, numModels)]]"
+                                    background="[[getConfusionMatrixColor(index)]]"
+                                    all-items="[[allConfMatrixLabels]]"
+                                  >
+                                  </wit-confusion-matrix>
+                                </template>
+                              </div>
+                            </template>
+                            <template
+                              is="dom-if"
+                              if="[[hasAttributions_(attributions)]]"
+                            >
+                              <div class="perf-holder">
+                                <div class="conf-text">Mean attributions</div>
+                                <wit-attribution-table attributions="[[meanAttributions_]]" models="[[parsedModelNames]]">
+                                </wit-attribution-table>
+                              </div>
+                            </template>
                           </div>
-                        </template>
-                        <template
-                          is="dom-if"
-                          if="[[hasAttributions_(attributions)]]"
-                        >
-                          <wit-attribution-table attributions=[[meanAttributions_]] models="[[parsedModelNames]]">
-                          </wit-attribution-table>
                         </template>
                       </div>
                     </template>
@@ -3262,8 +3278,13 @@ limitations under the License.
                             is="dom-if"
                             if="[[hasAttributions_(attributions)]]"
                           >
-                            <wit-attribution-table attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]" models="[[parsedModelNames]]">
-                            </wit-attribution-table>
+                            <div class="perfs-holder">
+                              <div class="perf-holder">
+                                <div class="conf-text">Mean attributions</div>
+                                <wit-attribution-table attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]" models="[[parsedModelNames]]">
+                                </wit-attribution-table>
+                              </div>
+                            </div>
                           </template>
                         </div>
                       </iron-collapse>
@@ -3435,8 +3456,13 @@ limitations under the License.
                           is="dom-if"
                           if="[[hasAttributions_(attributions)]]"
                         >
-                          <wit-attribution-table attributions="[[meanAttributions_]]" models="[[parsedModelNames]]">
-                          </wit-attribution-table>
+                          <div class="perfs-holder">
+                            <div class="perf-holder">
+                              <div class="conf-text">Mean attributions</div>
+                              <wit-attribution-table attributions="[[meanAttributions_]]" models="[[parsedModelNames]]">
+                              </wit-attribution-table>
+                            </div>
+                          </div>
                         </template>
                       </div>
                     </template>
@@ -3547,12 +3573,14 @@ limitations under the License.
                             [[formatError(item.medianSquaredError)]]
                           </div>
                         </div>
-                        <template
-                          is="dom-if"
-                          if="[[hasAttributions_(attributions)]]"
-                        >
-                          <wit-attribution-table attributions=[[getRegressionAttributions(item.name)]] models="[[parsedModelNames]]">
-                          </wit-attribution-table>
+                        <template is="dom-if" if="[[hasAttributions_(attributions)]]">
+                          <div class="perfs-holder">
+                            <div class="perf-holder">
+                              <div class="conf-text">Mean attributions</div>
+                              <wit-attribution-table attributions="[[meanAttributions_]]" models="[[parsedModelNames]]">
+                              </wit-attribution-table>
+                            </div>
+                          </div>
                         </template>
                       </div>
                     </template>
@@ -4654,6 +4682,16 @@ limitations under the License.
           );
         },
 
+        shouldShowOverallPerfAttributionCharts_: function(
+          selectedLabelFeature,
+          selectedBreakdownFeature,
+          inferences, attributions
+        ) {
+          return this.shouldShowOverallPerfCharts_(selectedLabelFeature,
+            selectedBreakdownFeature, inferences) ||
+            this.hasAttributions_(attributions);
+        },
+
         shouldShowFeaturePerfCharts_: function(
           selectedLabelFeature,
           selectedBreakdownFeature,
@@ -4664,6 +4702,14 @@ limitations under the License.
             selectedBreakdownFeature != '' &&
             inferences != null
           );
+        },
+
+        shouldShowFeaturePerfAttributionCharts_: function(
+            selectedLabelFeature, selectedBreakdownFeature, inferences,
+            attributions) {
+          return this.shouldShowFeaturePerfCharts_(selectedLabelFeature,
+            selectedBreakdownFeature, inferences) ||
+            this.hasAttributions_(attributions);
         },
 
         shouldShowCostRatio_: function(
@@ -5157,10 +5203,14 @@ limitations under the License.
               }
               inferenceStatsArray.push(inferenceStats);
             }
-            // TODO(WEX): Add global attribution stats
-            const combinedAttributions = [...new Array(this.numModels)].map(() => {return {};});
+
+            // Calculate global attribution stats for entire dataset and also
+            // for each facet of the dataset, if dataset has been sliced.
+            const combinedAttributions = [
+              ...new Array(this.numModels)].map(() => {return {};});
             const facetedAttributions = {};
-            const meanAttributions = [...new Array(this.numModels)].map(() => {return [];});
+            const meanAttributions = [
+              ...new Array(this.numModels)].map(() => {return [];});
             const facetedMeanAttributions = {};
             this.allAttributions_.forEach((attribution, i) => {
               for (let model = 0; model < attribution.length; model++) {
@@ -5175,7 +5225,8 @@ limitations under the License.
                     this.selectedSecondBreakdownFeature
                   );
                   if (!facetedAttributions[facetKey]) {
-                    facetedAttributions[facetKey] = [...new Array(this.numModels)].map(() => {return {};});
+                    facetedAttributions[facetKey] = [
+                      ...new Array(this.numModels)].map(() => {return {};});
                   }
                   facetedAttrEntry = facetedAttributions[facetKey];
                 }
@@ -5184,14 +5235,14 @@ limitations under the License.
                   if (!(key in combinedAttributions[model])) {
                     combinedAttributions[model][key] = [];
                   }
-                  combinedAttributions[model][key] = combinedAttributions[model][key].concat(
-                    attribution[model][key]);
+                  combinedAttributions[model][key] = combinedAttributions[
+                    model][key].concat(attribution[model][key]);
                   if (facetedAttrEntry != null) {
                     if (!(key in facetedAttrEntry[model])) {
                       facetedAttrEntry[model][key] = [];
                     }
-                    facetedAttrEntry[model][key] = facetedAttrEntry[model][key].concat(
-                      attribution[model][key]);
+                    facetedAttrEntry[model][key] = facetedAttrEntry[
+                      model][key].concat(attribution[model][key]);
                   }
                 });
               }
@@ -5208,23 +5259,24 @@ limitations under the License.
             const facetedKeys = Object.keys(facetedAttributions);
             if (facetedKeys.length > 0) {
               facetedKeys.forEach(key => {
-                facetedMeanAttributions[key] = [...new Array(this.numModels)].map(() => {return [];});
+                facetedMeanAttributions[key] = [
+                  ...new Array(this.numModels)].map(() => {return [];});
                 const facet = facetedAttributions[key];
                 for (let model = 0; model < facet.length; model++) {
                   const features = Object.keys(facet[model]);
                   features.forEach(feature => {
                     const attrs = facet[model][feature];
                     const mean = attrs.reduce((a, b) => a + b) / attrs.length;
-                    facetedMeanAttributions[key][model].push({key: feature, mean});
+                    facetedMeanAttributions[key][model].push(
+                      {key: feature, mean});
                   });
-                  facetedMeanAttributions[key][model].sort((a, b) => b.mean - a.mean);
+                  facetedMeanAttributions[key][model].sort(
+                    (a, b) => b.mean - a.mean);
                 }
               });
             }
             this.meanAttributions_ = meanAttributions;
             this.facetedMeanAttributions_ = facetedMeanAttributions;
-            console.log(meanAttributions);
-            console.log(facetedMeanAttributions);
 
             regressionEntries = this.sortRegressionEntries(regressionEntries);
             this.regressionEntries_ = [];

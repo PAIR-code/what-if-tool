@@ -16,46 +16,53 @@ limitations under the License.
 -->
 <link rel="import" href="../tf-imports/polymer.html" />
 
-<!-- Displays a table of atrributions. -->
+<!-- Displays a table of atrributions per model. -->
 <dom-module id="wit-attribution-table">
   <template>
     <style>
       table {
         display: inline-block;
+        font-size: 14px;
       }
-      td {
-        text-align: right;
+      th {
+        color: #80868b;
+        font-weight: 500;
+        padding: 3px;
       }
-      th,
       td {
         font-size: 14px;
         padding: 3px;
-        font-weight: normal;
       }
       .holder {
-          display: flex;
+        display: flex;
+      }
+      .table-holder {
+        padding-right: 8px;
+      }
+      .feature {
+        text-align: left;
+      }
+      .value {
+        text-align: right;
       }
     </style>
     <div class="holder">
-        <template is="dom-repeat" items="[[attributions]]" as="table">
-            <div class="table-holder">
-                <template is="dom-if" if="[[shouldDisplayModelName(models)]]">
-                  <div class="model-name">[[getModelNameDisplay(models, index)]]</div>
-                </template>
-                <table>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Mean attribution</th>
-                    </tr>
-                    <template is="dom-repeat" items="[[table]]">
-                        <tr>
-                            <td>[[item.key]]</td>
-                            <td>[[display(item.mean)]]</td>
-                        </tr>
-                    </template>
-                </table>
-            </div>
-        </template>
+      <template is="dom-repeat" items="[[attributions]]" as="table">
+        <div class="table-holder">
+          <table>
+            <tr>
+              <th class="feature">Feature</th>
+              <th class="value">[[displayAttributionHeader(models, index)]]</th>
+            </tr>
+            <template is="dom-repeat" items="[[table]]">
+              <tr>
+                <td class="feature">[[item.key]]</td>
+                <td class="value">[[displayNum(item.mean)]]</td>
+              </tr>
+            </template>
+          </table>
+        </div>
+      </template>
     </div>
   </template>
   <script>
@@ -65,14 +72,16 @@ limitations under the License.
         attributions: Array,
         models: Array,
       },
-      display: function(num) {
+      displayNum: function(num) {
         return d3.format('.3f')(num);
       },
-      shouldDisplayModelName: function(models) {
-        return models != null && models.length > 1;
-      },
-      getModelNameDisplay: function(models, index) {
-        return 'Model: ' + models[index];
+      displayAttributionHeader: function(models, index) {
+        let str = 'attribution';
+        if (models != null && models.length > 1) {
+          const modelName = models[index];
+          str += ` (model ${modelName})`;
+        }
+        return str;
       },
     });
   </script>
