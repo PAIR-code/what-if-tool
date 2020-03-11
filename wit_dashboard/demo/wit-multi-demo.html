@@ -226,6 +226,15 @@ limitations under the License.
               {classificationResult: {classifications: []}},
               {classificationResult: {classifications: []}},
             ];
+            const extraOutputs = {};
+            extraOutputs.indices = indices;
+            const attributions = [];
+            const attributions2 = [];
+            extraOutputs.extra = [{attributions: attributions}, {attributions: attributions2}];
+            for (let i = 0; i < indices.length; i++) {
+              attributions.push({'age': 0.3, 'capital-gain': -0.023333});
+              attributions2.push({'age': 0.1, 'capital-gain': 0.123333});
+            }
             const tensorArr = indices.map((idx) =>
               this.convertExToTensor(this.data[idx])
             );
@@ -256,6 +265,7 @@ limitations under the License.
               };
             }
             this.$.dash.inferences = inferences;
+            this.$.dash.extraOutputs = extraOutputs;
             this.indicesToInfer = {};
           });
           this.$.dash.addEventListener('get-eligible-features', (e) => {

@@ -46,6 +46,7 @@ limitations under the License.
 <link rel="import" href="../tf-tensorboard/registry.html" />
 <link rel="import" href="../vz-bar-chart/vz-bar-chart.html" />
 <link rel="import" href="../vz-line-chart2/vz-line-chart2.html" />
+<link rel="import" href="./wit-attribution-table.html" />
 <link rel="import" href="./wit-confusion-matrix.html" />
 <link rel="import" href="./wit-example-viewer.html" />
 <link rel="import" href="./wit-inference-viewer.html" />
@@ -2684,7 +2685,7 @@ limitations under the License.
                         </div>
                       </div>
                       <iron-collapse opened="{{featureValueThreshold.opened}}">
-                        <div class="perf-table-entry-expanded flex-row-reverse">
+                        <div class="perf-table-entry-expanded">
                           <template
                             is="dom-if"
                             if="[[shouldShowFeaturePerfCharts_(selectedLabelFeature, selectedBreakdownFeature, inferences)]]"
@@ -2773,6 +2774,13 @@ limitations under the License.
                                 </template>
                               </div>
                             </div>
+                          </template>
+                          <template
+                            is="dom-if"
+                            if="[[hasAttributions_(attributions)]]"
+                          >
+                            <wit-attribution-table attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]" models="[[parsedModelNames]]">
+                            </wit-attribution-table>
                           </template>
                         </div>
                       </iron-collapse>
@@ -2962,6 +2970,13 @@ limitations under the License.
                               </template>
                             </div>
                           </div>
+                        </template>
+                        <template
+                          is="dom-if"
+                          if="[[hasAttributions_(attributions)]]"
+                        >
+                          <wit-attribution-table attributions=[[meanAttributions_]] models="[[parsedModelNames]]">
+                          </wit-attribution-table>
                         </template>
                       </div>
                     </template>
@@ -3243,6 +3258,13 @@ limitations under the License.
                               </div>
                             </template>
                           </template>
+                          <template
+                            is="dom-if"
+                            if="[[hasAttributions_(attributions)]]"
+                          >
+                            <wit-attribution-table attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]" models="[[parsedModelNames]]">
+                            </wit-attribution-table>
+                          </template>
                         </div>
                       </iron-collapse>
                     </template>
@@ -3409,6 +3431,13 @@ limitations under the License.
                             </div>
                           </template>
                         </template>
+                        <template
+                          is="dom-if"
+                          if="[[hasAttributions_(attributions)]]"
+                        >
+                          <wit-attribution-table attributions="[[meanAttributions_]]" models="[[parsedModelNames]]">
+                          </wit-attribution-table>
+                        </template>
                       </div>
                     </template>
                   </div>
@@ -3518,6 +3547,13 @@ limitations under the License.
                             [[formatError(item.medianSquaredError)]]
                           </div>
                         </div>
+                        <template
+                          is="dom-if"
+                          if="[[hasAttributions_(attributions)]]"
+                        >
+                          <wit-attribution-table attributions=[[getRegressionAttributions(item.name)]] models="[[parsedModelNames]]">
+                          </wit-attribution-table>
+                        </template>
                       </div>
                     </template>
                   </div>
@@ -3681,6 +3717,14 @@ limitations under the License.
           allAttributions_: {
             type: Array,
             value: () => [],
+          },
+          meanAttributions_: {
+            type: Array,
+            value: () => [],
+          },
+          facetedMeanAttributions_: {
+            type: Object,
+            value: () => {},
           },
           // Minimum attribution value seen in the data.
           minAttribution: {type: Number, value: 0},
@@ -4633,6 +4677,10 @@ limitations under the License.
           );
         },
 
+        shouldShowAttributionMetrics_: function(meanAttributions) {
+          return meanAttributions != null && meanAttributions.length > 0;
+        },
+
         arePartialDependencePlotsEnabled_: function(
           selectedExampleAndInference,
           modelName,
@@ -5112,7 +5160,7 @@ limitations under the License.
             // TODO(WEX): Add global attribution stats
             const combinedAttributions = [...new Array(this.numModels)].map(() => {return {};});
             const facetedAttributions = {};
-            const meanAttributions = [...new Array(this.numModels)].map(() => {return {};});
+            const meanAttributions = [...new Array(this.numModels)].map(() => {return [];});
             const facetedMeanAttributions = {};
             this.allAttributions_.forEach((attribution, i) => {
               for (let model = 0; model < attribution.length; model++) {
@@ -5153,24 +5201,28 @@ limitations under the License.
               keys.forEach(key => {
                 const attrs = combinedAttributions[model][key];
                 const mean = attrs.reduce((a, b) => a + b) / attrs.length;
-                meanAttributions[model][key] = mean;
+                meanAttributions[model].push({key, mean});
               });
+              meanAttributions[model].sort((a, b) => b.mean - a.mean);
             }
             const facetedKeys = Object.keys(facetedAttributions);
             if (facetedKeys.length > 0) {
               facetedKeys.forEach(key => {
-                facetedMeanAttributions[key] = [...new Array(this.numModels)].map(() => {return {};});
+                facetedMeanAttributions[key] = [...new Array(this.numModels)].map(() => {return [];});
                 const facet = facetedAttributions[key];
                 for (let model = 0; model < facet.length; model++) {
                   const features = Object.keys(facet[model]);
                   features.forEach(feature => {
                     const attrs = facet[model][feature];
                     const mean = attrs.reduce((a, b) => a + b) / attrs.length;
-                    facetedMeanAttributions[key][model][feature] = mean;
+                    facetedMeanAttributions[key][model].push({key: feature, mean});
                   });
+                  facetedMeanAttributions[key][model].sort((a, b) => b.mean - a.mean);
                 }
               });
             }
+            this.meanAttributions_ = meanAttributions;
+            this.facetedMeanAttributions_ = facetedMeanAttributions;
             console.log(meanAttributions);
             console.log(facetedMeanAttributions);
 
@@ -8620,6 +8672,18 @@ limitations under the License.
             str += 'perf-table-entry-trivial';
           }
           return str;
+        },
+
+        getFacetedAttributions: function(facetedMeanAttributions, featureValueThreshold) {
+          const key = this.getPrintableValue_(featureValueThreshold);
+          return facetedMeanAttributions[key];
+        },
+
+        getRegressionAttributions: function(key) {
+          if (key === 'All datapoints') {
+            return this.meanAttributions_;
+          }
+          return this.facetedMeanAttributions_[key];
         },
       });
 
