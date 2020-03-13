@@ -2689,7 +2689,7 @@ limitations under the License.
                         </div>
                       </div>
                       <iron-collapse opened="{{featureValueThreshold.opened}}">
-                        <div class="perf-table-entry-expanded">
+                        <div class="perf-table-entry-expanded flex-row-reverse">
                           <template
                             is="dom-if"
                             if="[[shouldShowFeaturePerfAttributionCharts_(selectedLabelFeature, selectedBreakdownFeature, inferences, attributions)]]"
@@ -3746,19 +3746,29 @@ limitations under the License.
           },
           // Stores all attributions for all datapoints for each model, for
           // use in generating global attribution stats.
+          // Array<Array<{[feature: string]: number[]}>> with the outer array
+          // being datapoints in the dataset, the inner array being model
+          // indicies, and the dictionary containing a list of feature
+          // attributions for each feature.
           allAttributions_: {
             type: Array,
             value: () => [],
           },
           // Stores for each model the list of features and their mean
           // attributions.
+          // Array<Array<{feature: string, mean: number}>> with outer array
+          // being model indicies and inner array being features with
+          // attributions, sorted by attribution strength.
           meanAttributions_: {
             type: Array,
             value: () => [],
           },
           // When faceting the dataset for performance evaluation, stores for
           // each facet, for each model the list of features and their mean
-          // attributions.
+          // attributions for the datapoints in that facet.
+          // {[key: string]: MeanAttributionsArray} with the key being the
+          // stringified name of the facet and MeanAttributionsArray being
+          // of the type of the meanAttributions_ attribute defined above.
           facetedMeanAttributions_: {
             type: Object,
             value: () => {},
@@ -4992,7 +5002,6 @@ limitations under the License.
                       this.selectedBreakdownFeature,
                       this.selectedSecondBreakdownFeature
                     );
-                    facetedStats = inferenceStats.faceted[facetKey];
                     if (!inferenceStats.faceted[facetKey]) {
                       inferenceStats.faceted[facetKey] = {thresholds: []};
                       for (let i = 0; i < 101; i++) {
@@ -5795,7 +5804,7 @@ limitations under the License.
             for (let i = 0; i < values.length; i++) {
               const featureValue = values[i];
               const thresholdToSet = this.findOptimalThreshold_(
-                this.inferenceStats_[modelInd].faceted[featureValue]
+                this.inferenceStats_[modelInd].faceted[featureValue].thresholds
               );
               this.set(
                 'featureValueThresholds.' +
@@ -5863,13 +5872,14 @@ limitations under the License.
             let bestThresholds = null;
             const modelStats = this.inferenceStats_[modelInd];
             const values = Object.keys(modelStats.faceted);
-            const firstFacet = modelStats.faceted[values[0]];
+            const firstFacet = modelStats.faceted[values[0]].thresholds;
             for (let i = 0; i < firstFacet.length; i++) {
               const firstFacetMeasure = fairnessCalculator(firstFacet[i]);
               const facetThresholds = [i];
               let cost = this.getCost(firstFacet[i]);
               for (let facetIdx = 1; facetIdx < values.length; facetIdx++) {
-                const currentFacet = modelStats.faceted[values[facetIdx]];
+                const currentFacet =
+                  modelStats.faceted[values[facetIdx]].thresholds;
                 const currentFacetThreshold = this.thresholdClosestToMeasure(
                   currentFacet,
                   firstFacetMeasure,
