@@ -37,6 +37,7 @@ tf_web_library(
     ],
     path = "/wit-dashboard",
     deps = [
+        ":wit_attribution_table",
         ":wit_confusion_matrix",
         ":wit_example_viewer",
         ":wit_inference_panel",
@@ -141,6 +142,17 @@ tf_web_library(
     name = "wit_confusion_matrix",
     srcs = [
         "wit-confusion-matrix.html",
+    ],
+    path = "/wit-dashboard",
+    deps = [
+        "@org_tensorflow_tensorboard//tensorboard/components/tf_imports:polymer",
+    ],
+)
+
+tf_web_library(
+    name = "wit_attribution_table",
+    srcs = [
+        "wit-attribution-table.html",
     ],
     path = "/wit-dashboard",
     deps = [

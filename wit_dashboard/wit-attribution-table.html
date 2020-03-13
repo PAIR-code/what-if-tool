@@ -1,0 +1,88 @@
+<!--
+@license
+Copyright 2018 The TensorFlow Authors. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<link rel="import" href="../tf-imports/polymer.html" />
+
+<!-- Displays a table of atrributions per model. -->
+<dom-module id="wit-attribution-table">
+  <template>
+    <style>
+      table {
+        display: inline-block;
+        font-size: 14px;
+      }
+      th {
+        color: #80868b;
+        font-weight: 500;
+        padding: 3px;
+      }
+      td {
+        font-size: 14px;
+        padding: 3px;
+      }
+      .holder {
+        display: flex;
+      }
+      .table-holder {
+        padding-right: 8px;
+      }
+      .feature {
+        text-align: left;
+      }
+      .value {
+        text-align: right;
+      }
+    </style>
+    <div class="holder">
+      <template is="dom-repeat" items="[[attributions]]" as="table">
+        <div class="table-holder">
+          <table>
+            <tr>
+              <th class="feature">Feature</th>
+              <th class="value">[[displayAttributionHeader(models, index)]]</th>
+            </tr>
+            <template is="dom-repeat" items="[[table]]">
+              <tr>
+                <td class="feature">[[item.key]]</td>
+                <td class="value">[[displayNum(item.mean)]]</td>
+              </tr>
+            </template>
+          </table>
+        </div>
+      </template>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'wit-attribution-table',
+      properties: {
+        attributions: Array,
+        models: Array,
+      },
+      displayNum: function(num) {
+        return d3.format('.3f')(num);
+      },
+      displayAttributionHeader: function(models, index) {
+        let str = 'attribution';
+        if (models != null && models.length > 1) {
+          const modelName = models[index];
+          str += ` (model ${modelName})`;
+        }
+        return str;
+      },
+    });
+  </script>
+</dom-module>

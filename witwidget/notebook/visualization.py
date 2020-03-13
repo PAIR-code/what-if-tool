@@ -428,10 +428,6 @@ class WitConfigBuilder(object):
       - A list of numbers representing the attribution to each value in the
         feature for multivalent features - such as attributions to individual
         pixels in an image or numbers in a list of numbers.
-      - A 2D list for sparse feature attribution. Index 0 contains a list of
-        feature values that there are attribution scores for. Index 1 contains
-        a list of attribution values for the corresponding feature values in
-        the first list.
 
     This dict can contain any other keys, with their values being a list of
     prediction-time strings or numbers for each example being predicted. These
