@@ -1357,6 +1357,21 @@ limitations under the License.
           >User-specified</paper-radio-button
         >
       </paper-radio-group>
+      <template is="dom-if" if="[[!shouldHideCounterfactualValueSelector_(attributions, customDistanceFunctionSet)]]">
+        <div class="radiolabel">Distance based on</div>
+        <paper-radio-group class="dist-switch" selected="{{distanceValueSwitch}}">
+          <paper-radio-button
+            class="dist-radio"
+            name="values"
+            >Feature values</paper-radio-button
+          >
+          <paper-radio-button
+            class="dist-radio"
+            name="attribution"
+            >Attributions</paper-radio-button
+          >
+        </paper-radio-group>
+      </template>
       <paper-dropdown-menu
         label="Apply to datapoints visualization"
         class="threshold-dropdown distance-vis-dropdown"
@@ -1500,6 +1515,21 @@ limitations under the License.
                             >Custom distance</paper-radio-button
                           >
                         </paper-radio-group>
+                        <paper-dropdown-menu
+                          label="Calculate using:"
+                          no-label-float
+                          class="short-dropdown"
+                          hidden$="[[shouldHideCounterfactualValueSelector_(attributions, customDistanceFunctionSet)]]"
+                        >
+                          <paper-listbox
+                            class="dropdown-content"
+                            slot="dropdown-content"
+                            selected="{{nearestCounterfactualValueIndex}}"
+                          >
+                            <paper-item>Feature values</paper-item>
+                            <paper-item>Attributions</paper-item>
+                          </paper-listbox>
+                        </paper-dropdown-menu>
                         <template is="dom-if" if="[[isRegression_(modelType)]]">
                           <div
                             title="Minimum distance in inferred value to consider counterfactual"
@@ -3870,6 +3900,12 @@ limitations under the License.
             type: Number,
             value: 0,
           },
+          // Whether to calculate counterfactuals using feature values (0),
+          // or attributions (1).
+          nearestCounterfactualValueIndex: {
+            type: Number,
+            value: 0
+          },
           // Choose which model is used for attribution value display
           attributionModelIndex: {
             type: Number,
@@ -3984,6 +4020,10 @@ limitations under the License.
           facetDistSwitch: {
             type: String,
             value: 'L1',
+          },
+          distanceValueSwitch: {
+            type: String,
+            value: 'values',
           },
           // Facets Dive feature name for distance to the selected example.
           facetDistFeatureName: {
@@ -4174,8 +4214,8 @@ limitations under the License.
         },
 
         observers: [
-          'setFacetDistFeatureName(facetDistSwitch, selected)',
-          'nearestCounterfactualStatusChanged_(showNearestCounterfactual, nearestCounterfactualModelIndex, nearestCounterfactualDist, minCounterfactualValueDist)',
+          'setFacetDistFeatureName(facetDistSwitch, selected, distanceValueSwitch, attributionModelIndex)',
+          'nearestCounterfactualStatusChanged_(showNearestCounterfactual, nearestCounterfactualModelIndex, nearestCounterfactualDist, minCounterfactualValueDist, nearestCounterfactualValueIndex, attributionModelIndex)',
         ],
 
         // Required function.
@@ -4294,12 +4334,14 @@ limitations under the License.
           } else {
             const dists = [];
             const useL2Distance = this.facetDistSwitch == 'L2';
+            const useFeatureValues = this.distanceValueSwitch == 'values';
             for (let i = 0; i < this.visdata.length; i++) {
               dists.push(
                 this.getDist(
                   this.visdata[selected],
                   this.visdata[i],
-                  useL2Distance
+                  useL2Distance,
+                  useFeatureValues
                 )
               );
             }
@@ -4350,9 +4392,16 @@ limitations under the License.
           }
         },
 
-        setFacetDistFeatureName: function(facetDistSwitch, selected) {
+        setFacetDistFeatureName: function(facetDistSwitch, selected,
+            distanceValueSwitch, attributionModelIndex) {
+          const useModelIndex = this.numModels > 1;
+          const distanceDetails = distanceValueSwitch === 'values' ? '' : 
+            (this.numModels === 1
+              ? ' attributions'
+              : ' attributions for model ' +
+                this.getModelName_(attributionModelIndex));
           this.facetDistFeatureName =
-            ' ' + facetDistSwitch + ' distance to datapoint ' + selected[0];
+            ' ' + facetDistSwitch + distanceDetails + ' distance to datapoint ' + selected[0];
         },
 
         nearestCounterfactualStatusChanged_: function(show) {
@@ -4474,7 +4523,8 @@ limitations under the License.
             let dist = this.getDist(
               this.visdata[selected],
               this.visdata[i],
-              this.nearestCounterfactualDist == 'L2'
+              this.nearestCounterfactualDist == 'L2',
+              this.nearestCounterfactualValueIndex == 0
             );
             if (dist < closestDist) {
               closestDist = dist;
@@ -4507,22 +4557,37 @@ limitations under the License.
         /**
          * Gets distance between two examples using L1 or L2 distance.
          */
-        getDist: function(a, b, useL2Distance) {
+        getDist: function(a, b, useL2Distance, useFeatureValues) {
           let dist = 0;
           const allKeys = [...new Set([...Object.keys(a), ...Object.keys(b)])];
           for (let featIndex = 0; featIndex < allKeys.length; featIndex++) {
             const feat = allKeys[featIndex];
-            // Skip inferred keys, label feature and features with only unique
-            // values.
+            // Skip inferred keys, label feature and non-numeric features with
+            // only unique values.
             if (
               this.isComputedKeyStr_(feat) ||
               feat == this.selectedLabelFeature ||
-              this.stats[feat].uniqueCount ==
-                this.examplesAndInferences.length ||
-              this.isAttributionKeyStr_(feat)
+              (!this.distanceStats_[feat].isNumeric &&
+                this.stats[feat].uniqueCount ==
+                this.examplesAndInferences.length)
             ) {
               continue;
             }
+            // Skip attributions if using feature values, and skip
+            // non-attributions if using attributions instead.
+            if ((useFeatureValues && this.isAttributionKeyStr_(feat)) ||
+                (!useFeatureValues && !this.isAttributionKeyStr_(feat))) {
+              continue;
+            }
+            // Only use attribution features from currently selected
+            // attribution model.
+            if (this.numModels > 1 && !useFeatureValues) {
+              if (!feat.endsWith(this.getModelName_(
+                this.attributionModelIndex))) {
+                continue;
+              }
+            }
+
             let aVals = a[feat];
             let bVals = b[feat];
             if (!Array.isArray(aVals)) {
@@ -4687,6 +4752,12 @@ limitations under the License.
 
         shouldHideModelSelector_: function(modelNames) {
           return !(modelNames && modelNames.length > 1);
+        },
+
+        shouldHideCounterfactualValueSelector_: function(
+            attributions, customDistanceFunctionSet) {
+          return !this.hasAttributions_(attributions) ||
+              customDistanceFunctionSet;
         },
 
         shouldShowOverallPerfCharts_: function(
