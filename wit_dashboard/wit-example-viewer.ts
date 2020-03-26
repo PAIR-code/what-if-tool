@@ -475,6 +475,9 @@ namespace wit_example_viewer {
     },
 
     _haveSaliencyImpl: function() {
+      // TODO(jameswex): Color counterfactual column if using attribution-based
+      // counterfactuals.
+
       // Reset all value pills to default settings.
       this.selectAll('.value-pill')
         .style('background', noAttributionColor)
