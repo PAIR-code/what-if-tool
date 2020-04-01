@@ -25,6 +25,7 @@ setuptools.setup(
     version="1.6.0",
     description="What-If Tool TensorBoard plugin.",
     packages=setuptools.find_packages(),
+    license='Apache 2.0',
     package_data={
         "tensorboard_plugin_wit": ["static/**"],
     },
