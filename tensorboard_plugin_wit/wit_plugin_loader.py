@@ -18,8 +18,14 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import pkg_resources
 import tensorboard
 from tensorboard.plugins import base_plugin
+
+
+# This dynamic plugin only works with TB versions 2.2.0 and later.
+# Before that version, WIT was already included in TB as a static plugin.
+_MIN_TENSORBOARD_VERSION = pkg_resources.parse_version("2.2.0")
 
 
 class WhatIfToolPluginLoader(base_plugin.TBLoader):
@@ -42,10 +48,9 @@ class WhatIfToolPluginLoader(base_plugin.TBLoader):
 
         # If TB version is before 2.2.0, then do not load the WIT plugin
         # as it is already included directly in TensorBoard.
-        version_list = tensorboard.__version__.split(".")
-        if (int(version_list[0]) < 2 or
-            (int(version_list[0]) == 2 and int(version_list[1]) < 2)):
-          return
+        version = pkg_resources.parse_version(tensorboard.__version__)
+        if version < _MIN_TENSORBOARD_VERSION:
+            return None
 
         from tensorboard_plugin_wit.wit_plugin import WhatIfToolPlugin
 
