@@ -18,6 +18,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import tensorboard
 from tensorboard.plugins import base_plugin
 
 
@@ -38,6 +39,14 @@ class WhatIfToolPluginLoader(base_plugin.TBLoader):
             import tensorflow
         except ImportError:
             return
+
+        # If TB version is before 2.2.0, then do not load the WIT plugin
+        # as it is already included directly in TensorBoard.
+        version_list = tensorboard.__version__.split(".")
+        if (int(version_list[0]) < 2 or
+            (int(version_list[0]) == 2 and int(version_list[1]) < 2)):
+          return
+
         from tensorboard_plugin_wit.wit_plugin import WhatIfToolPlugin
 
         return WhatIfToolPlugin(context)
