@@ -757,7 +757,7 @@ def create_sprite_image(examples):
         top_start = top_idx * thumb_height
         top_end = top_start + thumb_height
         master[top_start:top_end, left_start:left_end, :] = image
-      return tf.image.encode_png(master)
+      return tf.image.encode_png(tf.cast(master, dtype=tf.uint8))
 
     image_feature_name = 'image/encoded'
     sprite_thumbnail_dim_px = 32
