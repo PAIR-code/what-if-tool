@@ -18,7 +18,8 @@ when testing WIT in TensorBoard)
    TensorBoard.
 
 ## Development Workflow
-These steps have been tested when using the bash shell and may not work in other shells.
+These steps have been tested when using the bash shell and may not work in other shells.  The build steps for local development mostly mirror production builds.  To speed this up, you can add the [`compilation_level="BUNDLE"`flag](https://github.com/PAIR-code/what-if-tool/issues/89) to the relevant `tf_tensorboard_html_binary` build tasks.
+
 
 1. Enter your development virtualenv
    `source ~/tf/bin/activate`
