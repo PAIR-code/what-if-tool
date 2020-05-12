@@ -2767,7 +2767,7 @@ limitations under the License.
                                 </div>
                                 <div class="perf-holder">
                                   <div class="perf-curve-text">
-                                    PR curve
+                                    PR curve (AUC: [[getPrCurveAucForSlice(aucs_, index)]])
                                     <paper-icon-button
                                       icon="info-outline"
                                       class="info-icon threshold-info-icon no-padding"
@@ -2971,7 +2971,7 @@ limitations under the License.
                               </div>
                               <div class="perf-holder">
                                 <div class="perf-curve-text">
-                                  PR curve
+                                  PR curve (AUC: [[getPrCurveAucOverall(aucs_)]])
                                   <paper-icon-button
                                     icon="info-outline"
                                     class="info-icon threshold-info-icon no-padding"
@@ -3263,7 +3263,7 @@ limitations under the License.
                                 </div>
                                 <div class="perf-holder">
                                   <div class="perf-curve-text">
-                                    PR curve for [[getLabel(labelInd)]]
+                                    PR curve for [[getLabel(labelInd)]] (AUC: [[getPrCurveAucForLabel(aucs_, labelInd, index)]])
                                     <paper-icon-button
                                       icon="info-outline"
                                       class="info-icon threshold-info-icon no-padding"
@@ -3446,7 +3446,7 @@ limitations under the License.
                               </div>
                               <div class="perf-holder">
                                 <div class="perf-curve-text">
-                                  PR curve for [[getLabel(labelInd)]]
+                                  PR curve for [[getLabel(labelInd)]] (AUC: [[getPrCurveAucForLabel(aucs_, labelInd, '')]])
                                   <paper-icon-button
                                     icon="info-outline"
                                     class="info-icon threshold-info-icon no-padding"
@@ -3916,6 +3916,11 @@ limitations under the License.
           inferenceStats_: {
             type: Array,
             value: () => [],
+          },
+          // Calculated states for AUC for PR curve charts, keyed by chartId
+          aucs_: {
+            type: Object,
+            value: () => {}
           },
           // Array of feature values and their set classification thresholds, for
           // Polymer display purposes.
@@ -5694,6 +5699,7 @@ limitations under the License.
           const yAxis = isRoc ? 'TPR' : 'PPV';
           const xAxisLabel = isRoc ? 'FPR' : 'Recall';
           const yAxisLabel = isRoc ? 'TPR' : 'Precision';
+          const projectionsInChartSpace = []; // collected for AUC calculation
           for (let modelInd = 0; modelInd < thresholdStats.length; modelInd++) {
             let currentThresholdData = null;
             const data = thresholdStats[modelInd].thresholds
@@ -5714,6 +5720,11 @@ limitations under the License.
                 };
               })
               .reverse();
+
+              // AUC is only calculated for plots of PR curves
+              if (!isRoc) {
+                projectionsInChartSpace.push(data);
+              }
             chart.setSeriesData(
               this.strWithModelName_('Threshold set', modelInd),
               [currentThresholdData]
@@ -5775,6 +5786,65 @@ limitations under the License.
             chart.colorScale.domain(visibleCharts);
             chart.setVisibleSeries(visibleCharts);
           }
+
+          // Update AUC for PR curves
+          // This assigns the property as a whole so Polymer notices
+          // and updates the DOM (which is why it's copying existing values).
+          if (!isRoc && projectionsInChartSpace.length > 0) {
+            const updatedAucs = {};
+            Object.keys(this.aucs_ || {}).forEach(chartId => {
+              updatedAucs[chartId] = this.aucs_[chartId];
+            });
+            projectionsInChartSpace.forEach(projectionInChartSpace => {
+              updatedAucs[chart.id] = this.calculateAreaUnderCurve(projectionInChartSpace);
+            });
+            this.aucs_ = updatedAucs;
+          }
+        },
+
+        /**
+         * Takes a list of [{step, scalar, threshold}] at each discrete threshold value,
+         * and returns the area under the curve.
+         */
+        calculateAreaUnderCurve(chartXys) {
+          let auc = 0;
+          let last = chartXys[0];
+          for (let i = 1; i < chartXys.length; i++) {
+            let width = (chartXys[i].step - last.step);
+            let height = (chartXys[i].scalar - last.scalar);
+            let rect = (width * Math.min(chartXys[i].scalar, last.scalar))
+            let triangle = (width * height)/2;
+
+            auc += (rect + triangle);
+            last = chartXys[i];
+          }
+          return auc;
+        },
+
+        getPrCurveAucOverall: function(aucs_) {
+          return this.formattedAucTextFor_('prchart');
+        },
+
+        getPrCurveAucForSlice: function(aucs_, index) {
+          const chartId = this.getPrChartId(index);
+          return this.formattedAucTextFor_(chartId);
+        },
+
+        getPrCurveAucForLabel(aucs_, labelIndex, sliceIndexOrEmpty) {
+          const chartId = this.getPrChartLabelId(labelIndex, sliceIndexOrEmpty);
+          return this.formattedAucTextFor_(chartId);
+        },
+
+        /* Reads precomputed value and formats it for the UI.
+         * AUC values are computed in `plotChart`.
+         */
+        formattedAucTextFor_(chartId) {
+          if (!this.aucs_) return;
+
+          const aucValue = this.aucs_[chartId];
+          return (aucValue && aucValue.toFixed)
+            ? aucValue.toFixed(2)
+            : 0;
         },
 
         /**
