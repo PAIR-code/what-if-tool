@@ -2767,7 +2767,7 @@ limitations under the License.
                                 </div>
                                 <div class="perf-holder">
                                   <div class="perf-curve-text">
-                                    PR curve (AUC: [[getPrCurveAucForSlice(aucs_, index)]])
+                                    [[getPrCurveAucForSlice(aucs_, index)]]
                                     <paper-icon-button
                                       icon="info-outline"
                                       class="info-icon threshold-info-icon no-padding"
@@ -2971,7 +2971,7 @@ limitations under the License.
                               </div>
                               <div class="perf-holder">
                                 <div class="perf-curve-text">
-                                  PR curve (AUC: [[getPrCurveAucOverall(aucs_)]])
+                                  [[getPrCurveAucOverall(aucs_)]]
                                   <paper-icon-button
                                     icon="info-outline"
                                     class="info-icon threshold-info-icon no-padding"
@@ -3263,7 +3263,7 @@ limitations under the License.
                                 </div>
                                 <div class="perf-holder">
                                   <div class="perf-curve-text">
-                                    PR curve for [[getLabel(labelInd)]] (AUC: [[getPrCurveAucForLabel(aucs_, labelInd, index)]])
+                                    [[getPrCurveAucForLabel(aucs_, labelInd, index)]]
                                     <paper-icon-button
                                       icon="info-outline"
                                       class="info-icon threshold-info-icon no-padding"
@@ -3446,7 +3446,7 @@ limitations under the License.
                               </div>
                               <div class="perf-holder">
                                 <div class="perf-curve-text">
-                                  PR curve for [[getLabel(labelInd)]] (AUC: [[getPrCurveAucForLabel(aucs_, labelInd, '')]])
+                                  [[getPrCurveAucForLabel(aucs_, labelInd, '')]]
                                   <paper-icon-button
                                     icon="info-outline"
                                     class="info-icon threshold-info-icon no-padding"
@@ -5699,7 +5699,7 @@ limitations under the License.
           const yAxis = isRoc ? 'TPR' : 'PPV';
           const xAxisLabel = isRoc ? 'FPR' : 'Recall';
           const yAxisLabel = isRoc ? 'TPR' : 'Precision';
-          const projectionsInChartSpace = []; // collected for AUC calculation
+          const projectionsForModels = []; // collected for AUC calculation
           for (let modelInd = 0; modelInd < thresholdStats.length; modelInd++) {
             let currentThresholdData = null;
             const data = thresholdStats[modelInd].thresholds
@@ -5723,7 +5723,7 @@ limitations under the License.
 
               // AUC is only calculated for plots of PR curves
               if (!isRoc) {
-                projectionsInChartSpace.push(data);
+                projectionsForModels.push(data);
               }
             chart.setSeriesData(
               this.strWithModelName_('Threshold set', modelInd),
@@ -5788,18 +5788,27 @@ limitations under the License.
           }
 
           // Update AUC for PR curves
-          // This assigns the property as a whole so Polymer notices
-          // and updates the DOM (which is why it's copying existing values).
-          if (!isRoc && projectionsInChartSpace.length > 0) {
-            const updatedAucs = {};
-            Object.keys(this.aucs_ || {}).forEach(chartId => {
-              updatedAucs[chartId] = this.aucs_[chartId];
-            });
-            projectionsInChartSpace.forEach(projectionInChartSpace => {
-              updatedAucs[chart.id] = this.calculateAreaUnderCurve(projectionInChartSpace);
-            });
-            this.aucs_ = updatedAucs;
+          if (!isRoc && projectionsForModels.length > 0) {
+            this.updateAucs_(chart.id, projectionsForModels);
           }
+        },
+
+        /*
+         * Sets updated value for `this.aucs_``
+         * This assigns the property as a whole so Polymer notices
+         * and updates the DOM (which is why it's copying existing values).
+         */
+        updateAucs_(chartId, projectionsForModels) {
+          const updatedAucs = {};
+          Object.keys(this.aucs_ || {}).forEach(aucKey => {
+            updatedAucs[aucKey] = this.aucs_[aucKey];
+          });
+          projectionsForModels.forEach((projectionsForModel, modelIndex) => {
+            const aucKey = [chartId, modelIndex].join(':');
+            updatedAucs[aucKey] = this.calculateAreaUnderCurve(projectionsForModel);
+          });
+          this.aucs_ = updatedAucs;
+          return;
         },
 
         /**
@@ -5822,26 +5831,52 @@ limitations under the License.
         },
 
         getPrCurveAucOverall: function(aucs_) {
-          return this.formattedAucTextFor_('prchart');
+          const aucText =  this.formattedPrChartTitleWithAuc_('prchart');
+          return `PR curve${aucText}`;
         },
 
         getPrCurveAucForSlice: function(aucs_, index) {
           const chartId = this.getPrChartId(index);
-          return this.formattedAucTextFor_(chartId);
+          const aucText =  this.formattedPrChartTitleWithAuc_(chartId);
+          return `PR curve${aucText}`;
         },
 
         getPrCurveAucForLabel(aucs_, labelIndex, sliceIndexOrEmpty) {
           const chartId = this.getPrChartLabelId(labelIndex, sliceIndexOrEmpty);
-          return this.formattedAucTextFor_(chartId);
+          const aucText = this.formattedAucTextFor_(chartId);
+          const label = this.getLabel(labelIndex);
+          return `PR curve for ${label}${aucText}`;
         },
 
         /* Reads precomputed value and formats it for the UI.
-         * AUC values are computed in `plotChart`.
+         * AUC values are computed in `plotChart`, and the string building
+         * complexity here is for when a chart has more than one series
+         * (eg, when comparing models), and so more than one AUC value.
          */
-        formattedAucTextFor_(chartId) {
-          if (!this.aucs_) return;
+        formattedPrChartTitleWithAuc_(chartId) {
+          if (!this.aucs_ || this.numModels === 0) {
+            return '';
+          }
 
-          const aucValue = this.aucs_[chartId];
+          if (this.numModels === 1) {
+            let valueText = this.formattedAucForModel_(chartId, 0);
+            return ` (AUC: ${valueText})`;
+          }
+
+          // multiple models in the title
+          // example: `PR Curve (AUCs, 1: 0.82, 2: 0.64)`
+          let pieces = [];
+          for (let modelInd = 0; modelInd < this.numModels; modelInd++) {
+            let valueText = this.formattedAucForModel_(chartId, modelInd);
+            let modelName = this.getModelName_(modelInd);
+            pieces.push(`${modelName}: ${valueText}`);
+          }
+          return ` (AUCs, ${pieces.join(', ')})`;
+        },
+
+        formattedAucForModel_(chartId, modelIndex) {
+          const aucKey = [chartId, modelIndex].join(':');
+          const aucValue = this.aucs_[aucKey];
           return (aucValue && aucValue.toFixed)
             ? aucValue.toFixed(2)
             : 0;
