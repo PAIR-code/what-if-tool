@@ -560,7 +560,6 @@ limitations under the License.
 
       .perfs-holder {
         display: flex;
-        justify-content: center;
         width: 100%;
         flex-wrap: wrap;
         margin: 4px;
@@ -574,6 +573,7 @@ limitations under the License.
 
       .regression-attr-holder {
         padding-left: 48px;
+        position: relative;
       }
 
       .perf-curve-x-label {
@@ -912,7 +912,6 @@ limitations under the License.
       .perf-curve-text {
         color: #3c4043;
         font-size: 16px;
-        margin-left: 44px;
         margin-bottom: -10px;
       }
 
@@ -1067,7 +1066,6 @@ limitations under the License.
         background: white;
         color: #3c4043;
         font-size: 14px;
-        border-bottom: solid 1px var(--wit-color-gray300);
       }
 
       .perf-table-entry.perf-table-entry-trivial {
@@ -1078,7 +1076,6 @@ limitations under the License.
         display: flex;
         flex-wrap: wrap;
         width: 100%;
-        margin: 0 12px;
         border-left: 1px solid var(--wit-color-gray300);
         border-bottom: 1px solid var(--wit-color-gray300);
         border-right: 1px solid var(--wit-color-gray300);
@@ -1090,16 +1087,28 @@ limitations under the License.
         display: flex;
         background: white;
         position: relative;
+        border-bottom: solid 1px var(--wit-color-gray300);
       }
 
       .perf-table-row-expanded {
         width: 100%;
         display: flex;
-        border-bottom: 1px solid var(--wit-color-gray300);
         border-top: 1px solid var(--wit-color-gray300);
         border-radius: 2px;
-        box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
-          0 1px 3px 1px rgba(60, 64, 67, 0.15);
+        background: white;
+        position: relative;
+      }
+
+      .regression-perf-table-entry {
+        background: white;
+        color: #3c4043;
+        font-size: 14px;
+        border-bottom: solid 1px var(--wit-color-gray300);
+      }
+
+      .regression-perf-table-row {
+        width: 100%;
+        display: flex;
         background: white;
         position: relative;
       }
@@ -2817,8 +2826,31 @@ limitations under the License.
                                 if="[[hasAttributions_(attributions)]]"
                               >
                                 <div class="perf-holder">
-                                  <div class="conf-text">Mean attributions</div>
-                                  <wit-attribution-table attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]" models="[[parsedModelNames]]">
+                                  <div class="flex">
+                                    <div class="conf-text">Mean attributions</div>
+                                    <paper-icon-button
+                                      icon="info-outline"
+                                      class="info-icon threshold-info-icon no-padding"
+                                      on-tap="openDialog"
+                                    >
+                                    </paper-icon-button>
+                                    <paper-dialog
+                                      class="dialog-text"
+                                      horizontal-align="auto"
+                                      vertical-align="auto"
+                                    >
+                                      <div class="dialog-title">
+                                        Mean attributions
+                                      </div>
+                                      <div>
+                                        This table shows the average attribution value for each feature across a set of datapoints, ordered from maximum to minimum.
+                                      </div>
+                                    </paper-dialog>
+                                  </div>
+                                  <wit-attribution-table
+                                    attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]"
+                                    models="[[parsedModelNames]]"
+                                    colors="[[attributionColorScale]]">
                                   </wit-attribution-table>
                                 </div>
                               </template>
@@ -3021,8 +3053,31 @@ limitations under the License.
                               if="[[hasAttributions_(attributions)]]"
                             >
                               <div class="perf-holder">
-                                <div class="conf-text">Mean attributions</div>
-                                <wit-attribution-table attributions="[[meanAttributions_]]" models="[[parsedModelNames]]">
+                                <div class="flex">
+                                  <div class="conf-text">Mean attributions</div>
+                                  <paper-icon-button
+                                    icon="info-outline"
+                                    class="info-icon threshold-info-icon no-padding"
+                                    on-tap="openDialog"
+                                  >
+                                  </paper-icon-button>
+                                  <paper-dialog
+                                    class="dialog-text"
+                                    horizontal-align="auto"
+                                    vertical-align="auto"
+                                  >
+                                    <div class="dialog-title">
+                                      Mean attributions
+                                    </div>
+                                    <div>
+                                        This table shows the average attribution value for each feature across a set of datapoints, ordered from maximum to minimum.
+                                    </div>
+                                  </paper-dialog>
+                                </div>
+                                <wit-attribution-table
+                                  attributions="[[meanAttributions_]]"
+                                  models="[[parsedModelNames]]"
+                                  colors="[[attributionColorScale]]">
                                 </wit-attribution-table>
                               </div>
                             </template>
@@ -3314,8 +3369,31 @@ limitations under the License.
                           >
                             <div class="perfs-holder">
                               <div class="perf-holder">
-                                <div class="conf-text">Mean attributions</div>
-                                <wit-attribution-table attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]" models="[[parsedModelNames]]">
+                                <div class="flex">
+                                  <div class="conf-text">Mean attributions</div>
+                                  <paper-icon-button
+                                    icon="info-outline"
+                                    class="info-icon threshold-info-icon no-padding"
+                                    on-tap="openDialog"
+                                  >
+                                  </paper-icon-button>
+                                  <paper-dialog
+                                    class="dialog-text"
+                                    horizontal-align="auto"
+                                    vertical-align="auto"
+                                  >
+                                    <div class="dialog-title">
+                                      Mean attributions
+                                    </div>
+                                    <div>
+                                        This table shows the average attribution value for each feature across a set of datapoints, ordered from maximum to minimum.
+                                    </div>
+                                  </paper-dialog>
+                                </div>
+                                <wit-attribution-table
+                                  attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]"
+                                  models="[[parsedModelNames]]"
+                                  colors="[[attributionColorScale]]">
                                 </wit-attribution-table>
                               </div>
                             </div>
@@ -3492,8 +3570,31 @@ limitations under the License.
                         >
                           <div class="perfs-holder">
                             <div class="perf-holder">
-                              <div class="conf-text">Mean attributions</div>
-                              <wit-attribution-table attributions="[[meanAttributions_]]" models="[[parsedModelNames]]">
+                              <div class="flex">
+                                <div class="conf-text">Mean attributions</div>
+                                <paper-icon-button
+                                  icon="info-outline"
+                                  class="info-icon threshold-info-icon no-padding"
+                                  on-tap="openDialog"
+                                >
+                                </paper-icon-button>
+                                <paper-dialog
+                                  class="dialog-text"
+                                  horizontal-align="auto"
+                                  vertical-align="auto"
+                                >
+                                  <div class="dialog-title">
+                                    Mean attributions
+                                  </div>
+                                  <div>
+                                    This table shows the average attribution value for each feature across a set of datapoints, ordered from maximum to minimum.
+                                  </div>
+                                </paper-dialog>
+                              </div>
+                              <wit-attribution-table
+                                attributions="[[meanAttributions_]]"
+                                models="[[parsedModelNames]]"
+                                colors="[[attributionColorScale]]">
                               </wit-attribution-table>
                             </div>
                           </div>
@@ -3565,8 +3666,8 @@ limitations under the License.
                   </div>
                   <div class="perf-table-entries-holder">
                     <template is="dom-repeat" items="[[regressionEntries_]]">
-                      <div class="perf-table-entry">
-                        <div class="perf-table-row">
+                      <div class="regression-perf-table-entry">
+                        <div class="regression-perf-table-row">
                           <div class="perf-table-arrow"></div>
                           <div class="perf-table-val perf-table-text-entry">
                             [[item.name]]
@@ -3608,9 +3709,32 @@ limitations under the License.
                           </div>
                         </div>
                         <template is="dom-if" if="[[hasAttributions_(attributions)]]">
-                          <div class="perf-holder regression-attr-holder">
-                            <div class="conf-text">Mean attributions</div>
-                            <wit-attribution-table attributions="[[getRegressionAttributions(item.name)]]" models="[[parsedModelNames]]">
+                          <div class="regression-attr-holder">
+                            <div class="flex">
+                              <div class="conf-text">Mean attributions</div>
+                              <paper-icon-button
+                                icon="info-outline"
+                                class="info-icon threshold-info-icon no-padding"
+                                on-tap="openDialog"
+                              >
+                              </paper-icon-button>
+                              <paper-dialog
+                                class="dialog-text"
+                                horizontal-align="auto"
+                                vertical-align="auto"
+                              >
+                                <div class="dialog-title">
+                                  Mean attributions
+                                </div>
+                                <div>
+                                  This table shows the average attribution value for each feature across a set of datapoints, ordered from maximum to minimum.
+                                </div>
+                              </paper-dialog>
+                            </div>
+                            <wit-attribution-table
+                              attributions="[[getRegressionAttributions(item.name)]]"
+                              models="[[parsedModelNames]]"
+                              colors="[[attributionColorScale]]">
                             </wit-attribution-table>
                           </div>
                         </template>
