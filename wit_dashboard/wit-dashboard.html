@@ -856,6 +856,12 @@ limitations under the License.
         margin-left: 5px;
       }
 
+      .info-icon.mean-attrs-info-icon {
+        margin-top: -1px;
+        margin-bottom: 10px;
+        margin-left: 5px;
+      }
+
       .info-icon.performance-info-icon {
         margin-top: 18px;
         margin-bottom: 10px;
@@ -911,14 +917,14 @@ limitations under the License.
 
       .perf-curve-text {
         color: #3c4043;
-        font-size: 16px;
+        font-size: 14px;
         margin-bottom: -10px;
       }
 
       .conf-text {
         margin-bottom: 8px;
         color: #3c4043;
-        font-size: 16px;
+        font-size: 14px;
       }
 
       .dialog-text {
@@ -1097,6 +1103,7 @@ limitations under the License.
         border-radius: 2px;
         background: white;
         position: relative;
+        padding-bottom: 8px;
       }
 
       .regression-perf-table-entry {
@@ -1111,6 +1118,11 @@ limitations under the License.
         display: flex;
         background: white;
         position: relative;
+      }
+
+      .feature-name-text {
+        font-weight: 500;
+        font-size: 14px;
       }
 
       .perf-table-text-entry {
@@ -1230,6 +1242,10 @@ limitations under the License.
       }
       .rotated-icon {
         transform: rotate(270deg);
+        padding-right: 0;
+      }
+      .normal-icon {
+        padding-top: 0;
       }
       .datapoint-control-button {
         width: 28px;
@@ -2617,7 +2633,7 @@ limitations under the License.
                             ></paper-icon-button>
                           </div>
                           <div
-                            class="perf-table-val perf-table-clickable perf-table-text-entry"
+                            class="perf-table-val perf-table-clickable perf-table-text-entry feature-name-text"
                             on-tap="togglePerfRow"
                           >
                             [[getPrintableValue_(featureValueThreshold)]]
@@ -2806,7 +2822,27 @@ limitations under the License.
                                   </vz-line-chart2>
                                 </div>
                                 <div class="perf-holder">
-                                  <div class="conf-text">Confusion matrix</div>
+                                  <div class="flex">
+                                    <div class="conf-text">Confusion Matrix</div>
+                                    <paper-icon-button
+                                      icon="info-outline"
+                                      class="info-icon mean-attrs-info-icon no-padding"
+                                      on-tap="openDialog"
+                                    >
+                                    </paper-icon-button>
+                                    <paper-dialog
+                                      class="dialog-text"
+                                      horizontal-align="auto"
+                                      vertical-align="auto"
+                                    >
+                                      <div class="dialog-title">
+                                          Confusion Matrix
+                                      </div>
+                                      <div>
+                                          A confusion matrix is a n*n table (where n = number of classes being predicted) that summarizes if a model’s predictions were correct or incorrect. One axis is the model’s predictions, and the other axis is the ground truth.
+                                      </div>
+                                    </paper-dialog>
+                                  </div>
                                   <template
                                     is="dom-repeat"
                                     items="{{featureValueThreshold.threshold}}"
@@ -2830,7 +2866,7 @@ limitations under the License.
                                     <div class="conf-text">Mean attributions</div>
                                     <paper-icon-button
                                       icon="info-outline"
-                                      class="info-icon threshold-info-icon no-padding"
+                                      class="info-icon mean-attrs-info-icon no-padding"
                                       on-tap="openDialog"
                                     >
                                     </paper-icon-button>
@@ -2869,10 +2905,11 @@ limitations under the License.
                             <paper-icon-button
                               icon="arrow-drop-down"
                               on-tap="togglePerfRow"
+                              class="normal-icon"
                               disabled
                             ></paper-icon-button>
                           </div>
-                          <div class="perf-table-val perf-table-text-entry">
+                          <div class="perf-table-val perf-table-text-entry feature-name-text">
                             All datapoints
                           </div>
                           <div class="perf-table-count perf-table-num-entry">
@@ -3033,7 +3070,27 @@ limitations under the License.
                                 </vz-line-chart2>
                               </div>
                               <div class="perf-holder">
-                                <div class="conf-text">Confusion matrix</div>
+                                <div class="flex">
+                                  <div class="conf-text">Confusion Matrix</div>
+                                  <paper-icon-button
+                                    icon="info-outline"
+                                    class="info-icon mean-attrs-info-icon no-padding"
+                                    on-tap="openDialog"
+                                  >
+                                  </paper-icon-button>
+                                  <paper-dialog
+                                    class="dialog-text"
+                                    horizontal-align="auto"
+                                    vertical-align="auto"
+                                  >
+                                    <div class="dialog-title">
+                                        Confusion Matrix
+                                    </div>
+                                    <div>
+                                        A confusion matrix is a n*n table (where n = number of classes being predicted) that summarizes if a model’s predictions were correct or incorrect. One axis is the model’s predictions, and the other axis is the ground truth.
+                                    </div>
+                                  </paper-dialog>
+                                </div>
                                 <template
                                   is="dom-repeat"
                                   items="{{overallThresholds}}"
@@ -3057,7 +3114,7 @@ limitations under the License.
                                   <div class="conf-text">Mean attributions</div>
                                   <paper-icon-button
                                     icon="info-outline"
-                                    class="info-icon threshold-info-icon no-padding"
+                                    class="info-icon mean-attrs-info-icon no-padding"
                                     on-tap="openDialog"
                                   >
                                   </paper-icon-button>
@@ -3188,7 +3245,7 @@ limitations under the License.
                             ></paper-icon-button>
                           </div>
                           <div
-                            class="perf-table-val perf-table-clickable perf-table-text-entry"
+                            class="perf-table-val perf-table-clickable perf-table-text-entry feature-name-text"
                             on-tap="togglePerfRow"
                           >
                             [[getPrintableValue_(featureValueThreshold)]]
@@ -3243,7 +3300,27 @@ limitations under the License.
                           >
                             <div class="perfs-holder">
                               <div class="perf-holder">
-                                <div class="conf-text">Confusion matrix</div>
+                                <div class="flex">
+                                  <div class="conf-text">Confusion Matrix</div>
+                                  <paper-icon-button
+                                    icon="info-outline"
+                                    class="info-icon mean-attrs-info-icon no-padding"
+                                    on-tap="openDialog"
+                                  >
+                                  </paper-icon-button>
+                                  <paper-dialog
+                                    class="dialog-text"
+                                    horizontal-align="auto"
+                                    vertical-align="auto"
+                                  >
+                                    <div class="dialog-title">
+                                        Confusion Matrix
+                                    </div>
+                                    <div>
+                                        A confusion matrix is a n*n table (where n = number of classes being predicted) that summarizes if a model’s predictions were correct or incorrect. One axis is the model’s predictions, and the other axis is the ground truth.
+                                    </div>
+                                  </paper-dialog>
+                                </div>
                                 <template
                                   is="dom-repeat"
                                   items="[[inferenceStats_]]"
@@ -3373,7 +3450,7 @@ limitations under the License.
                                   <div class="conf-text">Mean attributions</div>
                                   <paper-icon-button
                                     icon="info-outline"
-                                    class="info-icon threshold-info-icon no-padding"
+                                    class="info-icon mean-attrs-info-icon no-padding"
                                     on-tap="openDialog"
                                   >
                                   </paper-icon-button>
@@ -3411,10 +3488,11 @@ limitations under the License.
                             <paper-icon-button
                               icon="arrow-drop-down"
                               on-tap="togglePerfRow"
+                              class="normal-icon"
                               disabled
                             ></paper-icon-button>
                           </div>
-                          <div class="perf-table-val perf-table-text-entry">
+                          <div class="perf-table-val perf-table-text-entry feature-name-text">
                             All datapoints
                           </div>
                           <div class="perf-table-count perf-table-num-entry">
@@ -3455,7 +3533,27 @@ limitations under the License.
                         >
                           <div class="perfs-holder">
                             <div class="perf-holder">
-                              <div class="conf-text">Confusion matrix</div>
+                              <div class="flex">
+                                <div class="conf-text">Confusion Matrix</div>
+                                <paper-icon-button
+                                  icon="info-outline"
+                                  class="info-icon mean-attrs-info-icon no-padding"
+                                  on-tap="openDialog"
+                                >
+                                </paper-icon-button>
+                                <paper-dialog
+                                  class="dialog-text"
+                                  horizontal-align="auto"
+                                  vertical-align="auto"
+                                >
+                                  <div class="dialog-title">
+                                      Confusion Matrix
+                                  </div>
+                                  <div>
+                                      A confusion matrix is a n*n table (where n = number of classes being predicted) that summarizes if a model’s predictions were correct or incorrect. One axis is the model’s predictions, and the other axis is the ground truth.
+                                  </div>
+                                </paper-dialog>
+                              </div>
                               <template
                                 is="dom-repeat"
                                 items="[[inferenceStats_]]"
@@ -3574,7 +3672,7 @@ limitations under the License.
                                 <div class="conf-text">Mean attributions</div>
                                 <paper-icon-button
                                   icon="info-outline"
-                                  class="info-icon threshold-info-icon no-padding"
+                                  class="info-icon mean-attrs-info-icon no-padding"
                                   on-tap="openDialog"
                                 >
                                 </paper-icon-button>
@@ -3669,7 +3767,7 @@ limitations under the License.
                       <div class="regression-perf-table-entry">
                         <div class="regression-perf-table-row">
                           <div class="perf-table-arrow"></div>
-                          <div class="perf-table-val perf-table-text-entry">
+                          <div class="perf-table-val perf-table-text-entry feature-name-text">
                             [[item.name]]
                           </div>
                           <div
@@ -3714,7 +3812,7 @@ limitations under the License.
                               <div class="conf-text">Mean attributions</div>
                               <paper-icon-button
                                 icon="info-outline"
-                                class="info-icon threshold-info-icon no-padding"
+                                class="info-icon mean-attrs-info-icon no-padding"
                                 on-tap="openDialog"
                               >
                               </paper-icon-button>
