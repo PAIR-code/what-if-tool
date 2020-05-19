@@ -564,6 +564,7 @@ limitations under the License.
         flex-wrap: wrap;
         margin: 4px;
         position: relative;
+        padding-left: 28px;
       }
 
       .perf-holder {
@@ -1800,6 +1801,7 @@ limitations under the License.
                             max-sal="[[maxAttribution]]"
                             colors="[[attributionColorScale]]"
                             highlight-differences="[[showNearestCounterfactual]]"
+                            text-color-function="[[attributionTextColorFunction]]"
                           >
                           </wit-example-viewer>
                         </div>
@@ -2886,7 +2888,8 @@ limitations under the License.
                                   <wit-attribution-table
                                     attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]"
                                     models="[[parsedModelNames]]"
-                                    colors="[[attributionColorScale]]">
+                                    colors="[[attributionColorScale]]"
+                                    text-color-function="[[attributionTextColorFunction]]">
                                   </wit-attribution-table>
                                 </div>
                               </template>
@@ -3134,7 +3137,8 @@ limitations under the License.
                                 <wit-attribution-table
                                   attributions="[[meanAttributions_]]"
                                   models="[[parsedModelNames]]"
-                                  colors="[[attributionColorScale]]">
+                                  colors="[[attributionColorScale]]"
+                                  text-color-function="[[attributionTextColorFunction]]">
                                 </wit-attribution-table>
                               </div>
                             </template>
@@ -3470,7 +3474,8 @@ limitations under the License.
                                 <wit-attribution-table
                                   attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]"
                                   models="[[parsedModelNames]]"
-                                  colors="[[attributionColorScale]]">
+                                  colors="[[attributionColorScale]]"
+                                  text-color-function="[[attributionTextColorFunction]]">
                                 </wit-attribution-table>
                               </div>
                             </div>
@@ -3692,7 +3697,8 @@ limitations under the License.
                               <wit-attribution-table
                                 attributions="[[meanAttributions_]]"
                                 models="[[parsedModelNames]]"
-                                colors="[[attributionColorScale]]">
+                                colors="[[attributionColorScale]]"
+                                text-color-function="[[attributionTextColorFunction]]">
                               </wit-attribution-table>
                             </div>
                           </div>
@@ -3832,7 +3838,8 @@ limitations under the License.
                             <wit-attribution-table
                               attributions="[[getRegressionAttributions(item.name)]]"
                               models="[[parsedModelNames]]"
-                              colors="[[attributionColorScale]]">
+                              colors="[[attributionColorScale]]"
+                              text-color-function="[[attributionTextColorFunction]]">
                             </wit-attribution-table>
                           </div>
                         </template>
@@ -3889,6 +3896,8 @@ limitations under the License.
     const COLOR_INTERPOLATOR = d3.interpolateRgb;
     const LEGEND_WIDTH_PX = 160;
     const LEGEND_HEIGHT_PX = 8;
+    const defaultTextColor = '#3c4043';
+    const lightTextColor = '#fff';
 
     function deleteElement(elt) {
       if (elt && elt.parentElement) {
@@ -4434,6 +4443,25 @@ limitations under the License.
           featureBucketEdges_: {
             type: Object,
             value: () => ({}),
+          },
+          // Function to get text colors for attribution values, to be passed
+          // to child components that render such text.
+          attributionTextColorFunction: {
+            type: Object,
+            value: () => {
+              return function(saliency, minSal, maxSal) {
+                const percentile = (saliency - minSal) / (maxSal - minSal);
+                let useLightColor = false;
+                if (minSal < 0 && maxSal > 0) {
+                  useLightColor = percentile < 0.3 || percentile > 0.7;
+                } else if (this.minSal < 0) {
+                  useLightColor = percentile < 0.6;
+                } else {
+                  useLightColor = percentile > 0.4;
+                }
+                return useLightColor ? lightTextColor : defaultTextColor;
+              };
+            }
           },
         },
 

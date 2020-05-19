@@ -81,6 +81,7 @@ limitations under the License.
         attributions: Array,
         models: Array,
         colors: Object,
+        textColorFunction: Object,
       },
       displayNum: function(num) {
         return d3.format('.3f')(num);
@@ -97,24 +98,10 @@ limitations under the License.
         if (this.colors == null) {
           return '';
         }
-        const backgroundColor = this.colors(num);
-        const useLightText = (num) => {
-          const domain = this.colors.domain();
-          const minVal = domain[0];
-          const maxVal = domain[domain.length - 1];
-          const percentile = (num - minVal) / (maxVal - minVal);
-          if (minVal < 0 && maxVal > 0) {
-            return percentile < 0.3 || percentile > 0.7;
-          } else if (minVal < 0) {
-            return percentile < 0.6;
-          } else {
-            return percentile > 0.4;
-          }
-        };
-
-        return 'background-color:' +
-          (this.colors == null ? 'white' : this.colors(num) +
-          ';color:' + (useLightText(num) ? 'white' : '#202124'));
+        const domain = this.colors.domain();
+        return 'background-color:' + this.colors(num) +
+          ';color:' + this.textColorFunction(
+            num, domain[0], domain[domain.length - 1]);
       },
     });
   </script>

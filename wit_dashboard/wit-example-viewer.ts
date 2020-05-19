@@ -85,7 +85,6 @@ namespace wit_example_viewer {
   const CHANGE_CALLBACK_TIMER_DELAY_MS = 1000;
   const noAttributionColor = '#fff';
   const defaultTextColor = '#3c4043';
-  const lightTextColor = '#fff';
 
   // Regex to find bytes features that are encoded images. Follows the guide at
   // go/tf-example.
@@ -183,6 +182,7 @@ namespace wit_example_viewer {
       compareMode: Boolean,
       compareImageInfo: {type: Object, value: {}},
       compareTitle: String,
+      textColorFunction: Object,
     },
     observers: [
       'displaySaliency(saliency, example)',
@@ -461,19 +461,6 @@ namespace wit_example_viewer {
       requestAnimationFrame(() => this._haveSaliencyImpl());
     },
 
-    // Determines if text should be light or dark due to the saliency-generated
-    // background of the text box.
-    _useLightColor(saliency) {
-      const percentile = (saliency - this.minSal) / (this.maxSal - this.minSal);
-      if (this.minSal < 0 && this.maxSal > 0) {
-        return percentile < 0.3 || percentile > 0.7;
-      } else if (this.minSal < 0) {
-        return percentile < 0.6;
-      } else {
-        return percentile > 0.4;
-      }
-    },
-
     _haveSaliencyImpl: function() {
       // TODO(jameswex): Color counterfactual column if using attribution-based
       // counterfactuals.
@@ -519,7 +506,7 @@ namespace wit_example_viewer {
           )
           .style('color', (d: {}, i: number) => {
             const num = Array.isArray(val) ? val[i] : val;
-            return this._useLightColor(num) ? lightTextColor : defaultTextColor;
+            return this.textColorFunction(num, this.minSal, this.maxSal);
           });
 
         // Color the "more feature values" button with the most extreme saliency
