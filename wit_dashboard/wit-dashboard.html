@@ -560,11 +560,11 @@ limitations under the License.
 
       .perfs-holder {
         display: flex;
-        justify-content: center;
         width: 100%;
         flex-wrap: wrap;
         margin: 4px;
         position: relative;
+        padding-left: 28px;
       }
 
       .perf-holder {
@@ -574,6 +574,7 @@ limitations under the License.
 
       .regression-attr-holder {
         padding-left: 48px;
+        position: relative;
       }
 
       .perf-curve-x-label {
@@ -856,6 +857,12 @@ limitations under the License.
         margin-left: 5px;
       }
 
+      .info-icon.mean-attrs-info-icon {
+        margin-top: -1px;
+        margin-bottom: 10px;
+        margin-left: 5px;
+      }
+
       .info-icon.performance-info-icon {
         margin-top: 18px;
         margin-bottom: 10px;
@@ -911,15 +918,14 @@ limitations under the License.
 
       .perf-curve-text {
         color: #3c4043;
-        font-size: 16px;
-        margin-left: 44px;
+        font-size: 14px;
         margin-bottom: -10px;
       }
 
       .conf-text {
         margin-bottom: 8px;
         color: #3c4043;
-        font-size: 16px;
+        font-size: 14px;
       }
 
       .dialog-text {
@@ -1067,7 +1073,6 @@ limitations under the License.
         background: white;
         color: #3c4043;
         font-size: 14px;
-        border-bottom: solid 1px var(--wit-color-gray300);
       }
 
       .perf-table-entry.perf-table-entry-trivial {
@@ -1078,7 +1083,6 @@ limitations under the License.
         display: flex;
         flex-wrap: wrap;
         width: 100%;
-        margin: 0 12px;
         border-left: 1px solid var(--wit-color-gray300);
         border-bottom: 1px solid var(--wit-color-gray300);
         border-right: 1px solid var(--wit-color-gray300);
@@ -1090,18 +1094,36 @@ limitations under the License.
         display: flex;
         background: white;
         position: relative;
+        border-bottom: solid 1px var(--wit-color-gray300);
       }
 
       .perf-table-row-expanded {
         width: 100%;
         display: flex;
-        border-bottom: 1px solid var(--wit-color-gray300);
         border-top: 1px solid var(--wit-color-gray300);
         border-radius: 2px;
-        box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
-          0 1px 3px 1px rgba(60, 64, 67, 0.15);
         background: white;
         position: relative;
+        padding-bottom: 8px;
+      }
+
+      .regression-perf-table-entry {
+        background: white;
+        color: #3c4043;
+        font-size: 14px;
+        border-bottom: solid 1px var(--wit-color-gray300);
+      }
+
+      .regression-perf-table-row {
+        width: 100%;
+        display: flex;
+        background: white;
+        position: relative;
+      }
+
+      .feature-name-text {
+        font-weight: 500;
+        font-size: 14px;
       }
 
       .perf-table-text-entry {
@@ -1221,6 +1243,10 @@ limitations under the License.
       }
       .rotated-icon {
         transform: rotate(270deg);
+        padding-right: 0;
+      }
+      .normal-icon {
+        padding-top: 0;
       }
       .datapoint-control-button {
         width: 28px;
@@ -1775,6 +1801,7 @@ limitations under the License.
                             max-sal="[[maxAttribution]]"
                             colors="[[attributionColorScale]]"
                             highlight-differences="[[showNearestCounterfactual]]"
+                            text-color-function="[[attributionTextColorFunction]]"
                           >
                           </wit-example-viewer>
                         </div>
@@ -2608,7 +2635,7 @@ limitations under the License.
                             ></paper-icon-button>
                           </div>
                           <div
-                            class="perf-table-val perf-table-clickable perf-table-text-entry"
+                            class="perf-table-val perf-table-clickable perf-table-text-entry feature-name-text"
                             on-tap="togglePerfRow"
                           >
                             [[getPrintableValue_(featureValueThreshold)]]
@@ -2797,7 +2824,27 @@ limitations under the License.
                                   </vz-line-chart2>
                                 </div>
                                 <div class="perf-holder">
-                                  <div class="conf-text">Confusion matrix</div>
+                                  <div class="flex">
+                                    <div class="conf-text">Confusion Matrix</div>
+                                    <paper-icon-button
+                                      icon="info-outline"
+                                      class="info-icon mean-attrs-info-icon no-padding"
+                                      on-tap="openDialog"
+                                    >
+                                    </paper-icon-button>
+                                    <paper-dialog
+                                      class="dialog-text"
+                                      horizontal-align="auto"
+                                      vertical-align="auto"
+                                    >
+                                      <div class="dialog-title">
+                                          Confusion Matrix
+                                      </div>
+                                      <div>
+                                          A confusion matrix is a n*n table (where n = number of classes being predicted) that summarizes if a model’s predictions were correct or incorrect. One axis is the model’s predictions, and the other axis is the ground truth.
+                                      </div>
+                                    </paper-dialog>
+                                  </div>
                                   <template
                                     is="dom-repeat"
                                     items="{{featureValueThreshold.threshold}}"
@@ -2817,8 +2864,32 @@ limitations under the License.
                                 if="[[hasAttributions_(attributions)]]"
                               >
                                 <div class="perf-holder">
-                                  <div class="conf-text">Mean attributions</div>
-                                  <wit-attribution-table attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]" models="[[parsedModelNames]]">
+                                  <div class="flex">
+                                    <div class="conf-text">Mean attributions</div>
+                                    <paper-icon-button
+                                      icon="info-outline"
+                                      class="info-icon mean-attrs-info-icon no-padding"
+                                      on-tap="openDialog"
+                                    >
+                                    </paper-icon-button>
+                                    <paper-dialog
+                                      class="dialog-text"
+                                      horizontal-align="auto"
+                                      vertical-align="auto"
+                                    >
+                                      <div class="dialog-title">
+                                        Mean attributions
+                                      </div>
+                                      <div>
+                                        This table shows the average attribution value for each feature across a set of datapoints, ordered from maximum to minimum.
+                                      </div>
+                                    </paper-dialog>
+                                  </div>
+                                  <wit-attribution-table
+                                    attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]"
+                                    models="[[parsedModelNames]]"
+                                    colors="[[attributionColorScale]]"
+                                    text-color-function="[[attributionTextColorFunction]]">
                                   </wit-attribution-table>
                                 </div>
                               </template>
@@ -2837,10 +2908,11 @@ limitations under the License.
                             <paper-icon-button
                               icon="arrow-drop-down"
                               on-tap="togglePerfRow"
+                              class="normal-icon"
                               disabled
                             ></paper-icon-button>
                           </div>
-                          <div class="perf-table-val perf-table-text-entry">
+                          <div class="perf-table-val perf-table-text-entry feature-name-text">
                             All datapoints
                           </div>
                           <div class="perf-table-count perf-table-num-entry">
@@ -3001,7 +3073,27 @@ limitations under the License.
                                 </vz-line-chart2>
                               </div>
                               <div class="perf-holder">
-                                <div class="conf-text">Confusion matrix</div>
+                                <div class="flex">
+                                  <div class="conf-text">Confusion Matrix</div>
+                                  <paper-icon-button
+                                    icon="info-outline"
+                                    class="info-icon mean-attrs-info-icon no-padding"
+                                    on-tap="openDialog"
+                                  >
+                                  </paper-icon-button>
+                                  <paper-dialog
+                                    class="dialog-text"
+                                    horizontal-align="auto"
+                                    vertical-align="auto"
+                                  >
+                                    <div class="dialog-title">
+                                        Confusion Matrix
+                                    </div>
+                                    <div>
+                                        A confusion matrix is a n*n table (where n = number of classes being predicted) that summarizes if a model’s predictions were correct or incorrect. One axis is the model’s predictions, and the other axis is the ground truth.
+                                    </div>
+                                  </paper-dialog>
+                                </div>
                                 <template
                                   is="dom-repeat"
                                   items="{{overallThresholds}}"
@@ -3021,8 +3113,32 @@ limitations under the License.
                               if="[[hasAttributions_(attributions)]]"
                             >
                               <div class="perf-holder">
-                                <div class="conf-text">Mean attributions</div>
-                                <wit-attribution-table attributions="[[meanAttributions_]]" models="[[parsedModelNames]]">
+                                <div class="flex">
+                                  <div class="conf-text">Mean attributions</div>
+                                  <paper-icon-button
+                                    icon="info-outline"
+                                    class="info-icon mean-attrs-info-icon no-padding"
+                                    on-tap="openDialog"
+                                  >
+                                  </paper-icon-button>
+                                  <paper-dialog
+                                    class="dialog-text"
+                                    horizontal-align="auto"
+                                    vertical-align="auto"
+                                  >
+                                    <div class="dialog-title">
+                                      Mean attributions
+                                    </div>
+                                    <div>
+                                        This table shows the average attribution value for each feature across a set of datapoints, ordered from maximum to minimum.
+                                    </div>
+                                  </paper-dialog>
+                                </div>
+                                <wit-attribution-table
+                                  attributions="[[meanAttributions_]]"
+                                  models="[[parsedModelNames]]"
+                                  colors="[[attributionColorScale]]"
+                                  text-color-function="[[attributionTextColorFunction]]">
                                 </wit-attribution-table>
                               </div>
                             </template>
@@ -3133,7 +3249,7 @@ limitations under the License.
                             ></paper-icon-button>
                           </div>
                           <div
-                            class="perf-table-val perf-table-clickable perf-table-text-entry"
+                            class="perf-table-val perf-table-clickable perf-table-text-entry feature-name-text"
                             on-tap="togglePerfRow"
                           >
                             [[getPrintableValue_(featureValueThreshold)]]
@@ -3188,7 +3304,27 @@ limitations under the License.
                           >
                             <div class="perfs-holder">
                               <div class="perf-holder">
-                                <div class="conf-text">Confusion matrix</div>
+                                <div class="flex">
+                                  <div class="conf-text">Confusion Matrix</div>
+                                  <paper-icon-button
+                                    icon="info-outline"
+                                    class="info-icon mean-attrs-info-icon no-padding"
+                                    on-tap="openDialog"
+                                  >
+                                  </paper-icon-button>
+                                  <paper-dialog
+                                    class="dialog-text"
+                                    horizontal-align="auto"
+                                    vertical-align="auto"
+                                  >
+                                    <div class="dialog-title">
+                                        Confusion Matrix
+                                    </div>
+                                    <div>
+                                        A confusion matrix is a n*n table (where n = number of classes being predicted) that summarizes if a model’s predictions were correct or incorrect. One axis is the model’s predictions, and the other axis is the ground truth.
+                                    </div>
+                                  </paper-dialog>
+                                </div>
                                 <template
                                   is="dom-repeat"
                                   items="[[inferenceStats_]]"
@@ -3314,8 +3450,32 @@ limitations under the License.
                           >
                             <div class="perfs-holder">
                               <div class="perf-holder">
-                                <div class="conf-text">Mean attributions</div>
-                                <wit-attribution-table attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]" models="[[parsedModelNames]]">
+                                <div class="flex">
+                                  <div class="conf-text">Mean attributions</div>
+                                  <paper-icon-button
+                                    icon="info-outline"
+                                    class="info-icon mean-attrs-info-icon no-padding"
+                                    on-tap="openDialog"
+                                  >
+                                  </paper-icon-button>
+                                  <paper-dialog
+                                    class="dialog-text"
+                                    horizontal-align="auto"
+                                    vertical-align="auto"
+                                  >
+                                    <div class="dialog-title">
+                                      Mean attributions
+                                    </div>
+                                    <div>
+                                        This table shows the average attribution value for each feature across a set of datapoints, ordered from maximum to minimum.
+                                    </div>
+                                  </paper-dialog>
+                                </div>
+                                <wit-attribution-table
+                                  attributions="[[getFacetedAttributions(facetedMeanAttributions_, featureValueThreshold)]]"
+                                  models="[[parsedModelNames]]"
+                                  colors="[[attributionColorScale]]"
+                                  text-color-function="[[attributionTextColorFunction]]">
                                 </wit-attribution-table>
                               </div>
                             </div>
@@ -3333,10 +3493,11 @@ limitations under the License.
                             <paper-icon-button
                               icon="arrow-drop-down"
                               on-tap="togglePerfRow"
+                              class="normal-icon"
                               disabled
                             ></paper-icon-button>
                           </div>
-                          <div class="perf-table-val perf-table-text-entry">
+                          <div class="perf-table-val perf-table-text-entry feature-name-text">
                             All datapoints
                           </div>
                           <div class="perf-table-count perf-table-num-entry">
@@ -3377,7 +3538,27 @@ limitations under the License.
                         >
                           <div class="perfs-holder">
                             <div class="perf-holder">
-                              <div class="conf-text">Confusion matrix</div>
+                              <div class="flex">
+                                <div class="conf-text">Confusion Matrix</div>
+                                <paper-icon-button
+                                  icon="info-outline"
+                                  class="info-icon mean-attrs-info-icon no-padding"
+                                  on-tap="openDialog"
+                                >
+                                </paper-icon-button>
+                                <paper-dialog
+                                  class="dialog-text"
+                                  horizontal-align="auto"
+                                  vertical-align="auto"
+                                >
+                                  <div class="dialog-title">
+                                      Confusion Matrix
+                                  </div>
+                                  <div>
+                                      A confusion matrix is a n*n table (where n = number of classes being predicted) that summarizes if a model’s predictions were correct or incorrect. One axis is the model’s predictions, and the other axis is the ground truth.
+                                  </div>
+                                </paper-dialog>
+                              </div>
                               <template
                                 is="dom-repeat"
                                 items="[[inferenceStats_]]"
@@ -3492,8 +3673,32 @@ limitations under the License.
                         >
                           <div class="perfs-holder">
                             <div class="perf-holder">
-                              <div class="conf-text">Mean attributions</div>
-                              <wit-attribution-table attributions="[[meanAttributions_]]" models="[[parsedModelNames]]">
+                              <div class="flex">
+                                <div class="conf-text">Mean attributions</div>
+                                <paper-icon-button
+                                  icon="info-outline"
+                                  class="info-icon mean-attrs-info-icon no-padding"
+                                  on-tap="openDialog"
+                                >
+                                </paper-icon-button>
+                                <paper-dialog
+                                  class="dialog-text"
+                                  horizontal-align="auto"
+                                  vertical-align="auto"
+                                >
+                                  <div class="dialog-title">
+                                    Mean attributions
+                                  </div>
+                                  <div>
+                                    This table shows the average attribution value for each feature across a set of datapoints, ordered from maximum to minimum.
+                                  </div>
+                                </paper-dialog>
+                              </div>
+                              <wit-attribution-table
+                                attributions="[[meanAttributions_]]"
+                                models="[[parsedModelNames]]"
+                                colors="[[attributionColorScale]]"
+                                text-color-function="[[attributionTextColorFunction]]">
                               </wit-attribution-table>
                             </div>
                           </div>
@@ -3565,10 +3770,10 @@ limitations under the License.
                   </div>
                   <div class="perf-table-entries-holder">
                     <template is="dom-repeat" items="[[regressionEntries_]]">
-                      <div class="perf-table-entry">
-                        <div class="perf-table-row">
+                      <div class="regression-perf-table-entry">
+                        <div class="regression-perf-table-row">
                           <div class="perf-table-arrow"></div>
-                          <div class="perf-table-val perf-table-text-entry">
+                          <div class="perf-table-val perf-table-text-entry feature-name-text">
                             [[item.name]]
                           </div>
                           <div
@@ -3608,9 +3813,33 @@ limitations under the License.
                           </div>
                         </div>
                         <template is="dom-if" if="[[hasAttributions_(attributions)]]">
-                          <div class="perf-holder regression-attr-holder">
-                            <div class="conf-text">Mean attributions</div>
-                            <wit-attribution-table attributions="[[getRegressionAttributions(item.name)]]" models="[[parsedModelNames]]">
+                          <div class="regression-attr-holder">
+                            <div class="flex">
+                              <div class="conf-text">Mean attributions</div>
+                              <paper-icon-button
+                                icon="info-outline"
+                                class="info-icon mean-attrs-info-icon no-padding"
+                                on-tap="openDialog"
+                              >
+                              </paper-icon-button>
+                              <paper-dialog
+                                class="dialog-text"
+                                horizontal-align="auto"
+                                vertical-align="auto"
+                              >
+                                <div class="dialog-title">
+                                  Mean attributions
+                                </div>
+                                <div>
+                                  This table shows the average attribution value for each feature across a set of datapoints, ordered from maximum to minimum.
+                                </div>
+                              </paper-dialog>
+                            </div>
+                            <wit-attribution-table
+                              attributions="[[getRegressionAttributions(item.name)]]"
+                              models="[[parsedModelNames]]"
+                              colors="[[attributionColorScale]]"
+                              text-color-function="[[attributionTextColorFunction]]">
                             </wit-attribution-table>
                           </div>
                         </template>
@@ -3667,6 +3896,8 @@ limitations under the License.
     const COLOR_INTERPOLATOR = d3.interpolateRgb;
     const LEGEND_WIDTH_PX = 160;
     const LEGEND_HEIGHT_PX = 8;
+    const defaultTextColor = '#3c4043';
+    const lightTextColor = '#fff';
 
     function deleteElement(elt) {
       if (elt && elt.parentElement) {
@@ -4212,6 +4443,25 @@ limitations under the License.
           featureBucketEdges_: {
             type: Object,
             value: () => ({}),
+          },
+          // Function to get text colors for attribution values, to be passed
+          // to child components that render such text.
+          attributionTextColorFunction: {
+            type: Object,
+            value: () => {
+              return function(saliency, minSal, maxSal) {
+                const percentile = (saliency - minSal) / (maxSal - minSal);
+                let useLightColor = false;
+                if (minSal < 0 && maxSal > 0) {
+                  useLightColor = percentile < 0.3 || percentile > 0.7;
+                } else if (this.minSal < 0) {
+                  useLightColor = percentile < 0.6;
+                } else {
+                  useLightColor = percentile > 0.4;
+                }
+                return useLightColor ? lightTextColor : defaultTextColor;
+              };
+            }
           },
         },
 

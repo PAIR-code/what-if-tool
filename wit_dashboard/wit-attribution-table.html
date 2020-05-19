@@ -22,7 +22,8 @@ limitations under the License.
     <style>
       table {
         display: inline-block;
-        font-size: 14px;
+        font-size: 11px;
+        color: #202124;
       }
       th {
         color: #80868b;
@@ -30,20 +31,28 @@ limitations under the License.
         padding: 3px;
       }
       td {
-        font-size: 14px;
-        padding: 3px;
+        padding: 3px 6px;
       }
       .holder {
         display: flex;
+        margin-bottom: 12px;
       }
       .table-holder {
         padding-right: 8px;
+        max-height: 200px;
+        overflow-y: scroll;
       }
       .feature {
         text-align: left;
       }
       .value {
         text-align: right;
+      }
+      .label {
+        font-size: 10px;
+      }
+      .cell {
+        border: 1px solid lightgrey;
       }
     </style>
     <div class="holder">
@@ -56,8 +65,8 @@ limitations under the License.
             </tr>
             <template is="dom-repeat" items="[[table]]">
               <tr>
-                <td class="feature">[[item.key]]</td>
-                <td class="value">[[displayNum(item.mean)]]</td>
+                <td class="feature label">[[item.key]]</td>
+                <td class="value cell" style$="[[getStyle(item.mean)]]">[[displayNum(item.mean)]]</td>
               </tr>
             </template>
           </table>
@@ -71,17 +80,28 @@ limitations under the License.
       properties: {
         attributions: Array,
         models: Array,
+        colors: Object,
+        textColorFunction: Object,
       },
       displayNum: function(num) {
         return d3.format('.3f')(num);
       },
       displayAttributionHeader: function(models, index) {
-        let str = 'attribution';
         if (models != null && models.length > 1) {
           const modelName = models[index];
-          str += ` (model ${modelName})`;
+          return `Model ${modelName}`;
+        } else {
+          return 'Attribution';
         }
-        return str;
+      },
+      getStyle: function(num) {
+        if (this.colors == null) {
+          return '';
+        }
+        const domain = this.colors.domain();
+        return 'background-color:' + this.colors(num) +
+          ';color:' + this.textColorFunction(
+            num, domain[0], domain[domain.length - 1]);
       },
     });
   </script>
