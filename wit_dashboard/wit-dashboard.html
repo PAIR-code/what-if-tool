@@ -3224,6 +3224,7 @@ limitations under the License.
                                         <i>binarized</i> versions of the
                                         problem).
                                       </div>
+                                      <div>[[describeRocAuc()]]</div>
                                     </paper-dialog>
                                   </div>
                                   <div class="perf-curve-x-label">
@@ -3885,7 +3886,7 @@ limitations under the License.
             type: Array,
             value: () => [],
           },
-          // Calculated states for AUC for PR curve charts, keyed by chartId
+          // Calculated states of AUC for ROC and PR curve charts, keyed by (chartId, modelIndex)
           aucs_: {
             type: Object,
             value: () => {}
@@ -5786,7 +5787,7 @@ limitations under the License.
             let width = (chartXys[i].step - last.step);
             let height = (chartXys[i].scalar - last.scalar);
             let rect = (width * Math.min(chartXys[i].scalar, last.scalar))
-            let triangle = (width * height)/2;
+            let triangle = (width * height) / 2;
 
             auc += (rect + triangle);
             last = chartXys[i];
@@ -5857,19 +5858,35 @@ limitations under the License.
         },
 
         describeRocChart() {
-          return 'A receiver operating characteristic (ROC) curve plots the true positive rate (TPR) against the false positive rate (FPR) at various classification thresholds.';
+          return `
+            A receiver operating characteristic (ROC) curve plots the true
+            positive rate (TPR) against the false positive rate (FPR) at
+            various classification thresholds.
+          `;
         },
 
         describeRocAuc() {
-          return 'Area under the curve (AUC) summarizes model performance across all thresholds, and ROC-AUC represents the probability that a random positive example will have a higher score than a random negative example.';
+          return `
+            Area under the curve (AUC) summarizes model performance across
+            all thresholds, and ROC-AUC represents the probability that a
+            random positive example will have a higher score than a random
+            negative example.
+          `;
         },
 
         describePrChart() {
-          return 'A precision-recall (PR) curve plots precision against recall at various classification thresholds.';
+          return `
+            A precision-recall (PR) curve plots precision against recall at
+            various classification thresholds.
+          `;
         },
 
         describePrAuc() {
-          return 'Area under the curve (AUC) summarizes performance across all thresholds, and PR-AUC typically corresponds to the average precision.';
+          return `
+            Area under the curve (AUC) summarizes performance across all
+            thresholds, and PR-AUC typically corresponds to the average
+            precision.
+          `;
         },
 
         /**
