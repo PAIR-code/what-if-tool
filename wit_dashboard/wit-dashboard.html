@@ -2758,7 +2758,7 @@ limitations under the License.
                               >
                                 <div class="perf-holder">
                                   <div class="perf-curve-text">
-                                    ROC curve
+                                    [[getRocChartTitleForSlice(aucs_, index)]]
                                     <paper-icon-button
                                       icon="info-outline"
                                       class="info-icon threshold-info-icon no-padding"
@@ -2771,12 +2771,8 @@ limitations under the License.
                                       vertical-align="bottom"
                                     >
                                       <div class="dialog-title">ROC curve</div>
-                                      <div>
-                                        A receiver operating characteristic (ROC)
-                                        curve plots the true positive rate (TPR)
-                                        against the false positive rate (FPR) at
-                                        various classification thresholds.
-                                      </div>
+                                      <div>[[describeRocChart()]]</div>
+                                      <div>[[describeRocAuc()]]</div>
                                     </paper-dialog>
                                   </div>
                                   <div class="perf-curve-x-label">
@@ -2794,7 +2790,7 @@ limitations under the License.
                                 </div>
                                 <div class="perf-holder">
                                   <div class="perf-curve-text">
-                                    PR curve
+                                    [[getPrChartTitleForSlice(aucs_, index)]]
                                     <paper-icon-button
                                       icon="info-outline"
                                       class="info-icon threshold-info-icon no-padding"
@@ -2807,11 +2803,8 @@ limitations under the License.
                                       vertical-align="bottom"
                                     >
                                       <div class="dialog-title">PR curve</div>
-                                      <div>
-                                        A precision-recall (PR) curve plots
-                                        precision against recall at various
-                                        classification thresholds.
-                                      </div>
+                                      <div>[[describePrChart()]]</div>
+                                      <div>[[describePrAuc()]]</div>
                                     </paper-dialog>
                                   </div>
                                   <div class="perf-curve-x-label">Recall</div>
@@ -3007,7 +3000,7 @@ limitations under the License.
                             >
                               <div class="perf-holder">
                                 <div class="perf-curve-text">
-                                  ROC curve
+                                  [[getRocChartTitleOverall(aucs_)]]
                                   <paper-icon-button
                                     icon="info-outline"
                                     class="info-icon threshold-info-icon no-padding"
@@ -3020,12 +3013,8 @@ limitations under the License.
                                     vertical-align="bottom"
                                   >
                                     <div class="dialog-title">ROC curve</div>
-                                    <div>
-                                      A receiver operating characteristic (ROC)
-                                      curve plots the true positive rate (TPR)
-                                      against the false positive rate (FPR) at
-                                      various classification thresholds.
-                                    </div>
+                                    <div>[[describeRocChart()]]</div>
+                                    <div>[[describeRocAuc()]]</div>
                                   </paper-dialog>
                                 </div>
                                 <div class="perf-curve-x-label">
@@ -3043,7 +3032,7 @@ limitations under the License.
                               </div>
                               <div class="perf-holder">
                                 <div class="perf-curve-text">
-                                  PR curve
+                                  [[getPrChartTitleOverall(aucs_)]]
                                   <paper-icon-button
                                     icon="info-outline"
                                     class="info-icon threshold-info-icon no-padding"
@@ -3056,11 +3045,8 @@ limitations under the License.
                                     vertical-align="bottom"
                                   >
                                     <div class="dialog-title">PR curve</div>
-                                    <div>
-                                      A precision-recall (PR) curve plots
-                                      precision against recall at various
-                                      classification thresholds.
-                                    </div>
+                                    <div>[[describePrChart()]]</div>
+                                    <div>[[describePrAuc()]]</div>
                                   </paper-dialog>
                                 </div>
                                 <div class="perf-curve-x-label">Recall</div>
@@ -3349,7 +3335,7 @@ limitations under the License.
                               <div class="perfs-holder">
                                 <div class="perf-holder">
                                   <div class="perf-curve-text">
-                                    ROC curve for [[getLabel(labelInd)]]
+                                    [[getRocChartTitleForLabel(aucs_, labelInd, index)]]
                                     <paper-icon-button
                                       icon="info-outline"
                                       class="info-icon threshold-info-icon no-padding"
@@ -3361,16 +3347,8 @@ limitations under the License.
                                       horizontal-align="right"
                                       vertical-align="bottom"
                                     >
-                                      <div class="dialog-title">
-                                        ROC curve
-                                      </div>
-                                      <div>
-                                        A receiver operating characteristic
-                                        (ROC) curve plots the true positive rate
-                                        (TPR) against the false positive rate
-                                        (FPR) at various classification
-                                        thresholds.
-                                      </div>
+                                      <div class="dialog-title">ROC curve</div>
+                                      <div>[[describeRocChart()]]</div>
                                       <div>
                                         For this multi-class classification
                                         problem, we plot one ROC curve for each
@@ -3382,6 +3360,7 @@ limitations under the License.
                                         <i>binarized</i> versions of the
                                         problem).
                                       </div>
+                                      <div>[[describeRocAuc()]]</div>
                                     </paper-dialog>
                                   </div>
                                   <div class="perf-curve-x-label">
@@ -3399,7 +3378,7 @@ limitations under the License.
                                 </div>
                                 <div class="perf-holder">
                                   <div class="perf-curve-text">
-                                    PR curve for [[getLabel(labelInd)]]
+                                    [[getPrChartTitleForLabel(aucs_, labelInd, index)]]
                                     <paper-icon-button
                                       icon="info-outline"
                                       class="info-icon threshold-info-icon no-padding"
@@ -3412,11 +3391,7 @@ limitations under the License.
                                       vertical-align="bottom"
                                     >
                                       <div class="dialog-title">PR curve</div>
-                                      <div>
-                                        A precision-recall (PR) curve plots
-                                        precision against recall at various
-                                        classification thresholds.
-                                      </div>
+                                      <div>[[describePrChart()]]</div>
                                       <div>
                                         For this multi-class classification
                                         problem, we plot one PR curve for each
@@ -3428,6 +3403,7 @@ limitations under the License.
                                         <i>binarized</i> versions of the
                                         problem).
                                       </div>
+                                      <div>[[describePrAuc()]]</div>
                                     </paper-dialog>
                                   </div>
                                   <div class="perf-curve-x-label">Recall</div>
@@ -3583,7 +3559,7 @@ limitations under the License.
                             <div class="perfs-holder">
                               <div class="perf-holder">
                                 <div class="perf-curve-text">
-                                  ROC curve for [[getLabel(labelInd)]]
+                                  [[getRocChartTitleForLabel(aucs_, labelInd, '')]]
                                   <paper-icon-button
                                     icon="info-outline"
                                     class="info-icon threshold-info-icon no-padding"
@@ -3596,12 +3572,7 @@ limitations under the License.
                                     vertical-align="bottom"
                                   >
                                     <div class="dialog-title">ROC curve</div>
-                                    <div>
-                                      A receiver operating characteristic (ROC)
-                                      curve plots the true positive rate (TPR)
-                                      against the false positive rate (FPR) at
-                                      various classification thresholds.
-                                    </div>
+                                    <div>[[describeRocChart()]]</div>
                                     <div>
                                       For this multi-class classification
                                       problem, we plot one ROC curve for each
@@ -3610,6 +3581,7 @@ limitations under the License.
                                       the others as negatives (<i>i.e.</i>
                                       <i>binarized</i> versions of the problem).
                                     </div>
+                                    <div>[[describeRocAuc()]]</div>
                                   </paper-dialog>
                                 </div>
                                 <div class="perf-curve-x-label">
@@ -3627,7 +3599,7 @@ limitations under the License.
                               </div>
                               <div class="perf-holder">
                                 <div class="perf-curve-text">
-                                  PR curve for [[getLabel(labelInd)]]
+                                  [[getPrChartTitleForLabel(aucs_, labelInd, '')]]
                                   <paper-icon-button
                                     icon="info-outline"
                                     class="info-icon threshold-info-icon no-padding"
@@ -3640,11 +3612,7 @@ limitations under the License.
                                     vertical-align="bottom"
                                   >
                                     <div class="dialog-title">PR curve</div>
-                                    <div>
-                                      A precision-recall (PR) curve plots
-                                      precision against recall at various
-                                      classification thresholds.
-                                    </div>
+                                    <div>[[describePrChart()]]</div>
                                     <div>
                                       For this multi-class classification
                                       problem, we plot one PR curve for each
@@ -3653,6 +3621,7 @@ limitations under the License.
                                       the others as negatives (<i>i.e.</i>
                                       <i>binarized</i> versions of the problem).
                                     </div>
+                                    <div>[[describePrAuc()]]</div>
                                   </paper-dialog>
                                 </div>
                                 <div class="perf-curve-x-label">Recall</div>
@@ -4147,6 +4116,11 @@ limitations under the License.
           inferenceStats_: {
             type: Array,
             value: () => [],
+          },
+          // Calculated states of AUC for ROC and PR curve charts, keyed by (chartId, modelIndex)
+          aucs_: {
+            type: Object,
+            value: () => {}
           },
           // Array of feature values and their set classification thresholds, for
           // Polymer display purposes.
@@ -5944,6 +5918,7 @@ limitations under the License.
           const yAxis = isRoc ? 'TPR' : 'PPV';
           const xAxisLabel = isRoc ? 'FPR' : 'Recall';
           const yAxisLabel = isRoc ? 'TPR' : 'Precision';
+          const projectionsForModels = []; // collected for AUC calculation
           for (let modelInd = 0; modelInd < thresholdStats.length; modelInd++) {
             let currentThresholdData = null;
             const data = thresholdStats[modelInd].thresholds
@@ -5964,6 +5939,7 @@ limitations under the License.
                 };
               })
               .reverse();
+            projectionsForModels.push(data);
             chart.setSeriesData(
               this.strWithModelName_('Threshold set', modelInd),
               [currentThresholdData]
@@ -6025,6 +6001,142 @@ limitations under the License.
             chart.colorScale.domain(visibleCharts);
             chart.setVisibleSeries(visibleCharts);
           }
+
+          // Update AUC values
+          if (projectionsForModels.length > 0) {
+            this.updateAucs_(chart.id, projectionsForModels);
+          }
+        },
+
+        /*
+         * Sets updated value for `this.aucs_``
+         * This assigns the property as a whole so Polymer notices
+         * and updates the DOM (which is why it's copying existing values).
+         */
+        updateAucs_(chartId, projectionsForModels) {
+          const updatedAucs = {};
+          Object.keys(this.aucs_ || {}).forEach(aucKey => {
+            updatedAucs[aucKey] = this.aucs_[aucKey];
+          });
+          projectionsForModels.forEach((projectionsForModel, modelIndex) => {
+            const aucKey = [chartId, modelIndex].join(':');
+            updatedAucs[aucKey] = this.calculateAreaUnderCurve(projectionsForModel);
+          });
+          this.aucs_ = updatedAucs;
+          return;
+        },
+
+        /**
+         * Takes a list of [{step, scalar, threshold}] at each discrete threshold value,
+         * and returns the area under the curve.
+         */
+        calculateAreaUnderCurve(chartXys) {
+          let auc = 0;
+          let last = chartXys[0];
+          for (let i = 1; i < chartXys.length; i++) {
+            let width = (chartXys[i].step - last.step);
+            let height = (chartXys[i].scalar - last.scalar);
+            let rect = (width * Math.min(chartXys[i].scalar, last.scalar))
+            let triangle = (width * height) / 2;
+
+            auc += (rect + triangle);
+            last = chartXys[i];
+          }
+          return auc;
+        },
+
+        getRocChartTitleOverall: function(aucs_) {
+          return this.formattedChartTitleWithAucs_('ROC curve', 'rocchart');
+        },
+
+        getRocChartTitleForSlice: function(aucs_, index) {
+          const chartId = this.getRocChartId(index);
+          return this.formattedChartTitleWithAucs_('ROC curve', chartId);
+        },
+
+        getRocChartTitleForLabel: function(aucs_, labelIndex, sliceIndexOrEmpty) {
+          const chartId = this.getRocChartLabelId(labelIndex, sliceIndexOrEmpty);
+          const label = this.getLabel(labelIndex);
+          return this.formattedChartTitleWithAucs_(`ROC curve for ${label}`, chartId);
+        },
+
+        getPrChartTitleOverall: function(aucs_) {
+          return this.formattedChartTitleWithAucs_('PR curve', 'prchart');
+        },
+
+        getPrChartTitleForSlice: function(aucs_, index) {
+          const chartId = this.getPrChartId(index);
+          return this.formattedChartTitleWithAucs_('PR curve', chartId);
+        },
+
+        getPrChartTitleForLabel(aucs_, labelIndex, sliceIndexOrEmpty) {
+          const chartId = this.getPrChartLabelId(labelIndex, sliceIndexOrEmpty);
+          const label = this.getLabel(labelIndex);
+          return this.formattedChartTitleWithAucs_(`PR curve for ${label}`, chartId);
+        },
+
+        /* Reads precomputed value and formats it for the UI.
+         * AUC values are computed in `plotChart`, and the string building
+         * complexity here is for when a chart has more than one series
+         * (eg, when comparing models), and so more than one AUC value.
+         */
+        formattedChartTitleWithAucs_(title, chartId) {
+          if (!this.aucs_ || this.numModels === 0) {
+            return title;
+          }
+
+          if (this.numModels === 1) {
+            let valueText = this.formattedAucForModel_(chartId, 0);
+            return `${title} (AUC: ${valueText})`;
+          }
+
+          // multiple models in the title
+          // example: `PR Curve (AUCs: 0.82, 0.64)`
+          let valueTexts = [];
+          for (let modelInd = 0; modelInd < this.numModels; modelInd++) {
+            valueTexts.push(this.formattedAucForModel_(chartId, modelInd));
+          }
+          return `${title} (AUCs: ${valueTexts.join(', ')})`;
+        },
+
+        formattedAucForModel_(chartId, modelIndex) {
+          const aucKey = [chartId, modelIndex].join(':');
+          const aucValue = this.aucs_[aucKey];
+          return (aucValue && aucValue.toFixed)
+            ? aucValue.toFixed(2)
+            : 0;
+        },
+
+        describeRocChart() {
+          return `
+            A receiver operating characteristic (ROC) curve plots the true
+            positive rate (TPR) against the false positive rate (FPR) at
+            various classification thresholds.
+          `;
+        },
+
+        describeRocAuc() {
+          return `
+            Area under the curve (AUC) summarizes model performance across
+            all thresholds, and ROC-AUC represents the probability that a
+            random positive example will have a higher score than a random
+            negative example.
+          `;
+        },
+
+        describePrChart() {
+          return `
+            A precision-recall (PR) curve plots precision against recall at
+            various classification thresholds.
+          `;
+        },
+
+        describePrAuc() {
+          return `
+            Area under the curve (AUC) summarizes performance across all
+            thresholds, and PR-AUC typically corresponds to the average
+            precision.
+          `;
         },
 
         /**
