@@ -49,8 +49,10 @@ custom_predict_fn = None
 try:
   import custom_predict_fn
   custom_predict_fn = custom_predict_fn.custom_predict_fn
-except Exception as e:
-  print(str(e))
+  logger.info("custom_predict_fn loaded.")
+except  ImportError as e:
+  # No need to show error message. Most people don't use custom function.
+  pass
 
 
 # Max number of examples to scan along the `examples_path` in order to return

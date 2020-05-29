@@ -845,23 +845,33 @@ def run_inference(examples, serving_bundle):
             None)
   elif serving_bundle.custom_predict_fn:
     try:
-      return (serving_bundle.custom_predict_fn(examples, serving_bundle), None)
+      # If custom_predict_fn is provided, pass examples directly for local
+      # inference.
+      values = serving_bundle.custom_predict_fn(examples)
+      extra_results = None
+      # If the custom prediction function returned a dict, then parse out the
+      # prediction scores. If it is just a list, then the results are the
+      # prediction results without attributions or other data.
+      if isinstance(values, dict):
+        preds = values.pop('predictions')
+        extra_results = values
+      else:
+        preds = values
+      return (common_utils.convert_prediction_values(preds, serving_bundle),
+              extra_results)
+
+    # The custom_predict_fn for colab/jupyter accepts one parameter.
+    # While the custom_predict_fn for non-colab use have two.
+    # If an user wrongly write a custom_predict_fn with only one parameter,
+    # chances are that the `try` block will fail.
     except Exception as e:
-      print(str(e))
-      pass
-    # If custom_predict_fn is provided, pass examples directly for local
-    # inference.
-    values = serving_bundle.custom_predict_fn(examples)
-    extra_results = None
-    # If the custom prediction function returned a dict, then parse out the
-    # prediction scores. If it is just a list, then the results are the
-    # prediction results without attributions or other data.
-    if isinstance(values, dict):
-      preds = values.pop('predictions')
-      extra_results = values
-    else:
-      preds = values
-    return (common_utils.convert_prediction_values(preds, serving_bundle),
-            extra_results)
+      try:
+        return (serving_bundle.custom_predict_fn(examples, serving_bundle), None)
+      except:
+        errormsg = ('Please make sure that there is custom_predict_fn.py '
+                  'in where TensorBoard is launched. And a function named '
+                  'custom_predict_fn is defined in custom_predict_fn.py')
+        logger.error(errormsg)
+
   else:
     return (platform_utils.call_servo(examples, serving_bundle), None)
