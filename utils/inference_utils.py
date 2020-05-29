@@ -844,6 +844,11 @@ def run_inference(examples, serving_bundle):
     return (common_utils.convert_prediction_values(values, serving_bundle),
             None)
   elif serving_bundle.custom_predict_fn:
+    try:
+      return (serving_bundle.custom_predict_fn(examples, serving_bundle), None)
+    except Exception as e:
+      print(str(e))
+      pass
     # If custom_predict_fn is provided, pass examples directly for local
     # inference.
     values = serving_bundle.custom_predict_fn(examples)

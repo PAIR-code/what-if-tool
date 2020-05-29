@@ -43,6 +43,15 @@ from tensorboard.util import tb_logging
 
 logger = logging.getLogger('tensorboard')
 
+import sys
+sys.path.append(os.getcwd())
+custom_predict_fn = None
+try:
+  import custom_predict_fn
+  custom_predict_fn = custom_predict_fn.custom_predict_fn
+except Exception as e:
+  print(str(e))
+
 
 # Max number of examples to scan along the `examples_path` in order to return
 # statistics and sampling for features.
@@ -318,7 +327,8 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
             model_signatures[model_num],
             request.args.get('use_predict') == 'true',
             request.args.get('predict_input_tensor'),
-            request.args.get('predict_output_tensor'))
+            request.args.get('predict_output_tensor'),
+            custom_predict_fn=custom_predict_fn)
         (predictions, _) = inference_utils.run_inference_for_inference_results(
             examples_to_infer, serving_bundle)
         infer_objs.append(predictions)
