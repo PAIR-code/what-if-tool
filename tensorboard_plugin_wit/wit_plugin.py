@@ -47,8 +47,8 @@ import sys
 sys.path.append(os.getcwd())
 custom_predict_fn = None
 try:
-  import custom_predict_fn
-  custom_predict_fn = custom_predict_fn.custom_predict_fn
+  import custom_wit_predict_fn
+  custom_predict_fn = custom_wit_predict_fn.custom_predict_fn
   logger.info("custom_predict_fn loaded.")
 except  ImportError as e:
   # No need to show error message. Most people don't use custom function.

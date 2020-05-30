@@ -868,10 +868,11 @@ def run_inference(examples, serving_bundle):
       try:
         return (serving_bundle.custom_predict_fn(examples, serving_bundle), None)
       except:
-        errormsg = ('Please make sure that there is custom_predict_fn.py '
+        errormsg = ('Please make sure that there is custom_wit_predict_fn.py '
                   'in where TensorBoard is launched. And a function named '
-                  'custom_predict_fn is defined in custom_predict_fn.py')
-        logger.error(errormsg)
+                  'custom_predict_fn is defined in that file. Also check if '
+                  'there is any error in the custom_predict_fn.')
+        raise RuntimeError(errormsg)
 
   else:
     return (platform_utils.call_servo(examples, serving_bundle), None)
