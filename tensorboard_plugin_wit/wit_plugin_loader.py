@@ -55,3 +55,19 @@ class WhatIfToolPluginLoader(base_plugin.TBLoader):
         from tensorboard_plugin_wit.wit_plugin import WhatIfToolPlugin
 
         return WhatIfToolPlugin(context)
+
+    def define_flags(self, parser):
+        group = parser.add_argument_group('what-if-tool')
+        try:
+          group.add_argument(
+              '--wit-use-unsafe-custom-prediction',
+              dest='custom_predict_fn',
+              metavar='YOUR_CUSTOM_PREDICT_FUNCTION.py',
+              type=str,
+              default='',
+              help="The file location of the custom prediction function"
+              )
+        except argparse.ArgumentError:
+          # This same flag is registered by TensorBoard's static profile
+          # plugin, as long as it continues to be bundled. Nothing to do.
+            pass

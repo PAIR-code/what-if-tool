@@ -43,16 +43,6 @@ from tensorboard.util import tb_logging
 
 logger = logging.getLogger('tensorboard')
 
-import sys
-sys.path.append(os.getcwd())
-custom_predict_fn = None
-try:
-  import custom_wit_predict_fn
-  custom_predict_fn = custom_wit_predict_fn.custom_predict_fn
-  logger.info("custom_predict_fn loaded.")
-except  ImportError as e:
-  # No need to show error message. Most people don't use custom function.
-  pass
 
 
 # Max number of examples to scan along the `examples_path` in order to return
@@ -96,6 +86,23 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
     self._has_auth_group = (context.flags and
                             'authorized_groups' in context.flags and
                             context.flags.authorized_groups != '')
+
+    self.custom_predict_fn = None
+    if context.flags.custom_predict_fn:
+      try:
+        import importlib.util as iu
+        spec = iu.spec_from_file_location("custom_predict_fn", context.flags.custom_predict_fn)
+        module = iu.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        self.custom_predict_fn = module.custom_predict_fn
+        logger.info("custom_predict_fn loaded.")
+
+      except Exception as e:
+        logger.info("Failed to load the custom predict function.")
+        logger.info(str(e))
+        # Show the error on the terminal.
+        print("Failed to load the custom predict function.")
+        print(str(e))
 
   def get_plugin_apps(self):
     """Obtains a mapping between routes and handlers. Stores the logdir.
@@ -330,7 +337,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
             request.args.get('use_predict') == 'true',
             request.args.get('predict_input_tensor'),
             request.args.get('predict_output_tensor'),
-            custom_predict_fn=custom_predict_fn)
+            custom_predict_fn=self.custom_predict_fn)
         (predictions, _) = inference_utils.run_inference_for_inference_results(
             examples_to_infer, serving_bundle)
         infer_objs.append(predictions)
