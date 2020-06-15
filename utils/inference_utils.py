@@ -844,7 +844,12 @@ def run_inference(examples, serving_bundle):
     return (common_utils.convert_prediction_values(values, serving_bundle),
             None)
   elif serving_bundle.custom_predict_fn:
-    try:
+    from inspect import signature
+    sig = signature(serving_bundle.custom_predict_fn)
+    params = sig.parameters
+    # The custom_predict_fn for colab/jupyter accepts one parameter.
+    # While the custom_predict_fn for non-colab usage have two.
+    if len(params) == 1:
       # If custom_predict_fn is provided, pass examples directly for local
       # inference.
       values = serving_bundle.custom_predict_fn(examples)
@@ -860,19 +865,8 @@ def run_inference(examples, serving_bundle):
       return (common_utils.convert_prediction_values(preds, serving_bundle),
               extra_results)
 
-    # The custom_predict_fn for colab/jupyter accepts one parameter.
-    # While the custom_predict_fn for non-colab use have two.
-    # If an user wrongly write a custom_predict_fn with only one parameter,
-    # chances are that the `try` block will fail.
-    except Exception as e:
-      try:
-        return (serving_bundle.custom_predict_fn(examples, serving_bundle), None)
-      except:
-        errormsg = ('Please make sure that there is custom_wit_predict_fn.py '
-                  'in where TensorBoard is launched. And a function named '
-                  'custom_predict_fn is defined in that file. Also check if '
-                  'there is any error in the custom_predict_fn.')
-        raise RuntimeError(errormsg)
+    if len(params) == 2:
+      return (serving_bundle.custom_predict_fn(examples, serving_bundle), None)
 
   else:
     return (platform_utils.call_servo(examples, serving_bundle), None)

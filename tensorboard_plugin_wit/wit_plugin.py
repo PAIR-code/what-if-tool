@@ -44,7 +44,6 @@ from tensorboard.util import tb_logging
 logger = logging.getLogger('tensorboard')
 
 
-
 # Max number of examples to scan along the `examples_path` in order to return
 # statistics and sampling for features.
 NUM_EXAMPLES_TO_SCAN = 50
@@ -102,6 +101,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
         logger.info(str(e))
         # Show the error on the terminal.
         print("Failed to load the custom predict function.")
+        print("Have you defined a function named custom_predict_fn?")
         print(str(e))
 
   def get_plugin_apps(self):
