@@ -441,7 +441,8 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
           request.args.get('predict_input_tensor'),
           request.args.get('predict_output_tensor'),
           request.args.get('x_min'), request.args.get('x_max'),
-          request.args.get('feature_index_pattern'))
+          request.args.get('feature_index_pattern'),
+          custom_predict_fn=self.custom_predict_fn)
       return http_util.Respond(request, json_mapping, 'application/json')
     except common_utils.InvalidUserInputError as e:
       return http_util.Respond(request, {'error': e.message},
@@ -450,7 +451,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
   def _infer_mutants_impl(self, feature_name, example_index, inference_addresses,
       model_names, model_type, model_versions, model_signatures, use_predict,
       predict_input_tensor, predict_output_tensor, x_min, x_max,
-      feature_index_pattern):
+      feature_index_pattern, custom_predict_fn):
     """Helper for generating PD plots for a feature."""
     examples = (self.examples if example_index == -1
                 else [self.examples[example_index]])
@@ -464,7 +465,8 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
           model_signatures[model_num],
           use_predict,
           predict_input_tensor,
-          predict_output_tensor))
+          predict_output_tensor,
+          custom_predict_fn=custom_predict_fn))
 
     viz_params = inference_utils.VizParams(
         x_min, x_max,
