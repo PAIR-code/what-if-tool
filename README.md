@@ -403,6 +403,26 @@ Note that you may need to run `!sudo jupyter labextension ...` commands dependin
 
 Use of WIT after installation is the same as with the other notebook installations.
 
+## Can I use my custom prediction without the Jupyter notebook or without the Colab notebook?
+Yes. You can do this by defining a python function with the following signature.
+
+```python
+# The function name "custom_predict_fn" must be exact.
+def custom_predict_fn(examples, serving_bundle):
+  # examples are a list of TFRecord objects, each object contains the features of each point.
+  # serving_bundle is a dictionary that contains the data you will fill in the webpage,
+  # such as server address, model name, model version, etc.
+  return classification_pb2.ClassificationResponse()
+  # ClassificationResponse contains the inference result for each example.
+```
+Check [here](https://github.com/PAIR-code/what-if-tool/pull/94#issuecomment-637535906) for a minimal example.
+
+After you have implemented your function, assume the file name is `my_custom_predict_function.py`.
+Launch the TensorBoard server with `tensorboard --whatif-use-unsafe-custom-prediction my_custom_predict_function.py` 
+and the function should be invoked once you have "Set up your data and model" in the what-if-tool page.
+The `unsafe` means that the function is not sandboxed, so make sure that 
+`my_custom_predict_function.py` won't accidently delete your experiment data.
+
 ## How can I help develop it?
 
 Check out the [developement guide](./DEVELOPMENT.md).

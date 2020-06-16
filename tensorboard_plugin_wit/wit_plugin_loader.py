@@ -60,12 +60,15 @@ class WhatIfToolPluginLoader(base_plugin.TBLoader):
         group = parser.add_argument_group('what-if-tool')
         try:
           group.add_argument(
-              '--wit-use-unsafe-custom-prediction',
+              '--whatif-use-unsafe-custom-prediction',
               dest='custom_predict_fn',
               metavar='YOUR_CUSTOM_PREDICT_FUNCTION.py',
               type=str,
               default='',
-              help="The file location of the custom prediction function"
+              help="The file location of your custom prediction function. Note \
+              that the flag executes arbitrary code, so make sure you passed the \
+              correct file location. See how to define the function in \
+              https://github.com/PAIR-code/what-if-tool/blob/master/README.md"
               )
         except argparse.ArgumentError:
           # This same flag is registered by TensorBoard's static profile
