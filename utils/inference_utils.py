@@ -844,29 +844,28 @@ def run_inference(examples, serving_bundle):
     return (common_utils.convert_prediction_values(values, serving_bundle),
             None)
   elif serving_bundle.custom_predict_fn:
+    # If custom_predict_fn is provided, pass examples directly for local
+    # inference.
     from inspect import signature
     sig = signature(serving_bundle.custom_predict_fn)
     params = sig.parameters
     # The custom_predict_fn for colab/jupyter accepts one parameter.
     # While the custom_predict_fn for non-colab usage have two.
     if len(params) == 1:
-      # If custom_predict_fn is provided, pass examples directly for local
-      # inference.
       values = serving_bundle.custom_predict_fn(examples)
-      extra_results = None
-      # If the custom prediction function returned a dict, then parse out the
-      # prediction scores. If it is just a list, then the results are the
-      # prediction results without attributions or other data.
-      if isinstance(values, dict):
-        preds = values.pop('predictions')
-        extra_results = values
-      else:
-        preds = values
-      return (common_utils.convert_prediction_values(preds, serving_bundle),
-              extra_results)
-
     if len(params) == 2:
-      return (serving_bundle.custom_predict_fn(examples, serving_bundle), None)
+      values = serving_bundle.custom_predict_fn(examples, serving_bundle)
 
+    extra_results = None
+    # If the custom prediction function returned a dict, then parse out the
+    # prediction scores. If it is just a list, then the results are the
+    # prediction results without attributions or other data.
+    if isinstance(values, dict):
+      preds = values.pop('predictions')
+      extra_results = values
+    else:
+      preds = values
+    return (common_utils.convert_prediction_values(preds, serving_bundle),
+            extra_results)
   else:
     return (platform_utils.call_servo(examples, serving_bundle), None)

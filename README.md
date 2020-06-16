@@ -412,8 +412,12 @@ def custom_predict_fn(examples, serving_bundle):
   # examples are a list of TFRecord objects, each object contains the features of each point.
   # serving_bundle is a dictionary that contains the data you will fill in the webpage,
   # such as server address, model name, model version, etc.
-  return classification_pb2.ClassificationResponse()
-  # ClassificationResponse contains the inference result for each example.
+  return []
+  # Return a "list" or a "list of list".
+  # For classification, a 2D list of numbers. The first dimension is for
+  # each example being predicted. The second dimension are the probabilities
+  # for each class ID in the prediction. For regression, a 1D list of numbers,
+  # with a regression score for each example being predicted.
 ```
 Check [here](https://github.com/PAIR-code/what-if-tool/pull/94#issuecomment-637535906) for a minimal example.
 
