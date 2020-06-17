@@ -1,0 +1,31 @@
+
+
+.mdl-layout__header {
+  background-color: white;
+}
+
+.mdl-layout__header .mdl-navigation__link {
+  color: #4a4a4a;
+}
+
+.mdl-layout__header .material-icons {
+  color: #4a4a4a;
+}
+
+.mdl-layout__title {
+  color: #4a4a4a;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.mdl-layout__title a {
+  text-decoration: none;
+}
+
+.mdl-layout__title a:hover {
+  color: black;
+}
+
+.mdl-layout__title a:visited, .mdl-layout__title a:active {
+  color: inherit;
+}

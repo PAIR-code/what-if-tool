@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Do we need additional share metadata included here? -->
+
+    {% include partials/analytics %}
+
+    <title>{{ title }}</title>
+    
+    {% include partials/header-includes %}
+
+  </head>
+
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      {% include partials/header %}
+      
+      <main class="mdl-layout__content hero-banner">
+        <div class="hero-container"><img src="{{ image }}"/></div>
+        {{ content }}
+      </main>
+      
+      {% include partials/footer %}
+    </div>
+  </body>
+
+  {% include partials/footer-includes %}
+</html>
