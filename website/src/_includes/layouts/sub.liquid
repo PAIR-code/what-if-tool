@@ -17,8 +17,13 @@
       {% include partials/header %}
       
       <main class="mdl-layout__content hero-banner">
-        <div class="hero-container"><img src="{{ image }}"/></div>
-        {{ content }}
+        <div class="sub-hero-container" style="background-image:url({{ image }})"></div>
+        <div class="sub-page-container mdl-grid">
+          <div class="mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+          {{ content }}
+          </div>
+        </div>
+        
       </main>
       
       {% include partials/footer %}

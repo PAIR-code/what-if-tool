@@ -1,4 +1,7 @@
 
+body {
+  font-family: "Roboto", sans-serif;
+}
 
 .mdl-layout__header {
   background-color: white;
@@ -28,4 +31,54 @@
 
 .mdl-layout__title a:visited, .mdl-layout__title a:active {
   color: inherit;
+}
+
+
+
+.sub-hero-container{
+  width: 100%;
+  height:200px;
+  background-size: cover;
+}
+
+.sub-page-container {
+  margin: 0 auto; 
+  max-width:950px;
+}
+
+.sub-page-container h1 {
+  font-size: 28px;
+  line-height: 36px;
+  color: #E8710A;
+}
+
+.sub-page-container h2 {
+  font-size: 32px;
+  line-height: 40px;
+  color: #E8710A;
+}
+
+.sub-page-container h3 {
+  font-size: 22px;
+  line-height: 28px;
+  color: #129EAF;
+}
+
+.sub-page-container h4 {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase; 
+  color: #E8710A;
+}
+
+.sub-page-container p {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 21px;
+  line-height: 29px;
+
+  color: #3C4043;
 }
