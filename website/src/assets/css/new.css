@@ -41,7 +41,7 @@ body {
   background-size: cover;
 }
 
-.sub-page-container {
+.main-page-container, .sub-page-container {
   margin: 0 auto; 
   max-width:950px;
 }
