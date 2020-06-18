@@ -39,7 +39,6 @@ from tensorboard.plugins import base_plugin
 from utils import common_utils
 from utils import inference_utils
 from utils import platform_utils
-from tensorboard.util import tb_logging
 
 logger = logging.getLogger('tensorboard')
 
