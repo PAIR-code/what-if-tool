@@ -28,6 +28,7 @@ from google.protobuf import json_format
 from six import binary_type, string_types, integer_types
 from six import iteritems
 from six.moves import zip  # pylint: disable=redefined-builtin
+from inspect import signature
 
 from utils import common_utils
 from utils import platform_utils
@@ -846,7 +847,6 @@ def run_inference(examples, serving_bundle):
   elif serving_bundle.custom_predict_fn:
     # If custom_predict_fn is provided, pass examples directly for local
     # inference.
-    from inspect import signature
     sig = signature(serving_bundle.custom_predict_fn)
     params = sig.parameters
     # The custom_predict_fn for colab/jupyter accepts one parameter.

@@ -97,12 +97,9 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
         logger.info("custom_predict_fn loaded.")
 
       except Exception as e:
-        logger.info("Failed to load the custom predict function.")
-        logger.info(str(e))
-        # Show the error on the terminal.
-        print("Failed to load the custom predict function.")
-        print("Have you defined a function named custom_predict_fn?")
-        print(str(e))
+        logger.error(str(e))
+        logger.error("Failed to load the custom predict function.")
+        logger.error("Have you defined a function named custom_predict_fn?")
 
   def get_plugin_apps(self):
     """Obtains a mapping between routes and handlers. Stores the logdir.
