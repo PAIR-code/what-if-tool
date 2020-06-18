@@ -39,7 +39,6 @@ from tensorboard.plugins import base_plugin
 from utils import common_utils
 from utils import inference_utils
 from utils import platform_utils
-from tensorboard.util import tb_logging
 
 logger = logging.getLogger('tensorboard')
 
@@ -85,6 +84,21 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
     self._has_auth_group = (context.flags and
                             'authorized_groups' in context.flags and
                             context.flags.authorized_groups != '')
+
+    self.custom_predict_fn = None
+    if context.flags.custom_predict_fn:
+      try:
+        import importlib.util as iu
+        spec = iu.spec_from_file_location("custom_predict_fn", context.flags.custom_predict_fn)
+        module = iu.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        self.custom_predict_fn = module.custom_predict_fn
+        logger.info("custom_predict_fn loaded.")
+
+      except Exception as e:
+        logger.error(str(e))
+        logger.error("Failed to load the custom predict function.")
+        logger.error("Have you defined a function named custom_predict_fn?")
 
   def get_plugin_apps(self):
     """Obtains a mapping between routes and handlers. Stores the logdir.
@@ -318,7 +332,8 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
             model_signatures[model_num],
             request.args.get('use_predict') == 'true',
             request.args.get('predict_input_tensor'),
-            request.args.get('predict_output_tensor'))
+            request.args.get('predict_output_tensor'),
+            custom_predict_fn=self.custom_predict_fn)
         (predictions, _) = inference_utils.run_inference_for_inference_results(
             examples_to_infer, serving_bundle)
         infer_objs.append(predictions)
@@ -422,7 +437,8 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
           request.args.get('predict_input_tensor'),
           request.args.get('predict_output_tensor'),
           request.args.get('x_min'), request.args.get('x_max'),
-          request.args.get('feature_index_pattern'))
+          request.args.get('feature_index_pattern'),
+          custom_predict_fn=self.custom_predict_fn)
       return http_util.Respond(request, json_mapping, 'application/json')
     except common_utils.InvalidUserInputError as e:
       return http_util.Respond(request, {'error': e.message},
@@ -431,7 +447,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
   def _infer_mutants_impl(self, feature_name, example_index, inference_addresses,
       model_names, model_type, model_versions, model_signatures, use_predict,
       predict_input_tensor, predict_output_tensor, x_min, x_max,
-      feature_index_pattern):
+      feature_index_pattern, custom_predict_fn):
     """Helper for generating PD plots for a feature."""
     examples = (self.examples if example_index == -1
                 else [self.examples[example_index]])
@@ -445,7 +461,8 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
           model_signatures[model_num],
           use_predict,
           predict_input_tensor,
-          predict_output_tensor))
+          predict_output_tensor,
+          custom_predict_fn=custom_predict_fn))
 
     viz_params = inference_utils.VizParams(
         x_min, x_max,
