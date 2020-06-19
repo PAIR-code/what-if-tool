@@ -7,8 +7,8 @@
 when testing WIT in TensorBoard)
 2. Install pip and virtualenv
    `sudo apt-get install python-pip python3-pip virtualenv`
-3. Create a virtualenv for WIT development
-   `virtualenv ~/tf` (or wherever you want to save this environment)
+3. Create a python 3 virtualenv for WIT development
+   `virtualenv -p python3 ~/tf` (or wherever you want to save this environment)
 4. Create a fork of the official What-If Tool github repo through the GitHub UI
 5. Clone your fork to your computer
    `cd ~/github && git clone https://github.com/[yourGitHubUsername]/what-if-tool.git`
