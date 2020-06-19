@@ -33,13 +33,6 @@ _TF_REQ = [
     'tensorflow>=1.12.1',
 ]
 
-# GPU build (note: the only difference is we depend on tensorflow-gpu
-# so pip doesn't overwrite it with the CPU build)
-if 'witwidget-gpu' in project_name:
-  _TF_REQ = [
-      'tensorflow-gpu>=1.12.1',
-  ]
-
 REQUIRED_PACKAGES = [
     'absl-py >= 0.4',
     'google-api-python-client>=1.7.8',
@@ -92,8 +85,6 @@ setup(
       'Intended Audience :: Developers',
       'Intended Audience :: Science/Research',
       'Topic :: Multimedia :: Graphics',
-      'Programming Language :: Python :: 2',
-      'Programming Language :: Python :: 2.7',
       'Programming Language :: Python :: 3',
       'Programming Language :: Python :: 3.3',
       'Programming Language :: Python :: 3.4',

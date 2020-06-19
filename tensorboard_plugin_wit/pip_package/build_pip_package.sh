@@ -85,6 +85,5 @@ unset PYTHON_HOME
 pip install -qU wheel 'setuptools>=36.2.0'
 
 python setup.py bdist_wheel --python-tag py3 >/dev/null
-python setup.py bdist_wheel --python-tag py2 >/dev/null
 
 ls -hal "$PWD/dist"

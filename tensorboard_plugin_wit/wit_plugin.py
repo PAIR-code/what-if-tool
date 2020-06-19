@@ -86,7 +86,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
                             context.flags.authorized_groups != '')
 
     self.custom_predict_fn = None
-    if context.flags.custom_predict_fn:
+    if context.flags and context.flags.custom_predict_fn:
       try:
         import importlib.util as iu
         spec = iu.spec_from_file_location("custom_predict_fn", context.flags.custom_predict_fn)
@@ -400,7 +400,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
           request.args.get('predict_output_tensor'),
           feat['observedMin'] if 'observedMin' in feat else 0,
           feat['observedMax'] if 'observedMin' in feat else 0,
-          None)
+          None, custom_predict_fn=self.custom_predict_fn)
       features_list = inference_utils.sort_eligible_features(
         features_list, chart_data)
       return http_util.Respond(request, features_list, 'application/json')
