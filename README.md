@@ -111,6 +111,10 @@ To use the tool in TensorBoard, only the following information needs to be provi
       more information on the two APIs. The docker image uses port 8500 for the
       gRPC API, so if using the docker approach, the port to specify in the
       What-If Tool will be 8500.
+    * Alternatively, instead of querying a model hosted by TensorFlow Serving,
+      you can provide a python function for model prediction to the tool through
+      the "--whatif-use-unsafe-custom-prediction" runtime argument as
+      described in more detail below.
 * A TFRecord file of tf.Examples or tf.SequenceExamples to perform inference on
   and the number of examples to load from the file.
     * Can handle up to tens of thousands of examples. The exact amount depends
@@ -403,41 +407,42 @@ Note that you may need to run `!sudo jupyter labextension ...` commands dependin
 
 Use of WIT after installation is the same as with the other notebook installations.
 
-## Can I use my custom prediction without the Jupyter notebook or without the Colab notebook?
-Yes. You can do this by defining a python function with the following signature. Here is a minimal example:
+## Can I use a custom prediction function in TensorBoard?
+Yes. You can do this by defining a python function named `custom_predict_fn`
+which takes two arguments: a list of examples to preform inference on, and the
+serving bundle object which contains information about the model to query.
+The function should return a list of results, one entry per example provided.
+For regression models, the result is just a number. For classification models,
+the result is a list of numbers, representing the class scores for each possible
+class.
+Here is a minimal example that just returns random results:
 
 ```python
 import random
-NUM_POSSIBLE_CLASSES = 3
 
 # The function name "custom_predict_fn" must be exact.
 def custom_predict_fn(examples, serving_bundle):
-  # examples are a list of TFRecord objects, each object contains the features of each point.
-  # serving_bundle is a dictionary that contains the data you will fill in the webpage,
+  # Examples are a list of TFRecord objects, each object contains the features of each point.
+  # serving_bundle is a dictionary that contains the setup information provided to the tool,
   # such as server address, model name, model version, etc.
 
   number_of_examples = len(examples)
   results = []
   for _ in range(number_of_examples):
-    scores = []
-    for clsid in range(NUM_POSSIBLE_CLASSES):
-      scores.append(random.random())
-    results.append(scores)  # classification
-    # results.append(result[0][0])  # this make a regression result
+    score = random.random()
+    results.append([score, 1 - score]) # For binary classification
+    # results.append(score) # For regression
   return results
-
-  # Return a "list" or a "list of list".
-  # For classification, a 2D list of numbers. The first dimension is for
-  # each example being predicted. The second dimension are the probabilities
-  # for each class ID in the prediction. For regression, a 1D list of numbers,
-  # with a regression score for each example being predicted.
 ```
 
-After you have implemented your function, assume the file name is `my_custom_predict_function.py`.
-Launch the TensorBoard server with `tensorboard --whatif-use-unsafe-custom-prediction my_custom_predict_function.py` 
-and the function should be invoked once you have "Set up your data and model" in the what-if-tool page.
+Define this function in a file you save to disk. For this example, let's assume
+the file is saved as `/tmp/my_custom_predict_function.py`.
+Then the TensorBoard server with `tensorboard --whatif-use-unsafe-custom-prediction /tmp/my_custom_predict_function.py` 
+and the function should be invoked once you have set up your data and model in
+the What-If Tool setup dialog.
 The `unsafe` means that the function is not sandboxed, so make sure that 
-`my_custom_predict_function.py` won't accidently delete your experiment data.
+your function doesn't do anything destructive, such as accidently delete your
+experiment data.
 
 ## How can I help develop it?
 
