@@ -35,13 +35,14 @@ body {
 
 
 
-.sub-hero-container{
+.sub-hero-container, .tutorial-hero-container {
   width: 100%;
-  height:200px;
+  height:250px;
   background-size: cover;
+  background-position-x: right;
 }
 
-.main-page-container, .sub-page-container {
+.hero-container, .main-page-container, .sub-page-container, .tutorial-page-container {
   margin: 0 auto; 
   max-width:950px;
 }
@@ -81,4 +82,19 @@ body {
   line-height: 29px;
 
   color: #3C4043;
+}
+
+
+.sub-title, .tutorial-title {
+  color: white;
+  font-size: 32px;
+  line-height: 40px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.sub-copy, .tutorial-copy {
+  color: white;
+  font-size: 22px;
+  line-height: 28px;
 }
