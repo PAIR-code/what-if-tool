@@ -1,5 +1,26 @@
 # What-If Tool releases
 
+## Release 1.7.0
+
+This release has a few notable major features:
+- Custom prediction functions can be provided to WIT in TensorBoard, matching
+  the capability already in notebook mode.
+- Help links have been updated to point to the new tutorials on the redesigned
+  What-If Tool website.
+- When attributions are provided, allow counterfactual finding by closest
+  attributions.
+- When attributions are provided, add global mean attribution tables in
+  the performance tab for each slice and the entire dataset.
+
+Also, python 2 support has been removed. Please use python 3.
+
+### Notable Features
+- #59 - Display global attributions table in performance tab.
+- #60 - Find counterfactual by attribution distance.
+- #92 - Added AUC display for PR and ROC curves.
+- #94 - Allow custom prediction functions in TensorBoard.
+- Added links to new help page and tutorials.
+
 ## Release 1.6.0
 
 This is the first release that includes the tensorboard-plugin-wit package
