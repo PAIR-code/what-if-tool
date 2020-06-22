@@ -1,6 +1,6 @@
 ---
 title: Features Overview - Understanding Your Feature Distributions
-layout: layouts/sub.liquid
+layout: layouts/tutorial.liquid
 image: /assets/images/wit-walkthrough.jpg
 ---
   
@@ -14,15 +14,17 @@ The dashboard contains two tables: one for numeric features and one for categori
 
 For numeric features, these stats in the table include the minimum, maximum, mean (average) values, along with the percentage of values that are ‘0’. For categorical features, they include the number of unique values, and the most frequently-seen value. The tool does some automatic tagging of stats that may be problematic, bolding them and coloring them red, such as a feature with a high number of ‘0’ values.
 
-![Numeric Features](/assets/images/overview-num.png "Numeric Features")
-Above: The Features Overview dashboard control panel and numeric features table. The features have been sorted by non-uniformity, as can be seen by the shape of the histograms. Features towards the bottom of this table will have flatter histograms, with values more evenly distributed between buckets. 
+{% include partials/inset-image image: '/assets/images/overview-num.png', 
+  caption: 'Above: The Features Overview dashboard control panel and numeric features table. The features have been sorted by non-uniformity, as can be seen by the shape of the histograms. Features towards the bottom of this table will have flatter histograms, with values more evenly distributed between buckets.'%}
+
 
 The right-side of each row contains a chart showing the distribution of values for that feature across the dataset. For numeric features, the default chart to show the distribution is a histogram, and through a drop-down menu above the charts you can change it to a quantile chart.
 
 For categorical features, the type of chart shown depends on the number of unique values of that feature across the dataset. When there are only a small number of unique values, a bar chart is shown. Otherwise, a cumulative distribution function chart is shown, as there wouldn’t be enough room for bars for each unique value. This type of chart shows, from the most frequent value, to the least frequent value, what percentage of total values are represented by each value (and the ones before it). That is why it is a line chart that looks like a curve approaching the Y-axis value of 1 (for 100%). The steeper the initial slope, the more popular the most frequently-seen values are in the dataset. If all values are completely unique, the line will be a straight diagonal line. Additionally, a button next to the charts allows you to toggle from the chart to a data table view showing each feature value and its count in the dataset.
 
-![Categorical Features](/assets/images/overview-cat.png "Categorical Features")
-Above: The Features Overview dashboard categorical features table. The top feature shows a cumulative distribution function chart due to its high number of unique values. The third feature is showing a raw data table due to a user pressing the toggle button above the chart.
+{% include partials/inset-image image: '/assets/images/overview-cat.png', 
+  caption: 'Above: The Features Overview dashboard categorical features table. The top feature shows a cumulative distribution function chart due to its high number of unique values. The third feature is showing a raw data table due to a user pressing the toggle button above the chart.'%}
+
 
 If using the What-If Tool with a dataset provided as tf.Example protocol buffers, each datapoint in the dataset has the ability to have more than one value for each feature. Each feature in a datapoint can contain a list of values, instead of just one. This dashboard provides one further chart for use with these types of datasets. This is a quantiles chart showing the distribution of the lengths of the feature value lists for each datapoint for each feature. In a dataset where each feature has exactly one value, this quantiles chart only contains an entry for the length of ‘1’. But for datasets with variable length feature value lists, this chart can help you understand the distribution of different value list lengths across the dataset.
 
@@ -36,6 +38,5 @@ At the top of the Features Overview dashboard is a control panel for the tables.
 
 In the control panel, there is a dropdown menu when you can change the order of the features shown in the tables. The default order, “Feature order” is the order the features were listed in the provided dataset. “Alphabetical” sorts the features alphabetically. “Amount missing/zero” sorts the features by how many of their values in the dataset are either ‘0’ or missing. This can be useful for finding features which are unexpectedly not filled in with valid values. The last sort order is “Non-uniformity” which sorts the features by how non-uniform their distribution is. This can be useful for finding features with unexpected distributions of values, such as one with surprising outlier values that don’t match with the majority of the values in the dataset.
 
-#### [inset box] Using sorting to generate insights
-
-Looking at the top features in both tables across both the “Non-uniformity” and “Amount missing/zero” sort orders can help you find features with possibly surprising characteristics.
+{% include partials/info-box title: 'Using sorting to generate insights', 
+  text: 'Looking at the top features in both tables across both the “Non-uniformity” and “Amount missing/zero” sort orders can help you find features with possibly surprising characteristics.'%}
