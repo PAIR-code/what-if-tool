@@ -1,7 +1,10 @@
 ---
 title: WIT - Getting Started
 layout: layouts/sub.liquid
-image: /assets/images/wit-walkthrough.jpg
+
+hero-image: /assets/images/sample-banner.png
+hero-title: "pip install wit-widget"
+hero-copy: "Vivamus dolor justo, consectetur sed ante in, lacinia porttitor tellus. Vestibulum neque leo, volutpat sit amet velit ut, laoreet maximus tortor. Donec pulvinar porta luctus. "
 ---
   
 # Using the What-If Tool in Colaboratory

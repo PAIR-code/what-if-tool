@@ -17,7 +17,12 @@
       {% include partials/header %}
       
       <main class="mdl-layout__content hero-banner">
-        {{ content }}
+        {% include partials/hero-element type:"tutorial" %}
+        <div class="tutorial-page-container mdl-grid">
+          <div class="mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+          {{ content }}
+          </div>
+        </div>
       </main>
       
       {% include partials/footer %}
