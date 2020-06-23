@@ -1,6 +1,6 @@
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .mdl-layout__title a, .mdl-navigation__link, .hero-container {
@@ -14,6 +14,26 @@ p {
   font-size: 22px;
   line-height: 28px;
   letter-spacing: 0.1px;
+}
+
+.display1 {
+  font-family: Manrope;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0.2px;
+  color: #0E0F12;
+}
+
+.display2 {
+  font-family: Manrope;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0.2px;
+  color: #8A2A04;
 }
 
 h1, h2, h3, h4, h5 {
