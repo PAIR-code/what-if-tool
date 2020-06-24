@@ -16,6 +16,9 @@ Tutorials that cover basic tool use and provide step-by-step instructions on how
 {% include partials/tutorial-link-element c-title: "A Tour of the What-If Tool", link: "learn/tutorials/tour",
 c-copy: "Learn about different spaces and how they are used in the What-If Tool: tabs, workspaces, modules and playgrounds." %}
 
+{% include partials/tutorial-link-element c-title: "A Walkthrough of the What-If Tool", link: "/walkthrough.html",
+c-copy: "Explore how the What-If Tool can help us learn about a model and dataset through a concrete example." %}
+
 {% include partials/tutorial-link-element c-title: "How To: Edit A Datapoint", link: "learn/tutorials/edit-datapoint",
 c-copy: "Learn how to edit a datapoint in the What-If Tool." %}
 
@@ -38,7 +41,7 @@ c-copy: "Set up the What-If Tool inside of notebook environments." %}
 
 ## Conducting analysis in the What-If Tool
 
-Tutorials that cover basic tool use and provide step-by-step instructions on how to use specific WIT features, such as editing a datapoint.
+Tutorials that cover how to use the What-If Tool for higher-level analysis.
 
 {% include partials/tutorial-link-element c-title: "Understanding Performance Metrics For Classifiers", link: "/learn/tutorials/classifier-performance",
 c-copy: "A brief overview of performance metrics for classification-based models." %}
