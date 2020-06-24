@@ -7,6 +7,10 @@ body {
   font-family: "Manrope";
 }
 
+.no-padding {
+  padding: 0px;
+}
+
 p {
   font-family: "Open Sans";
   font-style: normal;
@@ -14,6 +18,18 @@ p {
   font-size: 22px;
   line-height: 28px;
   letter-spacing: 0.1px;
+}
+
+.spacer {
+  width: 100%;
+}
+
+.link-out {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: #FD562B;
 }
 
 .display1 {
@@ -24,6 +40,11 @@ p {
   line-height: 40px;
   letter-spacing: 0.2px;
   color: #0E0F12;
+  margin: 72px 0 ;
+}
+
+.display1 strong {
+  color: #FF6B42;
 }
 
 .display2 {
@@ -34,6 +55,7 @@ p {
   line-height: 40px;
   letter-spacing: 0.2px;
   color: #8A2A04;
+  margin-bottom: 45px;
 }
 
 h1, h2, h3, h4, h5 {
@@ -49,22 +71,13 @@ h2 {
   color: #FD562B;
 }
 
-.h3 {
+h3 {
   font-style: normal;
   font-weight: 500;
   font-size: 26px;
   line-height: 32px;
   letter-spacing: 0.25px;
   color: #FD562B;
-}
-
-.h3-home {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 26px;
-  line-height: 32px;
-  letter-spacing: 0.25px;
-  color: #8A2A04;
 }
 
 h4 {
@@ -119,29 +132,55 @@ h5 {
   background-position-x: right;
 }
 
+.header-arrow {
+  height:22px;
+  position:relative;
+  margin-top: -3px;
+}
+
+.external-arrow {
+  height: 22px;
+  position:relative;
+  margin-top: -2px;
+  margin-left: 5px;
+}
+
 .hero-container, .main-page-container, .sub-page-container, .tutorial-page-container {
   margin: 0 auto; 
   max-width:950px;
 }
 
+.main-page-container p img {
+  width: 100%;
+}
 
 .home-card-image {
   width: 100%;
 }
 
-.home-card-action {
+.home-card-action, .section-action {
   font-weight: 600;
   font-size: 16px;
   line-height: 22px;
   color: #5F6368;
-  margin-top: 32px;
+  margin-top: 24px;
+  text-transform: uppercase;
+}
+
+.section-action {
+  top: 20px;
+  margin-top: 0px;
+  position: relative;
 }
 
 .home-card-title {
-  font-size: 28px;
-  line-height: 36px;
-  color: #FD562B;
-  margin: 28px 0 ;
+  margin-top: 12px;
+}
+
+.home-card-icon {
+  position:relative;
+  top: 5px;
+  margin-left: 5px;
 }
 
 .home-card-desc {
@@ -149,35 +188,27 @@ h5 {
   line-height: 24px;
   color: #202124;
   height: 100px;
+  margin-top: 12px;
 }
 
 .home-card-cta-button {
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 23px;
-  color: #EA8600;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: #FD562B;
   margin-bottom: 50px;
 }
 
-.home-card-cta-button a:link {
+.home-card-cta-button a:link, .link-out a:link {
   text-decoration: none;
 }
 
-.home-card-cta-button a:visited, .home-card-cta-button a:active {
-  color: #EA8600;
+.home-card-cta-button a:visited, .home-card-cta-button a:active, .link-out a:visited, .link-out a:active {
+  color: #FD562B;
 }
 
 .home-card-cta-button a:hover {
   text-decoration: underline;
-}
-
-.home-card-cta-button::before {
-  content: "launch";
-  font-family: 'Material Icons';
-  padding: 0 10px 0 0 ;
-  display: inline-block;
-  position: relative;
-  top: 3px;
 }
 
 /* .sub-page-container h1 {
@@ -222,7 +253,7 @@ h5 {
   color: white;
   font-size: 32px;
   line-height: 40px;
-  margin-top: 30px;
+  margin-top: 40px;
   margin-bottom: 10px;
 }
 
@@ -234,7 +265,7 @@ h5 {
 
 
 .capability-element, .tutorial-link-element {
-  margin:15px 0;
+  margin-top:48px;
   border-bottom: 1px solid #A4B7C8;
 }
 
@@ -261,7 +292,7 @@ h5 {
 }
 
 .capability-copy, .tutorial-link-copy {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .resource-card, .demo-card {

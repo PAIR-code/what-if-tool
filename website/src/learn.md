@@ -7,7 +7,7 @@ hero-title: "Build the What-If Tool into your workflow"
 hero-copy: "Vivamus dolor justo, consectetur sed ante in, lacinia porttitor tellus. Vestibulum neque leo, volutpat sit amet velit ut, laoreet maximus tortor. Donec pulvinar porta luctus. "
 ---
 
-<div class="mdl-cell--8-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+<div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
 
 ## Basics of the What-If Tool
 
@@ -25,6 +25,8 @@ c-copy: "Enim nec dui nunc mattis enim ut. Et pharetra pharetra massa massa ultr
 {% include partials/tutorial-link-element c-title: "How to tutorial name here", link: "#",
 c-copy: "Enim nec dui nunc mattis enim ut. Et pharetra pharetra massa massa ultricies mi quis. Donec massa sapien." %}
 
+{% include partials/spacer height:50 %}
+
 ## Conducting analysis in the What-If Tool
 
 Enim nec dui nunc mattis enim ut. Et pharetra pharetra massa massa ultricies mi quis. Donec massa sapien faucibus et molestie ac feugiat sed.
@@ -35,14 +37,18 @@ c-copy: "Enim nec dui nunc mattis enim ut. Et pharetra pharetra massa massa ultr
 {% include partials/tutorial-link-element c-title: "How to tutorial name here", link: "#",
 c-copy: "Enim nec dui nunc mattis enim ut. Et pharetra pharetra massa massa ultricies mi quis. Donec massa sapien." %}
 
+{% include partials/spacer height:50 %}
+
 ## Additional Resources
 
-  <div class="mdl-grid">
+  <div class="mdl-grid no-padding">
 
   {% include partials/resource-card c-title: "Qwiklabs", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
 
   {% include partials/resource-card c-title: "Towards Data Science", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
 
   </div>
+
+  {% include partials/spacer height:30 %}
 
 </div>

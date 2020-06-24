@@ -13,7 +13,7 @@ hero-copy: "Vivamus dolor justo, consectetur sed ante in, lacinia porttitor tell
 
 Enim nec dui nunc mattis enim ut. Et pharetra pharetra massa massa ultricies mi quis. Donec massa sapien faucibus et molestie ac feugiat sed.
 
-  <div class="mdl-grid">
+  <div class="mdl-grid no-padding">
 
   {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
 
@@ -32,12 +32,14 @@ Enim nec dui nunc mattis enim ut. Et pharetra pharetra massa massa ultricies mi 
   {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
 
   </div>
+
+  {% include partials/spacer height:30 %}
 
 ## Notebook Demos
 
 Enim nec dui nunc mattis enim ut. Et pharetra pharetra massa massa ultricies mi quis. Donec massa sapien faucibus et molestie ac feugiat sed.
 
-  <div class="mdl-grid">
+  <div class="mdl-grid no-padding">
 
   {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
 
@@ -56,3 +58,5 @@ Enim nec dui nunc mattis enim ut. Et pharetra pharetra massa massa ultricies mi 
   {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
 
   </div>
+
+{% include partials/spacer height:50 %}
