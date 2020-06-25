@@ -22,14 +22,14 @@ The datapoint editor is dedicated to a variety of datapoint-level analyses, and 
 
 3. **Change the similarity metric**  by selecting from the options provided.
   a. You can select between L1 Norm distance and L2 Norm distance between data points. More information on how these distances are calculated will be included in a follow-on tutorial.
-  b. When using the What-If Tool in notebook mode,  you can provide a custom distance metric to calculate distance between datapoints. In that case, it will be used the find the closest counterfactual.
+  b. When using the What-If Tool in notebook mode,  you can provide a custom distance metric to calculate distance between datapoints. In that case, it will be used instead of L1/L2 Norm to find the closest counterfactual.
 
 4. **Change the model used for prediction results** for finding counterfactuals by selecting from the dropdown menu, if comparing multiple models.
+
+{% include partials/inset-image image: '/assets/images/SimilarityFeature.gif', 
+  caption: 'Above: Using the similarity modal to create a new similarity feature and use it in the Datapoints visualization.'%}
 
 5. **In regression models, change the threshold value** using the counterfactual threshold slider. By default, the threshold for finding a counterfactual data point is set to the standard deviation of the prediction scores.
 
 {% include partials/info-box title: 'Make a selected datapoint the center of your visualization', 
   text: 'You can evaluate how similar all data points are to a given selection by creating a similarity feature. Click on the “Create similarity feature” to open a window. Here you can rename this feature, decide which distance type to use, and directly apply it to the *Datapoints* visualization. This feature is particularly useful when you want to find clusters of data points that are near a data point of interest. '%}
-
-{% include partials/inset-image image: '/assets/images/SimilarityFeature.gif', 
-  caption: 'Above: Using the similarity modal to create a new similarity feature and use it in the Datapoints visualization.'%}

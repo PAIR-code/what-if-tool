@@ -20,10 +20,32 @@ Once added, as with any other feature, the non-input features are available to a
 
 The example in this tutorial borrows from the Smile Detector Demo. There, the task was to predict whether a person in a photo is smiling or not. Trained using only image data, the dataset also contains many feature attributes that describe certain aspects about the person in the photo. For example, is the person in the photo wearing a hat? Did they have make-up on? Did they have a beard? 
 
+{% include partials/info-box title: 'Caveats in the Smile Detector Demo', 
+  text: '
+  The demo referenced in this tutorial was trained using the CelebFaces Attributes ([CelebA](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)) dataset. It's a large-scale face attributes dataset with more than 200,000 celebrity images, each with numerous attribute annotations (such as hair type, fashion accessories, facial features) and landmark locations (eyes, mouth and nose positions). 
+
+  It's worth acknowledging that all of the attribute annotations (which is captured as our non-input features in this tutorial) in CelebA come operationalized as binary categories. 
+
+  For example, the "Young" attribute, which loosely and presumably represents perceived behavior or appearance of young people, is denoted as either present or absent in the image. In other words, the absence of "Young" in an image does not always imply that the image features an "Old" celebrity.
+
+  **Warning: CelebA's categorizations do not reflect real human diversity of attributes.**
+  In this demo, we’re dubbing the "Young" attribute as "**age group**", where the presence of the "Young" attribute in an image is labeled as a member of the "young" age group and the absence of the "Young" attribute is labeled as a member of the "old" age group. We’re also treating the "Male" attribute as "**gender**", where the presence of the "Male" attribute in an image is regarded the same, but the absence of the "Male" attribute ("Not Male" in CelebA) is regarded as "Female" in our demo.
+  Basically, we’re making assumptions about the information in the dataset that is not mentioned in its [original paper](http://openaccess.thecvf.com/content_iccv_2015/html/Liu_Deep_Learning_Face_ICCV_2015_paper.html). As such, results in this demo is tied to the ways the attributes have been operationalized and annotated by the authors of CelebA.
+
+  This model should not be used for commercial purposes as that would violate CelebA's non-commercial research agreement.
+  '%}
+
 As mentioned earlier, one of the advantages to including non-input features is the ability to evaluate model performance with respect to subgroups. This can be done by selecting the feature using *Slice By* in the *Configure* module located in the *Performance & Fairness* workspace as shown below:
 
 {% include partials/inset-image image: '/assets/images/perfconfigure.png', 
   caption: 'Selecting Non-Input Features in the Configure Module to Evaluate Subgroup from Smile Detector Demo.'%}
+
+Among the list of feature attributes were categories associated with age group and perceived gender—feature attributes that may be regarded as sensitive subgroups to evaluate performance across to ensure fairer, more desirable outcomes. As shown in the figure above, both of those features (age and gender) can be selected for analysis in the Configure module by selecting one of those features (say, age) using the Slice By drop down and selecting the second feature (say, gender) using the Slice By (secondary) drop down.
+
+Using a combination of features that represent individual characteristics to explore the impact of model results with respect to these combinations is known as **intersectional** model analysis. Intersectionality explores how an individual’s identity and experiences (as captured in input features in the dataset) are shaped not just by unitary characteristics, but instead by a complex combination of many factors. The following is an example of what intersectional model analysis looks like in the What-If Tool:
+
+{% include partials/inset-image image: '/assets/images/perf-intersectional.png', 
+  caption: 'Intersectional Results Using Non-Input Features from Smile Detector Demo.'%}
 
 {% include partials/info-box title: 'Considering Key Subgroups', 
   text: '
@@ -33,12 +55,5 @@ As mentioned earlier, one of the advantages to including non-input features is t
 
   For example, where are the places or contexts where the interaction of the characteristic feature and the task could be a concern?
   '%}
-
-Among the list of feature attributes were categories associated with age group and perceived gender—feature attributes that may be regarded as sensitive subgroups to evaluate performance across to ensure fairer, more desirable outcomes. Both of those features (age and gender) can be selected for analysis in the *Configure* module. 
-
-The is known as **intersectional** model analysis, which explores how an individual’s identity and experiences are shaped not just by unitary characteristics, but instead by a complex combination of many factors. The following is an example of what intersectional model analysis looks like in the What-If Tool:
-
-{% include partials/inset-image image: '/assets/images/perf-intersectional.png', 
-  caption: 'Intersectional Results Using Non-Input Features from Smile Detector Demo.'%}
 
 With the What-If Tool, anyone can transform their analysis to evaluate model performance across subgroups rather than in aggregate. The ability to use non-input features as a way to perform such analysis provides flexibility for practitioners that wish to omit such features in training, but utilize later for evaluation.

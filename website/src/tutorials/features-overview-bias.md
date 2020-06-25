@@ -52,4 +52,9 @@ Exclusive to numerical features, the Features Overview workspace can also visual
 
 In this running example, most of the hours per week reported in the US Census is centered around 40 as shown in the quantile plot and [corroborated in reports](https://en.wikipedia.org/wiki/Working_time#United_States). What is peculiar here is a few datapoints reporting work hours per week approaching 100, or over double the reported average time. Concerning, and a bit unexpected, but it does represent just a tiny portion of the dataset. There are not enough datapoints to raise an alarm about problems in data collection or other inaccuracies that could introduce bias—but this is something to be mindful of when moving forward with model training.
 
+In addition to the options available in the tables themselves, the What-If Tool allows sorting by non-uniformity, among other sorting options. This helps surface features that have the most inconsistency to the top, which may indicate some type of bias, undesirably impacting model performance.
+
+{% include partials/inset-image image: '/assets/images/fo-sort.png', 
+  caption: 'Sorting by Non-Uniformity from the Income Classification Demo'%}
+
 While it can be challenging to identify the very root causes that introduced bias into the dataset and model in the first place, the automatically-generated visual analyzes in *Features Overview* can help provide hints at pre-existing or procedural conditions.
