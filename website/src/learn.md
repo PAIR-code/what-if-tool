@@ -18,7 +18,7 @@ Tutorials that cover basic tool use and provide step-by-step instructions on how
 {% include partials/tutorial-link-element c-title: "A Tour of the What-If Tool", link: "/learn/tutorials/tour",
 c-copy: "Learn about different spaces and how they are used in the What-If Tool: tabs, workspaces, modules and playgrounds." %}
 
-{% include partials/tutorial-link-element c-title: "A Walkthrough of the What-If Tool", link: "/learn/tutorials/walkthrough/",
+{% include partials/tutorial-link-element c-title: "A Walkthrough with UCI Census Data", link: "/learn/tutorials/walkthrough/",
 c-copy: "Explore how the What-If Tool can help us learn about a model and dataset through a concrete example." %}
 
 {% include partials/tutorial-link-element c-title: "How To: Edit A Datapoint", link: "/learn/tutorials/edit-datapoint",

@@ -1,10 +1,21 @@
 ---
-title: A Walkthrough of the What-If Tool
+title: A Walkthrough with UCI Census Data
 layout: layouts/tutorial.liquid
 
 hero-image: /assets/images/sample-banner.png
 hero-title: "Walkthrough"
-hero-copy: "A Walkthrough of the What-If Tool"
+hero-copy: "A Walkthrough with UCI Census Data."
+
+bc-anchor-category: "basics"
+bc-category-title: "Basics of the What-If Tool"
+bc-title: "Walkthrough"
+
+time: "25 minutes"
+use-with: "Classification models<br/>Multi-class models<br/>Regression models"
+before: "N/A"
+related: "Binary Classification Model: UCI Census Income Prediction"
+takeaways: "Explore the basics of the What-If Tool through a specific example."
+questions: "In general, what can I learn through use of the What-If Tool?"
 ---
 
 In this walkthrough, we explore how the What-If Tool (WIT) can help us learn about a model and dataset.

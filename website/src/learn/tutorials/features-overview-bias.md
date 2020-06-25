@@ -3,8 +3,19 @@ title: Exploring Features Overview To Identify Biases
 layout: layouts/tutorial.liquid
 
 hero-image: /assets/images/sample-banner.png
-hero-title: "Exploring Features Overview To Identify Biases"
+hero-title: "Identify Biases"
 hero-copy: "Exploring Features Overview To Identify Biases"
+
+bc-anchor-category: "analysis"
+bc-category-title: "Conducting Analysis in the What-If Tool"
+bc-title: "Identify Biases"
+
+time: "7 minutes"
+use-with: "Classification models<br/>Multi-class models<br/>Regression models"
+before: "Experience exploring and manipulating datasets may help in navigating around Features Overview, but no requirements, set-up nor pre-work required to follow through with this tutorial."
+related: "Binary Classification Model: UCI Census Income Prediction"
+takeaways: "Learn how to use Features Overview workspace.<br/><br/>Identify the following signs that may contribute to bias in model predictions: missing feature values, unexpected feature values, data skew."
+questions: "Are there missing feature values for a large number of datapoints?<br/><br/>Are there any unexpected feature values?<br/><br/>Are there any signs of data skew that could explain model performance?"
 ---
 
 # Exploring Features Overview To Identify Biases

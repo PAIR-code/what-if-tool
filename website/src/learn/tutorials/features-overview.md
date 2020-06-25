@@ -4,7 +4,18 @@ layout: layouts/tutorial.liquid
 
 hero-image: /assets/images/sample-banner.png
 hero-title: "Features"
-hero-copy: "The Features Overview dashboard of the What-If Tool provides an overview"
+hero-copy: "Features Overview: Understanding Your Feature Distributions"
+
+bc-anchor-category: "basics"
+bc-category-title: "Basics of the What-If Tool"
+bc-title: "Features Overview"
+
+time: "10 minutes"
+use-with: "Classification models<br/>Multi-class models<br/>Regression models"
+before: "N/A"
+related: "Binary Classification Model: UCI Census Income Prediction<br/><br/>Multi-class Classification Model: Flowers Species Identification<br/><br/>Regression Model: UCI Census Age Prediction"
+takeaways: "Find features of your dataset with interesting statistical properties."
+questions: "What range of values does each feature in my dataset have?<br/><br/>Which features have the most values of ‘0’?<br/><br/>What features are the most non-uniform in their distribution?"
 ---
 
 # Features Overview: Understanding Your Feature Distributions

@@ -5,6 +5,17 @@ layout: layouts/tutorial.liquid
 hero-image: /assets/images/sample-banner.png
 hero-title: "Tour"
 hero-copy: "A Tour of the What-If Tool"
+
+bc-anchor-category: "basics"
+bc-category-title: "Basics of the What-If Tool"
+bc-title: "Tour"
+
+time: "7 minutes"
+use-with: "Classification models<br/>Multi-class models<br/>Regression models"
+before: "N/A"
+related: "Binary Classification Model: UCI Census Income Prediction<br/><br/>Multi-class Classification Model: Flowers Species Identification<br/><br/>Regression Model: UCI Census Age Prediction"
+takeaways: "Learn about different spaces and how they are used in the What-If Tool: tabs, workspaces, modules and playgrounds."
+questions: "N/A"
 ---
 
 # A Tour of the What-If Tool

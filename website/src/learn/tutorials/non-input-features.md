@@ -5,6 +5,17 @@ layout: layouts/tutorial.liquid
 hero-image: /assets/images/sample-banner.png
 hero-title: "Adding Non-Input Features To Perform Subgroup Analysis"
 hero-copy: "Adding Non-Input Features To Perform Subgroup Analysis"
+
+bc-anchor-category: "analysis"
+bc-category-title: "Conducting Analysis in the What-If Tool"
+bc-title: "Adding Non-Input Features"
+
+time: "7 minutes"
+use-with: "Classification models<br/>Multi-class models"
+before: "N/A"
+related: "Binary Classification Model: Smile Detector in Images"
+takeaways: "Learn how to load a model with non-input features.<br/><br/>Use non-input features to analyze performance metrics by subgroup."
+questions: "How do I analyze my results by features not intended to be used as input for model prediction?<br/><br/>How could I use these non-input features to calculate performance metrics by subgroups?"
 ---
 
 # Adding Non-Input Features To Perform Subgroup Analysis

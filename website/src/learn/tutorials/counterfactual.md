@@ -10,12 +10,12 @@ bc-anchor-category: "basics"
 bc-category-title: "Basics of the What-If Tool"
 bc-title: "Find a Counterfactual"
 
-time: "5 minutes"
+time: "7 minutes"
 use-with: "Classification models<br/>Multi-class models<br/>Regression models"
-before: "This tutorial is self-contained, not requiring any working example to follow along.<br/><br/>Should you wish to try this out on your own, navigate to one of the listed web demos and click on the Performance & Fairness tab."
-related: "Binary Classification Model: UCI Census Income Prediction<br/><br/>Multi-class Classification Model: Flowers Species Identification"
-takeaways: "Enim nec dui nunc mattis enim ut. Et pharetra pharetra massa massa ultricies mi quis. Donec massa sapien faucibus et molestie ac feugiat sed."
-questions: "How does the prediction result on a datapoint change if a feature value is changed?<br/><br/>How do models behave when feature values are missing?"
+before: "N/A"
+related: "Binary Classification Model: UCI Census Income Prediction<br/><br/>Multi-class Classification Model: Flowers Species Identification<br/><br/>Regression Model: UCI Census Age Prediction"
+takeaways: "Learn to find a counterfactual for a datapoint.<br/><br/>Configure metrics and models used when calculating counterfactuals."
+questions: "What needs to be different in a datapoint to be classified differently?<br/><br/>What differences between two data points cause models to behave differently?<br/><br/>Which two data points are most similar but have different classifications?"
 ---
 
 ## How To - Find a Counterfactual
