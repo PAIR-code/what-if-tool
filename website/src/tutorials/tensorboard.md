@@ -15,6 +15,9 @@ To use the What-If Tool inside of TensorBoard, you need to serve your model thro
 
 When opening the What-If Tool in TensorBoard, you will encounter a setup dialog which allows you to point the tool to your model(s) to analyze and the dataset for the analysis, among other options.
 
+{% include partials/inset-image image: '/assets/images/wit-tb-setup.png', 
+  caption: 'Above: The setup dialog for the What-If Tool inside of TensorBoard '%}
+
 ## Model Configuration
 
 The inference address must be set to the address where TensorFlow Serving is hosting the model, in the format `<host>:<port>`. The model name must be set to the model name provided to TensorFlow Serving. You can optionally specify the model version and signature if you need to query an older version of a model, or you need to query the non-default signature of the model. If using a custom prediction function instead of TensorFlow Serving, you still need to

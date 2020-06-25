@@ -11,9 +11,6 @@ hero-copy: "Getting Started in Notebooks"
 
 The What-If Tool can be used inside of notebook environments, including Colaboratory, Jupyter, JupyterLab, and Cloud AI Platform notebooks. The use of the What-If Tool in notebooks, as opposed to inside of TensorBoard, offers more flexibility due to the ability to add your own custom code for connecting the tool to your model(s) and data.
 
-{% include partials/inset-image image: '/assets/images/wit-tb-setup.png', 
-  caption: 'Above: The setup dialog for the What-If Tool inside of TensorBoard '%}
-
 ## Installation
 
 The setup instructions for the What-If Tool differ slightly depending on which notebook environment you are in:
