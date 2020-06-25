@@ -29,9 +29,9 @@ Etiam gravida eget felis vitae dapibus. Vivamus eu pulvinar dui. Pellentesque di
 
   <div class="mdl-grid no-padding">
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "regression, image data, something else" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "regression, image data, something else" %}
 
   </div>
 
@@ -57,9 +57,9 @@ Etiam gravida eget felis vitae dapibus. Vivamus eu pulvinar dui. Pellentesque di
 
   <div class="mdl-grid no-padding">
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "regression, image data, something else" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "regression, image data, something else" %}
 
   </div>
 
@@ -87,9 +87,9 @@ Etiam gravida eget felis vitae dapibus. Vivamus eu pulvinar dui. Pellentesque di
 
   <div class="mdl-grid no-padding">
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "regression, image data, something else" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "regression, image data, something else" %}
 
   </div>
 

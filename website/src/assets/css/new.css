@@ -350,7 +350,7 @@ h5 {
   margin: 10px 0;
 }
 
-.demo-card-tags b {
+.demo-card-tags .demo-tag {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
