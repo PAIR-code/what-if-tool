@@ -15,29 +15,24 @@ The What-If Tool can be used inside of notebook environments, including Colabora
 
 The setup instructions for the What-If Tool differ slightly depending on which notebook environment you are in:
 
-### Colaboratory
-You need to install the witwidget package in a notebook cell before making use of it, by running the command `!pip install witwidget`.
+- Colaboratory: Install the required `witwidget` package in a notebook cell before making use of it by running the command `!pip install witwidget`. 
 
-### Jupyter
-You need to install the witwidget package and enable the notebook extension in the environment where you launch your notebook kernels. This only needs to be done a single time for any Jupyter installation. Run the following commands on the command line, and then future launches of Jupyter notebooks will be able to use the tool:
-```
-pip install witwidget
-jupyter nbextension install --py --symlink --sys-prefix witwidget
-jupyter nbextension enable --py --sys-prefix witwidget
-```
+- Jupyter: Install the required `witwidget` package and enable the notebook extension in the environment where notebook kernels are launched. This only needs to be done a single time for any Jupyter installation. Run the following commands on the command line, and then future launches of Jupyter notebooks will be able to use the tool:
+  ```
+  pip install witwidget
+  jupyter nbextension install --py --symlink --sys-prefix witwidget
+  jupyter nbextension enable --py --sys-prefix witwidget
+  ```
 
-### JupyterLab
-You need to install the witwidget package and enable the notebook extension inside of your notebook. Note, you may need to refresh the notebook page after running a cell containing these commands before the tool appears properly.
-```
-!pip install witwidget
-!jupyter labextension install wit-widget
-!jupyter labextension install @jupyter-widgets/jupyterlab-manager
-```
+- JupyterLab: Install the required `witwidget` package and enable the notebook extension inside of the actual notebook. Note that refreshing the notebook page after running a cell containing these commands before may be necessary so that the What-If Tool appears properly.
+  ```
+  !pip install witwidget
+  !jupyter labextension install wit-widget
+  !jupyter labextension install @jupyter-widgets/jupyterlab-manager
+  ```
+  Also note that depending on the notebook setup, running the `!sudo jupyter labextension …` commands may be required.
 
-Note that you may need to run `!sudo jupyter labextension …` commands depending on your notebook setup.
-
-### Cloud AI Platform
-AI Platform notebook instances launched with the TensorFlow backend come pre-installed with the What-If Tool. No installation steps are necessary.
+- Cloud AI Platform: AI Platform notebook instances launched with the TensorFlow backend come pre-installed with the What-If Tool. No installation steps are necessary.
 
 The What-If Tool in notebook mode is invoked through the creation of a WitWidget object, with the configuration options set through use of a WitConfigBuilder object, which is provided to the WitWidget constructor.
 
@@ -53,7 +48,7 @@ The dataset that the tool will use is specified by the list of data points you p
 
 All datapoints provided will be used by the tool, so be sure to sample your dataset down to a smaller list if you have a large dataset to test with. The number of datapoints the tool can handle is dependent on the size of each datapoint, but in general the tool can support on the order of 10,000 datapoints.
 
-### Model Configuration
+## Model Configuration
 
 In notebook mode, the What-If Tool can support many different model configurations. The steps for setting up the tool for your specific situation depends on how your models will be queried by the tool but all involve calling methods on the WitConfigBuilder object which you will pass to the WitWidget constructor which creates the What-If Tool instance.
 
@@ -69,17 +64,17 @@ You can optionally specify the model version, through `set_model_version`, and s
 
 If the served model uses the TensorFlow Serving Predict API (as opposed to the standard Classify or Regression APIs, then call `set_uses_predict_api(True)` and provide the names of the input and output tensors that the What-If Tool should use for sending data points to the model, and for parsing model results from the output of the model, through the `set_predict_input_tensor` and `set_predict_output_tensor` methods.
 
-TensorFlow Estimators
+### TensorFlow Estimators
 
 TensorFlow Estimators are supported through the method `set_estimator_and_feature_spec` which requires an estimator object and the corresponding feature spec object, which contains the information on how to extract model inputs from the provided tf.Example protocol buffers ([example notebook](https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Model_Comparison.ipynb)).
 
-Cloud AI Platform Prediction
+### Cloud AI Platform Prediction
 
 Models that have been deployed to Cloud AI Platform Prediction can be used in notebook mode through use of the `set_ai_platform_model` method, which has arguments for project name and model name. It also contains a large number of optional arguments that can be found in the code documentation, including ways to adjust the input datapoints before being sent to the served model, if necessary ([example notebook](https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/xgboost_caip.ipynb)).
 
 If the AI Platform model being served has [explanations](https://cloud.google.com/ai-platform/prediction/docs/ai-explanations/overview) enabled, then the returned attribution information will automatically be visualized by the What-If Tool, with no additional setup required.
 
-Custom Prediction Functions
+### Custom Prediction Functions
 
 For models that don`t fit the above configurations, you can define your own custom prediction function, through the `set_custom_predict_fn` method which accepts a list of datapoints to send to the model and should return a list of predictions from the model, one for each datapoint provided. In this way, notebook mode supports any model that you can query through python code that you provide. Datapoints are provided as input to this function in the same format they were provided to the WitConfigBuilder object. For regression models, the returned list should contain a single score for each datapoint. For classification models, the returned list should contain a class score list for each datapoint. This class score list is a list of classification scores (between 0 and 1) for each class index that the model can classify, with the index in the list corresponding to the index of the class that the score represents ([example notebook](https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb)).
 
@@ -105,6 +100,11 @@ The first, height, is a numeric parameter, and sets the height of the displayed 
 
 The second, delay_rendering, is a boolean parameter that defaults to False. With this default of False, the What-If Tool is immediately displayed in the cell in which the WitWidget object is created. If set to True, then the What-If Tool is not displayed in the output of the notebook cell in which the WitWidget object is created. Instead, the widget is only displayed when you call the ‘render’ method on the constructed WitWidget object.
 
-{% include partials/info-box title: 'Using the tool without a model', 
-  text: 'You can use the What-If Tool without a served model, to just analyze a dataset. The dataset can even contain results from running a model offline, for use by the What-If Tool. In this case, since there is no model to query, some features of the tool, such as partial dependence plots, will be disabled. If the data points in the dataset contain a feature named “predictions”, the numbers in this feature will be interpreted by the tool as the results of a regression model. If they contain a feature named “predictions__probabilities”, the list of numbers in this feature will be interpreted as the results of a classification model, with the first entry being the score for class 0, the second entry being the score for class 1, and so on. If there are any features with the prefix “attributions__”, the numbers in those features will be interpreted as attribution scores for each corresponding input feature and will be used for the feature attribution-based capabilities of the What-If Tool. An example would be a feature named “attributions__age” containing attribution values for the input feature “age”.
+{% include partials/info-box title: 'Using the What-If Tool Without a model', 
+  text: '
+  You can use the What-If Tool without a served model, to just analyze a dataset. The dataset can even contain results from running a model offline, for use by the What-If Tool. In this case, since there is no model to query, some features of the tool, such as partial dependence plots, will be disabled.
+  
+  If the data points in the dataset contain a feature named “predictions”, the numbers in this feature will be interpreted by the tool as the results of a regression model. If they contain a feature named “predictions__probabilities”, the list of numbers in this feature will be interpreted as the results of a classification model, with the first entry being the score for class 0, the second entry being the score for class 1, and so on.
+  
+  If there are any features with the prefix “attributions__”, the numbers in those features will be interpreted as attribution scores for each corresponding input feature and will be used for the feature attribution-based capabilities of the What-If Tool. An example would be a feature named “attributions__age” containing attribution values for the input feature “age”.
 '%}
