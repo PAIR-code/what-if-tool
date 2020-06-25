@@ -7,6 +7,10 @@ layout: layouts/main.liquid
 
 {% include partials/display1 text:"A visual probe to <strong>interactively inspect trained machine learning models</strong> with minimal code." %} 
 
+{% include partials/home-cta-button text:"Get started", link:"/get-started" %}
+
+{% include partials/spacer height:60 %}
+
 </div>
 
 ![overview of WIT](/assets/images/home-overview.png)

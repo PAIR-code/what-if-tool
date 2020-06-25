@@ -1,0 +1,13 @@
+{
+  "name": "wit-website",
+  "version": "1.0.0",
+  "description": "This repository contains the code for the What-If Tool landing page and demo websites, which is hosted as a github page.",
+  "main": "",
+  "scripts": {
+  },
+  "author": "People + AI Research",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "markdown-it": "^11.0.0"
+  }
+}

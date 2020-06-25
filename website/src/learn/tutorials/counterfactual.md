@@ -5,13 +5,25 @@ layout: layouts/tutorial.liquid
 hero-image: /assets/images/sample-banner.png
 hero-title: "Find a Counterfactual"
 hero-copy: "How To - Find a Counterfactual"
+
+bc-anchor-category: "basics"
+bc-category-title: "Basics of the What-If Tool"
+bc-title: "Find a Counterfactual"
+
+time: "5 minutes"
+use-with: "Classification models<br/>Multi-class models<br/>Regression models"
+before: "This tutorial is self-contained, not requiring any working example to follow along.<br/><br/>Should you wish to try this out on your own, navigate to one of the listed web demos and click on the Performance & Fairness tab."
+related: "Binary Classification Model: UCI Census Income Prediction<br/><br/>Multi-class Classification Model: Flowers Species Identification"
+takeaways: "Enim nec dui nunc mattis enim ut. Et pharetra pharetra massa massa ultricies mi quis. Donec massa sapien faucibus et molestie ac feugiat sed."
+questions: "How does the prediction result on a datapoint change if a feature value is changed?<br/><br/>How do models behave when feature values are missing?"
 ---
 
-# How To - Find a Counterfactual
+## How To - Find a Counterfactual
 
 The datapoint editor is dedicated to a variety of datapoint-level analyses, and visualizes individual data points in the loaded data set. One such functionality is the ability to find counterfactuals for a selected datapoint. In the What-If Tool, a *Counterfactual* is the most similar datapoint of a different classification (for classification models) or of a difference in prediction greater than a specified threshold (for regression models).
 
 1. Select a data point of interest in the custom *Datapoints* visualization by clicking on it. A list of all features and values associated with that datapoint will appear in the Edit module.
+   
 2. In the *Visualize* module, turn on the counterfactual toggle by clicking on it:
   a. In the custom *Datapoints* visualization, the nearest counterfactual datapoint will be highlighted.
   b. In the *Edit* module, a list of feature values associated with the counterfactual will appear alongside the selected datapoint. Feature values that are different from the selected datapoint are displayed in green. 

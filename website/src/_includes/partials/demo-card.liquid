@@ -1,7 +1,8 @@
-<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--3-col-tablet mdl-cell--4-col-phone">
-  <div class="demo-card-title">{{ c-title }}</div>
-  <div class="demo-card-tags">
 
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--3-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="{{ link }}" {% if external %}target="_blank"{% endif %}>{{ c-title }}</a></div>
+  <div class="demo-card-tags">
+    {{ tags }}
   </div>
   <div class="demo-card-copy">{{ c-copy }}</div>
   <div class="demo-card-cta-button"><a href="{{ link }}">{{ cta-copy }}</a></div>

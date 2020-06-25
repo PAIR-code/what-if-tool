@@ -15,21 +15,21 @@ Enim nec dui nunc mattis enim ut. Et pharetra pharetra massa massa ultricies mi 
 
   <div class="mdl-grid no-padding">
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b> <b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
   </div>
 
@@ -41,21 +41,21 @@ Enim nec dui nunc mattis enim ut. Et pharetra pharetra massa massa ultricies mi 
 
   <div class="mdl-grid no-padding">
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
-  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/demo-card c-title: "Demo name", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", tags: "<b>tacos</b> <b>burritos</b> <b>stuff</b>" %}
 
   </div>
 

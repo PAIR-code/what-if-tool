@@ -24,13 +24,15 @@ p {
   width: 100%;
 }
 
-.link-out {
+.link-out, .resource-card-cta-button a {
+  font-family: "Manrope";
   font-weight: 600;
   font-size: 20px;
   line-height: 24px;
   letter-spacing: 0.5px;
   color: #FD562B;
 }
+
 
 .display1 {
   font-family: Manrope;
@@ -40,7 +42,7 @@ p {
   line-height: 40px;
   letter-spacing: 0.2px;
   color: #0E0F12;
-  margin: 72px 0 ;
+  margin: 72px 0 30px 0;
 }
 
 .display1 strong {
@@ -152,6 +154,11 @@ h5 {
 
 .main-page-container p img {
   width: 100%;
+}
+
+.home-cta-button .mdl-button {
+  background-color: #FF6B42;
+  color: white;
 }
 
 .home-card-image {
@@ -307,6 +314,19 @@ h5 {
   color: #2D333A;
 }
 
+.demo-card-title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.demo-card-title a:hover {
+  text-decoration: underline;
+}
+
+.demo-card-title a:visited, .demo-card-title a:active {
+  color: inherit;
+}
+
 .resource-card-copy, .demo-card-copy {
   font-size: 16px;
   line-height: 20px;
@@ -314,7 +334,23 @@ h5 {
   color: #4C5662;
 }
 
-.demo-card-tag {
+.resource-card-copy {
+  margin: 12px 0;
+}
+
+.resource-card-cta-button a {
+  text-decoration: none;
+}
+
+.resource-card-cta-button a:hover {
+  text-decoration: underline;
+}
+
+.demo-card-tags {
+  margin: 10px 0;
+}
+
+.demo-card-tags b {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
@@ -324,9 +360,111 @@ h5 {
   color: #4C5662;
   border: 1px solid #7E8FA0;
   border-radius: 40px;
+  padding: 3px 10px;
+  margin: 0 6px 2px 0;
+  display: inline-block;
 }
 
 
 .tutorial-image {
   width: 100%;
+}
+
+.tutorial-page-container p, .tutorial-page-container ul, .tutorial-page-container ol {
+  font-family: "Open Sans";
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0.1px;
+  color: #0E0F12;
+}
+
+.tutorial-breadcrumbs {
+  margin: 72px 0 24px 0;
+  font-family: Manrope;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4C5662;
+}
+
+.tutorial-breadcrumbs a {
+  text-decoration: none;
+}
+
+.tutorial-breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+.tutorial-breadcrumbs a:active, .tutorial-breadcrumbs a:visited {
+  color: inherit;
+}
+
+.tutorial-info-container {
+  border-top: 1px solid #0B6F7A;
+  border-bottom: 1px solid #0B6F7A;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 24px 11px 0 11px;
+  margin-top: 110px;
+  margin-left: 16px;
+}
+
+.tutorial-info-header {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0B6F7A;
+  margin-bottom: 12px;
+}
+
+.tutorial-info-copy {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  color: #4C5662;
+  margin-bottom: 24px;
+}
+
+.info-box {
+  margin: 40px 0;
+  background: #F4FAF7;
+  border: 1px solid #E4F1EA;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.info-box-title {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 28px;
+  letter-spacing: 0.25px;
+  color: #14B2CD;
+  margin-bottom: 20px;
+}
+
+.info-box-text {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  /* or 133% */
+
+  letter-spacing: 0.1px;
+
+  /* Aquamarine/Aquamarine-800 */
+
+  color: #0B6F7A;
 }

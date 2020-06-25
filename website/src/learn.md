@@ -9,32 +9,36 @@ hero-copy: "Vivamus dolor justo, consectetur sed ante in, lacinia porttitor tell
 
 <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
 
+<a name="basics"></a>
+
 ## Basics of the What-If Tool
 
 Tutorials that cover basic tool use and provide step-by-step instructions on how to use specific WIT features, such as editing a datapoint.
 
-{% include partials/tutorial-link-element c-title: "A Tour of the What-If Tool", link: "learn/tutorials/tour",
+{% include partials/tutorial-link-element c-title: "A Tour of the What-If Tool", link: "/learn/tutorials/tour",
 c-copy: "Learn about different spaces and how they are used in the What-If Tool: tabs, workspaces, modules and playgrounds." %}
 
-{% include partials/tutorial-link-element c-title: "How To: Edit A Datapoint", link: "learn/tutorials/edit-datapoint",
+{% include partials/tutorial-link-element c-title: "How To: Edit A Datapoint", link: "/learn/tutorials/edit-datapoint",
 c-copy: "Learn how to edit a datapoint in the What-If Tool." %}
 
-{% include partials/tutorial-link-element c-title: "How To: Find A Counterfactual", link: "learn/tutorials/counterfactual",
+{% include partials/tutorial-link-element c-title: "How To: Find A Counterfactual", link: "/learn/tutorials/counterfactual",
 c-copy: "Learn the steps to find a counterfactual to a datapoint in the What-If Tool." %}
 
-{% include partials/tutorial-link-element c-title: "How To: Customize the Datapoints Visualization", link: "learn/tutorials/customize-datapoints",
+{% include partials/tutorial-link-element c-title: "How To: Customize the Datapoints Visualization", link: "/learn/tutorials/customize-datapoints",
 c-copy: "Learn how to customize visualizations from features in a loaded dataset using the Datapoints visualization." %}
 
-{% include partials/tutorial-link-element c-title: "Features Overview: Understanding Your Feature Distributions", link: "learn/tutorials/features-overview",
+{% include partials/tutorial-link-element c-title: "Features Overview: Understanding Your Feature Distributions", link: "/learn/tutorials/features-overview",
 c-copy: "Explore the functionality of the Features Overview dashboard in the What-If Tool." %}
 
-{% include partials/tutorial-link-element c-title: "Technical Setup: Getting Started in Tensorboard", link: "learn/tutorials/tensorboard",
+{% include partials/tutorial-link-element c-title: "Technical Setup: Getting Started in Tensorboard", link: "/learn/tutorials/tensorboard",
 c-copy: "Set up the What-If Tool inside of TensorBoard." %}
 
-{% include partials/tutorial-link-element c-title: "Technical Setup: Getting Started in Noetbooks", link: "learn/tutorials/notebooks",
+{% include partials/tutorial-link-element c-title: "Technical Setup: Getting Started in Notebooks", link: "/learn/tutorials/notebooks",
 c-copy: "Set up the What-If Tool inside of notebook environments." %}
 
 {% include partials/spacer height:50 %}
+
+<a name="analysis"></a>
 
 ## Conducting analysis in the What-If Tool
 
@@ -55,9 +59,9 @@ c-copy: "Explore datapoints in Features Overview to identify sources of bias." %
 
   <div class="mdl-grid no-padding">
 
-  {% include partials/resource-card c-title: "Qwiklabs", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/resource-card c-title: "Qwiklabs", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", cta-copy:"Open this", external:"true" %}
 
-  {% include partials/resource-card c-title: "Towards Data Science", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est." %}
+  {% include partials/resource-card c-title: "Towards Data Science", link: "#", c-copy: "Eu feugiat pretium nibh ipsum consequat nisl. Non curabitur gravida arcu ac. Turpis massa tincidunt dui ut ornare lectus sit amet est.", cta-copy:"Open something" %}
 
   </div>
 
