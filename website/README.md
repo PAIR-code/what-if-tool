@@ -11,5 +11,6 @@ The What-If Tool demo source code is in the [TensorBoard](https://github.com/ten
 ## Local Testing of the Homepage and Demos
 
 1. Install 11ty to your machine (globally if you have permissions), run `npm install -g @11ty/eleventy`. You may need to use sudo in front of this command, depending on the setup of npm on your computer of choice.
-2. From this directory, run `./local.sh`
-3. Navigate to `http://localhost:8080`
+2. From this directory, install dependencies by running `npm install`
+3. From this directory, run `./local.sh`
+4. Navigate to `http://localhost:8080`
