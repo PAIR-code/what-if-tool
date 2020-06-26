@@ -19,7 +19,7 @@ Also, python 2 support has been removed. Please use python 3.
 - #60 - Find counterfactual by attribution distance.
 - #92 - Added AUC display for PR and ROC curves.
 - #94 - Allow custom prediction functions in TensorBoard.
-- Added links to new help page and tutorials.
+- #101 - Added links to new help page and tutorials.
 
 ## Release 1.6.0
 
