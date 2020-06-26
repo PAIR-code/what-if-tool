@@ -1,6 +1,6 @@
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 /*Hero Banner*/
 .hero {
@@ -75,13 +75,13 @@ body {
   line-height: 1.8em;
   color: #202124;
   font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .mdl-typography--body-2 {
   color: #5F6368;
   font-weight: 400;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .citation {
