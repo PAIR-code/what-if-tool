@@ -30,7 +30,7 @@ Play with the What-If Tool on a pre-loaded trained model and dataset right in th
   {% include partials/demo-card c-title: "Explore flower image classification", link: "/demos/iris.html",
     c-data-source: "UCI Iris Dataset", c-data-source-url: "http://archive.ics.uci.edu/ml/datasets/iris", c-copy: "This multi-class classification model predicts the species of iris flowers from sepal and petal measurements. Look for correlations between different features and flower types.", tags: "mutli-class classification", external:"true" %}
 
-  {% include partials/demo-card c-title: "Investigate Fairness on recidivism classification", link: "/demos/compas.html",
+  {% include partials/demo-card c-title: "Investigate fairness on recidivism classification", link: "/demos/compas.html",
   c-data-source: "COMPAS Dataset", c-data-source-url: "https://www.kaggle.com/danofer/compass", c-copy: "Inspired by Propublica, investigate fairness using this classifier that mimics the behavior of the COMPAS recidivism classifier. Trained on the COMPAS dataset, this model determines if a person belongs in the "Low" risk (negative) or "Medium or High" risk (positive) class for recidivism according to COMPAS.", tags: "binary classification", external:"true" %}
 
   </div>
@@ -54,13 +54,13 @@ Explore the What-If Tool’s interpretability features in utmost detail in Colab
   {% include partials/demo-card c-title: "Explore celebrity face image smile classification", link: "https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb", 
   c-data-source: "CelebA Dataset", c-data-source-url:  "http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html", c-copy: "Predict whether an image contains a smiling face using this binary classification model on the CelebA dataset. Can you identify which group was missing from the training data, resulting in a biased model?", tags: "binary classification, image recognition, keras model, custom distance", external:"true" %}
 
-  {% include partials/demo-card c-title: "Investigate Fairness on recidivism classification", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS.ipynb",
+  {% include partials/demo-card c-title: "Investigate fairness on recidivism classification", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS.ipynb",
    c-data-source: "COMPAS Dataset", c-data-source-url: "https://www.kaggle.com/danofer/compass", c-copy: "Inspired by Propublica, investigate fairness using this classifier that mimics the behavior of the COMPAS recidivism classifier. Trained on the COMPAS dataset, this model determines if a person belongs in the "Low" risk (negative) or "Medium or High" risk (positive) class for recidivism according to COMPAS.", tags: "binary classification", external:"true" %}
 
-  {% include partials/demo-card c-title: "Investigate Fairness on recidivism classification with attributions", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS_with_SHAP.ipynb",
+  {% include partials/demo-card c-title: "Investigate fairness on recidivism classification with attributions", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS_with_SHAP.ipynb",
    c-data-source: "COMPAS Dataset", c-data-source-url: "https://www.kaggle.com/danofer/compass", c-copy: "A version of the COMPAS notebook demo, using the SHAP library to get feature attributions for each prediction.", tags: "binary classification, attributions, keras model", external:"true" %}
 
-  {% include partials/demo-card c-title: "Text Toxicity Classifiers", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb",
+  {% include partials/demo-card c-title: "Text toxicity classifiers", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb",
   c-data-source: "Wikpedia Comments Dataset", c-data-source-url: "https://figshare.com/articles/Wikipedia_Talk_Labels_Toxicity/4563973", c-copy: "Use the What-If Tool to compare two pre-trained models from ConversationAI that determine sentence toxicity, one of which was trained on a more balanced dataset. Examine their performance side-by-side on the Wikipedia Comments dataset. These are keras models which do not use TensorFlow examples as an input format.", tags: "binary classification, model comparison, keras model, custom distance", external:"true" %}
 
   </div>
@@ -74,13 +74,13 @@ Use the What-If Tool with Cloud AI models, and in conjunction with Explainable A
   <div class="mdl-grid no-padding">
 
 
-  {% include partials/demo-card c-title: "Mortgage Classification with AI Platform", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/xgboost_caip.ipynb",
+  {% include partials/demo-card c-title: "Mortgage classification with AI Platform", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/xgboost_caip.ipynb",
   c-data-source: "Home Mortgage Disclosure Act Dataset", c-data-source-url: "https://www.ffiec.gov/hmda/hmdaflat.htm", c-copy: "Explore a mortgage classification model that has been deployed on Cloud AI Platform. This model was created with the XGBoost platform and not TensorFlow.", tags: "binary classification, cloud ai platform", external:"true" %}
 
-  {% include partials/demo-card c-title: "Training a Mortgage Classification Model with AI Platform", link: "https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/xgboost_caip_e2e.ipynb",
+  {% include partials/demo-card c-title: "Training a mortgage classification model with AI Platform", link: "https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/xgboost_caip_e2e.ipynb",
   c-data-source: "Home Mortgage Disclosure Act Dataset", c-data-source-url: "https://www.ffiec.gov/hmda/hmdaflat.htm", c-copy: "Train a mortgage classification model with XGBoost, deploy it to Cloud AI Platform, and use the What-If Tool to analyze it. This demo requires a Google Cloud Platform account.", tags: "binary classification, cloud ai platform, xgboost model", external:"true" %}
 
-  {% include partials/demo-card c-title: "Training and Comparing Wine Quality Models with AI Platform", link: "https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/keras_sklearn_compare_caip_e2e.ipynb",
+  {% include partials/demo-card c-title: "Training and comparing wine quality models with AI Platform", link: "https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/keras_sklearn_compare_caip_e2e.ipynb",
   c-data-source: "UCI Wine Quality Dataset", c-data-source-url: "https://archive.ics.uci.edu/ml/datasets/wine+quality", c-copy: "Train both a scikit-learn and keras model to predict wine quality and deploy them to Cloud AI Platform. Then use the What-If Tool to compare the two models. This demo requires a Google Cloud Platform account.", tags: "regression, model comparison, cloud ai platform, keras model, scikit-learn model", external:"true" %}
   </div>
 
