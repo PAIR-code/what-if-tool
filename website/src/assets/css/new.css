@@ -618,4 +618,8 @@ h5 {
   .hero-container, .main-page-container, .sub-page-container, .tutorial-page-container, .footer-container {
     margin: 0 16px;
   }
+
+  .home-card-desc {
+    height: 125px;
+  }
 }
