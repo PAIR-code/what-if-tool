@@ -18,7 +18,7 @@ takeaways: "Learn how to load a model with non-input features.<br/><br/>Use non-
 questions: "How do I analyze my results by features not intended to be used as input for model prediction?<br/><br/>How could I use these non-input features to calculate performance metrics by subgroups?"
 ---
 
-# Adding Non-Input Features To Perform Subgroup Analysis
+## Adding Non-Input Features To Perform Subgroup Analysis
 
 When loading a pre-trained model and accompanying dataset into the What-If Tool, typically one would think that every feature included in the dataset has to be used by the pre-trained model to generate predictions. However, not all features included in a dataset must behave as input to the model. Sometimes these non-input features (features that are present in a dataset, but are not used in model prediction) are utilized for evaluation purposes, behaving instead as a means of slicing the dataset into subgroups to conduct deeper analysis.
 

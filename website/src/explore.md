@@ -2,12 +2,12 @@
 title: WIT - Explore
 layout: layouts/sub.liquid
 
-hero-image: /assets/images/sample-banner.png
+hero-image: /assets/images/banner-explore.png
 hero-title: "Take the What-If Tool for a spin!"
 hero-copy: "Get a feel for the What-If Tool in a variety of demos in the browser or in notebook environments."
 ---
 
-<div class="mdl-cell--8-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+<div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
   
 ## Web demos
 
@@ -31,7 +31,7 @@ Play with the What-If Tool on a pre-loaded trained model and dataset right in th
 
 ## Notebook Demos
 
-Explore the What-If Tool’s interpretability features in utmost detail in Colaboratory, Jupyter and Cloud AI Notebooks.
+Explore the What-If Tool’s interpretability features in utmost detail in Colaboratory, Jupyter and Cloud AI Notebooks. 
 
   <div class="mdl-grid no-padding">
 

@@ -18,7 +18,7 @@ takeaways: "Learn to edit a datapoint.<br/><br/>Get model predictions on an edit
 questions: "How does the prediction result on a datapoint change if a feature value is changed?<br/><br/>How do models behave when feature values are missing?"
 ---
 
-# How To - Edit a Datapoint
+## How To - Edit a Datapoint
 
 This article describes the steps to edit a datapoint in the What-If Tool. 
 
