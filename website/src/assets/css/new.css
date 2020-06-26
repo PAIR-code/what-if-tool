@@ -371,6 +371,28 @@ h5 {
   color: inherit;
 }
 
+.demo-card-data-source-title {
+  font-family: "Manrope";
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4C5662;
+  margin: 25px 0 4px;
+}
+
+.demo-card-data-source {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  color: #FF6B42;
+  margin-bottom: 25px;
+}
+
 .resource-card-copy, .demo-card-copy {
   font-size: 16px;
   line-height: 20px;
