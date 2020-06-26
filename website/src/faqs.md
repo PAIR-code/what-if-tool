@@ -5,6 +5,9 @@ layout: layouts/sub.liquid
 hero-height: 125
 hero-image: /assets/images/banner-faqs.png
 hero-title: "Frequently Asked Questions"
+
+sub-nav: '<a href="https://github.com/pair-code/what-if-tool/issues/new" target="_blank">Ask a question</a>'
+color: "#8A2A04"
 ---
 
 <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
@@ -98,14 +101,5 @@ The What-If Tool uses trained models to investigate prediction results on upload
   f-copy: "
   
 Yes! The What-If Tool supports feature attributions in notebook mode. You can use any feature attribution method, including LIME, SHAP, integrated gradients, and SmoothGrad, in your own custom predict function. Return these attributions along with the predictions for use in your analysis with the What-If Tool. See this [demo](https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_COMPAS_with_SHAP.ipynb). " %}
-
-
-{% include partials/faq-element 
-  f-title: "Where can I find out more about the What-If Tool?", 
-  f-copy: "
-  
-Read our systems paper submitted to IEEE VAST 2019 available at [https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8807255](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8807255):
-Wexler, James, Mahima Pushkarna, Tolga Bolukbasi, Martin Wattenberg, Fernanda Viégas, and Jimbo Wilson. "The What-If Tool: Interactive probing of machine learning models." IEEE transactions on visualization and computer graphics 26, no. 1 (2019): 56-65.
- " %}
 
 </div>

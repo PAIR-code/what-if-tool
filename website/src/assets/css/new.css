@@ -146,6 +146,27 @@ h5 {
   background-position-y: center;
 }
 
+.fixed-sub-navigation {
+  position: fixed;
+  top: 115px;
+  right: calc((100% - 950px) / 2);
+  width: calc((100% - (100% - 950px)) / 3);
+}
+
+.fixed-sub-navigation a {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 8px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 23px;
+  color: #FD562B;
+  padding: 6px;
+  vertical-align: middle;
+  background: rgba(255, 255, 255, 0.8);
+}
+
 .header-arrow {
   height:22px;
   position:relative;
@@ -159,7 +180,7 @@ h5 {
   margin-left: 5px;
 }
 
-.hero-container, .main-page-container, .sub-page-container, .tutorial-page-container {
+.hero-container, .main-page-container, .sub-page-container, .tutorial-page-container, .footer-container {
   margin: 0 auto; 
   max-width:950px;
 }
@@ -184,6 +205,8 @@ h5 {
 
 .home-card-image {
   width: 100%;
+  border: 1px solid lightblue;
+  border-radius: 8px;
 }
 
 .home-card-action, .section-action {
@@ -371,6 +394,28 @@ h5 {
   color: inherit;
 }
 
+.demo-card-data-source-title {
+  font-family: "Manrope";
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4C5662;
+  margin: 25px 0 4px;
+}
+
+.demo-card-data-source {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  color: #FF6B42;
+  margin-bottom: 25px;
+}
+
 .resource-card-copy, .demo-card-copy {
   font-size: 16px;
   line-height: 20px;
@@ -513,6 +558,38 @@ h5 {
   color: #0B6F7A;
 }
 
+.footer-container {
+  padding: 20px 0 35px;
+  width: 100%;
+}
+
+.footer-container a {
+  font-family: "Open Sans";
+  font-size: 14px;
+  font-weight: 300;
+  text-decoration: none;
+  color: #4A4A4A;
+  width: 100%;
+}
+
+.footer-container img {
+  width: 100px;
+  margin-top: -8px;
+}
+
+.footer-icons a {
+  margin: 15px;
+}
+
+.footer-icons img {
+  width: 24px;
+}
+
+.footer-container a:hover {
+  text-decoration: underline;
+}
+
+
 @media only screen and (max-width: 992px) {
   .sub-hero-container {
     height: 285px !important;
@@ -522,11 +599,27 @@ h5 {
     font-size: 28px;
     margin-top: 10px;
   }
+  .footer-icons {
+    text-align: center;
+    margin-top: 25px;
+  }
+
+  .hide-me {
+    display:none;
+  }
 }
 
 @media only screen and (max-width: 840px) {
 
   .tutorial-info-container {
     display: none;
+  }
+
+  .hero-container, .main-page-container, .sub-page-container, .tutorial-page-container, .footer-container {
+    margin: 0 16px;
+  }
+
+  .home-card-desc {
+    height: 125px;
   }
 }

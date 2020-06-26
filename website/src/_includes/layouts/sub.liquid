@@ -9,7 +9,11 @@
     <title>{{ title }}</title>
     
     {% include partials/header-includes %}
-
+    <style>
+      .sub-title, .sub-copy {
+        color: {{ color }};
+      }
+    </style>
   </head>
 
   <body>
@@ -22,11 +26,13 @@
           <div class="mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
           {{ content }}
           </div>
+          <div class="fixed-sub-navigation hide-me">
+            {{ sub-nav }}
+          </div>
         </div>
         
+        {% include partials/footer %}
       </main>
-      
-      {% include partials/footer %}
     </div>
   </body>
 
