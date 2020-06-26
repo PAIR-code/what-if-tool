@@ -105,7 +105,7 @@ Yes! The What-If Tool supports feature attributions in notebook mode. You can us
   f-copy: "
   
 Read our systems paper submitted to IEEE VAST 2019 available at [https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8807255](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8807255):
-Wexler, James, Mahima Pushkarna, Tolga Bolukbasi, Martin Wattenberg, Fernanda Viégas, and Jimbo Wilson. "The What-If Tool: Interactive probing of machine learning models." IEEE transactions on visualization and computer graphics 26, no. 1 (2019): 56-65.
+Wexler, James, Mahima Pushkarna, Tolga Bolukbasi, Martin Wattenberg, Fernanda Viégas, and Jimbo Wilson. *The What-If Tool: Interactive probing of machine learning models.* IEEE transactions on visualization and computer graphics 26, no. 1 (2019): 56-65.
  " %}
 
 </div>

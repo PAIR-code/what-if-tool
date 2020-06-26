@@ -98,6 +98,6 @@ Tabular, Image, Text data
 
   {% include partials/home-card image: '/assets/images/sample-home-card.png', action: 'ARTICLE', 
   title: 'Playing with AI Fairness', desc: "The What-If Tool lets you try on five different types of fairness. What do they mean?", 
-  cta-text:"Read the article", link: 'https://pair-code.github.io/what-if-tool/ai-fairness.html' %}
+  cta-text:"Read the article", link: './ai-fairness.html' %}
 
 </div>

@@ -27,9 +27,11 @@ A custom prediction function can be used to load any model, and provide addition
 
   <div class="mdl-grid no-padding">
 
-  {% include partials/demo-card c-title: "Compare income classification on UCI census data", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Model_Comparison.ipynb", c-copy: "Compare two binary classification models that predict whether a person earns more than $50k a year, based on their census information. Examine how different features affect each models' prediction, in relation to each other.", tags: "binary classification, model comparison", external:"true" %}
+  {% include partials/demo-card c-title: "Compare income classification on UCI census data", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Model_Comparison.ipynb",
+  c-data-source: "UCI Census Income Dataset", c-data-source-url: "http://archive.ics.uci.edu/ml/datasets/Census+Income", c-copy: "Compare two binary classification models that predict whether a person earns more than $50k a year, based on their census information. Examine how different features affect each models' prediction, in relation to each other.", tags: "binary classification, model comparison", external:"true" %}
 
-  {% include partials/demo-card c-title: "Text Toxicity Classifiers", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb", c-copy: "Use the What-If Tool to compare two pre-trained models from ConversationAI that determine sentence toxicity, one of which was trained on a more balanced dataset. Examine their performance side-by-side on the Wikipedia Comments dataset. These are keras models which do not use TensorFlow examples as an input format.", tags: "binary classification, model comparison, keras model, custom distance", external:"true" %}
+  {% include partials/demo-card c-title: "Text Toxicity Classifiers", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb",
+  c-data-source: "Wikpedia Comments Dataset", c-data-source-url: "https://figshare.com/articles/Wikipedia_Talk_Labels_Toxicity/4563973", c-copy: "Use the What-If Tool to compare two pre-trained models from ConversationAI that determine sentence toxicity, one of which was trained on a more balanced dataset. Examine their performance side-by-side on the Wikipedia Comments dataset. These are keras models which do not use TensorFlow examples as an input format.", tags: "binary classification, model comparison, keras model, custom distance", external:"true" %}
 
   </div>
 
@@ -53,9 +55,11 @@ Use the What-If Tool to display and investigate attribution values for individua
 
   <div class="mdl-grid no-padding">
 
-  {% include partials/demo-card c-title: "Mortgage Classification with AI Platform", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/xgboost_caip.ipynb", c-copy: "Explore a mortgage classification model that has been deployed on Cloud AI Platform. This model was created with the XGBoost platform and not TensorFlow.", tags: "binary classification, cloud ai platform", external:"true" %}
+  {% include partials/demo-card c-title: "Mortgage Classification with AI Platform", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/xgboost_caip.ipynb",
+  c-data-source: "Home Mortgage Disclosure Act Dataset", c-data-source-url: "https://www.ffiec.gov/hmda/hmdaflat.htm", c-copy: "Explore a mortgage classification model that has been deployed on Cloud AI Platform. This model was created with the XGBoost platform and not TensorFlow.", tags: "binary classification, cloud ai platform", external:"true" %}
 
-  {% include partials/demo-card c-title: "Training and Comparing Wine Quality Models with AI Platform", link: "https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/keras_sklearn_compare_caip_e2e.ipynb", c-copy: "Train both a scikit-learn and keras model to predict wine quality and deploy them to Cloud AI Platform. Then use the What-If Tool to compare the two models. This demo requires a Google Cloud Platform account.", tags: "regression, model comparison, cloud ai platform, keras model, scikit-learn model", external:"true" %}
+  {% include partials/demo-card c-title: "Training and Comparing Wine Quality Models with AI Platform", link: "https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/keras_sklearn_compare_caip_e2e.ipynb",
+  c-data-source: "UCI Wine Quality Dataset", c-data-source-url: "https://archive.ics.uci.edu/ml/datasets/wine+quality", c-copy: "Train both a scikit-learn and keras model to predict wine quality and deploy them to Cloud AI Platform. Then use the What-If Tool to compare the two models. This demo requires a Google Cloud Platform account.", tags: "regression, model comparison, cloud ai platform, keras model, scikit-learn model", external:"true" %}
 
   </div>
 
@@ -79,9 +83,11 @@ The What-If Tool accepts a variety of data types. Upload data as tf.Examples, tf
 
   <div class="mdl-grid no-padding">
 
-  {% include partials/demo-card c-title: "Compare income classification on UCI census data", link: "/demos/uci.html", c-copy: "Compare two binary classification models that predict whether a person earns more than $50k a year, based on their census information. Examine how different features affect each models' prediction, in relation to each other.", tags: "binary classification, model comparison", external:"true" %}
+  {% include partials/demo-card c-title: "Compare income classification on UCI census data", link: "/demos/uci.html",
+  c-data-source: "UCI Census Income Dataset", c-data-source-url: "http://archive.ics.uci.edu/ml/datasets/Census+Income", c-copy: "Compare two binary classification models that predict whether a person earns more than $50k a year, based on their census information. Examine how different features affect each models' prediction, in relation to each other.", tags: "binary classification, model comparison", external:"true" %}
 
-  {% include partials/demo-card c-title: "Explore celebrity face image smile classification", link: "/demos/image.html", c-copy: "Predict whether an image contains a smiling face using this binary classification model on the CelebA dataset. Can you identify which group was missing from the training data, resulting in a biased model?", tags: "binary classification, image recognition", external:"true" %}
+  {% include partials/demo-card c-title: "Explore celebrity face image smile classification", link: "/demos/image.html",
+  c-data-source: "CelebA Dataset", c-data-source-url:  "http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html", c-copy: "Predict whether an image contains a smiling face using this binary classification model on the CelebA dataset. Can you identify which group was missing from the training data, resulting in a biased model?", tags: "binary classification, image recognition", external:"true" %}
 
   </div>
 
