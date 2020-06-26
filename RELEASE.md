@@ -4,7 +4,8 @@
 
 This release has a few notable major features:
 - Custom prediction functions can be provided to WIT in TensorBoard, matching
-  the capability already in notebook mode.
+  the capability already in notebook mode. This allows use of WIT in TensorBoard
+  with any python-accessible model (e.g. sklearn, pytorch, keras etc...).
 - Help links have been updated to point to the new tutorials on the redesigned
   What-If Tool website.
 - When attributions are provided, allow counterfactual finding by closest
