@@ -14,7 +14,7 @@ time: "10 minutes"
 use-with: "Classification models<br/>Multi-class models<br/>Regression models"
 before: "N/A"
 related: "Binary Classification Model: UCI Census Income Prediction<br/><br/>Multi-class Classification Model: Flowers Species Identification<br/><br/>Regression Model: UCI Census Age Prediction"
-takeaways: "Find features of your dataset with interesting statistical properties."
+takeaways: "Learn to understand the Features Overview workspace.<br/><br/>Find features of your dataset with interesting statistical properties."
 questions: "What range of values does each feature in my dataset have?<br/><br/>Which features have the most values of ‘0’?<br/><br/>What features are the most non-uniform in their distribution?"
 ---
 
