@@ -18,7 +18,7 @@ takeaways: "Develop an understanding behind the metrics featured in the Performa
 questions: "In summary, how well does the model perform?<br/><br/>How often does the model correctly predict any label?<br/><br/>How often does the model correctly predict the positive label?<br/><br/>Out of all the available positive labels, how many did the model correctly identify?<br/><br/>How does the model perform with respect to a subgroup?"
 ---
 
-# Understanding Performance Metrics For Classifiers
+## Understanding Performance Metrics For Classifiers
 
 While evaluating the overall performance of a model gives some insight into its quality, it does not give much insight into how well models perform across groups nor where errors truly reside. To better understand the outcomes of a model, the What-If Tool provides a confusion matrix for comparing the prevalence of different types of model results. 
 

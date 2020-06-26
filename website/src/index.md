@@ -13,7 +13,7 @@ layout: layouts/main.liquid
 
 </div>
 
-![overview of WIT](/assets/images/home-overview.png)
+![overview of WIT](/assets/images/home-hero.gif)
 
 {% include partials/spacer height:60 %}
 
@@ -27,20 +27,51 @@ Using WIT, you can test performance in hypothetical situations, analyze the impo
 
 {% include partials/spacer height:50 %}
 
-{% include partials/display2 text:"Works with" %}
+{% include partials/display2 text:"Model probing, from within any workflow  " %}
 
 <div class="mdl-grid no-padding">
 
-{% include partials/one-of-three-column title:"Platforms & Integrations", text: "and visualize model behavior across multiple models and subsets of input data, and for different ML fairness metrics" %}
-{% include partials/one-of-three-column title:"Models <br/>Compatibility", text: "and visualize model behavior across multiple models and subsets of input data, and for different ML fairness metrics" %}
-{% include partials/one-of-three-column title:"Data & <br/>Task types", text: "and visualize model behavior 
-across multiple models and subsets of input data, and for different ML fairness metrics" %}
+{% include partials/one-of-three-column title:"Platforms and Integrations", text: "
+
+[Colaboratory notebooks](https://colab.research.google.com/)
+
+[Jupyter notebooks](https://jupyter.org/)
+
+[Cloud AI Notebooks](https://cloud.google.com/ai-platform-notebooks)
+
+[TensorBoard](https://www.tensorflow.org/tensorboard)
+
+[TFMA Fairness Indicators](https://www.tensorflow.org/tfx/guide/fairness_indicators)
+
+" %}
+{% include partials/one-of-three-column title:"Compatible models<br/> and frameworks", text: "
+
+TF Estimators
+
+Models served by TF serving
+
+Cloud AI Platform Models 
+
+Models that can be wrapped in a python function
+
+" %}
+{% include partials/one-of-three-column title:"Supported data and task types", text: "
+
+Binary classification
+
+Multi-class classification
+
+Regression
+
+Tabular, Image, Text data
+
+" %}
 
 </div>
 
 {% include partials/spacer height:50 %}
 
-## Features. Discover. Something Cool.
+## Ask and answer questions about models, features, and datapoints [Set 1]
 
 {% include partials/spacer height:200 %}
 
@@ -48,23 +79,23 @@ TODO (interactive section)
 
 {% include partials/spacer height:200 %}
 
-## Model understanding made easy
+## Explore the What-If Tool
 
 <div class="mdl-grid no-padding">
   {% include partials/home-card image: '/assets/images/sample-home-card.png', action: 'CODE', 
-  title: 'Github', desc: 'Highly interactive, visual and approachable explanations of key AI concepts.', 
-  link: 'https://github.com/PAIR-code/what-if-tool', external:"true" %}
+  title: 'Github', desc: 'The What-If Tool is open to anyone who wants to help develop and improve it!', 
+  cta-text:"View developer guide", link: 'https://github.com/PAIR-code/what-if-tool', external:"true" %}
   
   {% include partials/home-card image: '/assets/images/sample-home-card.png', action: 'FAQs', 
-  title: 'Got questions?', desc: 'Highly interactive, visual and approachable explanations of key AI concepts.', 
-  link: 'https://github.com/PAIR-code/what-if-tool' %}
+  title: 'Got questions?', desc: 'Find answers to common questions about the What-If Tool.', 
+  cta-text:"Browse our FAQs", link: '/faqs/' %}
 
-  {% include partials/home-card image: '/assets/images/sample-home-card.png', action: 'LEARN', 
-  title: 'Systems Paper at IEEE VAST ‘19', desc: 'Highly interactive, visual and approachable explanations of key AI concepts.', 
-  link: 'https://github.com/PAIR-code/what-if-tool' external:"true" %}
+  {% include partials/home-card image: '/assets/images/sample-home-card.png', action: 'RESEARCH', 
+  title: 'Systems Paper at IEEE VAST ‘19', desc: 'Read about what went into the What-If Tool in our systems papers, presented at IEEE VAST ‘19.', 
+  cta-text:"Go to proceedings", link: '#' external:"true" %}
 
-  {% include partials/home-card image: '/assets/images/sample-home-card.png', action: 'LEARN', 
-  title: 'Walkthrough', desc: 'Highly interactive, visual and approachable explanations of key AI concepts.', 
-  link: 'https://github.com/PAIR-code/what-if-tool' %}
+  {% include partials/home-card image: '/assets/images/sample-home-card.png', action: 'ARTICLE', 
+  title: 'Playing with AI Fairness', desc: "The What-If Tool lets you try on five different types of fairness. What do they mean?", 
+  cta-text:"Read the article", link: '#' %}
 
 </div>

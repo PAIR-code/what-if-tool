@@ -20,7 +20,7 @@ questions: "In general, what can I learn through use of the What-If Tool?"
 
 In this walkthrough, we explore how the What-If Tool (WIT) can help us learn about a model and dataset.
 
-# Our Dataset and Model
+## Our Dataset and Model
 
 The [UCI Census](https://archive.ics.uci.edu/ml/datasets/census+income) dataset is a dataset in which each record represents a person. Each record contains 14 pieces of census information about a single person, from the 1994 US census database. This includes information such as age, marital status and education level. The prediction task is to determine whether a person is high income (defined as earning more than $50k a year). This specific dataset and prediction task combination is often used in machine learning modeling and fairness research, partially due to the dataset's understandable attributes – including some containing sensitive classes such as age and gender, and partially due to a clear, real-world prediction task.
 
@@ -28,11 +28,11 @@ Using a training set of ~30,000 records, we've trained a simple [linear classifi
 
 Now let's explore how the trained model performs on 5,000 records from a [test set](https://en.wikipedia.org/wiki/Training,_validation,_and_test_sets#Test_dataset) that we held out. At each point, we'll highlight statements about the things WIT helped us learn about our dataset and trained model in **bold**.
 
-# Setting up WIT
+## Setting up WIT
 
 WIT can be used inside a [Jupyter](https://jupyter.org/) or [Colab](https://colab.research.google.com/) notebook, or inside the [TensorBoard](https://www.tensorflow.org/tensorboard) web application.
 
-## WIT in Notebooks
+### WIT in Notebooks
 
 To use WIT inside a notebook, create a `WitConfigBuilder` object that specifies the data and model to be analyzed. Then, provide this object to the `WitWidget` object. This [tutorial](./notebooks) provides much more detail on setting up WIT in notebooks. Follow along this walkthrough using [this colab notebook](https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/What_If_Tool_Notebook_Usage.ipynb) in which we train a UCI census model and visualize it on the test set.
 
@@ -41,14 +41,14 @@ To use WIT inside a notebook, create a `WitConfigBuilder` object that specifies 
 
 In notebooks, WIT can also be used on models served through [Cloud AI Platform Prediction](https://cloud.google.com/ml-engine/docs/tensorflow/prediction-overview), through the `set_ai_platform_model` method, or with any model you can query from python through the `set_custom_predict_fn` method.
 
-## WIT in TensorBoard
+### WIT in TensorBoard
 
 Normal use of WIT within TensorBoard requires your model to be served through a TensorFlow Model Server, and the data to be analyze must be available on disk as a TFRecords file. The ability to provide your own custom python prediction function also exists, and more information on WIT in TensorBoard can be found in [this tutorial](./tensorboard). Navigate to the web address of your TensorBoard instance, select "What-If Tool" from TensorBoard's dashboard selector. Fill out the path to the TFRecords file, the host/port of the running TensorFlow Model Server, and the name of the model on that model server that you wish to test. Click "Accept".
 
 {% include partials/inset-image image: '/assets/images/wit-tb-dialog.png', 
   caption: 'Above: Setup dialog for WIT in TensorBoard.'%}
 
-# Initial Views
+## Initial Views
 
 Once we've pointed the What-If Tool to our model and dataset, the first thing we see is the dataset visualized as individual points in [Facets Dive](https://facets.dev). Each datapoint is colored by the category that the model predicted for it, i.e. the inference label". Blue points represent people that the model inferred are high income and red points represent those whom the model inferred are low income. Additionally, the points are laid out top to bottom by a score for how confident the model is that the person is high income, called "inference score". By default, WIT uses a [positive classification threshold](https://developers.google.com/machine-learning/crash-course/classification/thresholding) of 0.5. This means that if the inference score is 0.5 or more, the datapoint is considered to be in the positive class, i.e. high income. As a result, points in the top half of the visualization are blue whereas those on the bottom half are red. We will show later in this tutorial how to change this threshold. The settings that created this view are visible in the top control bar (see controls for "color by" and "scatter on Y-Axis by").
 
@@ -57,7 +57,7 @@ Once we've pointed the What-If Tool to our model and dataset, the first thing we
 
 What can we learn from this initial view? There are definitely more red points than blue points, which means that **the model predicts more people as low income than high income**. A lot of points are bunched at both the bottom and top of the visualization, which means that **our model is often very confident that a person is low income or high income**.
 
-# Simple Visual Analyses
+## Simple Visual Analyses
 
 Let's add some more data to this chart. We can set the x-axis scatter to a feature of the dataset, such as education level. In our dataset, this is described as a number that represents the last school year that a person completed. We now see a scatterplot of education level versus inference score. We can immediately see that as education level increases (as we move right on the plot), the number of blue points increases. So **the model is clearly learning that there is a positive correlation between education level and being high income**. Having higher education levels tend to lead to more specialized and better paying jobs, so it makes sense that the model has picked up on this pattern in the training data.
 
@@ -69,7 +69,7 @@ Facets Dive is incredibly flexible, and can create multiple interesting visualiz
 {% include partials/inset-image image: '/assets/images/wit-smallmult.png', 
   caption: 'Above: Small multiples of scatterplots.'%}
 
-## Small Multiples Scatterplots | Age vs Inference Score for each Marital Status
+### Small Multiples Scatterplots | Age vs Inference Score for each Marital Status
 
 Set the binning of X-axis by marital status, scattering of X-axis by age, scattering of Y-axis by inference score and color by inference label.
 
@@ -79,7 +79,7 @@ Set the binning of X-axis by marital status, scattering of X-axis by age, scatte
 {% include partials/inset-image image: '/assets/images/wit-hours.png', 
   caption: 'Above: A histogram of ages, with datapoints colored by marital status.'%}
 
-## Histogram | Hours worked with Marital Status indicated
+### Histogram | Hours worked with Marital Status indicated
 
 Set the binning of the X-axis to hours-per-week. Remove the scatterplot settings by using "(default)". Color by marital status.
 
@@ -90,14 +90,14 @@ Set the binning of the X-axis to hours-per-week. Remove the scatterplot settings
 {% include partials/inset-image image: '/assets/images/wit-agemarital.png', 
   caption: 'Above: A 2D histogram of age and marital status, with datapoints colored by model prediction.'%}
 
-## 2D Histograms | Age vs Marital Status with Inference Score indicated
+### 2D Histograms | Age vs Marital Status with Inference Score indicated
 
 Set the binning of the X-axis to age, the binning of the Y-axis to marital status, and color by inference label.
 
 - **The percentage of people who are never married goes down as age goes up and the percentage of people who are widowed goes up as age further increases. We see a correlation between the age and marital status features in the dataset.**
 - **The percentage of people who are never married and fall in lower age brackets are more likely to be classified as low income by the model.**
 
-# Viewing and Editing the Details of a Datapoint
+## Viewing and Editing the Details of a Datapoint
 
 Back on the initial view, let's further investigate a datapoint near the decision boundary, where datapoints turn from red to blue. Clicking on a datapoint highlights it in the visualization. The details of the datapoint should appear in the datapoint editor panel to the left of the visualization.
 
@@ -111,7 +111,7 @@ Notice that now there is a second "run" of results in the inference results sect
 {% include partials/inset-image image: '/assets/images/wit-edited.png', 
   caption: 'Above: The edited datapoint causes a change in prediction.'%}
 
-# Finding Nearest Counterfactuals
+## Finding Nearest Counterfactuals
 
 Another way to see how changes to a person can cause changes in classification is by looking for a [nearest counterfactual](https://arxiv.org/pdf/1711.00399.pdf) to the selected datapoint. The nearest counterfactual is the most similar datapoint that has a different inference results or in our case, a different classification. For our selected datapoint, which was inferred as low income, the nearest counterfactual is the most similar person which the model inferred as high income. WIT can find the nearest counterfactual using one of two ways to calculate similarity between datapoints, L1 and L2 distance. See [this page](https://www.kaggle.com/residentmario/l1-norms-versus-l2-norms) for an explanation of the difference between these two distance measurements. Let's flip the counterfactual toggle switch to find the nearest counterfactual using L1 distance. We now see two datapoints being compared side by side. The green text represents features where the two datapoints differ. **In this case, the nearest counterfactual is slightly older and has a different occupation, but is otherwise identical.**
 
@@ -128,7 +128,7 @@ Now our selected datapoint, highlighted in yellow, is the left-most datapoint as
 {% include partials/inset-image image: '/assets/images/wit-distance.png', 
   caption: 'Above: A scatterplot of distance from a datapoint of interest versus model prediction score.'%}
 
-# Exploring Partial Dependence Plots
+## Exploring Partial Dependence Plots
 
 Partial dependence plots allow a principled approach to exploring how changes to a datapoint affect the model's prediction. Each partial dependence plot shows how the model's positive classification score changes as a single feature is adjusted in the datapoint. Upon clicking the "partial dependence plots" button in the right-side controls, we immediately see the plot for the selected datapoint if the age of this person is changed from a minimum of 17 to a maximum of 72.
 
@@ -144,7 +144,7 @@ Clicking on the education header in the partial dependence plots area opens up t
 
 Another way to show the relationship between feature values and model scores is to look at global partial dependence plots. These each show how changing each feature individually affects all of the datapoints in the dataset. You can switch to global partial dependence plots through a switch button on the UI. Looking at the capital gains global partial dependence plot, we can see that on average, as capital gains crosses the 1000 mark, the positive classification score crosses above 0.5 and then skyrockets up towards 1.0. **High capital gains is a very strong indicator of high income, much more than any other single feature**.
 
-# Model Performance Analysis
+## Model Performance Analysis
 
 Now let's explore the Performance + Fairness tab of WIT, which allows us to look at overall model performance and ask questions about model performance across data slices. In order to investigate fairness, we need to tell the tool which feature in each datapoint the model is trying to predict, so the tool can see how well the model performs on each datapoint (does it get the prediction right or wrong?). In our case, that feature in the dataset is named "Over-50K", so we set the ground truth feature dropdown to the "Over-50K" feature.
 
@@ -160,7 +160,7 @@ As we scrub the threshold down from its initial value of 0.5, we see the confusi
 
 You'll notice in this tab, there is a setting for "cost ratio" and an "optimize threshold" button. WIT can automatically set the classification threshold to the optimal point, given the dataset loaded and the cost ratio, which specifies the relative cost of a false positive versus a false negative. This cost is something that a user needs to determine for themselves. The default cost ratio in the tool is 1, meaning false negatives and false positives are equally undesirable.
 
-# Cost Ratios and Optimizing Decision Thresholds
+## Cost Ratios and Optimizing Decision Thresholds
 
 In some systems, such as a medical early screening test (where a positive classification would be an indication of a possible medical condition, requiring further medical testing), it is important to be more permissive with lower-scoring datapoints, preferring to predict more datapoints as in the positive class, at the risk of having more false positives (which would then be weeded out by the follow-up medical testing). In this case, we would want a low cost ratio, as we prefer false positives to false negatives. A cost ratio of 0.25 means that we consider a false negative 4 times as costly as a false positive.
 
@@ -176,13 +176,13 @@ If we change the cost ratio to 2 and click the optimize threshold button, the op
 {% include partials/inset-image image: '/assets/images/wit-opt2.png', 
   caption: 'Above: The optimal classification threshold when using a cost ratio of 2.0.'%}
 
-# ML Fairness
+## ML Fairness
 
 [Machine learning fairness](https://developers.google.com/machine-learning/fairness-overview/) is an active and important area of research. Since ML models learn from labeled training data, their inferences will reflect the information contained inside the training data. Sometimes the data may come from a source that contains biases, for instance, human-labeled data that reflects the biases of the humans. Sometimes the data contains biases due to how it was collected - such as data only from users from a single country, for a product that will be deployed world-wide. There are countless ways that a dataset can be biased, leading to models trained from that dataset affecting different populations differently (such as a model giving less loans to women than men because it is based on historical, outdated data showing less women in the workplace).
 
 WIT can help investigate fairness concerns in a few different ways. First, the "Features" tab shows an overview of the provided dataset, using a visualization called [Facets Overview](https://facets.dev). Also, the tool can break down model performance by subsets of the data and look at fairness metrics between those subsets.
 
-## Exploring Feature Overviews
+### Exploring Feature Overviews
 
 {% include partials/inset-image image: '/assets/images/wit-facets-overview.png', 
   caption: 'Above: A look at the Features tab.'%}
@@ -207,7 +207,7 @@ In this case, **demographic parity can be found with both groups getting loans 1
 
 The use of these features can help shed light on subsets of your data on which your classifier is performing very differently. Understanding biases in your datasets and data slices on which your model has disparate performance are very important parts of analyzing a model for fairness. There are many approaches to improving fairness, including augmenting training data, building fairness-related loss functions into your model training procedure, and post-training inference adjustments like those seen in WIT. We think that WIT provides a great interface for furthering ML fairness learning, but of course there is no silver bullet to improving ML fairness.
 
-# Conclusion
+## Conclusion
 
 Thanks for checking out this walkthrough of the What-If Tool on the UCI census binary classification task. WIT has plenty of other features not included in this walkthrough, such as:
 
@@ -215,10 +215,10 @@ Thanks for checking out this walkthrough of the What-If Tool on the UCI census b
 
 This [notebook](https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb) shows how WIT can help us compare two models that predict toxicity of internet comments, one of which has had some de-biasing processing performed on it. It also shows how we can use WIT with non-TensorFlow models by providing a custom predict function for the tool to use.
 
-### Analyzing models that take images as inputs
+#### Analyzing models that take images as inputs
 
 This [notebook](https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb) demonstrates WIT on a smile detection classifier.
 
-### Analyzing regression models
+#### Analyzing regression models
 
 In this [notebook](https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Age_Regression.ipynb), we use the same UCI census dataset in order to predict people's ages from their census information.

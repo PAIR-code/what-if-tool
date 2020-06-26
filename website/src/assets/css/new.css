@@ -20,6 +20,18 @@ p {
   letter-spacing: 0.1px;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a, a:visited, a:hover, a:active {
+  color: #FD562B;
+}
+
 .spacer {
   width: 100%;
 }
@@ -57,7 +69,6 @@ p {
   line-height: 40px;
   letter-spacing: 0.2px;
   color: #8A2A04;
-  margin-bottom: 45px;
 }
 
 h1, h2, h3, h4, h5 {
@@ -129,9 +140,10 @@ h5 {
 
 .sub-hero-container, .tutorial-hero-container {
   width: 100%;
-  height:250px;
+  height:225px;
   background-size: cover;
   background-position-x: right;
+  background-position-y: center;
 }
 
 .header-arrow {
@@ -150,6 +162,15 @@ h5 {
 .hero-container, .main-page-container, .sub-page-container, .tutorial-page-container {
   margin: 0 auto; 
   max-width:950px;
+}
+
+.main-bg {
+  background:url(/assets/images/home-bg.png) no-repeat top right;
+}
+
+.main-page-container {
+  background-color: rgba(255,255,255, 0.8);
+  border-radius: 50px;
 }
 
 .main-page-container p img {
@@ -194,7 +215,7 @@ h5 {
   font-size: 18px;
   line-height: 24px;
   color: #202124;
-  height: 100px;
+  height: 75px;
   margin-top: 12px;
 }
 
@@ -467,4 +488,22 @@ h5 {
   /* Aquamarine/Aquamarine-800 */
 
   color: #0B6F7A;
+}
+
+@media only screen and (max-width: 992px) {
+  .sub-hero-container {
+    height: 285px !important;
+  }
+
+  .sub-title, .tutorial-title {
+    font-size: 28px;
+    margin-top: 10px;
+  }
+}
+
+@media only screen and (max-width: 840px) {
+
+  .tutorial-info-container {
+    display: none;
+  }
 }

@@ -18,7 +18,7 @@ takeaways: "Learn to use the What-If Tool inside of TensorBoard."
 questions: "What are the limitations of using the What-If Tool in TensorBoard?<br/><br/>How do I use the What-If Tool in TensorBoard?"
 ---
 
-# Getting Started in TensorBoard
+## Getting Started in TensorBoard
 
 The What-If Tool can be found inside of [TensorBoard](https://www.tensorflow.org/tensorboard/), which is the visualization front-end that comes with each TensorFlow installation. The dropdown menu in the top-right of TensorBoard contains an option to navigate to the embedded instance of the What-If Tool.
 
@@ -29,7 +29,7 @@ When opening the What-If Tool in TensorBoard, you will encounter a setup dialog 
 {% include partials/inset-image image: '/assets/images/wit-tb-setup.png', 
   caption: 'Above: The setup dialog for the What-If Tool inside of TensorBoard '%}
 
-## Model Configuration
+### Model Configuration
 
 The inference address must be set to the address where TensorFlow Serving is hosting the model, in the format `<host>:<port>`. The model name must be set to the model name provided to TensorFlow Serving. You can optionally specify the model version and signature if you need to query an older version of a model, or you need to query the non-default signature of the model. If using a custom prediction function instead of TensorFlow Serving, you still need to
 provide an inference address and model name, which will be provided to your custom function, although your function can ignored them if not necessary.
@@ -42,7 +42,7 @@ For using the tool to compare two models, click the “add another model for com
 
 For classification models, by default the classes are displayed as “class 0”, “class 1”, and so on. You can optionally give string labels to each class by providing a label dictionary file, to provide a better experience to users trying to understand the model’s outputs. This dictionary file is just a text file that has a string on each line, and has a line for every class that the model can return. If you provide the path to this file in the appropriate input field on the setup dialog, the tool will display those user-friendly class names throughout, as opposed to the class indices.
 
-### Custom Prediction Functions
+#### Custom Prediction Functions
 
 Instead of using a model through TensorFlow Serving, you can provide your own python function for the What-If Tool to use for making predictions. To do so, launch TensorBoard and use the `--whatif-use-unsafe-custom-prediction [file path]` runtime argument to provide a path to the file containing your prediction
 function. The file must contain a function with this name and signature: `def custom_predict_fn(examples, serving_bundle):`. The function takes in a list of
@@ -60,7 +60,7 @@ Lastly, custom prediction functions can return arbitrary prediction-time informa
   
   If there are any features with the prefix “attributions__”, the numbers in those features will be interpreted as attribution scores for each corresponding input feature and will be used for the feature attribution-based capabilities of the What-If Tool. An example would be a feature named “attributions__age” containing attribution values for the input feature “age”.'%}
 
-## Dataset Configuration
+### Dataset Configuration
 
 In the “path to examples” input box, provide the path to the TFRecord file from which to load the dataset. If the file contains SequenceExample protocol buffers, as opposed to standard Example protocol buffers, then check the “SequenceExamples” checkbox.
 

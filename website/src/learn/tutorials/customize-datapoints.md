@@ -18,7 +18,7 @@ takeaways: "Use features in a loaded dataset to customize visualizations in the 
 questions: "Are there correlations between features and model predictions?<br/><br/>What differences between two data points cause models to behave differently?<br/><br/>Which data points on which do two models agree or disagree on?"
 ---
 
-# How to - Customize the Datapoints Visualization
+## How to - Customize the Datapoints Visualization
 
 The *Datapoint Editor* workspace has two types of visualizations in the playground: the *Datapoints* visualization and the *Partial Dependence Plots* visualization (discussed in a separate article). 
 

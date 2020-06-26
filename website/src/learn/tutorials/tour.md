@@ -18,14 +18,14 @@ takeaways: "Learn about different spaces and how they are used in the What-If To
 questions: "N/A"
 ---
 
-# A Tour of the What-If Tool
+## A Tour of the What-If Tool
 
 The What-If Tool is a visualization-based tool to probe the behavior of trained ML models. This article provides a quick walk through of what to expect when getting started in the What-If Tool. Learn about the basic layout and some key functionalities of the What-If Tool.
 
 {% include partials/inset-image image: '/assets/images/wit-default.png', 
   caption: 'Above: Default view on loading the What-If Tool.'%}
 
-## Tabs
+### Tabs
 
 The interface of the What-If Tool is organized by three **tabs**, which are based on the kind of models loaded into the What-If Tool. Tabs are interactive elements that can be used to navigate into different areas of the What-If Tool, located in the top-right hand side of the interface:
 
@@ -36,7 +36,7 @@ The interface of the What-If Tool is organized by three **tabs**, which are base
 {% include partials/inset-image image: '/assets/images/Annotated-Tabs.gif', 
   caption: 'Above: Tabs.'%}
 
-## Workspaces
+### Workspaces
 
 Clicking on a tab opens up a corresponding **workspace** — environments in which different model understanding tasks can be performed. Each workspace offers a group of complementary analyses for individual data points, models, or features.
 
@@ -54,7 +54,7 @@ The **Features Overview** workspace, the distribution of each feature in the loa
 {% include partials/info-box title: 'Taking forever to load?', 
   text: 'Sometimes you’ll observe that it takes a couple of seconds for your data or model to load into a workspace. This is because the What-If Tool runs entirely in the browser, and the speed depends on a variety of factors - such as the processing power available to the tool, and the shape and size of the loaded data set. If it takes too long, instead try visualizing a sample of your dataset.'%}
 
-## Modules and Playgrounds
+### Modules and Playgrounds
 
 Workspaces typically have two panels. Left hand panels contain several small windows, known as **modules**. The right hand panel comprises a **playground** to visualize and probe trained machine learning models. 
 
@@ -76,8 +76,8 @@ The *Infer* module (*Datapoint Editor* workspace) returns the prediction results
 **Playgrounds** are regions to visualize and probe data and model performance. The playground in the *Datapoint Editor* workspace is used to create custom visualizations of the loaded dataset and view partial dependence plots. The *Performance* playgrounds display model performance on slices of the dataset in the form of metrics and scores, precision-recall curves and confusion matrices where applicable. The *Features Overview* playground visualizes the distribution of each feature in the loaded dataset.
 
 {% include partials/info-box title: 'The Uniqueness of Features Overview', 
-  text: 'The Features Overview workspace is unique because it doesn't have any modules associated with it - It only has a playground to visualize distributions of features in the dataset that you loaded into the tool with summary statistics.'%}
+  text: "The Features Overview workspace is unique because it doesn't have any modules associated with it - It only has a playground to visualize distributions of features in the dataset that you loaded into the tool with summary statistics."S %}
 
-## Conclusion
+### Conclusion
 
 This article introduces key aspects of the layout of the What-If Tool - Tabs, Workspaces, Modules and Playgrounds. Together, modules and playgrounds provide the flexibility needed to superimpose different kinds of analyses, and interact across workspaces for better model understanding. 
