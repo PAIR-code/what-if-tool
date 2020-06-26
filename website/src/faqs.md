@@ -13,16 +13,17 @@ hero-title: "Frequently Asked Questions"
   f-title: "Where do I go to report a bug in the What-If Tool?", 
   f-copy: "
 
-Submit bugs, ask questions, suggest content, and request features on our [Github page](https://github.com/pair-code/what-if-tool/issues)." %}
+Submit bugs, ask questions, suggest content, and request features on our [Github issues list](https://github.com/pair-code/what-if-tool/issues/new)." %}
 
 {% include partials/faq-element 
-  f-title: "How many data points can the What-If Tool handle?", 
+  f-title: "How many datapoints can the What-If Tool handle?", 
   f-copy: "
 
-The number of data points depends on the size of the individual data points themselves. 
-Some factors that impact the number of data points that can be handled are the per-page memory limit of web browsers and the front-end for simultaneous visualization.
+The number of datapoints depends on the size of the individual datapoints themselves. 
+Some factors that impact the number of datapoints that can be handled are the per-page memory limit of web browsers and the front-end for simultaneous visualization.
 
-For data points that contain tabular data or short text segments, the What-If Tool can handle tens of thousands of points. For data points that contain encoded images, the tool can only handle a few hundred data points, with the exact number depending on the size of the images." %}
+For datapoints that contain tabular data or short text segments, the What-If Tool can handle tens of thousands of points. For datapoints that contain encoded images, the tool can only handle a few hundred datapoints, with the exact number depending on the size of the images.
+" %}
 
 {% include partials/faq-element 
     f-title: "What kinds of models can the What-If Tool handle?", 
@@ -34,7 +35,7 @@ The What-If Tool supports:
 
 * binary classification*
 * multi-class classification
-* regression tasks.
+* regression tasks
 
 \* Fairness optimization strategies are available only with binary classification models due to the nature of the strategies themselves." %}
 
@@ -43,6 +44,7 @@ The What-If Tool supports:
   f-copy: "
   
 The What-If Tool runs entirely in the browser, and may therefore load slowly for a variety of reasons. Some known causes are:
+
 * if a loaded dataset has a high number of features
 * if each data point in the loaded dataset is large in size (eg. large images)
 * the model takes a long time to return predictions " %}
@@ -57,10 +59,12 @@ For now, there is no export feature in WIT. We recommend taking a screenshot and
     f-title: "How are counterfactuals calculated?", 
     f-copy: "
     
-In the What-If Tool, Counterfactuals are data points that are most similar to a selected datapoint, but are classified differently by a model. 
+In the What-If Tool, Counterfactuals are datapoints that are most similar to a selected datapoint, but are classified differently by a model. 
 
 For binary classification models, counterfactuals are the most similar datapoint to a selected datapoint that is predicted in the opposite class or label by a model.
+
 For regression models, counterfactuals are calculated when the difference in prediction score between the selected datapoint and a candidate counterfactual is equal or greater to the “counterfactual threshold”. The counterfactual threshold default is set to the standard deviation of the prediction values and can be adjusted by the user.
+
 For multi-class models, the counterfactual is the most similar datapoint to a selected datapoint, but is classified as any class other than the selected datapoint’s class.
 
 Read [this tutorial](/learn/tutorials/counterfactuals/) for more information. 
@@ -72,17 +76,10 @@ Further reading: Wachter, S., Mittelstadt, B., & Russell, C. (2017). Counterfact
 
 
 {% include partials/faq-element 
-  f-title: "Where can I learn more about fairness optimization strategies?", 
-  f-copy: '
-  
-The fairness optimization strategies in the What-If Tool are based on our prior work, "[Attacking Discrimination with Smarter Machine Learning](https://research.google.com/bigpicture/attacking-discrimination-in-ml/)", which is a companion piece to [https://arxiv.org/abs/1610.02413](https://arxiv.org/abs/1610.02413).' %}
-
-
-{% include partials/faq-element 
   f-title: "I have proprietary data. Is WIT secure for my team to use?", 
   f-copy: "
   
-WIT uses pre-trained models and runs entirely in the browser. We don't store, collect or share datasets loaded into the What-If Tool. If using the tool inside TensorBoard, then access to that TensorBoard instance can be controlled through the authorized_groups command-line flag to TensorBoard. If using WIT inside of colab, access to the data is controlled by the colab kernel, outside the scope of WIT. " %}
+WIT uses pre-trained models and runs entirely in the browser. We don't store, collect or share datasets loaded into the What-If Tool. If using the tool inside TensorBoard, then access to that TensorBoard instance can be controlled through the authorized_groups command-line flag to TensorBoard. Anyone with access to the TensorBoard instance will be able to see data from the datasets that the instance has permissions to load from disk. If using WIT inside of colab, access to the data is controlled by the colab kernel, outside the scope of WIT. " %}
 
 
 {% include partials/faq-element 
@@ -91,9 +88,10 @@ WIT uses pre-trained models and runs entirely in the browser. We don't store, co
   
 The What-If Tool uses trained models to investigate prediction results on uploaded dataset, and models do not learn anything from edits or injunctions in the What-If Tool. Therefore, any new features added to the datapoint editor has no bearing on the model itself. Users typically add new features to:
 
-* describe or annotate data points using features that are irrelevant to the model
-* see if there are any trends or correlations that might make a feature useful to include when training another iteration of the model outside of the What-If Tool. " %}
+* describe or annotate datapoints using features that are irrelevant to the model
+* see if there are any trends or correlations that might make a feature useful to include when training another iteration of the model outside of the What-If Tool.
 
+ " %}
 
 {% include partials/faq-element 
   f-title: "Can I use WIT with LIME or SHAP?", 

@@ -8,14 +8,18 @@ hero-copy: "Get a feel for the What-If Tool in a variety of demos in the browser
 ---
 
 <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-  
+
+<a name="web"></a>
+
 ## Web demos
 
 Play with the What-If Tool on a pre-loaded trained model and dataset right in the browser.
 
   <div class="mdl-grid no-padding">
 
-  {% include partials/demo-card c-title: "Compare income classification on UCI census data", link: "/demos/uci.html", c-copy: "Compare two binary classification models that predict whether a person earns more than $50k a year, based on their census information. Examine how different features affect each models' prediction, in relation to each other.", tags: "binary classification, model comparison", external:"true" %}
+  {% include partials/demo-card c-title: "Compare income classification on UCI census data", link: "/demos/uci.html", 
+  c-data-source: "Census Income Data Set", c-data-source-url: "http://archive.ics.uci.edu/ml/datasets/Census+Income",
+  c-copy: "Compare two binary classification models that predict whether a person earns more than $50k a year, based on their census information. Examine how different features affect each models' prediction, in relation to each other.", tags: "binary classification, model comparison", external:"true" %}
 
   {% include partials/demo-card c-title: "Explore age-prediction regression on UCI census data", link: "/demos/age.html", c-copy: "Explore the performance of a regression model which predicts a person's age from their census information. Slice your dataset to evaluate performance metrics such as aggregated inference error measures for each subgroup. Explore feature attributions calculated by vanilla gradients.", tags: "regression, attributions", external:"true" %}
 
@@ -29,9 +33,11 @@ Play with the What-If Tool on a pre-loaded trained model and dataset right in th
 
   {% include partials/spacer height:30 %}
 
+<a name="notebook"></a>
+
 ## Notebook Demos
 
-Explore the What-If Tool’s interpretability features in utmost detail in Colaboratory, Jupyter and Cloud AI Notebooks. 
+Explore the What-If Tool’s interpretability features in utmost detail in Colaboratory, Jupyter and Cloud AI Notebooks.  
 
   <div class="mdl-grid no-padding">
 
@@ -49,7 +55,10 @@ Explore the What-If Tool’s interpretability features in utmost detail in Colab
 
   </div>
 
+<a name="cloud-ai"></a>
+
 ## Google Cloud AI models
+
 Use the What-If Tool with Cloud AI models, and in conjunction with Explainable AI.
 
   <div class="mdl-grid no-padding">

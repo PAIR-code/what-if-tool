@@ -4,8 +4,8 @@ layout: layouts/sub.liquid
 
 hero-height: 245
 hero-image: /assets/images/banner-learn.png
-hero-title: "Model understanding for understandable, reliable, and fair machine learning"
-hero-copy: "Learn how to explore feature sensitivity, compare model performance, and stress-test hypotheticals."
+hero-title: "Model probing for understandable, reliable, and fair machine learning"
+hero-copy: "Learn how to explore feature sensitivity, compare model performance, and stress-test hypotheticals. "
 ---
 
 <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
@@ -59,13 +59,13 @@ c-copy: "Explore datapoints in Features Overview to identify sources of bias." %
 
   <div class="mdl-grid no-padding">
 
-  {% include partials/resource-card c-title: "Qwiklabs Quest: Explore Machine Learning Models with Explainable AI", link: "#", c-copy: "Introductory level, hands-on practice with Explainable AI from Google Cloud.", cta-copy:"Start Quest", external:"true" %}
+  {% include partials/resource-card c-title: "Qwiklabs Quest: Explore Machine Learning Models with Explainable AI.", link: "https://www.qwiklabs.com/quests/126?catalog_rank=%7B%22rank%22%3A1%2C%22num_filters%22%3A0%2C%22has_search%22%3Atrue%7D&search_id=6021667", c-copy: "Introductory level, hands-on practice with Explainable AI from Google Cloud.", cta-copy:"Launch Quest", external:"true" %}
 
-  {% include partials/resource-card c-title: "Using the ‘What-If Tool’ to investigate Machine Learning models.", link: "#", c-copy: "A community-contributed run-through of the features of the What-If Tool.", cta-copy:"Go to article" %}
+  {% include partials/resource-card c-title: "Using the ‘What-If Tool’ to investigate Machine Learning models.", link: "https://towardsdatascience.com/using-what-if-tool-to-investigate-machine-learning-models-913c7d4118f", c-copy: "A community-contributed run-through of the features of the What-If Tool.", cta-copy:"Go to article", external:"true" %}
 
-  {% include partials/resource-card c-title: "A walkthrough with UCI census data.", link: "/learn/tutorials/walkthrough/", c-copy: "Explore how the What-If Tool (WIT) can help us learn about a model and dataset.", cta-copy:"Open Walkthrough" %}
+  {% include partials/resource-card c-title: "Introducing the What-If Tool", link: "https://www.youtube.com/playlist?list=PLIivdWyY5sqK7Z5A2-sftWLlbVSXuyclr", c-copy: "Get familiar with the What-If Tool with a three-part video series.", cta-copy:"Watch the videos", external:"true" %}
 
-  {% include partials/resource-card c-title: "What if AI model understanding were easy?", link: "#", c-copy: "See analytics-for-AI in action as Cassie Kozyrkov walks us through the What-If Tool.", cta-copy:"Read Articles", external:"true" %}
+  {% include partials/resource-card c-title: "What if AI model understanding were easy?", link: "https://towardsdatascience.com/what-if-ai-model-understanding-were-easy-57ba21163d0e", c-copy: "See analytics-for-AI in action as Cassie Kozyrkov walks us through the What-If Tool.", cta-copy:"Go to article", external:"true" %}
 
   </div>
 
