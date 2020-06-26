@@ -35,7 +35,7 @@ p {
 
 
 .display1 {
-  font-family: Manrope;
+  font-family: "Manrope";
   font-style: normal;
   font-weight: 500;
   font-size: 32px;
@@ -50,7 +50,7 @@ p {
 }
 
 .display2 {
-  font-family: Manrope;
+  font-family: "Manrope";
   font-style: normal;
   font-weight: 500;
   font-size: 32px;
@@ -380,7 +380,7 @@ h5 {
 
 .tutorial-breadcrumbs {
   margin: 72px 0 24px 0;
-  font-family: Manrope;
+  font-family: "Manrope";
   font-style: normal;
   font-weight: 600;
   font-size: 16px;

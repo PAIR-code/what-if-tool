@@ -5,6 +5,17 @@ layout: layouts/tutorial.liquid
 hero-image: /assets/images/sample-banner.png
 hero-title: "TensorBoard"
 hero-copy: "Getting Started in TensorBoard"
+
+bc-anchor-category: "basics"
+bc-category-title: "Basics of the What-If Tool"
+bc-title: "TensorBoard"
+
+time: "10 minutes"
+use-with: "Classification models<br/>Multi-class models<br/>Regression models"
+before: "Have a trained model for serving through TensorFlow Serving and a test dataset on disk as a TFRecord file."
+related: "N/A"
+takeaways: "Learn to use the What-If Tool inside of TensorBoard."
+questions: "What are the limitations of using the What-If Tool in TensorBoard?<br/><br/>How do I use the What-If Tool in TensorBoard?"
 ---
 
 # Getting Started in TensorBoard

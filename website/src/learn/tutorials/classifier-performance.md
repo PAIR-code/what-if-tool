@@ -3,8 +3,19 @@ title: Understanding Performance Metrics For Classifiers
 layout: layouts/tutorial.liquid
 
 hero-image: /assets/images/sample-banner.png
-hero-title: "Understanding Performance Metrics For Classifiers"
+hero-title: "Classifier Performance Metrics"
 hero-copy: "Understanding Performance Metrics For Classifiers"
+
+bc-anchor-category: "analysis"
+bc-category-title: "Conducting Analysis in the What-If Tool"
+bc-title: "Classifier Performance Metrics"
+
+time: "10 minutes"
+use-with: "Classification models<br/>Multi-class models"
+before: "N/A"
+related: "Binary Classification Model: UCI Census Income Prediction"
+takeaways: "Develop an understanding behind the metrics featured in the Performance & Fairness workspace<br/><br/>Learn about what a confusion matrix is, its purpose, how it’s calculated, and how to read it."
+questions: "In summary, how well does the model perform?<br/><br/>How often does the model correctly predict any label?<br/><br/>How often does the model correctly predict the positive label?<br/><br/>Out of all the available positive labels, how many did the model correctly identify?<br/><br/>How does the model perform with respect to a subgroup?"
 ---
 
 # Understanding Performance Metrics For Classifiers

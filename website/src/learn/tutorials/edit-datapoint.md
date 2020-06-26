@@ -5,6 +5,17 @@ layout: layouts/tutorial.liquid
 hero-image: /assets/images/sample-banner.png
 hero-title: "Edit a Datapoint"
 hero-copy: "How To - Edit a Datapoint"
+
+bc-anchor-category: "basics"
+bc-category-title: "Basics of the What-If Tool"
+bc-title: "Edit a Datapoint"
+
+time: "5 minutes"
+use-with: "Classification models<br/>Multi-class models<br/>Regression models"
+before: "N/A"
+related: "Binary Classification Model: UCI Census Income Prediction<br/><br/>Multi-class Classification Model: Flowers Species Identification<br/><br/>Regression Model: UCI Census Age Prediction"
+takeaways: "Learn to edit a datapoint.<br/><br/>Get model predictions on an edited datapoint."
+questions: "How does the prediction result on a datapoint change if a feature value is changed?<br/><br/>How do models behave when feature values are missing?"
 ---
 
 # How To - Edit a Datapoint

@@ -5,6 +5,17 @@ layout: layouts/tutorial.liquid
 hero-image: /assets/images/sample-banner.png
 hero-title: "Notebooks"
 hero-copy: "Getting Started in Notebooks"
+
+bc-anchor-category: "basics"
+bc-category-title: "Basics of the What-If Tool"
+bc-title: "Notebooks"
+
+time: "10 minutes"
+use-with: "Classification models<br/>Multi-class models<br/>Regression models"
+before: "Have a trained model and test dataset for analyzing."
+related: "N/A"
+takeaways: "Learn to use the What-If Tool inside of notebook environments."
+questions: "How do I explore trained models and datasets in a Colaboratory, Jupyter, or Cloud AI Platform notebook environments?"
 ---
 
 # Getting Started in Notebooks

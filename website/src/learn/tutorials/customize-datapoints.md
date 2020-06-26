@@ -5,6 +5,17 @@ layout: layouts/tutorial.liquid
 hero-image: /assets/images/sample-banner.png
 hero-title: "Customize the Datapoints Visualization"
 hero-copy: "How to - Customize the Datapoints Visualization"
+
+bc-anchor-category: "basics"
+bc-category-title: "Basics of the What-If Tool"
+bc-title: "How to - Customize the Datapoints Visualization"
+
+time: "15 minutes"
+use-with: "Classification models<br/>Multi-class models<br/>Regression models"
+before: "N/A"
+related: "Binary Classification Model: UCI Census Income Prediction<br/><br/>Multi-class Classification Model: Flowers Species Identification<br/><br/>Regression Model: UCI Census Age Prediction"
+takeaways: "Use features in a loaded dataset to customize visualizations in the Datapoint Visualization."
+questions: "Are there correlations between features and model predictions?<br/><br/>What differences between two data points cause models to behave differently?<br/><br/>Which data points on which do two models agree or disagree on?"
 ---
 
 # How to - Customize the Datapoints Visualization
