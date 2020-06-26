@@ -5,6 +5,9 @@ layout: layouts/sub.liquid
 hero-image: /assets/images/banner-getting-started.png
 hero-title: "pip install wit-widget"
 hero-copy: "Use the What If Tool directly in your Notebooks, in TensorBoard, and with Cloud AI models."
+
+sub-nav: '<a href="#notebooks">With notebooks</a><a href="#cloud-ai">With Google Cloud</a><a href="#tensorboard">On Tensorboard</a>'
+color: "#FFFFFF"
 ---
 
 <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">

@@ -84,19 +84,19 @@ Tabular, Image, Text data
 ## What’s the latest
 
 <div class="mdl-grid no-padding">
-  {% include partials/home-card image: '/assets/images/sample-home-card.png', action: 'CODE', 
+  {% include partials/home-card image: '/assets/images/home-card-code.png', action: 'CODE', 
   title: 'Contribute to the What-If Tool', desc: 'The What-If Tool is open to anyone who wants to help develop and improve it!', 
   cta-text:"View developer guide", link: 'https://github.com/PAIR-code/what-if-tool/blob/master/CONTRIBUTING.md', external:"true" %}
   
-  {% include partials/home-card image: '/assets/images/sample-home-card.png', action: 'UPDATES', 
+  {% include partials/home-card image: '/assets/images/home-card-updates.png', action: 'UPDATES', 
   title: 'Latest updates to the What-If Tool', desc: 'New features, updates, and improvements to the What-If Tool.', 
   cta-text:"See release notes", link: 'https://github.com/PAIR-code/what-if-tool/blob/master/RELEASE.md' external:"true" %}
 
-  {% include partials/home-card image: '/assets/images/sample-home-card.png', action: 'RESEARCH', 
+  {% include partials/home-card image: '/assets/images/home-card-research.png', action: 'RESEARCH', 
   title: 'Systems Paper at IEEE VAST ‘19', desc: 'Read about what went into the What-If Tool in our systems papers, presented at IEEE VAST ‘19.', 
   cta-text:"Go to proceedings", link: 'https://ieeexplore.ieee.org/abstract/document/8807255' external:"true" %}
 
-  {% include partials/home-card image: '/assets/images/sample-home-card.png', action: 'ARTICLE', 
+  {% include partials/home-card image: '/assets/images/home-card-article.png', action: 'ARTICLE', 
   title: 'Playing with AI Fairness', desc: "The What-If Tool lets you try on five different types of fairness. What do they mean?", 
   cta-text:"Read the article", link: 'https://pair-code.github.io/what-if-tool/ai-fairness.html' %}
 

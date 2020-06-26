@@ -5,6 +5,9 @@ layout: layouts/sub.liquid
 hero-height: 125
 hero-image: /assets/images/banner-faqs.png
 hero-title: "Frequently Asked Questions"
+
+sub-nav: '<a href="https://github.com/pair-code/what-if-tool/issues/new" target="_blank">Ask a question</a>'
+color: "#8A2A04"
 ---
 
 <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">

@@ -5,6 +5,9 @@ layout: layouts/sub.liquid
 hero-image: /assets/images/banner-explore.png
 hero-title: "Take the What-If Tool for a spin!"
 hero-copy: "Get a feel for the What-If Tool in a variety of demos in the browser or in notebook environments."
+
+sub-nav: '<a href="#web">Web demos</a><a href="#notebook">Notebook demos</a><a href="#cloud-ai">Cloud AI models</a>'
+color: "#FFFFFF"
 ---
 
 <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">

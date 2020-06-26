@@ -6,6 +6,9 @@ hero-height: 245
 hero-image: /assets/images/banner-learn.png
 hero-title: "Model probing for understandable, reliable, and fair machine learning"
 hero-copy: "Learn how to explore feature sensitivity, compare model performance, and stress-test hypotheticals. "
+
+sub-nav: '<a href="#basics">Basics of the What-If Tool</a><a href="#analysis">Conducting analysis</a><a href="#resources">Related resources & posts</a>'
+color: "#8A2A04"
 ---
 
 <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
@@ -54,6 +57,8 @@ c-copy: "Learn how to add non-input features into the What-If Tool to analyze su
 c-copy: "Explore datapoints in Features Overview to identify sources of bias." %}
 
 {% include partials/spacer height:50 %}
+
+<a name="resources"></a>
 
 ## Related resources and posts
 
