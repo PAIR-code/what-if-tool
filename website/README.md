@@ -2,11 +2,7 @@
 
 This repository contains the code for the What-If Tool landing page and demo websites, which is hosted as a github page.
 
-Check out all the web demos and colab demos here: https://pair-code.github.io/what-if-tool/#demos
-
-## Building the Demos
-
-The What-If Tool demo source code is in the [TensorBoard](https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/interactive_inference) respository and is built from there using `bazel` and copied over.
+If you wish to help make changes to our documentation, you've come to the right place. **NOTE**, any updates should be made in a feature branch to the `/website/src/` content. You can then make a pull request, and it will be committed to the repo and deployed by a member of the What-If Tool team.
 
 ## Local Testing of the Homepage and Demos
 
@@ -14,3 +10,10 @@ The What-If Tool demo source code is in the [TensorBoard](https://github.com/ten
 2. From this directory, install dependencies by running `npm install`
 3. From this directory, run `./local.sh`
 4. Navigate to `http://localhost:8080`
+
+## Building the Site for Deployment to Github Pages
+
+1. Make changes to the site inside the `/website/src/` directory, using local testing instructions above to validate changes.
+2. Once you're ready to deploy, run `./deploy.sh` from the command-line while in the `/website` directory.
+3. This will build the site, remove the old docs folder and replace it with the updates.
+4. Commit the docs folder to the Github repo, and wait a few minutes for Github CDNs to reflect your changes.
