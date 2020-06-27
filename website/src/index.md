@@ -13,7 +13,7 @@ layout: layouts/main.liquid
 
 </div>
 
-![overview of WIT](/assets/images/home-hero.gif)
+![overview of WIT]({% root %}/assets/images/home-hero.gif)
 
 {% include partials/spacer height:60 %}
 
