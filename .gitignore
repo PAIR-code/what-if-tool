@@ -6,3 +6,6 @@ bazel-*
 **/dist/
 **/build/
 **/*.egg-info/
+.DS_Store
+website/www/
+website/node_modules/
