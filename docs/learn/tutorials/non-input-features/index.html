@@ -34,29 +34,29 @@
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
           <!-- Title -->
-          <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+          <span class="mdl-layout__title"><a href="/what-if-tool/">What-If Tool</a></span>
           <!-- Add spacer, to align navigation to the right -->
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation. We hide it in small screens. -->
           <nav class="mdl-navigation mdl-layout--large-screen-only">
-            <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
-            <a class="mdl-navigation__link" href="/learn/">LEARN</a>
-            <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
-            <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
-            <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="-_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
-            <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+            <a class="mdl-navigation__link" href="/what-if-tool/get-started/">GET STARTED</a>
+            <a class="mdl-navigation__link" href="/what-if-tool/learn/">LEARN</a>
+            <a class="mdl-navigation__link" href="/what-if-tool/explore/">EXPLORE</a>
+            <a class="mdl-navigation__link" href="/what-if-tool/faqs/">FAQs</a>
+            <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="-_blank">GET INVOLVED<img class="header-arrow" src="/what-if-tool/assets/images/arrow-link-out.png"/></a>
+            <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/what-if-tool/assets/images/arrow-link-out.png"/></a>
           </nav>
         </div>
       </header>
       <div class="mdl-layout__drawer">
-        <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+        <span class="mdl-layout__title"><a href="/what-if-tool/">What-If Tool</a></span>
         <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
-          <a class="mdl-navigation__link" href="/learn/">LEARN</a>
-          <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
-          <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
-          <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
-          <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          <a class="mdl-navigation__link" href="/what-if-tool/get-started/">GET STARTED</a>
+          <a class="mdl-navigation__link" href="/what-if-tool/learn/">LEARN</a>
+          <a class="mdl-navigation__link" href="/what-if-tool/explore/">EXPLORE</a>
+          <a class="mdl-navigation__link" href="/what-if-tool/faqs/">FAQs</a>
+          <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">GET INVOLVED<img class="header-arrow" src="/what-if-tool/assets/images/arrow-link-out.png"/></a>
+          <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/what-if-tool/assets/images/arrow-link-out.png"/></a>
           
           <!-- <a class="mdl-navigation__link" href="https://pair-code.github.io/facets/" target="-_blank">
             <i class="material-icons icon-style">star</i>
@@ -73,7 +73,7 @@
         <div class="tutorial-page-container mdl-grid">
           <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
             <div class="tutorial-breadcrumbs">
-  <a href="/learn">Learn</a> > <a href="/learn/#analysis">Conducting Analysis in the What-If Tool</a> > Adding Non-Input Features
+  <a href="/what-if-tool/learn">Learn</a> > <a href="/what-if-tool/learn/#analysis">Conducting Analysis in the What-If Tool</a> > Adding Non-Input Features
 </div>
             <h2>Adding Non-Input Features To Perform Subgroup Analysis</h2>
 <p>When loading a pre-trained model and accompanying dataset into the What-If Tool, typically one would think that every feature included in the dataset has to be used by the pre-trained model to generate predictions. However, not all features included in a dataset must behave as input to the model. Sometimes these non-input features (features that are present in a dataset, but are not used in model prediction) are utilized for evaluation purposes, behaving instead as a means of slicing the dataset into subgroups to conduct deeper analysis.</p>
@@ -98,13 +98,13 @@ In this demo, we’re dubbing the <em>Young</em> attribute as <strong>age group<
 </div>
 <p>As mentioned earlier, one of the advantages to including non-input features is the ability to evaluate model performance with respect to subgroups. This can be done by selecting the feature using <em>Slice By</em> in the <em>Configure</em> module located in the <em>Performance &amp; Fairness</em> workspace as shown below:</p>
 <div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-  <img class="tutorial-image" src="/assets/images/perfconfigure.png"/>
+  <img class="tutorial-image" src="/what-if-tool/assets/images/perfconfigure.png"/>
   <div class="tutorial-caption">Selecting Non-Input Features in the Configure Module to Evaluate Subgroup from Smile Detector Demo.</div>
 </div>
 <p>Among the list of feature attributes were categories associated with age group and perceived gender—feature attributes that may be regarded as sensitive subgroups to evaluate performance across to ensure fairer, more desirable outcomes. As shown in the figure above, both of those features (age and gender) can be selected for analysis in the Configure module by selecting one of those features (say, age) using the Slice By drop down and selecting the second feature (say, gender) using the Slice By (secondary) drop down.</p>
 <p>Using a combination of features that represent individual characteristics to explore the impact of model results with respect to these combinations is known as <strong>intersectional</strong> model analysis. Intersectionality explores how an individual’s identity and experiences (as captured in input features in the dataset) are shaped not just by unitary characteristics, but instead by a complex combination of many factors. The following is an example of what intersectional model analysis looks like in the What-If Tool:</p>
 <div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-  <img class="tutorial-image" src="/assets/images/perf-intersectional.png"/>
+  <img class="tutorial-image" src="/what-if-tool/assets/images/perf-intersectional.png"/>
   <div class="tutorial-caption">Intersectional Results Using Non-Input Features from Smile Detector Demo.</div>
 </div>
 <div class="mdl-cell info-box mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
@@ -140,14 +140,14 @@ It is important to keep in mind that you may at times be working with data drawn
         </div>
 
         <div class="footer-container mdl-grid">
-  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://pair.withgoogle.com/" target="_blank"><img src="/assets/images/pair-logo.svg"/></a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://pair.withgoogle.com/" target="_blank"><img src="/what-if-tool/assets/images/pair-logo.svg"/></a></div>
   <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://research.google/teams/brain/pair/" target="_blank">Google Research</a></div>
   <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">Get Involved</a></div>
   <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://github.com/pair-code" target="_blank">Github</a></div>
   <div class="footer-icons mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-    <a href="mailto:peopleai@google.com" target="_blank"><img src="/assets/images/mail.png"/></a>
-    <a href="https://medium.com/people-ai-research" target="_blank"><img src="/assets/images/medium.png"/></a>
-    <a href="https://www.youtube.com/channel/UCnnns-uu4yy9BXfYSPIX5AA" target="_blank"><img src="/assets/images/youtube.png"/></a>
+    <a href="mailto:peopleai@google.com" target="_blank"><img src="/what-if-tool/assets/images/mail.png"/></a>
+    <a href="https://medium.com/people-ai-research" target="_blank"><img src="/what-if-tool/assets/images/medium.png"/></a>
+    <a href="https://www.youtube.com/channel/UCnnns-uu4yy9BXfYSPIX5AA" target="_blank"><img src="/what-if-tool/assets/images/youtube.png"/></a>
   </div>
 </div>
       </main>
@@ -157,6 +157,6 @@ It is important to keep in mind that you may at times be working with data drawn
 
   
 
-  <script defer src="/assets/js/material.min.js"></script>
-  <script defer src="/assets/js/material-components-web.min.js"></script>
+  <script defer src="/what-if-tool/assets/js/material.min.js"></script>
+  <script defer src="/what-if-tool/assets/js/material-components-web.min.js"></script>
 </html>

@@ -1,10 +1,10 @@
 const markdownIt = require("markdown-it");
 const markdownItRenderer = new markdownIt();
-const rootPrefix = "";
+const rootPrefix = "/what-if-tool";
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.templateFormats = ["liquid", "md", "png"];
-  
+
   eleventyConfig.addFilter('markdownify', (str) => {
     return markdownItRenderer.renderInline(str);
   })
