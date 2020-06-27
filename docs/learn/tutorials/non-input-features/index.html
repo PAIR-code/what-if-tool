@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Do we need additional share metadata included here? -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46457317-11"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-46457317-11');
+</script>
+
+    <title>Adding Non-Input Features To Perform Subgroup Analysis</title>
+    
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/assets/css/material.min.css">
+    <link rel="stylesheet" href="/assets/css/material-components-web.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Manrope:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+
+    <!-- <link href='/assets/css/main.css' rel='stylesheet' type='text/css'> -->
+    <link href='/assets/css/new.css' rel='stylesheet' type='text/css'>
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png"/>
+
+  </head>
+
+  <body>
+    <div class="mdl-layout mdl-layout--no-desktop-drawer-button mdl-js-layout mdl-layout--fixed-header">
+      
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation. We hide it in small screens. -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
+            <a class="mdl-navigation__link" href="/learn/">LEARN</a>
+            <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
+            <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
+            <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="-_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+            <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
+          <a class="mdl-navigation__link" href="/learn/">LEARN</a>
+          <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
+          <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
+          <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          
+          <!-- <a class="mdl-navigation__link" href="https://pair-code.github.io/facets/" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>Facets</span>
+          </a>
+          <a class="mdl-navigation__link" href="https://js.tensorflow.org" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>TensorFlow.js</span>
+          </a> -->
+        </nav>
+      </div>
+      
+      <main class="mdl-layout__content hero-banner">
+        <div class="tutorial-page-container mdl-grid">
+          <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <div class="tutorial-breadcrumbs">
+  <a href="/learn">Learn</a> > <a href="/learn/#analysis">Conducting Analysis in the What-If Tool</a> > Adding Non-Input Features
+</div>
+            <h2>Adding Non-Input Features To Perform Subgroup Analysis</h2>
+<p>When loading a pre-trained model and accompanying dataset into the What-If Tool, typically one would think that every feature included in the dataset has to be used by the pre-trained model to generate predictions. However, not all features included in a dataset must behave as input to the model. Sometimes these non-input features (features that are present in a dataset, but are not used in model prediction) are utilized for evaluation purposes, behaving instead as a means of slicing the dataset into subgroups to conduct deeper analysis.</p>
+<p>The What-If Tool is actually capable of displaying additional features in datapoints that are not used to query the trained model. Since the What-If Tool requires either a protocol message (tf.Example or SequenceExample), or data expressed as JSON lists or dicts to read files efficiently, there should be no issues adding non-input features—so long as the dataset has the required input feature(s) for the pretrained model to recognize when the What-If Tool queries for predictions.</p>
+<ul>
+<li>For example, if the pre-trained model expects an image file as input, but the dataset included for evaluation purposes also contains non-image features (such as categories and other attributes that describe aspects about the image), then just make sure all the input features are formatted correctly. That way, the pre-trained model will not ingest the wrong input feature or return an error because it was not expecting additional non-input features.</li>
+<li>Also, for each non-input feature column added to the dataset, ensure that it is the same length as the number of datapoints available in the dataset. Mismatch in dimensions could result in loading errors.</li>
+</ul>
+<p>Once added, as with any other feature, the non-input features are available to analyze across all workspaces: <em>Datapoint Editor</em>, <em>Performance &amp; Fairness</em>, and <em>Features Overview</em>.</p>
+<p>The example in this tutorial borrows from the Smile Detector Demo. There, the task was to predict whether a person in a photo is smiling or not. Trained using only image data, the dataset also contains many feature attributes that describe certain aspects about the person in the photo. For example, is the person in the photo wearing a hat? Did they have make-up on? Did they have a beard?</p>
+<div class="mdl-cell info-box mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <div class="info-box-title">Caveats in the Smile Detector Demo</div>
+  <div class="info-box-text">
+The demo referenced in this tutorial was trained using the CelebFaces Attributes (<a href="http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html">CelebA</a>) dataset. It's a large-scale face attributes dataset with more than 200,000 celebrity images, each with numerous attribute annotations (such as hair type, fashion accessories, facial features) and landmark locations (eyes, mouth and nose positions).
+<p>It's worth acknowledging that all of the attribute annotations (which is captured as our non-input features in this tutorial) in CelebA come operationalized as binary categories.</p>
+<p>For example, the <em>Young</em> attribute, which loosely and presumably represents perceived behavior or appearance of young people, is denoted as either present or absent in the image. In other words, the absence of <em>Young</em> in an image does not always imply that the image features an <em>Old</em> celebrity.</p>
+<p><strong>Warning: CelebA's categorizations do not reflect real human diversity of attributes.</strong>
+In this demo, we’re dubbing the <em>Young</em> attribute as <strong>age group</strong>, where the presence of the <em>Young</em> attribute in an image is labeled as a member of the <em>young</em> age group and the absence of the <em>Young</em> attribute is labeled as a member of the <em>old</em> age group. We’re also treating the <em>Male</em> attribute as <strong>gender</strong>, where the presence of the <em>Male</em> attribute in an image is regarded the same, but the absence of the <em>Male</em> attribute (<em>Not Male</em> in CelebA) is regarded as <em>Female</em> in our demo.</p>
+<p>Basically, we’re making assumptions about the information in the dataset that is not mentioned in its <a href="http://openaccess.thecvf.com/content_iccv_2015/html/Liu_Deep_Learning_Face_ICCV_2015_paper.html">original paper</a>. As such, results in this demo is tied to the ways the attributes have been operationalized and annotated by the authors of CelebA.</p>
+<p>This model should not be used for commercial purposes as that would violate CelebA's non-commercial research agreement.</p>
+</div>
+</div>
+<p>As mentioned earlier, one of the advantages to including non-input features is the ability to evaluate model performance with respect to subgroups. This can be done by selecting the feature using <em>Slice By</em> in the <em>Configure</em> module located in the <em>Performance &amp; Fairness</em> workspace as shown below:</p>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/assets/images/perfconfigure.png"/>
+  <div class="tutorial-caption">Selecting Non-Input Features in the Configure Module to Evaluate Subgroup from Smile Detector Demo.</div>
+</div>
+<p>Among the list of feature attributes were categories associated with age group and perceived gender—feature attributes that may be regarded as sensitive subgroups to evaluate performance across to ensure fairer, more desirable outcomes. As shown in the figure above, both of those features (age and gender) can be selected for analysis in the Configure module by selecting one of those features (say, age) using the Slice By drop down and selecting the second feature (say, gender) using the Slice By (secondary) drop down.</p>
+<p>Using a combination of features that represent individual characteristics to explore the impact of model results with respect to these combinations is known as <strong>intersectional</strong> model analysis. Intersectionality explores how an individual’s identity and experiences (as captured in input features in the dataset) are shaped not just by unitary characteristics, but instead by a complex combination of many factors. The following is an example of what intersectional model analysis looks like in the What-If Tool:</p>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/assets/images/perf-intersectional.png"/>
+  <div class="tutorial-caption">Intersectional Results Using Non-Input Features from Smile Detector Demo.</div>
+</div>
+<div class="mdl-cell info-box mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <div class="info-box-title">Considering Key Subgroups</div>
+  <div class="info-box-text">
+It is important to keep in mind that you may at times be working with data drawn from individuals belonging to subgroups. In this context, we’re defining a subgroup as a group of individuals who share a given characteristic feature—such as race, gender, or sexual orientation—that merits special consideration when evaluating a model with fairness in mind.
+<p>The What-If Tool was created to help you mitigate, or leverage, the learned signal of a characteristic feature pertaining to a subgroup. As you work with different variables and define tasks for them, it can be useful to think about what comes next.</p>
+<p>For example, where are the places or contexts where the interaction of the characteristic feature and the task could be a concern?</p>
+</div>
+</div>
+<p>With the What-If Tool, anyone can transform their analysis to evaluate model performance across subgroups rather than in aggregate. The ability to use non-input features as a way to perform such analysis provides flexibility for practitioners that wish to omit such features in training, but utilize later for evaluation.</p>
+
+          </div>
+          <div class="mdl-cell--4-col hide-me">
+            <div class="tutorial-info-container">
+              <div class="tutorial-info-header">time to read</div>
+              <div class="tutorial-info-copy">7 minutes</div>
+              <div class="tutorial-info-header">use with</div>
+              <div class="tutorial-info-copy">Classification models<br/>Multi-class models</div>
+              <div class="tutorial-info-header">before you begin</div>
+              <div class="tutorial-info-copy">N/A</div>
+              <div class="tutorial-info-header">related demos</div>
+              <div class="tutorial-info-copy">Binary Classification Model: Smile Detector in Images</div>
+              <div class="tutorial-info-header">takeaways</div>
+              <div class="tutorial-info-copy">Learn how to load a model with non-input features.<br/><br/>Use non-input features to analyze performance metrics by subgroup.</div>
+              <div class="tutorial-info-header">what-if questions</div>
+              <div class="tutorial-info-copy">How do I analyze my results by features not intended to be used as input for model prediction?<br/><br/>How could I use these non-input features to calculate performance metrics by subgroups?</div>
+            </div>
+          </div>
+          <div class="tutorial-footer mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            The What-If Tool is being actively developed and documentation is likely to change as we improve the tool. We want to hear from you! Leave us a note, feedback, or suggestion on <a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">our community group</a>.
+          </div>
+        </div>
+
+        <div class="footer-container mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://pair.withgoogle.com/" target="_blank"><img src="/assets/images/pair-logo.svg"/></a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://research.google/teams/brain/pair/" target="_blank">Google Research</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">Get Involved</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://github.com/pair-code" target="_blank">Github</a></div>
+  <div class="footer-icons mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+    <a href="mailto:peopleai@google.com" target="_blank"><img src="/assets/images/mail.png"/></a>
+    <a href="https://medium.com/people-ai-research" target="_blank"><img src="/assets/images/medium.png"/></a>
+    <a href="https://www.youtube.com/channel/UCnnns-uu4yy9BXfYSPIX5AA" target="_blank"><img src="/assets/images/youtube.png"/></a>
+  </div>
+</div>
+      </main>
+
+    </div>
+  </body>
+
+  
+
+  <script defer src="/assets/js/material.min.js"></script>
+  <script defer src="/assets/js/material-components-web.min.js"></script>
+</html>

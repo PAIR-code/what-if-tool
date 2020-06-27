@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Do we need additional share metadata included here? -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46457317-11"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-46457317-11');
+</script>
+
+    <title>WIT - Explore</title>
+    
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/assets/css/material.min.css">
+    <link rel="stylesheet" href="/assets/css/material-components-web.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Manrope:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+
+    <!-- <link href='/assets/css/main.css' rel='stylesheet' type='text/css'> -->
+    <link href='/assets/css/new.css' rel='stylesheet' type='text/css'>
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png"/>
+    <style>
+      .sub-title, .sub-copy {
+        color: #FFFFFF;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="mdl-layout mdl-layout--no-desktop-drawer-button mdl-js-layout mdl-layout--fixed-header">
+      
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation. We hide it in small screens. -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
+            <a class="mdl-navigation__link" href="/learn/">LEARN</a>
+            <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
+            <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
+            <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="-_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+            <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
+          <a class="mdl-navigation__link" href="/learn/">LEARN</a>
+          <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
+          <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
+          <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          
+          <!-- <a class="mdl-navigation__link" href="https://pair-code.github.io/facets/" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>Facets</span>
+          </a>
+          <a class="mdl-navigation__link" href="https://js.tensorflow.org" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>TensorFlow.js</span>
+          </a> -->
+        </nav>
+      </div>
+      
+      <main class="mdl-layout__content hero-banner">
+        <div class="sub-hero-container" style="background-image:url( /assets/images/banner-explore.png );">
+  <div class="hero-container mdl-grid">
+    <div class="mdl-cell--8-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+
+      <div class="sub-title">Take the What-If Tool for a spin!</div>
+      <div class="sub-copy">Get a feel for the What-If Tool in a variety of demos in the browser or in notebook environments.</div>
+    </div>
+  </div>
+</div>
+        <div class="sub-page-container mdl-grid">
+          <div class="mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+          <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+<p><a name="web"></a></p>
+<h2>Web demos</h2>
+<p>Play with the What-If Tool on a pre-loaded trained model and dataset right in the browser.</p>
+  <div class="mdl-grid no-padding">
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="/demos/uci.html" target="_blank">Compare income classification on UCI census data</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> binary classification </span>  <span class="demo-tag"> model comparison </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="http://archive.ics.uci.edu/ml/datasets/Census+Income" target="_blank">UCI Census Income Dataset</a>
+  </div>
+  <div class="demo-card-copy">Compare two binary classification models that predict whether a person earns more than $50k a year, based on their census information. Examine how different features affect each models' prediction, in relation to each other.</div>
+  <div class="demo-card-cta-button"><a href="/demos/uci.html"></a></div>
+</div>
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="/demos/age.html" target="_blank">Explore age-prediction regression on UCI census data</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> regression </span>  <span class="demo-tag"> attributions </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="http://archive.ics.uci.edu/ml/datasets/Census+Income" target="_blank">UCI Census Income Dataset</a>
+  </div>
+  <div class="demo-card-copy">Explore the performance of a regression model which predicts a person's age from their census information. Slice your dataset to evaluate performance metrics such as aggregated inference error measures for each subgroup. Explore feature attributions calculated by vanilla gradients.</div>
+  <div class="demo-card-cta-button"><a href="/demos/age.html"></a></div>
+</div>
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="/demos/image.html" target="_blank">Explore celebrity face image smile classification</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> binary classification </span>  <span class="demo-tag"> image recognition </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html" target="_blank">CelebA Data Set</a>
+  </div>
+  <div class="demo-card-copy">Predict whether an image contains a smiling face using this binary classification model on the CelebA dataset. Can you identify which group was missing from the training data, resulting in a biased model?</div>
+  <div class="demo-card-cta-button"><a href="/demos/image.html"></a></div>
+</div>
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="/demos/iris.html" target="_blank">Explore flower image classification</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> mutli-class classification </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="http://archive.ics.uci.edu/ml/datasets/iris" target="_blank">UCI Iris Dataset</a>
+  </div>
+  <div class="demo-card-copy">This multi-class classification model predicts the species of iris flowers from sepal and petal measurements. Look for correlations between different features and flower types.</div>
+  <div class="demo-card-cta-button"><a href="/demos/iris.html"></a></div>
+</div>
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="/demos/compas.html" target="_blank">Investigate fairness on recidivism classification</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> binary classification </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="https://www.kaggle.com/danofer/compass" target="_blank">COMPAS Dataset</a>
+  </div>
+  <div class="demo-card-copy">Inspired by Propublica, investigate fairness using this classifier that mimics the behavior of the COMPAS recidivism classifier. Trained on the COMPAS dataset, this model determines if a person belongs in the </div>
+  <div class="demo-card-cta-button"><a href="/demos/compas.html"></a></div>
+</div>
+  </div>
+  <div class="spacer" style="height:30px;"></div>
+<p><a name="notebook"></a></p>
+<h2>Notebook Demos</h2>
+<p>Explore the What-If Tool’s interpretability features in utmost detail in Colaboratory, Jupyter and Cloud AI Notebooks.</p>
+  <div class="mdl-grid no-padding">
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Model_Comparison.ipynb" target="_blank">Compare income classification on UCI census data</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> binary classification </span>  <span class="demo-tag"> model comparison </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="http://archive.ics.uci.edu/ml/datasets/Census+Income" target="_blank">UCI Census Income Dataset</a>
+  </div>
+  <div class="demo-card-copy">Compare two binary classification models that predict whether a person earns more than $50k a year, based on their census information. Examine how different features affect each models' prediction, in relation to each other.</div>
+  <div class="demo-card-cta-button"><a href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Model_Comparison.ipynb"></a></div>
+</div>
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Age_Regression.ipynb" target="_blank">Explore age-prediction regression on UCI census data</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> regression </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="http://archive.ics.uci.edu/ml/datasets/Census+Income" target="_blank">UCI Census Income Dataset</a>
+  </div>
+  <div class="demo-card-copy">Explore the performance of a regression model which predicts a person's age from their census information. Slice your dataset to evaluate performance metrics such as aggregated inference error measures for each subgroup.</div>
+  <div class="demo-card-cta-button"><a href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Age_Regression.ipynb"></a></div>
+</div>
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb" target="_blank">Explore celebrity face image smile classification</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> binary classification </span>  <span class="demo-tag"> image recognition </span>  <span class="demo-tag"> keras model </span>  <span class="demo-tag"> custom distance </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html" target="_blank">CelebA Dataset</a>
+  </div>
+  <div class="demo-card-copy">Predict whether an image contains a smiling face using this binary classification model on the CelebA dataset. Can you identify which group was missing from the training data, resulting in a biased model?</div>
+  <div class="demo-card-cta-button"><a href="https://colab.research.google.com/github/PAIR-code/what-if-tool/blob/master/WIT_Smile_Detector.ipynb"></a></div>
+</div>
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS.ipynb" target="_blank">Investigate fairness on recidivism classification</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> binary classification </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="https://www.kaggle.com/danofer/compass" target="_blank">COMPAS Dataset</a>
+  </div>
+  <div class="demo-card-copy">Inspired by Propublica, investigate fairness using this classifier that mimics the behavior of the COMPAS recidivism classifier. Trained on the COMPAS dataset, this model determines if a person belongs in the </div>
+  <div class="demo-card-cta-button"><a href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS.ipynb"></a></div>
+</div>
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS_with_SHAP.ipynb" target="_blank">Investigate fairness on recidivism classification with attributions</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> binary classification </span>  <span class="demo-tag"> attributions </span>  <span class="demo-tag"> keras model </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="https://www.kaggle.com/danofer/compass" target="_blank">COMPAS Dataset</a>
+  </div>
+  <div class="demo-card-copy">A version of the COMPAS notebook demo, using the SHAP library to get feature attributions for each prediction.</div>
+  <div class="demo-card-cta-button"><a href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS_with_SHAP.ipynb"></a></div>
+</div>
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb" target="_blank">Text toxicity classifiers</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> binary classification </span>  <span class="demo-tag"> model comparison </span>  <span class="demo-tag"> keras model </span>  <span class="demo-tag"> custom distance </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="https://figshare.com/articles/Wikipedia_Talk_Labels_Toxicity/4563973" target="_blank">Wikpedia Comments Dataset</a>
+  </div>
+  <div class="demo-card-copy">Use the What-If Tool to compare two pre-trained models from ConversationAI that determine sentence toxicity, one of which was trained on a more balanced dataset. Examine their performance side-by-side on the Wikipedia Comments dataset. These are keras models which do not use TensorFlow examples as an input format.</div>
+  <div class="demo-card-cta-button"><a href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb"></a></div>
+</div>
+  </div>
+<p><a name="cloud-ai"></a></p>
+<h2>Google Cloud AI models</h2>
+<p>Use the What-If Tool with Cloud AI models, and in conjunction with Explainable AI.</p>
+  <div class="mdl-grid no-padding">
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/xgboost_caip.ipynb" target="_blank">Mortgage classification with AI Platform</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> binary classification </span>  <span class="demo-tag"> cloud ai platform </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="https://www.ffiec.gov/hmda/hmdaflat.htm" target="_blank">Home Mortgage Disclosure Act Dataset</a>
+  </div>
+  <div class="demo-card-copy">Explore a mortgage classification model that has been deployed on Cloud AI Platform. This model was created with the XGBoost platform and not TensorFlow.</div>
+  <div class="demo-card-cta-button"><a href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/xgboost_caip.ipynb"></a></div>
+</div>
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/xgboost_caip_e2e.ipynb" target="_blank">Training a mortgage classification model with AI Platform</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> binary classification </span>  <span class="demo-tag"> cloud ai platform </span>  <span class="demo-tag"> xgboost model </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="https://www.ffiec.gov/hmda/hmdaflat.htm" target="_blank">Home Mortgage Disclosure Act Dataset</a>
+  </div>
+  <div class="demo-card-copy">Train a mortgage classification model with XGBoost, deploy it to Cloud AI Platform, and use the What-If Tool to analyze it. This demo requires a Google Cloud Platform account.</div>
+  <div class="demo-card-cta-button"><a href="https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/xgboost_caip_e2e.ipynb"></a></div>
+</div>
+<div class="demo-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+  <div class="demo-card-title"><a href="https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/keras_sklearn_compare_caip_e2e.ipynb" target="_blank">Training and comparing wine quality models with AI Platform</a></div>
+  <div class="demo-card-tags"> <span class="demo-tag"> regression </span>  <span class="demo-tag"> model comparison </span>  <span class="demo-tag"> cloud ai platform </span>  <span class="demo-tag"> keras model </span>  <span class="demo-tag"> scikit-learn model </span> 
+  </div>
+  <div class="demo-card-data-source-title">DATA SOURCE</div>
+  <div class="demo-card-data-source">
+    <a href="https://archive.ics.uci.edu/ml/datasets/wine+quality" target="_blank">UCI Wine Quality Dataset</a>
+  </div>
+  <div class="demo-card-copy">Train both a scikit-learn and keras model to predict wine quality and deploy them to Cloud AI Platform. Then use the What-If Tool to compare the two models. This demo requires a Google Cloud Platform account.</div>
+  <div class="demo-card-cta-button"><a href="https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/keras_sklearn_compare_caip_e2e.ipynb"></a></div>
+</div>
+  </div>
+<div class="spacer" style="height:50px;"></div>
+          </div>
+          <div class="fixed-sub-navigation hide-me">
+            <a href="#web">Web demos</a><a href="#notebook">Notebook demos</a><a href="#cloud-ai">Cloud AI models</a>
+          </div>
+        </div>
+        
+        <div class="footer-container mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://pair.withgoogle.com/" target="_blank"><img src="/assets/images/pair-logo.svg"/></a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://research.google/teams/brain/pair/" target="_blank">Google Research</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">Get Involved</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://github.com/pair-code" target="_blank">Github</a></div>
+  <div class="footer-icons mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+    <a href="mailto:peopleai@google.com" target="_blank"><img src="/assets/images/mail.png"/></a>
+    <a href="https://medium.com/people-ai-research" target="_blank"><img src="/assets/images/medium.png"/></a>
+    <a href="https://www.youtube.com/channel/UCnnns-uu4yy9BXfYSPIX5AA" target="_blank"><img src="/assets/images/youtube.png"/></a>
+  </div>
+</div>
+      </main>
+    </div>
+  </body>
+
+  
+
+  <script defer src="/assets/js/material.min.js"></script>
+  <script defer src="/assets/js/material-components-web.min.js"></script>
+</html>

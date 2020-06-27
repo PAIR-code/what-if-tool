@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Do we need additional share metadata included here? -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46457317-11"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-46457317-11');
+</script>
+
+    <title>Getting Started in TensorBoard</title>
+    
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/assets/css/material.min.css">
+    <link rel="stylesheet" href="/assets/css/material-components-web.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Manrope:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+
+    <!-- <link href='/assets/css/main.css' rel='stylesheet' type='text/css'> -->
+    <link href='/assets/css/new.css' rel='stylesheet' type='text/css'>
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png"/>
+
+  </head>
+
+  <body>
+    <div class="mdl-layout mdl-layout--no-desktop-drawer-button mdl-js-layout mdl-layout--fixed-header">
+      
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation. We hide it in small screens. -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
+            <a class="mdl-navigation__link" href="/learn/">LEARN</a>
+            <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
+            <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
+            <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="-_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+            <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
+          <a class="mdl-navigation__link" href="/learn/">LEARN</a>
+          <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
+          <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
+          <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          
+          <!-- <a class="mdl-navigation__link" href="https://pair-code.github.io/facets/" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>Facets</span>
+          </a>
+          <a class="mdl-navigation__link" href="https://js.tensorflow.org" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>TensorFlow.js</span>
+          </a> -->
+        </nav>
+      </div>
+      
+      <main class="mdl-layout__content hero-banner">
+        <div class="tutorial-page-container mdl-grid">
+          <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <div class="tutorial-breadcrumbs">
+  <a href="/learn">Learn</a> > <a href="/learn/#basics">Basics of the What-If Tool</a> > TensorBoard
+</div>
+            <h2>Getting Started in TensorBoard</h2>
+<p>The What-If Tool can be found inside of <a href="https://www.tensorflow.org/tensorboard/">TensorBoard</a>, which is the visualization front-end that comes with each TensorFlow installation. The dropdown menu in the top-right of TensorBoard contains an option to navigate to the embedded instance of the What-If Tool.</p>
+<p>To use the What-If Tool inside of TensorBoard, you need to serve your model through TensorFlow Serving’s prediction service API, in which models accept TensorFlow Example protocol buffers as input data points, or you can provide your own custom python function for generating model predictions. See <a href="https://www.tensorflow.org/tfx/guide/serving">TensorFlow Serving documentation</a> for more details. The dataset to use in the tool must be stored as a <a href="https://www.tensorflow.org/tutorials/load_data/tfrecord">TFRecord file</a> on disk, in a location accessible to the running TensorBoard instance. Not all models meet these criteria, and for those models, the What-If Tool can still be used in notebook mode, outside of TensorBoard.</p>
+<p>When opening the What-If Tool in TensorBoard, you will encounter a setup dialog which allows you to point the tool to your model(s) to analyze and the dataset for the analysis, among other options.</p>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/assets/images/wit-tb-setup.png"/>
+  <div class="tutorial-caption">Above: The setup dialog for the What-If Tool inside of TensorBoard </div>
+</div>
+<h3>Model Configuration</h3>
+<p>The inference address must be set to the address where TensorFlow Serving is hosting the model, in the format <code>&lt;host&gt;:&lt;port&gt;</code>. The model name must be set to the model name provided to TensorFlow Serving. You can optionally specify the model version and signature if you need to query an older version of a model, or you need to query the non-default signature of the model. If using a custom prediction function instead of TensorFlow Serving, you still need to
+provide an inference address and model name, which will be provided to your custom function, although your function can ignored them if not necessary.</p>
+<p>Use the radio buttons to indicate if the model is classification or regression. For multi-class classification, also check the “multi-class” option, and optionally provide a maximum number of highest-scoring classes to display for each data point (in the case of models with a large number of possible classes).</p>
+<p>If the served model uses the TensorFlow Serving Predict API (as opposed to the standard Classify or Regression APIs, then check the “uses Predict API” checkbox and provide the names of the input and output tensors that the What-If Tool should use for sending data points to the model, and for parsing model results from the output of the model.</p>
+<p>For using the tool to compare two models, click the “add another model for comparison” button and fill out the model information for the second model in the same manner.</p>
+<p>For classification models, by default the classes are displayed as “class 0”, “class 1”, and so on. You can optionally give string labels to each class by providing a label dictionary file, to provide a better experience to users trying to understand the model’s outputs. This dictionary file is just a text file that has a string on each line, and has a line for every class that the model can return. If you provide the path to this file in the appropriate input field on the setup dialog, the tool will display those user-friendly class names throughout, as opposed to the class indices.</p>
+<h4>Custom Prediction Functions</h4>
+<p>Instead of using a model through TensorFlow Serving, you can provide your own python function for the What-If Tool to use for making predictions. To do so, launch TensorBoard and use the <code>--whatif-use-unsafe-custom-prediction [file path]</code> runtime argument to provide a path to the file containing your prediction
+function. The file must contain a function with this name and signature: <code>def custom_predict_fn(examples, serving_bundle):</code>. The function takes in a list of
+examples to predict, along with the <code>serving_bundle</code> object which contains setup information from the tool, such as the inference address, model name, and model type provided during tool setup. The function should return a list of model outputs, one per each example provided. For regression models, the list item should be a single number. For classification models, the list item should be a list of numbers, one per each possible class.</p>
+<p>Additionally, with custom prediction functions, the model can return more than just prediction scores. If you have a way to calculate feature attribution scores for each prediction (such as through SHAP or Integrated Gradients), those can be returned as well. To do this, instead of returning a list of scores from the custom prediction function, the function should return a dictionary, where the predictions list is stored under the key <code>predictions</code>, and the attributions are stored under the key <code>attributions</code>. The attributions should also be a list with one entry per datapoint. Each entry should be a dictionary with the keys being the names of the input features to the model (matching the features in the input data), and the values being the attribution scores for those features for the specific datapoint. For single-valued features (where each feature contains a single value as a number or string), the attribution should be a single number for that feature. For multi-valent features, such as can be specified in a tf.Example feature value list, the attribution for that feature should be a list with an attribution score for each feature value in the input datapoint (<a href="https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/WIT_COMPAS_with_SHAP.ipynb">example notebook</a>).</p>
+<p>Lastly, custom prediction functions can return arbitrary prediction-time information for each datapoint. This can be useful in the case that you can calculate an additional metric per-datapoint at prediction time and wish to display it in the What-If Tool. One example of this could be a score calculated for each datapoint at prediction time for how similar each datapoint is to some anchor datapoint or concept, according to the internals of the model (see the TCAV paper for one example of such a metric). To do so, have the custom prediction function return a dictionary, where the predictions list is stored under the key <code>predictions</code>. Any other metric can be included by adding an additional key (this key will be used to display the metric) to the dictionary, and having its value be a list with one entry for each datapoint provided to the custom prediction function. The list entry should be a single number or string for display in the tool. Any returned metrics will be listed in the datapoint viewer in the Datapoint Editor workspace, and also usable for creating charts in the datapoints visualization, and for slicing datapoints in the Performance workspace.</p>
+<div class="mdl-cell info-box mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <div class="info-box-title">Using the What-If Tool Without a model</div>
+  <div class="info-box-text">
+You can use the What-If Tool without a served model, to just analyze a dataset. The dataset can even contain results from running a model offline, for use by the What-If Tool. In this case, since there is no model to query, some features of the tool, such as partial dependence plots, will be disabled.
+<p>If the data points in the dataset contain a feature named “predictions”, the numbers in this feature will be interpreted by the tool as the results of a regression model. If they contain a feature named “predictions__probabilities”, the list of numbers in this feature will be interpreted as the results of a classification model, with the first entry being the score for class 0, the second entry being the score for class 1, and so on.</p>
+<p>If there are any features with the prefix “attributions__”, the numbers in those features will be interpreted as attribution scores for each corresponding input feature and will be used for the feature attribution-based capabilities of the What-If Tool. An example would be a feature named “attributions__age” containing attribution values for the input feature “age”.</div></p>
+</div>
+<h3>Dataset Configuration</h3>
+<p>In the “path to examples” input box, provide the path to the TFRecord file from which to load the dataset. If the file contains SequenceExample protocol buffers, as opposed to standard Example protocol buffers, then check the “SequenceExamples” checkbox.</p>
+<p>You can specify a maximum number of data points to load from the file, which defaults to 1000. The tool loads the data starting from the beginning of the file until it reaches the end, or the maximum number of examples specified. If you wish to use sampling to not just grab the data points of the front of the file, you can set the sampling ratio to a number above 0 and below 1. This number represents the chance that a given data point will be loaded and sent to the tool. So, with maximum examples set to 1000 and a sampling ratio of 0.2, the tool will start at the beginning of the file and for each data point it encounters, it will load that data point with a likelihood of 20% (and it will skip that data point with a likelihood of 80%). It will continue in this manner until 1000 data points are loaded, or the end of the file is reached.</p>
+
+          </div>
+          <div class="mdl-cell--4-col hide-me">
+            <div class="tutorial-info-container">
+              <div class="tutorial-info-header">time to read</div>
+              <div class="tutorial-info-copy">10 minutes</div>
+              <div class="tutorial-info-header">use with</div>
+              <div class="tutorial-info-copy">Classification models<br/>Multi-class models<br/>Regression models</div>
+              <div class="tutorial-info-header">before you begin</div>
+              <div class="tutorial-info-copy">Have a trained model for serving through TensorFlow Serving and a test dataset on disk as a TFRecord file.</div>
+              <div class="tutorial-info-header">related demos</div>
+              <div class="tutorial-info-copy">N/A</div>
+              <div class="tutorial-info-header">takeaways</div>
+              <div class="tutorial-info-copy">Learn to use the What-If Tool inside of TensorBoard.</div>
+              <div class="tutorial-info-header">what-if questions</div>
+              <div class="tutorial-info-copy">What are the limitations of using the What-If Tool in TensorBoard?<br/><br/>How do I use the What-If Tool in TensorBoard?</div>
+            </div>
+          </div>
+          <div class="tutorial-footer mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            The What-If Tool is being actively developed and documentation is likely to change as we improve the tool. We want to hear from you! Leave us a note, feedback, or suggestion on <a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">our community group</a>.
+          </div>
+        </div>
+
+        <div class="footer-container mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://pair.withgoogle.com/" target="_blank"><img src="/assets/images/pair-logo.svg"/></a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://research.google/teams/brain/pair/" target="_blank">Google Research</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">Get Involved</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://github.com/pair-code" target="_blank">Github</a></div>
+  <div class="footer-icons mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+    <a href="mailto:peopleai@google.com" target="_blank"><img src="/assets/images/mail.png"/></a>
+    <a href="https://medium.com/people-ai-research" target="_blank"><img src="/assets/images/medium.png"/></a>
+    <a href="https://www.youtube.com/channel/UCnnns-uu4yy9BXfYSPIX5AA" target="_blank"><img src="/assets/images/youtube.png"/></a>
+  </div>
+</div>
+      </main>
+
+    </div>
+  </body>
+
+  
+
+  <script defer src="/assets/js/material.min.js"></script>
+  <script defer src="/assets/js/material-components-web.min.js"></script>
+</html>
