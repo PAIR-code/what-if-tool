@@ -17,14 +17,14 @@
     <title>WIT - FAQs</title>
     
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="/assets/css/material.min.css">
-    <link rel="stylesheet" href="/assets/css/material-components-web.min.css">
+    <link rel="stylesheet" href="/what-if-tool/assets/css/material.min.css">
+    <link rel="stylesheet" href="/what-if-tool/assets/css/material-components-web.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Manrope:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
 
-    <!-- <link href='/assets/css/main.css' rel='stylesheet' type='text/css'> -->
-    <link href='/assets/css/new.css' rel='stylesheet' type='text/css'>
-    <link rel="icon" href="/assets/images/favicon.png" type="image/png"/>
+    <!-- <link href='/what-if-tool/assets/css/main.css' rel='stylesheet' type='text/css'> -->
+    <link href='/what-if-tool/assets/css/new.css' rel='stylesheet' type='text/css'>
+    <link rel="icon" href="/what-if-tool/assets/images/favicon.png" type="image/png"/>
     <style>
       .sub-title, .sub-copy {
         color: #8A2A04;
@@ -133,8 +133,7 @@ Some factors that impact the number of datapoints that can be handled are the pe
 <p>For binary classification models, counterfactuals are the most similar datapoint to a selected datapoint that is predicted in the opposite class or label by a model.</p>
 <p>For regression models, counterfactuals are calculated when the difference in prediction score between the selected datapoint and a candidate counterfactual is equal or greater to the “counterfactual threshold”. The counterfactual threshold default is set to the standard deviation of the prediction values and can be adjusted by the user.</p>
 <p>For multi-class models, the counterfactual is the most similar datapoint to a selected datapoint, but is classified as any class other than the selected datapoint’s class.</p>
-<p>Read <a href="/learn/tutorials/counterfactuals/">this tutorial</a> for more information.</p>
-<p>By default, features that are fully unique across the dataset (such as encoded images and long text strings) are ignored for this distance calculation. However, it is possible to define your own custom distance between datapoints by specifying it as a custom distance function when loading the What-If Tool in a notebook, as seen in <a href="https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb#scrollTo=lVaMyc45HWwD">this example</a>.</p>
+<p>By default, features that are fully unique across the dataset (such as encoded images and long text strings) are ignored for this distance calculation. However, it is possible to define your own custom distance between datapoints by specifying it as a custom distance function when loading the What-If Tool in a notebook, as seen in <a href="https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb#scrollTo=lVaMyc45HWwD">this example</a>.</p>
 <p>Further reading: Wachter, S., Mittelstadt, B., &amp; Russell, C. (2017). Counterfactual explanations without opening the black box: Automated decisions and the GDPR. <br/>
 <a href="https://arxiv.org/abs/1711.00399">https://arxiv.org/abs/1711.00399</a></div></p>
 </div>
