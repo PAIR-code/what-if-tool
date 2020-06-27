@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Do we need additional share metadata included here? -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46457317-11"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-46457317-11');
+</script>
+
+    <title>How To - Find a Counterfactual</title>
+    
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/assets/css/material.min.css">
+    <link rel="stylesheet" href="/assets/css/material-components-web.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Manrope:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+
+    <!-- <link href='/assets/css/main.css' rel='stylesheet' type='text/css'> -->
+    <link href='/assets/css/new.css' rel='stylesheet' type='text/css'>
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png"/>
+
+  </head>
+
+  <body>
+    <div class="mdl-layout mdl-layout--no-desktop-drawer-button mdl-js-layout mdl-layout--fixed-header">
+      
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation. We hide it in small screens. -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
+            <a class="mdl-navigation__link" href="/learn/">LEARN</a>
+            <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
+            <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
+            <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="-_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+            <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
+          <a class="mdl-navigation__link" href="/learn/">LEARN</a>
+          <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
+          <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
+          <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          
+          <!-- <a class="mdl-navigation__link" href="https://pair-code.github.io/facets/" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>Facets</span>
+          </a>
+          <a class="mdl-navigation__link" href="https://js.tensorflow.org" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>TensorFlow.js</span>
+          </a> -->
+        </nav>
+      </div>
+      
+      <main class="mdl-layout__content hero-banner">
+        <div class="tutorial-page-container mdl-grid">
+          <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <div class="tutorial-breadcrumbs">
+  <a href="/learn">Learn</a> > <a href="/learn/#basics">Basics of the What-If Tool</a> > How to - Customize the Datapoints Visualization
+</div>
+            <h2>How to - Customize the Datapoints Visualization</h2>
+<p>The <em>Datapoint Editor</em> workspace has two types of visualizations in the playground: the <em>Datapoints</em> visualization and the <em>Partial Dependence Plots</em> visualization (discussed in a separate article).</p>
+<p>The <em>Datapoints</em> visualization is the default visualization in the <em>Datapoint Editor</em>, and is built on <a href="https://facets.dev">Facets Dive</a>. It can be used to arrange individual data points into visualizations customized by any features available in the data set. This way, users can investigate individual data points in the context of the loaded dataset.</p>
+<p>To customize the <em>Datapoints</em> visualization:</p>
+<ol>
+<li>Select <em>Datapoints</em> in the Visualize module to see the datapoints visualization. The What-If Tool looks for meaningful defaults based on the model type and number of available models to help users get started.</li>
+<li>Using the dropdowns in the toolbar on top, specify features to visualize on the X-axis, Y-axis, color or labels. Combinations of these can be used to create histograms or scatterplots, or combinations of the two:
+a. <strong>Binning | X-Axis</strong>: This dropdown is used to select a feature to organize data points into buckets as a histogram on the X-Axis. The count dropdown specifies the number of buckets to create.
+b. <strong>Binning | Y-Axis</strong>: This dropdown is used to select a feature to organize data points into buckets as a histogram on the Y-Axis. The count dropdown specifies the number of buckets to create.</li>
+</ol>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/assets/images/CreateCustomViz1.gif"/>
+  <div class="tutorial-caption"></div>
+</div>
+<p>c. <strong>Color by</strong>: This dropdown is used to select a feature to color the data points.
+i. If a <strong>categorical feature</strong> is selected, a different color is used for each category.
+ii. If a <strong>numerical feature</strong> is selected, data points are colored using a two-color (sequential) colorscale.</p>
+<p>d. <strong>Label by</strong>: This dropdown is used to specify a feature to label by.
+i. <strong>Numerical and categorical values</strong> are rendered as text over the Datapoint.
+ii. Features with <strong>image values</strong> are displayed as thumbnails</p>
+<p>e. <strong>Scatter by | X-Axis</strong>: This dropdown is used to select a numerical feature to scatter data points on the X-Axis. The range of the X-Axis is determined by the minimum and maximum of selected feature values.</p>
+<p>f. <strong>Scatter by | Y-Axis</strong>: This dropdown is used to select a numerical feature to scatter data points on the Y-Axis. The range of the X-Axis is determined by the minimum and maximum of selected feature values.</p>
+<ol start="3">
+<li>Setting a dropdown value to none <strong>removes the features from the visualization</strong>.</li>
+</ol>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/assets/images/customviz-scatterplot.gif"/>
+  <div class="tutorial-caption"></div>
+</div>
+<h2>Other interactions in the Datapoints visualization include:</h2>
+<ol start="4">
+<li><strong>To select a datapoint</strong>, click on the datapoint and see individual feature values in the <em>Edit</em> module.</li>
+<li><strong>To deselect a datapoint</strong>, click anywhere else in the visualization.</li>
+<li><strong>To zoom into the visualization</strong>, click on the zoom in (+) icon or scroll in using your mouse.</li>
+<li><strong>To zoom out of the visualization</strong>, click on the zoom out (-) icon or scroll out using your mouse.</li>
+<li><strong>To reset the visualization</strong>, click on the frame icon.</li>
+<li><strong>To pan the visualization</strong>, click and drag the mouse.</li>
+<li><strong>Collapse or expand the legend</strong> by clicking on the down icon in the header.</li>
+</ol>
+<div class="mdl-cell info-box mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <div class="info-box-title">Confusion Matrices and Small Multiples</div>
+  <div class="info-box-text">You can create a variety of visualizations using different permutations and combinations of features for intersectional analysis quickly and iteratively. For binary classification models, easily create a confusion matrix by binning by the ground truth label on the X-axis and the predicted label on the Y-Axis. This should give four bins corresponding to false positives, true positives, false negatives, and true negatives. Easily convert these into small multiples visualizations by specifying features to scatter by on the X-Axis and Y-axis.</div>
+</div>
+
+          </div>
+          <div class="mdl-cell--4-col hide-me">
+            <div class="tutorial-info-container">
+              <div class="tutorial-info-header">time to read</div>
+              <div class="tutorial-info-copy">15 minutes</div>
+              <div class="tutorial-info-header">use with</div>
+              <div class="tutorial-info-copy">Classification models<br/>Multi-class models<br/>Regression models</div>
+              <div class="tutorial-info-header">before you begin</div>
+              <div class="tutorial-info-copy">N/A</div>
+              <div class="tutorial-info-header">related demos</div>
+              <div class="tutorial-info-copy">Binary Classification Model: UCI Census Income Prediction<br/><br/>Multi-class Classification Model: Flowers Species Identification<br/><br/>Regression Model: UCI Census Age Prediction</div>
+              <div class="tutorial-info-header">takeaways</div>
+              <div class="tutorial-info-copy">Use features in a loaded dataset to customize visualizations in the Datapoint Visualization.</div>
+              <div class="tutorial-info-header">what-if questions</div>
+              <div class="tutorial-info-copy">Are there correlations between features and model predictions?<br/><br/>What differences between two data points cause models to behave differently?<br/><br/>Which data points on which do two models agree or disagree on?</div>
+            </div>
+          </div>
+          <div class="tutorial-footer mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            The What-If Tool is being actively developed and documentation is likely to change as we improve the tool. We want to hear from you! Leave us a note, feedback, or suggestion on <a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">our community group</a>.
+          </div>
+        </div>
+
+        <div class="footer-container mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://pair.withgoogle.com/" target="_blank"><img src="/assets/images/pair-logo.svg"/></a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://research.google/teams/brain/pair/" target="_blank">Google Research</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">Get Involved</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://github.com/pair-code" target="_blank">Github</a></div>
+  <div class="footer-icons mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+    <a href="mailto:peopleai@google.com" target="_blank"><img src="/assets/images/mail.png"/></a>
+    <a href="https://medium.com/people-ai-research" target="_blank"><img src="/assets/images/medium.png"/></a>
+    <a href="https://www.youtube.com/channel/UCnnns-uu4yy9BXfYSPIX5AA" target="_blank"><img src="/assets/images/youtube.png"/></a>
+  </div>
+</div>
+      </main>
+
+    </div>
+  </body>
+
+  
+
+  <script defer src="/assets/js/material.min.js"></script>
+  <script defer src="/assets/js/material-components-web.min.js"></script>
+</html>

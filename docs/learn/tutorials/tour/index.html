@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Do we need additional share metadata included here? -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46457317-11"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-46457317-11');
+</script>
+
+    <title>A Tour of the What-If Tool</title>
+    
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/assets/css/material.min.css">
+    <link rel="stylesheet" href="/assets/css/material-components-web.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Manrope:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+
+    <!-- <link href='/assets/css/main.css' rel='stylesheet' type='text/css'> -->
+    <link href='/assets/css/new.css' rel='stylesheet' type='text/css'>
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png"/>
+
+  </head>
+
+  <body>
+    <div class="mdl-layout mdl-layout--no-desktop-drawer-button mdl-js-layout mdl-layout--fixed-header">
+      
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation. We hide it in small screens. -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
+            <a class="mdl-navigation__link" href="/learn/">LEARN</a>
+            <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
+            <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
+            <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="-_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+            <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
+          <a class="mdl-navigation__link" href="/learn/">LEARN</a>
+          <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
+          <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
+          <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          
+          <!-- <a class="mdl-navigation__link" href="https://pair-code.github.io/facets/" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>Facets</span>
+          </a>
+          <a class="mdl-navigation__link" href="https://js.tensorflow.org" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>TensorFlow.js</span>
+          </a> -->
+        </nav>
+      </div>
+      
+      <main class="mdl-layout__content hero-banner">
+        <div class="tutorial-page-container mdl-grid">
+          <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <div class="tutorial-breadcrumbs">
+  <a href="/learn">Learn</a> > <a href="/learn/#basics">Basics of the What-If Tool</a> > Tour
+</div>
+            <h2>A Tour of the What-If Tool</h2>
+<p>The What-If Tool is a visualization-based tool to probe the behavior of trained ML models. This article provides a quick walk through of what to expect when getting started in the What-If Tool. Learn about the basic layout and some key functionalities of the What-If Tool.</p>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/assets/images/wit-default.png"/>
+  <div class="tutorial-caption">Above: Default view on loading the What-If Tool.</div>
+</div>
+<h3>Tabs</h3>
+<p>The interface of the What-If Tool is organized by three <strong>tabs</strong>, which are based on the kind of models loaded into the What-If Tool. Tabs are interactive elements that can be used to navigate into different areas of the What-If Tool, located in the top-right hand side of the interface:</p>
+<ul>
+<li><strong>Datapoint Editor</strong>. by default, the What-if Tool will always open in this tab.</li>
+<li><strong>Performance</strong> for multi-class and regression models or <strong>Performance and Fairness</strong> for binary classification models</li>
+<li><strong>Features Overview</strong></li>
+</ul>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/assets/images/Annotated-Tabs.gif"/>
+  <div class="tutorial-caption">Above: Tabs.</div>
+</div>
+<h3>Workspaces</h3>
+<p>Clicking on a tab opens up a corresponding <strong>workspace</strong> — environments in which different model understanding tasks can be performed. Each workspace offers a group of complementary analyses for individual data points, models, or features.</p>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/assets/images/Annotated-Workspaces.gif"/>
+  <div class="tutorial-caption">Above: Different workspaces.</div>
+</div>
+<p>In the <strong>Datapoint Editor</strong>, individual data points can be arranged into custom visualizations. Data points can also be edited to see if predictions change, and compared to their counterfactuals. Partial dependence plots indicate a model's sensitivity to a feature value in that data point.</p>
+<p>In the <strong>Performance</strong> workspace, high level model performance can be evaluated using feature-based slices in the data set.</p>
+<p>In the <strong>Performance and Fairness</strong> workspace for binary classification models, high level model performance can be evaluated using feature-based slices in the data set. Additionally, threshold values for individual slices and models can be tweaked for different performance results.</p>
+<p>The <strong>Features Overview</strong> workspace, the distribution of each feature in the loaded dataset is visualized with some high-level summary statistics. This workspace is useful when checking the attributes of the loaded datasets.</p>
+<div class="mdl-cell info-box mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <div class="info-box-title">Taking forever to load?</div>
+  <div class="info-box-text">Sometimes you’ll observe that it takes a couple of seconds for your data or model to load into a workspace. This is because the What-If Tool runs entirely in the browser, and the speed depends on a variety of factors - such as the processing power available to the tool, and the shape and size of the loaded data set. If it takes too long, instead try visualizing a sample of your dataset.</div>
+</div>
+<h3>Modules and Playgrounds</h3>
+<p>Workspaces typically have two panels. Left hand panels contain several small windows, known as <strong>modules</strong>. The right hand panel comprises a <strong>playground</strong> to visualize and probe trained machine learning models.</p>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/assets/images/Annotated-ModulesAndPlaygrounds.gif"/>
+  <div class="tutorial-caption">Above: Modules and Playgrounds in the What-If Tool. The features overview workspace does not have any modules associated with it.</div>
+</div>
+<p>Each <strong>module</strong> contains a group of interactive elements to declare workspace-level preferences, apply transformations to elements in the playground, or get back results from a simulation analysis.</p>
+<p>The <em>Configure</em> and <em>Visualize</em> modules apply global preferences to the Performance and Datapoint Editor workspaces respectively:</p>
+<ul>
+<li>The <em>Configure</em> module sets variables such as cost ratio and ground truth feature.</li>
+<li>The <em>Visualize</em> module can be used to toggle between different visualization views, and turn on and off functionality such as counterfactuals.</li>
+</ul>
+<p>The <em>Edit</em> module (<em>Datapoint Editor</em> workspace) and the <em>Fairness</em> module (<em>Performance &amp; Fairness</em> workspace) can be used to apply transformations or interventions to their respective playgrounds:</p>
+<ul>
+<li>In the <em>Edit</em> module, change any feature value in a data point selected in the <em>Visualization</em> playground.</li>
+<li>In the <em>Fairness</em> module, fairness optimization strategies optimize the thresholds of different slices in the <em>Performance &amp; Fairness</em> playground.</li>
+</ul>
+<p>The <em>Infer</em> module (<em>Datapoint Editor</em> workspace) returns the prediction results of a data point which has been edited in the <em>Edit</em> module. It also displays the prediction results for the counterfactual of a selected data point.</p>
+<p><strong>Playgrounds</strong> are regions to visualize and probe data and model performance. The playground in the <em>Datapoint Editor</em> workspace is used to create custom visualizations of the loaded dataset and view partial dependence plots. The <em>Performance</em> playgrounds display model performance on slices of the dataset in the form of metrics and scores, precision-recall curves and confusion matrices where applicable. The <em>Features Overview</em> playground visualizes the distribution of each feature in the loaded dataset.</p>
+<div class="mdl-cell info-box mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <div class="info-box-title">The Uniqueness of Features Overview</div>
+  <div class="info-box-text">The Features Overview workspace is unique because it doesn't have any modules associated with it - It only has a playground to visualize distributions of features in the dataset that you loaded into the tool with summary statistics.</div>
+</div>
+<h3>Conclusion</h3>
+<p>This article introduces key aspects of the layout of the What-If Tool - Tabs, Workspaces, Modules and Playgrounds. Together, modules and playgrounds provide the flexibility needed to superimpose different kinds of analyses, and interact across workspaces for better model understanding.</p>
+
+          </div>
+          <div class="mdl-cell--4-col hide-me">
+            <div class="tutorial-info-container">
+              <div class="tutorial-info-header">time to read</div>
+              <div class="tutorial-info-copy">7 minutes</div>
+              <div class="tutorial-info-header">use with</div>
+              <div class="tutorial-info-copy">Classification models<br/>Multi-class models<br/>Regression models</div>
+              <div class="tutorial-info-header">before you begin</div>
+              <div class="tutorial-info-copy">N/A</div>
+              <div class="tutorial-info-header">related demos</div>
+              <div class="tutorial-info-copy">Binary Classification Model: UCI Census Income Prediction<br/><br/>Multi-class Classification Model: Flowers Species Identification<br/><br/>Regression Model: UCI Census Age Prediction</div>
+              <div class="tutorial-info-header">takeaways</div>
+              <div class="tutorial-info-copy">Learn about different spaces and how they are used in the What-If Tool: tabs, workspaces, modules and playgrounds.</div>
+              <div class="tutorial-info-header">what-if questions</div>
+              <div class="tutorial-info-copy">N/A</div>
+            </div>
+          </div>
+          <div class="tutorial-footer mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            The What-If Tool is being actively developed and documentation is likely to change as we improve the tool. We want to hear from you! Leave us a note, feedback, or suggestion on <a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">our community group</a>.
+          </div>
+        </div>
+
+        <div class="footer-container mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://pair.withgoogle.com/" target="_blank"><img src="/assets/images/pair-logo.svg"/></a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://research.google/teams/brain/pair/" target="_blank">Google Research</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">Get Involved</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://github.com/pair-code" target="_blank">Github</a></div>
+  <div class="footer-icons mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+    <a href="mailto:peopleai@google.com" target="_blank"><img src="/assets/images/mail.png"/></a>
+    <a href="https://medium.com/people-ai-research" target="_blank"><img src="/assets/images/medium.png"/></a>
+    <a href="https://www.youtube.com/channel/UCnnns-uu4yy9BXfYSPIX5AA" target="_blank"><img src="/assets/images/youtube.png"/></a>
+  </div>
+</div>
+      </main>
+
+    </div>
+  </body>
+
+  
+
+  <script defer src="/assets/js/material.min.js"></script>
+  <script defer src="/assets/js/material-components-web.min.js"></script>
+</html>

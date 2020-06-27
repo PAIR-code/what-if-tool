@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Do we need additional share metadata included here? -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46457317-11"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-46457317-11');
+</script>
+
+    <title>How To - Edit a Datapoint</title>
+    
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/assets/css/material.min.css">
+    <link rel="stylesheet" href="/assets/css/material-components-web.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Manrope:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+
+    <!-- <link href='/assets/css/main.css' rel='stylesheet' type='text/css'> -->
+    <link href='/assets/css/new.css' rel='stylesheet' type='text/css'>
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png"/>
+
+  </head>
+
+  <body>
+    <div class="mdl-layout mdl-layout--no-desktop-drawer-button mdl-js-layout mdl-layout--fixed-header">
+      
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation. We hide it in small screens. -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
+            <a class="mdl-navigation__link" href="/learn/">LEARN</a>
+            <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
+            <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
+            <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="-_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+            <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout__title"><a href="/">What-If Tool</a></span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/get-started/">GET STARTED</a>
+          <a class="mdl-navigation__link" href="/learn/">LEARN</a>
+          <a class="mdl-navigation__link" href="/explore/">EXPLORE</a>
+          <a class="mdl-navigation__link" href="/faqs/">FAQs</a>
+          <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">GET INVOLVED<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/assets/images/arrow-link-out.png"/></a>
+          
+          <!-- <a class="mdl-navigation__link" href="https://pair-code.github.io/facets/" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>Facets</span>
+          </a>
+          <a class="mdl-navigation__link" href="https://js.tensorflow.org" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>TensorFlow.js</span>
+          </a> -->
+        </nav>
+      </div>
+      
+      <main class="mdl-layout__content hero-banner">
+        <div class="tutorial-page-container mdl-grid">
+          <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <div class="tutorial-breadcrumbs">
+  <a href="/learn">Learn</a> > <a href="/learn/#basics">Basics of the What-If Tool</a> > Edit a Datapoint
+</div>
+            <h2>How To - Edit a Datapoint</h2>
+<p>This article describes the steps to edit a datapoint in the What-If Tool.</p>
+<ol>
+<li><strong>Select a data point</strong> of interest in the custom <em>Datapoints</em> visualization by clicking on it. A list of all features and values associated with that datapoint will appear in the <em>Edit</em> module.</li>
+</ol>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/assets/images/EditDatapoint.gif"/>
+  <div class="tutorial-caption">Above: Editing a data point.</div>
+</div>
+<ol start="2">
+<li>
+<p><strong>To change a feature value</strong>, click on it. This should highlight the value with a yellow stroke around it.</p>
+</li>
+<li>
+<p><strong>To delete a feature value</strong>, click on it to highlight. Then click on the delete icon to delete the feature value.</p>
+</li>
+</ol>
+<div class="mdl-cell info-box mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <div class="info-box-title">Deleting a feature value</div>
+  <div class="info-box-text">Deleting a feature value can be tricky business. Missing feature values can cause some models to behave erroneously, unless they are set up to handle missing feature values.</div>
+</div>
+<ol start="4">
+<li><strong>To get model predictions</strong>, click on the <em>Predict</em> button in the <em>Infer</em> module. This is known as a <em>Run</em>. Additionally, clicking the predict button will return predictions for multiple edited data points in a batch run. Until a prediction is available, any prediction-related features utilized in the Datapoint visualization are removed from the datapoint.</li>
+</ol>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/assets/images/EditBatchDatapoint.gif"/>
+  <div class="tutorial-caption">Above: Editing three data points and then clicking the Predict button returns predictions for all three data points simultaneously. Edited data points are colored grey and displayed at inference score = 0 in the Datapoints visualization until predicted, indicating that there are no model predictions available for it.</div>
+</div>
+<ol start="5">
+<li>
+<p><strong>To restore an edited datapoint</strong> to its original values, click on the revert icon in the toolbar in the <em>Edit</em> module, and then click on the predict button in the <em>Infer</em> module to return model predictions.</p>
+</li>
+<li>
+<p><strong>To duplicate a selected datapoint</strong>, click on the duplicate icon in the toolbar. A new instance of the datapoint should be added to the <em>Datapoints</em> visualization. Click on the predict button in the <em>Infer</em> module to return model predictions.</p>
+</li>
+</ol>
+<div class="mdl-cell info-box mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <div class="info-box-title">Tracking edited data points</div>
+  <div class="info-box-text">The unique datapoint identity in the heading of the <em>Edit</em> module is handy when tracking an edited datapoint when working with a large dataset. The <em>Infer</em> module displays prediction results for all runs associated with a datapoint, highlighting the difference between two consecutive runs. However, it isn’t possible to save this information outside of the What-If Tool. </div>
+</div>
+
+          </div>
+          <div class="mdl-cell--4-col hide-me">
+            <div class="tutorial-info-container">
+              <div class="tutorial-info-header">time to read</div>
+              <div class="tutorial-info-copy">5 minutes</div>
+              <div class="tutorial-info-header">use with</div>
+              <div class="tutorial-info-copy">Classification models<br/>Multi-class models<br/>Regression models</div>
+              <div class="tutorial-info-header">before you begin</div>
+              <div class="tutorial-info-copy">N/A</div>
+              <div class="tutorial-info-header">related demos</div>
+              <div class="tutorial-info-copy">Binary Classification Model: UCI Census Income Prediction<br/><br/>Multi-class Classification Model: Flowers Species Identification<br/><br/>Regression Model: UCI Census Age Prediction</div>
+              <div class="tutorial-info-header">takeaways</div>
+              <div class="tutorial-info-copy">Learn to edit a datapoint.<br/><br/>Get model predictions on an edited datapoint.</div>
+              <div class="tutorial-info-header">what-if questions</div>
+              <div class="tutorial-info-copy">How does the prediction result on a datapoint change if a feature value is changed?<br/><br/>How do models behave when feature values are missing?</div>
+            </div>
+          </div>
+          <div class="tutorial-footer mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            The What-If Tool is being actively developed and documentation is likely to change as we improve the tool. We want to hear from you! Leave us a note, feedback, or suggestion on <a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">our community group</a>.
+          </div>
+        </div>
+
+        <div class="footer-container mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://pair.withgoogle.com/" target="_blank"><img src="/assets/images/pair-logo.svg"/></a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://research.google/teams/brain/pair/" target="_blank">Google Research</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">Get Involved</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://github.com/pair-code" target="_blank">Github</a></div>
+  <div class="footer-icons mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+    <a href="mailto:peopleai@google.com" target="_blank"><img src="/assets/images/mail.png"/></a>
+    <a href="https://medium.com/people-ai-research" target="_blank"><img src="/assets/images/medium.png"/></a>
+    <a href="https://www.youtube.com/channel/UCnnns-uu4yy9BXfYSPIX5AA" target="_blank"><img src="/assets/images/youtube.png"/></a>
+  </div>
+</div>
+      </main>
+
+    </div>
+  </body>
+
+  
+
+  <script defer src="/assets/js/material.min.js"></script>
+  <script defer src="/assets/js/material-components-web.min.js"></script>
+</html>
