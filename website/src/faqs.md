@@ -70,9 +70,7 @@ For regression models, counterfactuals are calculated when the difference in pre
 
 For multi-class models, the counterfactual is the most similar datapoint to a selected datapoint, but is classified as any class other than the selected datapoint’s class.
 
-Read [this tutorial](/learn/tutorials/counterfactuals/) for more information. 
-
-By default, features that are fully unique across the dataset (such as encoded images and long text strings) are ignored for this distance calculation. However, it is possible to define your own custom distance between datapoints by specifying it as a custom distance function when loading the What-If Tool in a notebook, as seen in [this example](https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb#scrollTo=lVaMyc45HWwD).
+By default, features that are fully unique across the dataset (such as encoded images and long text strings) are ignored for this distance calculation. However, it is possible to define your own custom distance between datapoints by specifying it as a custom distance function when loading the What-If Tool in a notebook, as seen in [this example](https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/WIT_Toxicity_Text_Model_Comparison.ipynb#scrollTo=lVaMyc45HWwD).
 
 Further reading: Wachter, S., Mittelstadt, B., & Russell, C. (2017). Counterfactual explanations without opening the black box: Automated decisions and the GDPR. <br/>
 [https://arxiv.org/abs/1711.00399](https://arxiv.org/abs/1711.00399)" %}
