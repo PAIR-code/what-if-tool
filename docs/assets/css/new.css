@@ -589,6 +589,15 @@ h5 {
   text-decoration: underline;
 }
 
+.faq-copy ul, .faq-copy ol {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 21px;
+  line-height: 29px;
+
+  color: #3C4043;
+}
 
 @media only screen and (max-width: 992px) {
   .sub-hero-container {
