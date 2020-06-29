@@ -75,7 +75,8 @@
             <div class="tutorial-breadcrumbs">
   <a href="/what-if-tool/learn">Learn</a> > <a href="/what-if-tool/learn/#basics">Basics of the What-If Tool</a> > Walkthrough
 </div>
-            <p>In this walkthrough, we explore how the What-If Tool (WIT) can help us learn about a model and dataset.</p>
+            <h1>A Walkthrough with UCI Census Data</h1>
+<p>In this walkthrough, we explore how the What-If Tool (WIT) can help us learn about a model and dataset.</p>
 <h2>Our Dataset and Model</h2>
 <p>The <a href="https://archive.ics.uci.edu/ml/datasets/census+income">UCI Census</a> dataset is a dataset in which each record represents a person. Each record contains 14 pieces of census information about a single person, from the 1994 US census database. This includes information such as age, marital status and education level. The prediction task is to determine whether a person is high income (defined as earning more than $50k a year). This specific dataset and prediction task combination is often used in machine learning modeling and fairness research, partially due to the dataset's understandable attributes – including some containing sensitive classes such as age and gender, and partially due to a clear, real-world prediction task.</p>
 <p>Using a training set of ~30,000 records, we've trained a simple <a href="https://en.wikipedia.org/wiki/Linear_classifier">linear classifier</a> for this <a href="https://en.wikipedia.org/wiki/Binary_classification">binary classification</a> task. For any datapoint that we provide it, the model will return a score between 0 and 1 for how confident it is that the person represented by the datapoint is high income. 1 means that the model is entirely confident that the datapoint falls in the high income category, and 0 means that it is not at all confident</p>

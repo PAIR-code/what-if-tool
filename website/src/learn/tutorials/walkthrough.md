@@ -18,6 +18,8 @@ takeaways: "Explore the basics of the What-If Tool through a specific example."
 questions: "In general, what can I learn through use of the What-If Tool?"
 ---
 
+# A Walkthrough with UCI Census Data
+
 In this walkthrough, we explore how the What-If Tool (WIT) can help us learn about a model and dataset.
 
 ## Our Dataset and Model
