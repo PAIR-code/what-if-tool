@@ -50,6 +50,9 @@ c-copy: "Set up the What-If Tool inside of notebook environments." %}
 {% include partials/tutorial-link-element c-title: "Understanding Performance Metrics For Classifiers", link: "/learn/tutorials/classifier-performance",
 c-copy: "A brief overview of performance metrics for classification-based models." %}
 
+{% include partials/tutorial-link-element c-title: "Relationship Between Cost Ratio and Thresholds", link: "/learn/tutorials/cost-ratio",
+c-copy: "Understand the relationship between the ratio of the costs of false positives and false negatives and the optimization controls." %}
+
 {% include partials/tutorial-link-element c-title: "Adding Non-Input Features To Perform Analysis", link: "/learn/tutorials/non-input-features",
 c-copy: "Learn how to add non-input features into the What-If Tool to analyze subgroups." %}
 
