@@ -42,9 +42,8 @@ REQUIRED_PACKAGES = [
     'six>=1.12.0',
 ] + _TF_REQ
 
-def get_readme():
-  with open('README.rst') as f:
-    return f.read()
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 def get_version():
   version_ns = {}
@@ -55,11 +54,11 @@ def get_version():
 setup(
   name=project_name,
   version=get_version(),
-  description='What-If Tool jupyter widget',
-  long_description=get_readme(),
+  description='What-If Tool notebook widget',
+  long_description=long_description,
+  long_description_content_type="text/markdown",
+  url="https://whatif-tool.dev",
   author='Google Inc.',
-  author_email='packages@tensorflow.org',
-  url='https://github.com/pair-code/what-if-tool',
   include_package_data=True,
   data_files=[
       ('share/jupyter/nbextensions/wit-widget', [

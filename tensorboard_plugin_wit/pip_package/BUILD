@@ -14,7 +14,7 @@ sh_binary(
     srcs = ["build_pip_package.sh"],
     data = [
         "index.js",
-        "README.rst",
+        "README.md",
         "setup.py",
         ":assets", # For HTML payload
         "//utils:inference_utils",  # Utility method that visualization code uses.

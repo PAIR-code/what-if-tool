@@ -58,7 +58,7 @@ cp -LR "$plugin_runfile_dir/witwidget" .
 
 # Move files related to pip building to pwd.
 mv -f "witwidget/pip_package/MANIFEST.in" .
-mv -f "witwidget/pip_package/README.rst" .
+mv -f "witwidget/pip_package/README.md" .
 mv -f "witwidget/pip_package/setup.py" .
 mv -f "witwidget/pip_package/wit-widget.json" .
 rm -rf witwidget/pip_package
