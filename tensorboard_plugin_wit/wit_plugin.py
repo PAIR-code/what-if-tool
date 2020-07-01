@@ -81,9 +81,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
       context: A base_plugin.TBContext instance.
     """
     self._logdir = context.logdir
-    self._has_auth_group = (context.flags and
-                            'authorized_groups' in context.flags and
-                            context.flags.authorized_groups != '')
+    self._wit_data_dir = context.flags.wit_data_dir if context.flags else None
 
     self.custom_predict_fn = None
     if context.flags and context.flags.custom_predict_fn:
@@ -189,7 +187,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
     try:
       platform_utils.throw_if_file_access_not_allowed(examples_path,
                                                       self._logdir,
-                                                      self._has_auth_group)
+                                                      self._wit_data_dir)
       example_strings = platform_utils.example_protos_from_path(
           examples_path, examples_count, parse_examples=False,
           sampling_odds=sampling_odds, example_class=self.example_class)
@@ -205,6 +203,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
           {'examples': json_examples,
            'sprite': True if self.sprite else False}, 'application/json')
     except common_utils.InvalidUserInputError as e:
+      logger.error('Data loading error: %s', e.message)
       return http_util.Respond(request, {'error': e.message},
                                'application/json', code=400)
 

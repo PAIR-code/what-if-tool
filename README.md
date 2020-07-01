@@ -120,6 +120,9 @@ To use the tool in TensorBoard, only the following information needs to be provi
     * Can handle up to tens of thousands of examples. The exact amount depends
       on the size of each example (how many features there are and how large the
       feature values are).
+    * The file must be in the logdir provided to TensorBoard on startup.
+      Alternatively, you can provide another directory to allow file loading
+      from, through use of the -whatif-data-dir=PATH runtime parameter.
 * An indication if the model is a regression, binary classification or
   multi-class classification model.
 * An optional vocab file for the labels for a classification model. This file

@@ -17,6 +17,7 @@
 import csv
 from glob import glob
 from grpc.beta import implementations
+import os
 import random
 from six.moves.urllib.parse import urlparse
 import tensorflow as tf
@@ -46,20 +47,53 @@ def filepath_to_filepath_list(file_path):
     return [file_path]
 
 
-def throw_if_file_access_not_allowed(file_path, logdir, has_auth_group):
+def path_is_parent(parent_path, child_path):
+  """Returns if the provided parent path is a parent of the provided child path.
+
+  Args:
+    parent_path: File path to check as parent.
+    child_path: File path to check as child.
+
+  Returns:
+    True if parent_path is a parent of the child_path.
+  """
+  # Smooth out relative path names.
+  parent_path = os.path.normpath(parent_path)
+  child_path = os.path.normpath(child_path)
+
+  # Compare the common path of the parent and child path with the common path of
+  # just the parent path. Using the commonpath method on just the parent path
+  # will regularise the path name in the same way as the comparison that deals
+  # with both paths, removing any trailing path separator.
+  return os.path.commonpath([parent_path]) == os.path.commonpath(
+      [parent_path, child_path])
+
+
+def throw_if_file_access_not_allowed(file_path, logdir, allowed_dir=None):
   """Throws an error if a file cannot be loaded for inference.
 
   Args:
     file_path: A file path.
     logdir: The path to the logdir of the TensorBoard context.
-    has_auth_group: True if TensorBoard was started with an authorized group,
-        in which case we allow access to all visible files.
+    allowed_dir: An optional path to allow loading files from, outside of
+    the logdir.
 
   Raises:
     InvalidUserInputError: If the file is not in the logdir and is not globally
         readable.
   """
-  return
+  file_paths = filepath_to_filepath_list(file_path)
+  if not file_paths:
+    raise common_utils.InvalidUserInputError(file_path + ' contains no files')
+
+  for path in file_paths:
+    # Check if the file is inside the logdir or allowed dir.
+    if not (path_is_parent(logdir, path) or
+            (allowed_dir and path_is_parent(allowed_dir, path))):
+      raise common_utils.InvalidUserInputError(
+          path + ' is not inside the TensorBoard logdir or '
+          '--whatif-data-dir argument directory.'
+      )
 
 
 def example_protos_from_path(path,
