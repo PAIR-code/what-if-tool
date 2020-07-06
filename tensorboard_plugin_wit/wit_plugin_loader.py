@@ -70,7 +70,16 @@ class WhatIfToolPluginLoader(base_plugin.TBLoader):
               correct file location. See how to define the function in \
               https://github.com/PAIR-code/what-if-tool/blob/master/README.md"
               )
+          group.add_argument(
+            '--whatif-data-dir',
+            dest='wit_data_dir',
+            metavar='PATH',
+            type=str,
+            default='',
+            help='An optional additional directory under which the What-If '
+            'Tool can load example data from, outside of the TensorBoard '
+            'logdir.'
+            )
         except argparse.ArgumentError:
-          # This same flag is registered by TensorBoard's static profile
-          # plugin, as long as it continues to be bundled. Nothing to do.
-            pass
+          # Argument already defined elsewhere. Nothing to do.
+          pass

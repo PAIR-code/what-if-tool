@@ -22,7 +22,10 @@ questions: "What are the limitations of using the What-If Tool in TensorBoard?<b
 
 The What-If Tool can be found inside of [TensorBoard](https://www.tensorflow.org/tensorboard/), which is the visualization front-end that comes with each TensorFlow installation. The dropdown menu in the top-right of TensorBoard contains an option to navigate to the embedded instance of the What-If Tool.
 
-To use the What-If Tool inside of TensorBoard, you need to serve your model through TensorFlow Serving’s prediction service API, in which models accept TensorFlow Example protocol buffers as input data points, or you can provide your own custom python function for generating model predictions. See [TensorFlow Serving documentation](https://www.tensorflow.org/tfx/guide/serving) for more details. The dataset to use in the tool must be stored as a [TFRecord file](https://www.tensorflow.org/tutorials/load_data/tfrecord) on disk, in a location accessible to the running TensorBoard instance. Not all models meet these criteria, and for those models, the What-If Tool can still be used in notebook mode, outside of TensorBoard.
+To use the What-If Tool inside of TensorBoard, you need to serve your model through TensorFlow Serving’s prediction service API, in which models accept TensorFlow Example protocol buffers as input data points, or you can provide your own custom python function for generating model predictions. See [TensorFlow Serving documentation](https://www.tensorflow.org/tfx/guide/serving) for more details. The dataset to use in the tool must be stored as a [TFRecord file](https://www.tensorflow.org/tutorials/load_data/tfrecord) on disk, in a location accessible to the running TensorBoard instance.
+The file to load must either be under the log directory provided to TensorBoard on startup, through the logdir=PATH flag,
+or you can add another path that the tool can load files from through use of the -whatif-data-dir=PATH flag.
+Not all models meet these criteria, and for those models, the What-If Tool can still be used in notebook mode, outside of TensorBoard.
 
 When opening the What-If Tool in TensorBoard, you will encounter a setup dialog which allows you to point the tool to your model(s) to analyze and the dataset for the analysis, among other options.
 
