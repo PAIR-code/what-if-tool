@@ -44,7 +44,7 @@ cp -LR "$plugin_runfile_dir/tensorboard_plugin_wit" .
 cp -LR "$plugin_runfile_dir/utils" .
 
 # Move files related to pip building to pwd.
-mv -f "tensorboard_plugin_wit/pip_package/README.rst" .
+mv -f "tensorboard_plugin_wit/pip_package/README.md" .
 mv -f "tensorboard_plugin_wit/pip_package/setup.py" .
 
 # Copy over other built resources

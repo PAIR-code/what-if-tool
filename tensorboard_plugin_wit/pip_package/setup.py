@@ -20,10 +20,18 @@ from __future__ import print_function
 import setuptools
 
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setuptools.setup(
     name="tensorboard_plugin_wit",
     version="1.7.0",
     description="What-If Tool TensorBoard plugin.",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://whatif-tool.dev",
+    author='Google Inc.',
+    author_email='packages@tensorflow.org',
     packages=setuptools.find_packages(),
     license='Apache 2.0',
     package_data={

@@ -12,7 +12,7 @@ sh_binary(
     srcs = ["build_pip_package.sh"],
     data = [
         "MANIFEST.in",
-        "README.rst",
+        "README.md",
         "setup.py",
         "wit-widget.json",
         "//wit_dashboard:wit_jupyter", # For HTML payload
