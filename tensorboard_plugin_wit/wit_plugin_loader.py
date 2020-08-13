@@ -18,6 +18,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import argparse
+
 import pkg_resources
 import tensorboard
 from tensorboard.plugins import base_plugin
