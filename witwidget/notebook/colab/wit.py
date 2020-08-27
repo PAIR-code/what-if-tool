@@ -70,6 +70,8 @@ WIT_HTML = """
       const wit = document.querySelector("#wit");
       wit.style.height = '{height}px';
       let mutantFeature = null;
+      let stagedExamples = [];
+      let stagedInferences = [];
 
       // Listeners from WIT element events which pass requests to python.
       wit.addEventListener("infer-examples", e => {{
@@ -115,11 +117,27 @@ WIT_HTML = """
       window.backendError = error => {{
         wit.handleError(error.msg);
       }};
-      window.inferenceCallback = inferences => {{
-        wit.labelVocab = inferences.label_vocab;
-        wit.inferences = inferences.inferences;
+      window.inferenceStartCallback = (inferences) => {{
+        stagedInferences = inferences;
+      }};
+      window.inferenceCallback = res => {{
+        for (let i = 0; i < res.results.length; i++) {{
+          if (wit.modelType == 'classification') {{
+            stagedInferences.inferences.results[i].classificationResult.classifications =
+              stagedInferences.inferences.results[i].classificationResult.classifications.concat(res.results[i]);
+          }}
+          else {{
+            stagedInferences.inferences.results[i].regressionResult.regressions =
+              stagedInferences.inferences.results[i].regressionResult.regressions.concat(res.results[i]);
+          }}
+        }}
+        stagedInferences.inferences.indices = stagedInferences.inferences.indices.concat(res.indices);
+      }};
+      window.inferenceEndCallback = () => {{
+        wit.labelVocab = stagedInferences.label_vocab;
+        wit.inferences = stagedInferences.inferences;
         wit.extraOutputs = {{indices: wit.inferences.indices,
-                             extra: inferences.extra_outputs}};
+                             extra: stagedInferences.extra_outputs}};
       }};
 
       window.distanceCallback = callbackDict => {{
@@ -186,12 +204,18 @@ WIT_HTML = """
           wit.customDistanceFunctionSet = false;
         }}
       }};
+      window.updateExamplesStartCallback = () => {{
+        stagedExamples = [];
+      }};
       window.updateExamplesCallback = examples => {{
+        stagedExamples = stagedExamples.concat(examples);
+      }};
+      window.updateExamplesEndCallback = () => {{
         if (!wit.updateExampleContents) {{
-          requestAnimationFrame(() => window.updateExamplesCallback(examples));
+          requestAnimationFrame(() => window.updateExamplesEndCallback());
           return;
         }}
-        wit.updateExampleContents(examples, false);
+        wit.updateExampleContents(stagedExamples, false);
         if (wit.localAtlasUrl) {{
           window.spriteCallback(wit.localAtlasUrl);
         }}
@@ -201,7 +225,9 @@ WIT_HTML = """
       const channelName = 'updateExamples' + id;
       const updateExampleListener = new BroadcastChannel(channelName);
       updateExampleListener.onmessage = msg => {{
+        window.updateExamplesStartCallback();
         window.updateExamplesCallback(msg.data);
+        window.updateExamplesEndCallback();
       }};
     }})();
   </script>
@@ -252,8 +278,17 @@ class WitWidget(base.WitWidgetBase):
     # Send the provided config and examples to JS
     output.eval_js("""configCallback({config})""".format(
         config=json.dumps(self.config)))
-    output.eval_js("""updateExamplesCallback({examples})""".format(
-        examples=json.dumps(self.examples)))
+    SLICE_SIZE = 10000
+    i = 0
+    output.eval_js('updateExamplesStartCallback()')
+    while True:
+      piece = self.examples[i : i + SLICE_SIZE]
+      output.eval_js("""updateExamplesCallback({examples})""".format(
+          examples=json.dumps(piece)))
+      i += SLICE_SIZE
+      if i > len(self.examples):
+        break
+    output.eval_js('updateExamplesEndCallback()')
     self._generate_sprite()
     self._rendering_complete = True
 
@@ -279,8 +314,38 @@ class WitWidget(base.WitWidgetBase):
   def infer(self):
     try:
       inferences = base.WitWidgetBase.infer_impl(self)
-      output.eval_js("""inferenceCallback({inferences})""".format(
-          inferences=json.dumps(inferences)))
+      indices = inferences['inferences']['indices'][:]
+      inferences['inferences']['indices'] = []
+      res2 = []
+      if 'classificationResult' in inferences['inferences']['results'][0]:
+        res = inferences['inferences']['results'][0]['classificationResult']['classifications'][:]
+        inferences['inferences']['results'][0]['classificationResult']['classifications'] = []
+      else:
+        res = inferences['inferences']['results'][0]['regressionResult']['regressions'][:]
+        inferences['inferences']['results'][0]['regressionResult']['regressions'] = []
+      if len(inferences['inferences']['results']) > 1:
+        if 'classificationResult' in inferences['inferences']['results'][1]:
+          res2 = inferences['inferences']['results'][1]['classificationResult']['classifications'][:]
+          inferences['inferences']['results'][1]['classificationResult']['classifications'] = []
+        else:
+          res2 = inferences['inferences']['results'][1]['regressionResult']['regressions'][:]
+          inferences['inferences']['results'][1]['regressionResult']['regressions'] = []
+      SLICE_SIZE = 10000
+      i = 0
+      output.eval_js("""inferenceStartCallback({inferences})""".format(
+            inferences=json.dumps(inferences)))
+      while True:
+        piece = [res[i : i + SLICE_SIZE]]
+        if res2:
+          piece.append(res2[i : i + SLICE_SIZE])
+        ind_piece = indices[i : i + SLICE_SIZE]
+        data = {'results': piece, 'indices': ind_piece}
+        output.eval_js("""inferenceCallback({data})""".format(
+            data=json.dumps(data)))
+        i += SLICE_SIZE
+        if i > len(indices):
+          break
+      output.eval_js('inferenceEndCallback()')
     except Exception as e:
       output.eval_js("""backendError({error})""".format(
           error=json.dumps({'msg': repr(e)})))
