@@ -220,14 +220,22 @@ WIT_HTML = """
           window.spriteCallback(wit.localAtlasUrl);
         }}
       }};
-      // BroadcastChannel allows examples to be updated by a call from an
+      // BroadcastChannels allows examples to be updated by a call from an
       // output cell that isn't the cell hosting the WIT widget.
+      const channelStartName = 'updateExamplesStart' + id;
+      const updateExampleStartListener = new BroadcastChannel(channelStartName);
+      updateExampleStartListener.onmessage = unused => {{
+        window.updateExamplesStartCallback();
+      }};
+      const channelEndName = 'updateExamplesEnd' + id;
+      const updateExampleEndListener = new BroadcastChannel(channelEndName);
+      updateExampleEndListener.onmessage = unused => {{
+        window.updateExamplesEndCallback();
+      }};
       const channelName = 'updateExamples' + id;
       const updateExampleListener = new BroadcastChannel(channelName);
       updateExampleListener.onmessage = msg => {{
-        window.updateExamplesStartCallback();
         window.updateExamplesCallback(msg.data);
-        window.updateExamplesEndCallback();
       }};
     }})();
   </script>
@@ -258,6 +266,10 @@ class WitWidget(base.WitWidgetBase):
     self._rendering_complete = False
     self.id = WitWidget.index
     self.height = height
+    # How large of example slices should be sent to the front-end at a time,
+    # in order to avoid issues with kernel crashes on large messages.
+    self.SLICE_SIZE = 10000
+
     base.WitWidgetBase.__init__(self, config_builder)
     # Add this instance to the static instance list.
     WitWidget.widgets.append(self)
@@ -278,14 +290,13 @@ class WitWidget(base.WitWidgetBase):
     # Send the provided config and examples to JS
     output.eval_js("""configCallback({config})""".format(
         config=json.dumps(self.config)))
-    SLICE_SIZE = 10000
     i = 0
     output.eval_js('updateExamplesStartCallback()')
     while True:
-      piece = self.examples[i : i + SLICE_SIZE]
+      piece = self.examples[i : i + self.SLICE_SIZE]
       output.eval_js("""updateExamplesCallback({examples})""".format(
           examples=json.dumps(piece)))
-      i += SLICE_SIZE
+      i += self.SLICE_SIZE
       if i > len(self.examples):
         break
     output.eval_js('updateExamplesEndCallback()')
@@ -305,10 +316,22 @@ class WitWidget(base.WitWidgetBase):
     if self._rendering_complete:
       # Use BroadcastChannel to allow this call to be made in a separate colab
       # cell from the cell that displays WIT.
+      channel_start_name = 'updateExamplesStart{}'.format(self.id)
+      channel_end_name = 'updateExamplesEnd{}'.format(self.id)
       channel_name = 'updateExamples{}'.format(self.id)
+      i = 0
       output.eval_js("""(new BroadcastChannel('{channel_name}')).postMessage(
+          '')""".format(channel_name=channel_start_name))
+      while True:
+        piece = self.examples[i : i + self.SLICE_SIZE]
+        output.eval_js("""(new BroadcastChannel('{channel_name}')).postMessage(
           {examples})""".format(
-              examples=json.dumps(self.examples), channel_name=channel_name))
+              examples=json.dumps(piece), channel_name=channel_name))
+        i += self.SLICE_SIZE
+        if i > len(self.examples):
+          break
+      output.eval_js("""(new BroadcastChannel('{channel_name}')).postMessage(
+          '')""".format(channel_name=channel_end_name))
       self._generate_sprite()
 
   def infer(self):
@@ -330,19 +353,18 @@ class WitWidget(base.WitWidgetBase):
         else:
           res2 = inferences['inferences']['results'][1]['regressionResult']['regressions'][:]
           inferences['inferences']['results'][1]['regressionResult']['regressions'] = []
-      SLICE_SIZE = 10000
       i = 0
       output.eval_js("""inferenceStartCallback({inferences})""".format(
             inferences=json.dumps(inferences)))
       while True:
-        piece = [res[i : i + SLICE_SIZE]]
+        piece = [res[i : i + self.SLICE_SIZE]]
         if res2:
-          piece.append(res2[i : i + SLICE_SIZE])
-        ind_piece = indices[i : i + SLICE_SIZE]
+          piece.append(res2[i : i + self.SLICE_SIZE])
+        ind_piece = indices[i : i + self.SLICE_SIZE]
         data = {'results': piece, 'indices': ind_piece}
         output.eval_js("""inferenceCallback({data})""".format(
             data=json.dumps(data)))
-        i += SLICE_SIZE
+        i += self.SLICE_SIZE
         if i > len(indices):
           break
       output.eval_js('inferenceEndCallback()')
