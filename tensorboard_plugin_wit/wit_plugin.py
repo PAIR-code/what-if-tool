@@ -204,7 +204,10 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
            'sprite': True if self.sprite else False}, 'application/json')
     except common_utils.InvalidUserInputError as e:
       logger.error('Data loading error: %s', e.message)
-      return http_util.Respond(request, {'error': e.message},
+      return http_util.Respond(request, e.message,
+                               'application/json', code=400)
+    except Exception as e:
+      return http_util.Respond(request, str(e),
                                'application/json', code=400)
 
   @wrappers.Request.application
@@ -222,12 +225,12 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
       An empty response.
     """
     if request.method != 'POST':
-      return http_util.Respond(request, {'error': 'invalid non-POST request'},
+      return http_util.Respond(request, 'invalid non-POST request',
                                'application/json', code=405)
     example_json = request.form['example']
     index = int(request.form['index'])
     if index >= len(self.examples):
-      return http_util.Respond(request, {'error': 'invalid index provided'},
+      return http_util.Respond(request, 'invalid index provided',
                                'application/json', code=400)
     new_example = self.example_class()
     json_format.Parse(example_json, new_example)
@@ -248,7 +251,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
     """
     index = int(request.args.get('index'))
     if index >= len(self.examples):
-      return http_util.Respond(request, {'error': 'invalid index provided'},
+      return http_util.Respond(request, 'invalid index provided',
                                'application/json', code=400)
     new_example = self.example_class()
     new_example.CopyFrom(self.examples[index])
@@ -269,7 +272,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
     """
     index = int(request.args.get('index'))
     if index >= len(self.examples):
-      return http_util.Respond(request, {'error': 'invalid index provided'},
+      return http_util.Respond(request, 'invalid index provided',
                                'application/json', code=400)
     del self.examples[index]
     self.updated_example_indices = set([
@@ -313,7 +316,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
     try:
       if request.method != 'GET':
         logger.error('%s requests are forbidden.', request.method)
-        return http_util.Respond(request, {'error': 'invalid non-GET request'},
+        return http_util.Respond(request, 'invalid non-GET request',
                                     'application/json', code=405)
 
       (inference_addresses, model_names, model_versions,
@@ -343,10 +346,13 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
                                          'vocab': json.dumps(label_vocab)},
                                'application/json')
     except common_utils.InvalidUserInputError as e:
-      return http_util.Respond(request, {'error': e.message},
+      return http_util.Respond(request, e.message,
                                'application/json', code=400)
     except AbortionError as e:
-      return http_util.Respond(request, {'error': e.details},
+      return http_util.Respond(request, e.details,
+                               'application/json', code=400)
+    except Exception as e:
+      return http_util.Respond(request, str(e),
                                'application/json', code=400)
 
   @wrappers.Request.application
@@ -404,7 +410,10 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
         features_list, chart_data)
       return http_util.Respond(request, features_list, 'application/json')
     except common_utils.InvalidUserInputError as e:
-      return http_util.Respond(request, {'error': e.message},
+      return http_util.Respond(request, e.message,
+                               'application/json', code=400)
+    except Exception as e:
+      return http_util.Respond(request, str(e),
                                'application/json', code=400)
 
   @wrappers.Request.application
@@ -422,7 +431,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
     try:
       if request.method != 'GET':
         logger.error('%s requests are forbidden.', request.method)
-        return http_util.Respond(request, {'error': 'invalid non-GET request'},
+        return http_util.Respond(request, 'invalid non-GET request',
                                  'application/json', code=405)
 
       example_index = int(request.args.get('example_index', '0'))
@@ -440,7 +449,10 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
           custom_predict_fn=self.custom_predict_fn)
       return http_util.Respond(request, json_mapping, 'application/json')
     except common_utils.InvalidUserInputError as e:
-      return http_util.Respond(request, {'error': e.message},
+      return http_util.Respond(request, e.message,
+                               'application/json', code=400)
+    except Exception as e:
+      return http_util.Respond(request, str(e),
                                'application/json', code=400)
 
   def _infer_mutants_impl(self, feature_name, example_index, inference_addresses,
