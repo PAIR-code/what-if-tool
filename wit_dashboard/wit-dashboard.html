@@ -7858,7 +7858,7 @@ limitations under the License.
                 result.value.inferences
               ));
             };
-            this.makeAsyncRequest_(url, inferContents, null, 'model inference');
+            this.makeAsyncRequest_(url, inferContents, null, 'Model inference');
           }
           this.fire('infer-examples', inferParams);
         },
@@ -8007,7 +8007,7 @@ limitations under the License.
               url,
               null,
               {example: exampleJson, index: index},
-              'datapoint update'
+              'Datapoint update'
             );
           }
         },
@@ -8071,7 +8071,7 @@ limitations under the License.
             .then(wrapperFn)
             .catch((reason) => {
               this.handleError(
-                `Request for ${readableRequestName} failed: ${reason}`
+                `${readableRequestName} failed: ${reason.req.responseText}`
               );
               if (errorFn != null) {
                 errorFn();
@@ -8286,7 +8286,7 @@ limitations under the License.
             url,
             updateExampleContents,
             null,
-            'datapoint load'
+            'Datapoint load'
           );
           this.loadingBarHidden_ = false;
         },
@@ -8357,7 +8357,7 @@ limitations under the License.
               url,
               refreshDiveAfterDuplicate,
               null,
-              'datapoint duplication'
+              'Datapoint duplication'
             );
           } else {
             this.refreshDive_();
@@ -8398,7 +8398,7 @@ limitations under the License.
               url,
               refreshDiveAfterDelete,
               null,
-              'datapoint delete'
+              'Datapoint delete'
             );
           } else {
             this.refreshDive_();
@@ -8951,7 +8951,7 @@ limitations under the License.
               url,
               chartMakerCallback.bind(this),
               null,
-              'plot creation',
+              'Plot creation',
               chartErrorCallback.bind(this)
             );
           } else {
@@ -9170,7 +9170,7 @@ limitations under the License.
             const setEligibleFields = (result) => {
               this.set('partialDepPlotEligibleFeatures', result.value);
             };
-            this.makeAsyncRequest_(url, setEligibleFields, null, 'plot setup');
+            this.makeAsyncRequest_(url, setEligibleFields, null, 'Plot setup');
           } else {
             this.fire('get-eligible-features');
           }
@@ -9207,7 +9207,7 @@ limitations under the License.
               url,
               setEligibleFields,
               null,
-              'plot ordering',
+              'Plot ordering',
               sortErrorCallback.bind(this)
             );
           } else {
