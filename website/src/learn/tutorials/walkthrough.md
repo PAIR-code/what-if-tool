@@ -45,7 +45,7 @@ In notebooks, WIT can also be used on models served through [Cloud AI Platform P
 
 ### WIT in TensorBoard
 
-Normal use of WIT within TensorBoard requires your model to be served through a TensorFlow Model Server, and the data to be analyze must be available on disk as a TFRecords file. The ability to provide your own custom python prediction function also exists, and more information on WIT in TensorBoard can be found in [this tutorial](./tensorboard). Navigate to the web address of your TensorBoard instance, select "What-If Tool" from TensorBoard's dashboard selector. Fill out the path to the TFRecords file, the host/port of the running TensorFlow Model Server, and the name of the model on that model server that you wish to test. Click "Accept".
+Normal use of WIT within TensorBoard requires your model to be served through a TensorFlow Model Server, and the data to be analyze must be available on disk as a TFRecords file. The ability to provide your own custom python prediction function also exists, and more information on WIT in TensorBoard can be found in [this tutorial](../tensorboard). Navigate to the web address of your TensorBoard instance, select "What-If Tool" from TensorBoard's dashboard selector. Fill out the path to the TFRecords file, the host/port of the running TensorFlow Model Server, and the name of the model on that model server that you wish to test. Click "Accept".
 
 {% include partials/inset-image image: '/assets/images/wit-tb-dialog.png', 
   caption: 'Above: Setup dialog for WIT in TensorBoard.'%}
