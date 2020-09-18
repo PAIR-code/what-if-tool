@@ -34,7 +34,12 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
 
   # Traitlets for communicating between python and javascript.
   config = Dict(dict()).tag(sync=True)
-  examples = List([]).tag(sync=True)
+  # Examples are not synced directly because large datasets cause websocket
+  # issues. Instead, we indirectly update it through example_batch.
+  examples = List([])
+  frontend_ready = Int(0).tag(sync=True)
+  examples_batch = List([]).tag(sync=True)
+  examples_batch_id = Int(0).tag(sync=True)
   inferences = Dict(dict()).tag(sync=True)
   infer = Int(0).tag(sync=True)
   update_example = Dict(dict()).tag(sync=True)
@@ -64,6 +69,11 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
       the render method is called or the WitWidget object is directly evaluated
       in a notebook cell.
     """
+    self.examples_generator = None
+    # TODO(wit-dev) This should depend on the example size targeting less than
+    # 10MB per batch to avoid websocket issues.
+    self.batch_size = 1000
+
     widgets.DOMWidget.__init__(self, layout=Layout(height='%ipx' % height))
     base.WitWidgetBase.__init__(self, config_builder)
     self.error_counter = 0
@@ -77,7 +87,21 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
 
   def set_examples(self, examples):
     base.WitWidgetBase.set_examples(self, examples)
+    self.examples_generator = self.generate_next_example_batch()
+    # If this is called after frontend is ready this makes sure examples are
+    # updated.
+    self._start_examples_sync()
+    print('child called')
     self._generate_sprite()
+
+  def generate_next_example_batch(self):
+    n_examples = len(self.examples)
+    n_batches = n_examples // self.batch_size
+    batch_end = n_batches * self.batch_size
+    for i in range(n_batches):
+      yield self.examples[i*self.batch_size:(i+1)*self.batch_size]
+    if batch_end != n_examples:
+      yield self.examples[batch_end:]
 
   def _report_error(self, err):
     self.error = {
@@ -86,12 +110,47 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
     }
     self.error_counter += 1
 
+  def _start_examples_sync(self):
+    print(self.frontend_ready)
+    print(self.examples_generator)
+    if not self.frontend_ready or self.examples_generator is None:
+      return
+    self.examples_batch_id = 0
+    # Send the first batch
+    self.examples_batch = next(self.examples_generator, [])
+
   @observe('infer')
   def _infer(self, change):
     try:
       self.inferences = base.WitWidgetBase.infer_impl(self)
     except Exception as e:
       self._report_error(e)
+
+  # Finish setup items that require frontend to be ready.
+  @observe('frontend_ready')
+  def _finish_setup(self, change):
+    # Start examples transfer
+    print('finished setup')
+    self._start_examples_sync()
+
+  # When frontend processes sent examples, it updates batch id to request the
+  # next batch
+  @observe('examples_batch_id')
+  def _send_example_batch(self, change):
+    # Do not trigger at the end or beginning of a transfer.
+    print('send example batch')
+    if self.examples_batch_id <= 0 or self.examples_generator is None:
+      print('returned from send example batch {} {}'.format(self.examples_batch_id, self.examples_generator is None))
+      return
+    next_batch = next(self.examples_generator, [])
+    print(len(next_batch))
+    if next_batch:
+      self.examples_batch = next_batch
+    else:
+      # Tell frontend that we are done with the transfer
+      self.examples_batch_id = -1
+      self.examples_batch = []
+      self.examples_generator = None
 
   # Observer callbacks for changes from javascript.
   @observe('get_eligible_features')

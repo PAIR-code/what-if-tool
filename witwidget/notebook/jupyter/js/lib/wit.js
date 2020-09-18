@@ -25,7 +25,7 @@ var WITView = widgets.DOMWidgetView.extend({
     this.loadAndCreateWhatIfToolElement();
 
     // Add listeners for changes from python.
-    this.model.on('change:examples', this.examplesChanged, this);
+    this.model.on('change:examples_batch', this.appendStagedExamples, this);
     this.model.on('change:config', this.configChanged, this);
     this.model.on('change:inferences', this.inferencesChanged, this);
     this.model.on(
@@ -64,9 +64,11 @@ var WITView = widgets.DOMWidgetView.extend({
     this.el.appendChild(iframe);
     this.iframe = iframe;
 
+    this.stagedExamples = [];
     // Invoke change listeners for initial settings.
     this.configChanged();
-    this.examplesChanged();
+    // this.appendStagedExamples();
+    // this.examplesChanged();
     this.spriteChanged();
   },
 
@@ -143,9 +145,42 @@ var WITView = widgets.DOMWidgetView.extend({
       this.touch();
     });
     this.setupComplete = true;
+    // Notify backend that setup is complete.
+    const setupComplete = this.model.get('frontend_ready');
+    this.model.set('frontend_ready', setupComplete + 1);
+    this.touch();
   },
 
   // Callback functions for when changes made on python side.
+  appendStagedExamples: function() {
+    if (!this.setupComplete) {
+      if (this.isViewReady()) {
+        this.setupView();
+      }
+      requestAnimationFrame(() => this.appendStagedExamples());
+      return;
+    }
+    const i = this.model.get('examples_batch_id')
+    // If batch number is -1, it means the transfer is complete.
+    if (i == -1) {
+      console.log('called exampleschanged')
+      this.examplesChanged();
+      return;
+    }
+    // If transfer starts again, reset staged examples.
+    if (i == 0) {
+      this.stagedExamples = []
+    }
+    console.log('appendStagedExamples', i);
+    // Add examples
+    const examples = this.model.get('examples_batch');
+    console.log('examples', examples);
+    this.stagedExamples = this.stagedExamples.concat(examples);
+    // Request the next batch
+    this.model.set('examples_batch_id', i + 1);
+    this.touch();
+    console.log('stagedExamples', this.stagedExamples);
+  },
   examplesChanged: function() {
     if (!this.setupComplete) {
       if (this.isViewReady()) {
@@ -154,8 +189,9 @@ var WITView = widgets.DOMWidgetView.extend({
       requestAnimationFrame(() => this.examplesChanged());
       return;
     }
-
-    const examples = this.model.get('examples');
+    console.log('examplesChanged');
+    console.log(this.stagedExamples);
+    const examples = this.stagedExamples;
     if (examples && examples.length > 0) {
       this.view_.updateExampleContents(examples, false);
     }
