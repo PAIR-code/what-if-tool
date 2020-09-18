@@ -69,6 +69,7 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
       the render method is called or the WitWidget object is directly evaluated
       in a notebook cell.
     """
+    self.transfer_block = False
     self.examples_generator = None
     # TODO(wit-dev) This should depend on the example size targeting less than
     # 10MB per batch to avoid websocket issues.
@@ -86,22 +87,27 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
     return self
 
   def set_examples(self, examples):
+    if self.transfer_block:
+      print('Cannot set examples while transfer is in progress.')
+      return
     base.WitWidgetBase.set_examples(self, examples)
     self.examples_generator = self.generate_next_example_batch()
     # If this is called after frontend is ready this makes sure examples are
     # updated.
     self._start_examples_sync()
-    print('child called')
     self._generate_sprite()
 
   def generate_next_example_batch(self):
     n_examples = len(self.examples)
     n_batches = n_examples // self.batch_size
     batch_end = n_batches * self.batch_size
+    num_remaining = n_batches + (batch_end!=n_examples)
     for i in range(n_batches):
-      yield self.examples[i*self.batch_size:(i+1)*self.batch_size]
+      num_remaining -= 1
+      yield self.examples[i*self.batch_size:(i+1)*self.batch_size], num_remaining
     if batch_end != n_examples:
-      yield self.examples[batch_end:]
+      num_remaining -= 1
+      yield self.examples[batch_end:], num_remaining
 
   def _report_error(self, err):
     self.error = {
@@ -111,13 +117,14 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
     self.error_counter += 1
 
   def _start_examples_sync(self):
-    print(self.frontend_ready)
-    print(self.examples_generator)
-    if not self.frontend_ready or self.examples_generator is None:
+    # print(self.frontend_ready)
+    # print(self.examples_generator)
+    if not self.frontend_ready or self.examples_generator is None or self.transfer_block:
       return
-    self.examples_batch_id = 0
+    self.transfer_block = True
     # Send the first batch
-    self.examples_batch = next(self.examples_generator, [])
+    next_batch, self.examples_batch_id = next(self.examples_generator, ([], -1))
+    self.examples_batch = next_batch
 
   @observe('infer')
   def _infer(self, change):
@@ -130,27 +137,25 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
   @observe('frontend_ready')
   def _finish_setup(self, change):
     # Start examples transfer
-    print('finished setup')
+    # print('finished setup')
     self._start_examples_sync()
 
   # When frontend processes sent examples, it updates batch id to request the
   # next batch
   @observe('examples_batch_id')
   def _send_example_batch(self, change):
-    # Do not trigger at the end or beginning of a transfer.
-    print('send example batch')
-    if self.examples_batch_id <= 0 or self.examples_generator is None:
-      print('returned from send example batch {} {}'.format(self.examples_batch_id, self.examples_generator is None))
+    # Do not trigger at the end of a transfer.
+    # print('send example batch')
+    if self.examples_batch_id < 0 or self.examples_generator is None:
+      # print('returned from send example batch {} {}'.format(self.examples_batch_id, self.examples_generator is None))
       return
-    next_batch = next(self.examples_generator, [])
-    print(len(next_batch))
-    if next_batch:
-      self.examples_batch = next_batch
-    else:
-      # Tell frontend that we are done with the transfer
-      self.examples_batch_id = -1
-      self.examples_batch = []
+    self.examples_batch, num_remaining = next(self.examples_generator, ([], -1))
+    # print(len(self.examples_batch))
+    # print(num_remaining)
+    if num_remaining == 0:
       self.examples_generator = None
+      self.transfer_block = False
+      # print('Transfer complete.')
 
   # Observer callbacks for changes from javascript.
   @observe('get_eligible_features')
