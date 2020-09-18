@@ -117,8 +117,6 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
     self.error_counter += 1
 
   def _start_examples_sync(self):
-    # print(self.frontend_ready)
-    # print(self.examples_generator)
     if not self.frontend_ready or self.examples_generator is None or self.transfer_block:
       return
     self.transfer_block = True
@@ -137,7 +135,6 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
   @observe('frontend_ready')
   def _finish_setup(self, change):
     # Start examples transfer
-    # print('finished setup')
     self._start_examples_sync()
 
   # When frontend processes sent examples, it updates batch id to request the
@@ -145,17 +142,12 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
   @observe('examples_batch_id')
   def _send_example_batch(self, change):
     # Do not trigger at the end of a transfer.
-    # print('send example batch')
     if self.examples_batch_id < 0 or self.examples_generator is None:
-      # print('returned from send example batch {} {}'.format(self.examples_batch_id, self.examples_generator is None))
       return
     self.examples_batch, num_remaining = next(self.examples_generator, ([], -1))
-    # print(len(self.examples_batch))
-    # print(num_remaining)
     if num_remaining == 0:
       self.examples_generator = None
       self.transfer_block = False
-      # print('Transfer complete.')
 
   # Observer callbacks for changes from javascript.
   @observe('get_eligible_features')

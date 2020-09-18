@@ -161,28 +161,19 @@ var WITView = widgets.DOMWidgetView.extend({
       return;
     }
     const i = this.model.get('examples_batch_id')
-    // // If count is -1 reset transfer. This is used in case backend ends the
-    // // transfer early (i.e. set_examples is called before examples are loaded).
-    // if (i == -1){
-    //   this.stagedExamples = []
-    //   return;
-    // }
-    console.log('appendStagedExamples', i);
+    console.log('Remaining batches: ' + i + 'loaded: ' + this.stagedExamples.length);
     // Add examples
     const examples = this.model.get('examples_batch');
-    console.log('examples', examples.length);
     this.stagedExamples.push(...examples);
     // Request the next batch
     this.model.set('examples_batch_id', i - 1);
     this.touch();
     // If batch number is 0, it means the transfer is complete.
     if (i == 0) {
-      console.log('called exampleschanged')
       this.examplesChanged();
       // Reset staged examples at the end of the transfer.
       this.stagedExamples = []
     }
-    console.log('stagedExamples', this.stagedExamples.length);
   },
   examplesChanged: function() {
     if (!this.setupComplete) {
