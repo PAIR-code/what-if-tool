@@ -202,38 +202,62 @@ def call_servo(examples, serving_bundle):
   Returns:
     A ClassificationResponse or RegressionResponse proto.
   """
+  batch_size = 100000
   parsed_url = urlparse('http://' + serving_bundle.inference_address)
   channel = implementations.insecure_channel(parsed_url.hostname,
                                              parsed_url.port)
   stub = prediction_service_pb2.beta_create_PredictionService_stub(channel)
 
-  if serving_bundle.use_predict:
-    request = predict_pb2.PredictRequest()
-  elif serving_bundle.model_type == 'classification':
-    request = classification_pb2.ClassificationRequest()
-  else:
-    request = regression_pb2.RegressionRequest()
-  request.model_spec.name = serving_bundle.model_name
-  if serving_bundle.model_version is not None:
-    request.model_spec.version.value = serving_bundle.model_version
-  if serving_bundle.signature is not None:
-    request.model_spec.signature_name = serving_bundle.signature
+  def batch_call(batch_examples):
+    if serving_bundle.use_predict:
+      request = predict_pb2.PredictRequest()
+    elif serving_bundle.model_type == 'classification':
+      request = classification_pb2.ClassificationRequest()
+    else:
+      request = regression_pb2.RegressionRequest()
+    request.model_spec.name = serving_bundle.model_name
+    if serving_bundle.model_version is not None:
+      request.model_spec.version.value = serving_bundle.model_version
+    if serving_bundle.signature is not None:
+      request.model_spec.signature_name = serving_bundle.signature
 
-  if serving_bundle.use_predict:
-    # tf.compat.v1 API used here to convert tf.example into proto. This
-    # utility file is bundled in the witwidget pip package which has a dep
-    # on TensorFlow.
-    request.inputs[serving_bundle.predict_input_tensor].CopyFrom(
-      tf.compat.v1.make_tensor_proto(
-        values=[ex.SerializeToString() for ex in examples],
-        dtype=types_pb2.DT_STRING))
-  else:
-    request.input.example_list.examples.extend(examples)
+    if serving_bundle.use_predict:
+      # tf.compat.v1 API used here to convert tf.example into proto. This
+      # utility file is bundled in the witwidget pip package which has a dep
+      # on TensorFlow.
+      request.inputs[serving_bundle.predict_input_tensor].CopyFrom(
+        tf.compat.v1.make_tensor_proto(
+          values=[ex.SerializeToString() for ex in batch_examples],
+          dtype=types_pb2.DT_STRING))
+    else:
+      request.input.example_list.examples.extend(batch_examples)
 
-  if serving_bundle.use_predict:
-    return common_utils.convert_predict_response(
-      stub.Predict(request, 30.0), serving_bundle) # 30 secs timeout
-  elif serving_bundle.model_type == 'classification':
-    return stub.Classify(request, 30.0)  # 30 secs timeout
-  else:
-    return stub.Regress(request, 30.0)  # 30 secs timeout
+    if serving_bundle.use_predict:
+      return common_utils.convert_predict_response(
+        stub.Predict(request, 30.0), serving_bundle) # 30 secs timeout
+    elif serving_bundle.model_type == 'classification':
+      return stub.Classify(request, 30.0)  # 30 secs timeout
+    else:
+      return stub.Regress(request, 30.0)  # 30 secs timeout
+
+  start_example = 0
+  results = []
+  first_loop = True
+  while start_example < len(examples) or first_loop:
+    first_loop = False
+    end_example = start_example + batch_size
+    batch_examples = examples[start_example:end_example]
+    results.append(batch_call(batch_examples))
+    start_example = end_example
+  return combine_results(results, serving_bundle.model_type == 'classification')
+
+def combine_results(result_protos, is_classification):
+  """Combine results protos from batches into single proto."""
+  for i in range(1, len(result_protos)):
+    if is_classification:
+      for j in range(len(result_protos[i].result.classifications)):
+        result_protos[0].result.classifications.add(classes=result_protos[i].result.classifications[j].classes)
+    else:
+      for j in range(len(result_protos[i].result.regressions)):
+        result_protos[0].result.regressions.add(value=result_protos[i].result.regressions[j].value)
+  return result_protos[0]

@@ -7848,19 +7848,49 @@ limitations under the License.
           };
           this.loadingBarHidden_ = false;
           if (!this.local) {
+            let tempInferences = [];
             const url = this.makeUrl_('/data/plugin/whatif/infer', inferParams);
             const inferContents = (result) => {
-              this.loadingBarHidden_ = true;
-              this.labelVocab = /** @type {!Array} */ (JSON.parse(
-                result.value.vocab
-              ));
-              this.inferences = /** @type {!Object} */ (JSON.parse(
-                result.value.inferences
-              ));
+              if (result.value.vocab != null) {
+                this.labelVocab = /** @type {!Array} */ (JSON.parse(
+                  result.value.vocab
+                ));
+              }
+              tempInferences.push(JSON.parse(result.value.inferences));
+              if (result.value.next === -1) {
+                this.loadingBarHidden_ = true;
+                const inferences = this.combineInferences_(tempInferences);
+                this.inferences = /** @type {!Object} */ inferences;
+              } else {
+                const url = this.makeUrl_('/data/plugin/whatif/infer', {
+                  start_example: result.value.next,
+                  model_type: this.modelType,
+                });
+                this.makeAsyncRequest_(url, inferContents, null, 'Model inference');
+              }
             };
             this.makeAsyncRequest_(url, inferContents, null, 'Model inference');
           }
           this.fire('infer-examples', inferParams);
+        },
+
+        combineInferences_: function(inferences) {
+          for (let i = 1; i < inferences.length; i++) {
+            inferences[0].indices = inferences[0].indices.concat(
+              inferences[i].indices);
+            for (let j = 0; j < inferences[0].results.length; j++) {
+              if (this.modelType == 'classification') {
+                inferences[0].results[j].classificationResult.classifications =
+                inferences[0].results[j].classificationResult.classifications.concat(
+                  inferences[i].results[j].classificationResult.classifications);
+              } else {
+                inferences[0].results[j].regressionResult.regressions =
+                inferences[0].results[j].regressionResult.regressions.concat(
+                  inferences[i].results[j].regressionResult.regressions);
+              }
+            }
+          }
+          return inferences[0];
         },
 
         /**
@@ -8268,7 +8298,9 @@ limitations under the License.
         },
 
         getExamples_: function() {
-          var url = this.makeUrl_('/data/plugin/whatif/examples_from_path', {
+          let tempExamples = [];
+          let tempSprite = null;
+          const url = this.makeUrl_('/data/plugin/whatif/examples_from_path', {
             examples_path: this.examplesPath,
             max_examples: this.maxExamples,
             sampling_odds: this.samplingOdds,
@@ -8276,10 +8308,26 @@ limitations under the License.
           });
 
           const updateExampleContents = (result) => {
-            this.updateExampleContents(
-              result.value.examples,
-              result.value.sprite
-            );
+            tempExamples = tempExamples.concat(result.value.examples);
+            if (result.value.sprite != null) {
+              tempSprite = result.value.sprite;
+            }
+            if (result.value.next === -1) {
+              this.updateExampleContents(
+                tempExamples,
+                tempSprite
+              );
+            } else {
+              const url = this.makeUrl_('/data/plugin/whatif/examples_from_path', {
+                start_example: result.value.next
+              });
+              this.makeAsyncRequest_(
+                url,
+                updateExampleContents,
+                null,
+                'Datapoint load'
+              );
+            }
           };
           this.exampleStatusStr = 'Loading datapoints...';
           this.makeAsyncRequest_(

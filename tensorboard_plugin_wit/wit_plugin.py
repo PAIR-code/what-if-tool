@@ -18,6 +18,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import copy
 import io
 import json
 import logging
@@ -50,6 +51,8 @@ NUM_EXAMPLES_TO_SCAN = 50
 # Max number of mutants to show per feature (i.e. num of points along x-axis).
 NUM_MUTANTS = 10
 
+# Max number of examples to send in a single response.
+MAX_EXAMPLES_TO_SEND = 100000
 
 class WhatIfToolPlugin(base_plugin.TBPlugin):
   """Plugin for understanding/debugging model inference.
@@ -178,37 +181,49 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
     Returns:
       JSON of up to max_examlpes of the examples in the path.
     """
-    examples_count = int(request.args.get('max_examples'))
-    examples_path = request.args.get('examples_path')
-    sampling_odds = float(request.args.get('sampling_odds'))
-    self.example_class = (tf.train.SequenceExample
-        if request.args.get('sequence_examples') == 'true'
-        else tf.train.Example)
-    try:
-      platform_utils.throw_if_file_access_not_allowed(examples_path,
-                                                      self._logdir,
-                                                      self._wit_data_dir)
-      example_strings = platform_utils.example_protos_from_path(
-          examples_path, examples_count, parse_examples=False,
-          sampling_odds=sampling_odds, example_class=self.example_class)
-      self.examples = [
-          self.example_class.FromString(ex) for ex in example_strings]
-      self.generate_sprite(example_strings)
-      json_examples = [
-          json_format.MessageToJson(example) for example in self.examples
-      ]
-      self.updated_example_indices = set(range(len(json_examples)))
-      return http_util.Respond(
-          request,
-          {'examples': json_examples,
-           'sprite': True if self.sprite else False}, 'application/json')
-    except common_utils.InvalidUserInputError as e:
-      logger.error('Data loading error: %s', e.message)
-      return http_util.Respond(request, e.message,
-                               'application/json', code=400)
-    except Exception as e:
-      return http_util.Respond(request, str(e),
-                               'application/json', code=400)
+    start_example = (int(request.args.get('start_example'))
+        if request.args.get('start_example') else 0)
+    if not start_example:
+      examples_count = int(request.args.get('max_examples'))
+      examples_path = request.args.get('examples_path')
+      sampling_odds = float(request.args.get('sampling_odds'))
+      self.example_class = (tf.train.SequenceExample
+          if request.args.get('sequence_examples') == 'true'
+          else tf.train.Example)
+      try:
+        platform_utils.throw_if_file_access_not_allowed(examples_path,
+                                                        self._logdir,
+                                                        self._wit_data_dir)
+        example_strings = platform_utils.example_protos_from_path(
+            examples_path, examples_count, parse_examples=False,
+            sampling_odds=sampling_odds, example_class=self.example_class)
+        self.examples = [
+            self.example_class.FromString(ex) for ex in example_strings]
+        self.generate_sprite(example_strings)
+        self.updated_example_indices = set(range(len(self.examples)))
+      except common_utils.InvalidUserInputError as e:
+        logger.error('Data loading error: %s', e.message)
+        return http_util.Respond(request, e.message,
+                                'application/json', code=400)
+      except Exception as e:
+        return http_util.Respond(request, str(e),
+                                'application/json', code=400)
+
+    # Split examples from start_example to + max_examples
+    # Send next start_example if necessary
+    end_example = start_example + MAX_EXAMPLES_TO_SEND
+    json_examples = [
+        json_format.MessageToJson(example) for example in self.examples[
+          start_example:end_example]
+    ]
+    if end_example >= len(self.examples):
+      end_example = -1
+    return http_util.Respond(
+        request,
+        {'examples': json_examples,
+         'sprite': True if (self.sprite and not start_example) else False,
+         'next': end_example},
+        'application/json')
 
   @wrappers.Request.application
   def _serve_sprite(self, request):
@@ -310,48 +325,78 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
     Returns:
       A list of JSON objects, one for each chart.
     """
-    label_vocab = inference_utils.get_label_vocab(
-      request.args.get('label_vocab_path'))
+    start_example = (int(request.args.get('start_example'))
+        if request.args.get('start_example') else 0)
+    if not start_example:
+      label_vocab = inference_utils.get_label_vocab(
+        request.args.get('label_vocab_path'))
+      try:
+        if request.method != 'GET':
+          logger.error('%s requests are forbidden.', request.method)
+          return http_util.Respond(request, 'invalid non-GET request',
+                                      'application/json', code=405)
+
+        (inference_addresses, model_names, model_versions,
+            model_signatures) = self._parse_request_arguments(request)
+
+        self.indices_to_infer = sorted(self.updated_example_indices)
+        examples_to_infer = [self.examples[index] for index in self.indices_to_infer]
+        self.infer_objs = []
+        for model_num in xrange(len(inference_addresses)):
+          serving_bundle = inference_utils.ServingBundle(
+              inference_addresses[model_num],
+              model_names[model_num],
+              request.args.get('model_type'),
+              model_versions[model_num],
+              model_signatures[model_num],
+              request.args.get('use_predict') == 'true',
+              request.args.get('predict_input_tensor'),
+              request.args.get('predict_output_tensor'),
+              custom_predict_fn=self.custom_predict_fn)
+          (predictions, _) = inference_utils.run_inference_for_inference_results(
+              examples_to_infer, serving_bundle)
+          self.infer_objs.append(predictions)
+        self.updated_example_indices = set()
+      except AbortionError as e:
+        logging.error(str(e))
+        return http_util.Respond(request, e.details,
+                                'application/json', code=400)
+      except Exception as e:
+        logging.error(str(e))
+        return http_util.Respond(request, str(e),
+                                'application/json', code=400)
+
+    # Split results from start_example to + max_examples
+    # Send next start_example if necessary
+    logging.error('time to slice')
+    end_example = start_example + MAX_EXAMPLES_TO_SEND
+
+    def get_inferences_resp():
+      sliced_infer_objs = [
+        copy.deepcopy(infer_obj) for infer_obj in self.infer_objs]
+      if request.args.get('model_type') == 'classification':
+        for obj in sliced_infer_objs:
+          obj['classificationResult']['classifications'][:] = obj[
+            'classificationResult']['classifications'][
+              start_example:end_example]
+      else:
+        for obj in sliced_infer_objs:
+          obj['regressionResult']['regressions'][:] = obj['regressionResult'][
+            'regressions'][start_example:end_example]
+      return {'indices': self.indices_to_infer[start_example:end_example],
+              'results': sliced_infer_objs}
 
     try:
-      if request.method != 'GET':
-        logger.error('%s requests are forbidden.', request.method)
-        return http_util.Respond(request, 'invalid non-GET request',
-                                    'application/json', code=405)
-
-      (inference_addresses, model_names, model_versions,
-          model_signatures) = self._parse_request_arguments(request)
-
-      indices_to_infer = sorted(self.updated_example_indices)
-      examples_to_infer = [self.examples[index] for index in indices_to_infer]
-      infer_objs = []
-      for model_num in xrange(len(inference_addresses)):
-        serving_bundle = inference_utils.ServingBundle(
-            inference_addresses[model_num],
-            model_names[model_num],
-            request.args.get('model_type'),
-            model_versions[model_num],
-            model_signatures[model_num],
-            request.args.get('use_predict') == 'true',
-            request.args.get('predict_input_tensor'),
-            request.args.get('predict_output_tensor'),
-            custom_predict_fn=self.custom_predict_fn)
-        (predictions, _) = inference_utils.run_inference_for_inference_results(
-            examples_to_infer, serving_bundle)
-        infer_objs.append(predictions)
-
-      resp = {'indices': indices_to_infer, 'results': infer_objs}
-      self.updated_example_indices = set()
-      return http_util.Respond(request, {'inferences': json.dumps(resp),
-                                         'vocab': json.dumps(label_vocab)},
-                               'application/json')
-    except common_utils.InvalidUserInputError as e:
-      return http_util.Respond(request, e.message,
-                               'application/json', code=400)
-    except AbortionError as e:
-      return http_util.Respond(request, e.details,
-                               'application/json', code=400)
+      inferences_resp = get_inferences_resp()
+      resp = {'inferences': json.dumps(inferences_resp)}
+      if end_example >= len(self.examples):
+        end_example = -1
+      if start_example == 0:
+        resp['vocab'] = json.dumps(label_vocab)
+      resp['next'] = end_example
+      return http_util.Respond(request, resp, 'application/json')
     except Exception as e:
+      logging.error(e)
       return http_util.Respond(request, str(e),
                                'application/json', code=400)
 
