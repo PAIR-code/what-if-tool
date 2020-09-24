@@ -119,21 +119,35 @@ WIT_HTML = """
       }};
       window.inferenceStartCallback = (inferences) => {{
         stagedInferences = inferences;
+        console.log("start");
+        console.log(stagedInferences);
       }};
       window.inferenceCallback = res => {{
+        console.log("mid");
+        console.log(res);
         for (let i = 0; i < res.results.length; i++) {{
           if (wit.modelType == 'classification') {{
-            stagedInferences.inferences.results[i].classificationResult.classifications =
-              stagedInferences.inferences.results[i].classificationResult.classifications.concat(res.results[i]);
+            console.log('pre push length');
+            console.log(stagedInferences.inferences.results[i].classificationResult.classifications.length);
+            console.log('new items length');
+            console.log(res.results[i].length);
+            stagedInferences.inferences.results[i].classificationResult.classifications.push(...res.results[i]);
+            console.log('post push length');
+            console.log(stagedInferences.inferences.results[i].classificationResult.classifications.length);
           }}
           else {{
-            stagedInferences.inferences.results[i].regressionResult.regressions =
-              stagedInferences.inferences.results[i].regressionResult.regressions.concat(res.results[i]);
+            stagedInferences.inferences.results[i].regressionResult.regressions.push(...res.results[i]);
+          }}
+          const extras = res.extra[i];
+          for (let key of Object.keys(extras)) {{
+            stagedInferences.extra_outputs[i][key].push(...extras[key]);
           }}
         }}
-        stagedInferences.inferences.indices = stagedInferences.inferences.indices.concat(res.indices);
+        stagedInferences.inferences.indices.push(...res.indices);
+        console.log(stagedInferences);
       }};
       window.inferenceEndCallback = () => {{
+        console.log("end");
         wit.labelVocab = stagedInferences.label_vocab;
         wit.inferences = stagedInferences.inferences;
         wit.extraOutputs = {{indices: wit.inferences.indices,
@@ -208,7 +222,7 @@ WIT_HTML = """
         stagedExamples = [];
       }};
       window.updateExamplesCallback = examples => {{
-        stagedExamples = stagedExamples.concat(examples);
+        stagedExamples.push(...examples);
       }};
       window.updateExamplesEndCallback = () => {{
         if (!wit.updateExampleContents) {{
@@ -340,28 +354,50 @@ class WitWidget(base.WitWidgetBase):
       indices = inferences['inferences']['indices'][:]
       inferences['inferences']['indices'] = []
       res2 = []
-      if 'classificationResult' in inferences['inferences']['results'][0]:
-        res = inferences['inferences']['results'][0]['classificationResult']['classifications'][:]
-        inferences['inferences']['results'][0]['classificationResult']['classifications'] = []
+      extra = {}
+      extra2 = {}
+      model_inference = inferences['inferences']['results'][0]
+      if ('extra_outputs' in inferences and len(inferences['extra_outputs']) and
+          inferences['extra_outputs'][0]):
+        for key in inferences['extra_outputs'][0]:
+          extra[key] = inferences['extra_outputs'][0][key][:]
+          inferences['extra_outputs'][0][key] = []
+      if 'classificationResult' in model_inference:
+        res = model_inference['classificationResult']['classifications'][:]
+        model_inference['classificationResult']['classifications'] = []
       else:
-        res = inferences['inferences']['results'][0]['regressionResult']['regressions'][:]
-        inferences['inferences']['results'][0]['regressionResult']['regressions'] = []
+        res = model_inference['regressionResult']['regressions'][:]
+        model_inference['regressionResult']['regressions'] = []
+      
       if len(inferences['inferences']['results']) > 1:
-        if 'classificationResult' in inferences['inferences']['results'][1]:
-          res2 = inferences['inferences']['results'][1]['classificationResult']['classifications'][:]
-          inferences['inferences']['results'][1]['classificationResult']['classifications'] = []
+        if ('extra_outputs' in inferences and
+            len(inferences['extra_outputs']) > 1 and
+            inferences['extra_outputs'][1]):
+          for key in inferences['extra_outputs'][1]:
+            extra2[key] = inferences['extra_outputs'][1][key][:]
+            inferences['extra_outputs'][1][key] = []
+        model_2_inference = inferences['inferences']['results'][1]
+        if 'classificationResult' in model_2_inference:
+          res2 = model_2_inference['classificationResult']['classifications'][:]
+          model_2_inference['classificationResult']['classifications'] = []
         else:
-          res2 = inferences['inferences']['results'][1]['regressionResult']['regressions'][:]
-          inferences['inferences']['results'][1]['regressionResult']['regressions'] = []
+          res2 = model_2_inference['regressionResult']['regressions'][:]
+          model_2_inference['regressionResult']['regressions'] = []
       i = 0
       output.eval_js("""inferenceStartCallback({inferences})""".format(
             inferences=json.dumps(inferences)))
       while True:
         piece = [res[i : i + self.SLICE_SIZE]]
+        extra_piece = [{}]
+        for key in extra:
+          extra_piece[0][key] = extra[key][i : i + self.SLICE_SIZE]
         if res2:
           piece.append(res2[i : i + self.SLICE_SIZE])
+          extra_piece.append({})
+          for key in extra2:
+            extra_piece[1][key] = extra2[key][i : i + self.SLICE_SIZE]
         ind_piece = indices[i : i + self.SLICE_SIZE]
-        data = {'results': piece, 'indices': ind_piece}
+        data = {'results': piece, 'indices': ind_piece, 'extra': extra_piece}
         output.eval_js("""inferenceCallback({data})""".format(
             data=json.dumps(data)))
         i += self.SLICE_SIZE
