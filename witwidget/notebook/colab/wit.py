@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+import math
 import tensorflow as tf
 from IPython import display
 from google.colab import output
@@ -71,7 +72,9 @@ WIT_HTML = """
       wit.style.height = '{height}px';
       let mutantFeature = null;
       let stagedExamples = [];
-      let stagedInferences = [];
+      let prevExampleCountdown = 0;
+      let stagedInferences = {{}};
+      let prevInferencesCountdown = 0;
 
       // Listeners from WIT element events which pass requests to python.
       wit.addEventListener("infer-examples", e => {{
@@ -117,23 +120,16 @@ WIT_HTML = """
       window.backendError = error => {{
         wit.handleError(error.msg);
       }};
-      window.inferenceStartCallback = (inferences) => {{
-        stagedInferences = inferences;
-        console.log("start");
-        console.log(stagedInferences);
-      }};
+
       window.inferenceCallback = res => {{
-        console.log("mid");
-        console.log(res);
+        // If starting a new set of data, reset the staged results.
+        if (res.countdown >= prevInferencesCountdown) {{
+          stagedInferences = res.inferences;
+        }}
+        prevInferencesCountdown = res.countdown;
         for (let i = 0; i < res.results.length; i++) {{
           if (wit.modelType == 'classification') {{
-            console.log('pre push length');
-            console.log(stagedInferences.inferences.results[i].classificationResult.classifications.length);
-            console.log('new items length');
-            console.log(res.results[i].length);
             stagedInferences.inferences.results[i].classificationResult.classifications.push(...res.results[i]);
-            console.log('post push length');
-            console.log(stagedInferences.inferences.results[i].classificationResult.classifications.length);
           }}
           else {{
             stagedInferences.inferences.results[i].regressionResult.regressions.push(...res.results[i]);
@@ -144,14 +140,13 @@ WIT_HTML = """
           }}
         }}
         stagedInferences.inferences.indices.push(...res.indices);
-        console.log(stagedInferences);
-      }};
-      window.inferenceEndCallback = () => {{
-        console.log("end");
-        wit.labelVocab = stagedInferences.label_vocab;
-        wit.inferences = stagedInferences.inferences;
-        wit.extraOutputs = {{indices: wit.inferences.indices,
-                             extra: stagedInferences.extra_outputs}};
+        // If this is the final chunk, set the staged results.
+        if (res.countdown === 0) {{
+          wit.labelVocab = stagedInferences.label_vocab;
+          wit.inferences = stagedInferences.inferences;
+          wit.extraOutputs = {{indices: wit.inferences.indices,
+                               extra: stagedInferences.extra_outputs}};
+        }}
       }};
 
       window.distanceCallback = callbackDict => {{
@@ -218,15 +213,21 @@ WIT_HTML = """
           wit.customDistanceFunctionSet = false;
         }}
       }};
-      window.updateExamplesStartCallback = () => {{
-        stagedExamples = [];
+      window.updateExamplesCallback = res => {{
+        // If starting a new set of data, reset the staged examples.
+        if (res.countdown >= prevExampleCountdown) {{
+          stagedExamples = [];
+        }}
+        prevExampleCountdown = res.countdown;
+        stagedExamples.push(...res.examples);
+        if (res.countdown === 0) {{
+          // If this is the final chunk, set the staged examples.
+          window.commitUpdatedExamples();
+        }}
       }};
-      window.updateExamplesCallback = examples => {{
-        stagedExamples.push(...examples);
-      }};
-      window.updateExamplesEndCallback = () => {{
+      window.commitUpdatedExamples = () => {{
         if (!wit.updateExampleContents) {{
-          requestAnimationFrame(() => window.updateExamplesEndCallback());
+          requestAnimationFrame(() => window.commitUpdatedExamples());
           return;
         }}
         wit.updateExampleContents(stagedExamples, false);
@@ -236,16 +237,6 @@ WIT_HTML = """
       }};
       // BroadcastChannels allows examples to be updated by a call from an
       // output cell that isn't the cell hosting the WIT widget.
-      const channelStartName = 'updateExamplesStart' + id;
-      const updateExampleStartListener = new BroadcastChannel(channelStartName);
-      updateExampleStartListener.onmessage = unused => {{
-        window.updateExamplesStartCallback();
-      }};
-      const channelEndName = 'updateExamplesEnd' + id;
-      const updateExampleEndListener = new BroadcastChannel(channelEndName);
-      updateExampleEndListener.onmessage = unused => {{
-        window.updateExamplesEndCallback();
-      }};
       const channelName = 'updateExamples' + id;
       const updateExampleListener = new BroadcastChannel(channelName);
       updateExampleListener.onmessage = msg => {{
@@ -280,6 +271,7 @@ class WitWidget(base.WitWidgetBase):
     self._rendering_complete = False
     self.id = WitWidget.index
     self.height = height
+    self.set_examples_in_progress = False
     # How large of example slices should be sent to the front-end at a time,
     # in order to avoid issues with kernel crashes on large messages.
     self.SLICE_SIZE = 10000
@@ -301,19 +293,13 @@ class WitWidget(base.WitWidgetBase):
     display.display(display.HTML(
         WIT_HTML.format(height=self.height, id=self.id)))
 
-    # Send the provided config and examples to JS
+    # Send the provided config and examples to JS.
     output.eval_js("""configCallback({config})""".format(
         config=json.dumps(self.config)))
-    i = 0
-    output.eval_js('updateExamplesStartCallback()')
-    while True:
-      piece = self.examples[i : i + self.SLICE_SIZE]
-      output.eval_js("""updateExamplesCallback({examples})""".format(
-          examples=json.dumps(piece)))
-      i += self.SLICE_SIZE
-      if i > len(self.examples):
-        break
-    output.eval_js('updateExamplesEndCallback()')
+    self.set_examples_in_progress = True
+    self._set_examples_looper('updateExamplesCallback({data})')
+    self.set_examples_in_progress = False
+
     self._generate_sprite()
     self._rendering_complete = True
 
@@ -323,6 +309,10 @@ class WitWidget(base.WitWidgetBase):
       ).read()
 
   def set_examples(self, examples):
+    if self.set_examples_in_progress:
+      print('Cannot set examples while transfer is in progress.')
+      return
+    self.set_examples_in_progress = True
     base.WitWidgetBase.set_examples(self, examples)
     # If this is called after rendering, use a BroadcastChannel to send
     # the updated examples to the visualization. Inside of the ctor, no action
@@ -330,23 +320,23 @@ class WitWidget(base.WitWidgetBase):
     if self._rendering_complete:
       # Use BroadcastChannel to allow this call to be made in a separate colab
       # cell from the cell that displays WIT.
-      channel_start_name = 'updateExamplesStart{}'.format(self.id)
-      channel_end_name = 'updateExamplesEnd{}'.format(self.id)
-      channel_name = 'updateExamples{}'.format(self.id)
-      i = 0
-      output.eval_js("""(new BroadcastChannel('{channel_name}')).postMessage(
-          '')""".format(channel_name=channel_start_name))
-      while True:
-        piece = self.examples[i : i + self.SLICE_SIZE]
-        output.eval_js("""(new BroadcastChannel('{channel_name}')).postMessage(
-          {examples})""".format(
-              examples=json.dumps(piece), channel_name=channel_name))
-        i += self.SLICE_SIZE
-        if i > len(self.examples):
-          break
-      output.eval_js("""(new BroadcastChannel('{channel_name}')).postMessage(
-          '')""".format(channel_name=channel_end_name))
+      channel_str = """(new BroadcastChannel('updateExamples{}'))""".format(
+        self.id)
+      eval_js_str = channel_str + '.postMessage({data})'
+      self._set_examples_looper(eval_js_str)
       self._generate_sprite()
+      self.set_examples_in_progress = False
+
+  def _set_examples_looper(self, eval_js_str):
+    # Send the set examples to JS in chunks.
+    num_pieces = math.ceil(len(self.examples) / self.SLICE_SIZE)
+    i = 0
+    while num_pieces > 0:
+      num_pieces -= 1
+      exs = self.examples[i : i + self.SLICE_SIZE]
+      piece = {'examples': exs, 'countdown': num_pieces}
+      output.eval_js(eval_js_str.format(data=json.dumps(piece)))
+      i += self.SLICE_SIZE
 
   def infer(self):
     try:
@@ -383,10 +373,13 @@ class WitWidget(base.WitWidgetBase):
         else:
           res2 = model_2_inference['regressionResult']['regressions'][:]
           model_2_inference['regressionResult']['regressions'] = []
+
       i = 0
-      output.eval_js("""inferenceStartCallback({inferences})""".format(
-            inferences=json.dumps(inferences)))
-      while True:
+      num_pieces = math.ceil(len(indices) / self.SLICE_SIZE)
+
+      # Loop over each piece to send.
+      while num_pieces > 0:
+        num_pieces -= 1
         piece = [res[i : i + self.SLICE_SIZE]]
         extra_piece = [{}]
         for key in extra:
@@ -397,13 +390,15 @@ class WitWidget(base.WitWidgetBase):
           for key in extra2:
             extra_piece[1][key] = extra2[key][i : i + self.SLICE_SIZE]
         ind_piece = indices[i : i + self.SLICE_SIZE]
-        data = {'results': piece, 'indices': ind_piece, 'extra': extra_piece}
+        data = {'results': piece, 'indices': ind_piece, 'extra': extra_piece,
+                'countdown': num_pieces}
+        # For the first segment to send, also send the blank inferences
+        # structure to be filled in.
+        if i == 0:
+          data['inferences'] = inferences
         output.eval_js("""inferenceCallback({data})""".format(
             data=json.dumps(data)))
         i += self.SLICE_SIZE
-        if i > len(indices):
-          break
-      output.eval_js('inferenceEndCallback()')
     except Exception as e:
       output.eval_js("""backendError({error})""".format(
           error=json.dumps({'msg': repr(e)})))
