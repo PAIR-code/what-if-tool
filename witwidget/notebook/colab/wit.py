@@ -341,6 +341,10 @@ class WitWidget(base.WitWidgetBase):
   def infer(self):
     try:
       inferences = base.WitWidgetBase.infer_impl(self)
+      # Parse out the inferences from the returned stucture and empty the
+      # structure of contents, keeping its nested structure.
+      # Chunks of the inference results will be sent to the front-end and
+      # re-assembled.
       indices = inferences['inferences']['indices'][:]
       inferences['inferences']['indices'] = []
       res2 = []
@@ -393,7 +397,8 @@ class WitWidget(base.WitWidgetBase):
         data = {'results': piece, 'indices': ind_piece, 'extra': extra_piece,
                 'countdown': num_pieces}
         # For the first segment to send, also send the blank inferences
-        # structure to be filled in.
+        # structure to be filled in. This was cleared of contents above but is
+        # used to maintain the nested structure of the results.
         if i == 0:
           data['inferences'] = inferences
         output.eval_js("""inferenceCallback({data})""".format(
