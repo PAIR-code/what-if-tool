@@ -9,3 +9,4 @@ bazel-*
 .DS_Store
 website/www/
 website/node_modules/
+.vscode/
