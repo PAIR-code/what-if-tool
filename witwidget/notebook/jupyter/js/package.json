@@ -3,7 +3,7 @@
   "description": "What-If Tool jupyter widget",
   "author": "Google LLC",
   "main": "dist/index.js",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "license" : "Apache 2.0",
   "homepage": "https://github.com/pair-code/what-if-tool",
   "keywords": [
