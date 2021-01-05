@@ -68,8 +68,6 @@ var WITView = widgets.DOMWidgetView.extend({
     this.stagedInferences = {};
     // Invoke change listeners for initial settings.
     this.configChanged();
-    // this.appendStagedExamples();
-    // this.examplesChanged();
     this.spriteChanged();
   },
 

@@ -45,6 +45,7 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
   inferences_batch = Dict(dict()).tag(sync=True)
   inferences_batch_id = Int(0).tag(sync=True)
   infer = Int(0).tag(sync=True)
+  infer_counter = Int(0)
   update_example = Dict(dict()).tag(sync=True)
   delete_example = Dict(dict()).tag(sync=True)
   duplicate_example = Dict(dict()).tag(sync=True)
@@ -191,7 +192,9 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
         for key in extra2:
           extra_piece[1][key] = extra2[key][i : i + self.batch_size]
       ind_piece = indices[i : i + self.batch_size]
-      data = {'results': piece, 'indices': ind_piece, 'extra': extra_piece}
+      data = {'results': piece, 'indices': ind_piece, 'extra': extra_piece,
+              'counter': self.infer_counter}
+      self.infer_counter += 1
       # For the first segment to send, also send the blank inferences
       # structure to be filled in. This was cleared of contents above but is
       # used to maintain the nested structure of the results.
