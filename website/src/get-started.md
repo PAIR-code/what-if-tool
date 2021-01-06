@@ -3,7 +3,7 @@ title: WIT - Getting Started
 layout: layouts/sub.liquid
 
 hero-image: /assets/images/banner-getting-started.png
-hero-title: "pip install wit-widget"
+hero-title: "pip install witwidget"
 hero-copy: "Use the What If Tool directly in your Notebooks, in TensorBoard, and with Cloud AI models."
 
 sub-nav: '<a href="#notebooks">With notebooks</a><a href="#cloud-ai">With Google Cloud</a><a href="#tensorboard">On Tensorboard</a>'
