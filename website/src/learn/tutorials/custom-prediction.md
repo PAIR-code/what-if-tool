@@ -20,13 +20,13 @@ questions: "How do I use the What-If Tool with my model code?<br/><br/>How do I 
 
 ## Using Custom Prediction Functions
 
-Custom prediction functions in the What-If Tool allow it to be used with any classification or regression models, regardless of what machine learning framework they use. For details on how to configure WIT to use a custom prediction function, check out the [TensorBoard setup tutorial](../tensorboard) or the [Notebook setup tutorial](../notebooks), depending on which environment you are running WIT in. This article will detail when to use a custom prediction function and what it can do, including how it can be used to display feature attributions in WIT.
+A custom prediction function in the What-If Tool is a python wrapper for your model prediction code that allows you to use WIT with any ML framework, beyond the ones with built-in support. This article will detail when to use a custom prediction function and what it can do, including how it can be used to display feature attributions in WIT. For details on how to configure WIT to use a custom prediction function, check out the [TensorBoard setup tutorial](../tensorboard) or the [Notebook setup tutorial](../notebooks), depending on which environment you are running WIT in.
 
 ### When To Use
 
 WIT has built-in support for a variety of models: TF Estimators, those served by Cloud AI Platform Prediction, and those served by TensorFlow Serving. But, many ML practitioners have models that don’t fit into those constraints, such as Keras models, and those using non-TensorFlow frameworks such as PyTorch, XGBoost, and sklearn.
 
-In order for WIT to be usable for all practitioners, WIT has the ability to accept an arbitrary python function that performs model predictions. Additionally, users may want to return more information than just model prediction scores, such as feature attributions, and the custom prediction function capability allows for that, as shown later in this tutorial.
+In order for WIT to be usable for all practitioners, WIT has the ability to accept any python function that performs model predictions. This function can return more information than just model prediction scores, such as feature attributions, as shown later in this tutorial.
 
 ### Custom Prediction Function API
 
@@ -38,13 +38,15 @@ In both cases, the output of the function can be a list of model predictions, wi
 
 When using a custom prediction function in a notebook, the list of datapoints is the only function input. If comparing two models in WIT, you provide a separate custom prediction function for each model through the `set_custom_predict_fn` and `set_compare_custom_predict_fn` methods on the `WitConfigBuilder` object.
 
-When using a custom prediction function in TensorBoard, there is a second function input: the `ServingBundle` object, as defined in [`utils/inference_utils.py`](https://github.com/PAIR-code/what-if-tool/blob/master/utils/inference_utils.py). This object contains the information about the model to perform prediction on, such as the model type, model name, and inference address, which a user provides on the WIT setup dialog when used inside of TensorBoard. This can be used to determine which model to perform inference on, in the case of using WIT to compare two models with custom prediction functions in TensorBoard.
+{% include partials/inset-image image: '/assets/images/wit_custom_predict_notebook.png', 
+  caption: 'A (random) custom prediction function for WIT in notebooks'%}
+
+When using a custom prediction function in TensorBoard, there is a second function input: the `ServingBundle` object, as defined in [`utils/inference_utils.py`](https://github.com/PAIR-code/what-if-tool/blob/master/utils/inference_utils.py). This object contains the information about the model, such as the model type, model name, and inference address, which a user provides on the WIT setup dialog when used inside of TensorBoard. This can be used to determine which model to perform inference on, in the case of using WIT to compare two models with custom prediction functions in TensorBoard.
 
 {% include partials/inset-image image: '/assets/images/random-custom-predict.png', 
   caption: 'A (random) custom prediction function for WIT in TensorBoard'%}
 
-But, custom prediction functions don’t need to only return model outputs. They can also return extra information that WIT will use to enhance its capabilities. The below sections explore returning feature attributions and returning other extra outputs from the model.
-
+Custom prediction functions can also return extra information that WIT will use to enhance its capabilities. The below sections explore returning feature attributions and returning other extra outputs from the model.
 
 ### Attributions
 
@@ -59,6 +61,6 @@ When attributions are returned along with predictions, new visualizations are en
 
 ### Extra Outputs
 
-Lastly, custom prediction functions can return arbitrary prediction-time information for each datapoint. This can be useful in the case that you can calculate an additional metric per-datapoint at prediction time and wish to display it in the What-If Tool. One example of this could be a score calculated for each datapoint at prediction time for how similar each datapoint is to some anchor datapoint or concept, according to the internals of the model (see the [TCAV](https://arxiv.org/abs/1711.11279) paper for one example of such a metric). To do so, have the custom prediction function return a dictionary, where the predictions list is stored under the key `predictions`, as described in the previous section. Any other metric can be included by adding an additional key (this key will be used to display the metric) to the dictionary, and having its value be a list with one entry for each datapoint provided to the custom prediction function. The list entry should be a single number or string for display in the tool.
+Custom prediction functions can return arbitrary prediction-time information for each datapoint. This can be useful in the case that you can calculate an additional metric per-datapoint at prediction time and wish to display it in the What-If Tool. One example of this could be a score calculated for each datapoint at prediction time for how similar each datapoint is to some anchor datapoint or concept, according to the internals of the model (see the [TCAV](https://arxiv.org/abs/1711.11279) paper for one example of such a metric). To do so, have the custom prediction function return a dictionary, where the predictions list is stored under the key `predictions`, as described in the previous section. Any other metric can be included by adding an additional key (this key will be used to display the metric) to the dictionary, and having its value be a list with one entry for each datapoint provided to the custom prediction function. The list entry should be a single number or string for display in the tool.
 
 Any returned metrics will be listed in the datapoint viewer in the Datapoint Editor, just like the feature values area, and also usable for creating charts in the datapoints visualization, and for slicing datapoints in the Performance workspace.
