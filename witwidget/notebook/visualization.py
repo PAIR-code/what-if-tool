@@ -529,6 +529,134 @@ class WitConfigBuilder(object):
       self.store('custom_distance_fn', distance_fn)
     return self
 
+  def set_uai_platform_model(
+    self, project, model, location, force_json_input=None,
+    adjust_prediction=None, adjust_example=None, adjust_attribution=None,
+    service_name='prediction-aiplatform', service_version='v1',
+    get_explanations=True, batch_size=500, api_key=None):
+    """Sets the model information for a model served by Unified AI Platform.
+
+    Unified AI Platform Prediction a Google Cloud serving platform.
+
+    Args:
+      project: The name of the AI Platform Prediction project.
+      model: The endpoint ID of the AI Platform Prediction model.
+      location: The location of the deployed AI Platform Prediction model.
+      force_json_input: Optional. If True and examples are provided as
+      tf.Example protos, convert them to raw JSON objects before sending them
+      for inference to this model.
+      adjust_prediction: Optional. If not None then this function takes the
+      prediction output from the model for a single example and converts it to
+      the appopriate format - a regression score or a list of class scores. Only
+      necessary if the model doesn't already abide by this format.
+      adjust_example: Optional. If not None then this function takes an example
+      to run prediction on and converts it to the format expected by the model.
+      Necessary for example if the served model expects a single data value to
+      run inference on instead of a list or dict of values.
+      adjust_attribution: Optional. If not None and the model returns attribution
+      information, then this function takes the attribution information for an
+      example and converts it to the format expected by the tool, which is a
+      dictionary of input feature names to attribution scores. Usually necessary
+      if making use of adjust_example and the model returns attribution results.
+      service_name: Optional. Name of the AI Platform Prediction service. Defaults
+      to 'prediction-aiplatform'.
+      service_version: Optional. Version of the AI Platform Prediction service. Defaults
+      to 'v1'.
+      get_explanations: Optional. If a model is deployed with explanations,
+      then this specifies if explainations will be calculated and displayed.
+      Defaults to True.
+      batch_size: Optional. Sets the individual batch size to send for
+      prediction. Defaults to 500.
+      api_key: Optional. A generated API key to send with the requests to AI
+      Platform.
+
+    Returns:
+      self, in order to enabled method chaining.
+    """
+    self.set_inference_address(project)
+    self.set_model_name(model)
+    self.store('use_aip', True)
+    self.store('aip_location', location)
+    self.store('aip_service_name', service_name)
+    self.store('aip_service_version', service_version)
+    self.store('aip_batch_size', batch_size)
+    self.store('get_explanations', get_explanations)
+    if force_json_input:
+      self.store('force_json_input', True)
+    if adjust_prediction:
+      self.store('adjust_prediction', adjust_prediction)
+    if adjust_example:
+      self.store('adjust_example', adjust_example)
+    if adjust_attribution:
+      self.store('adjust_attribution', adjust_attribution)
+    if api_key:
+      self.store('aip_api_key', api_key)
+    return self
+
+  def set_compare_uai_platform_model(
+    self, project, model, location, force_json_input=None,
+    adjust_prediction=None, adjust_example=None, adjust_attribution=None,
+    service_name='prediction-aiplatform', service_version='v1',
+    get_explanations=True, batch_size=500, api_key=None):
+    """Sets the model info for a second model served by Unified AI Platform.
+
+    Unified AI Platform Prediction a Google Cloud serving platform.
+
+    Args:
+      project: The name of the AI Platform Prediction project.
+      model: The endpoint ID of the AI Platform Prediction model.
+      location: The location of the deployed AI Platform Prediction model.
+      force_json_input: Optional. If True and examples are provided as
+      tf.Example protos, convert them to raw JSON objects before sending them
+      for inference to this model.
+      adjust_prediction: Optional. If not None then this function takes the
+      prediction output from the model for a single example and converts it to
+      the appopriate format - a regression score or a list of class scores. Only
+      necessary if the model doesn't already abide by this format.
+      adjust_example: Optional. If not None then this function takes an example
+      to run prediction on and converts it to the format expected by the model.
+      Necessary for example if the served model expects a single data value to
+      run inference on instead of a list or dict of values.
+      adjust_attribution: Optional. If not None and the model returns attribution
+      information, then this function takes the attribution information for an
+      example and converts it to the format expected by the tool, which is a
+      dictionary of input feature names to attribution scores. Usually necessary
+      if making use of adjust_example and the model returns attribution results.
+      service_name: Optional. Name of the AI Platform Prediction service. Defaults
+      to 'ml'.
+      service_version: Optional. Version of the AI Platform Prediction service. Defaults
+      to 'v1'.
+      get_explanations: Optional. If a model is deployed with explanations,
+      then this specifies if explainations will be calculated and displayed.
+      Defaults to True.
+      batch_size: Optional. Sets the individual batch size to send for
+      prediction. Defaults to 500.
+      api_key: Optional. A generated API key to send with the requests to AI
+      Platform.
+
+    Returns:
+      self, in order to enabled method chaining.
+    """
+    self.set_compare_inference_address(project)
+    self.set_compare_model_name(model)
+    self.store('compare_aip_location', location)
+    self.store('compare_use_aip', True)
+    self.store('compare_aip_service_name', service_name)
+    self.store('compare_aip_service_version', service_version)
+    self.store('compare_aip_batch_size', batch_size)
+    self.store('compare_get_explanations', get_explanations)
+    if force_json_input:
+      self.store('compare_force_json_input', True)
+    if adjust_prediction:
+      self.store('compare_adjust_prediction', adjust_prediction)
+    if adjust_example:
+      self.store('compare_adjust_example', adjust_example)
+    if adjust_attribution:
+      self.store('compare_adjust_attribution', adjust_attribution)
+    if api_key:
+      self.store('compare_aip_api_key', api_key)
+    return self
+
   def set_ai_platform_model(
     self, project, model, version=None, force_json_input=None,
     adjust_prediction=None, adjust_example=None, adjust_attribution=None,

@@ -18,6 +18,7 @@ import googleapiclient.discovery
 import os
 import logging
 import multiprocessing
+import requests
 import tensorflow as tf
 from IPython import display
 from google.protobuf import json_format
@@ -376,6 +377,7 @@ class WitWidgetBase(object):
       self.config.get('inference_address'),
       self.config.get('model_name'),
       self.config.get('model_signature'),
+      self.config.get('aip_location'),
       self.config.get('force_json_input'),
       self.adjust_example_fn,
       self.adjust_prediction_fn,
@@ -392,6 +394,7 @@ class WitWidgetBase(object):
       self.config.get('inference_address_2'),
       self.config.get('model_name_2'),
       self.config.get('model_signature_2'),
+      self.config.get('compare_aip_location'),
       self.config.get('compare_force_json_input'),
       self.compare_adjust_example_fn,
       self.compare_adjust_prediction_fn,
@@ -402,16 +405,50 @@ class WitWidgetBase(object):
       self.config.get('compare_aip_batch_size'),
       self.config.get('compare_aip_api_key'))
 
-  def _predict_aip_impl(self, examples, project, model, version, force_json,
-                        adjust_example, adjust_prediction, adjust_attribution,
-                        service_name, service_version, get_explanations,
-                        batch_size, api_key):
+  def _predict_aip_impl(self, examples, project, model, version, location,
+                        force_json, adjust_example, adjust_prediction,
+                        adjust_attribution, service_name, service_version,
+                        get_explanations, batch_size, api_key):
     """Custom prediction function for running inference through AI Platform."""
 
     # Set up environment for GCP call for specified project.
     os.environ['GOOGLE_CLOUD_PROJECT'] = project
 
     should_explain = get_explanations and not self.running_mutant_infer
+
+    def unified_predict(exs):
+      """Run UCAIP prediction on a list of examples and return results."""
+      headers = {
+        'Content-Type': 'application/json',
+      }
+      if api_key is not None:
+        bearer = 'Bearer '  + api_key
+        headers['Authorization'] = bearer
+
+      url = ('https://{}.googleapis.com/{}/projects/{}/locations/{}/endpoints/'
+             '{}:predict'.format(
+               service_name, service_version, project, location, model))
+
+      if self.config.get('uses_json_input') or force_json:
+        examples_for_predict = self._json_from_tf_examples(exs)
+      else:
+        examples_for_predict = [{'b64': base64.b64encode(
+          example.SerializeToString()).decode('utf-8') }
+          for example in exs]
+
+      # If there is a user-specified input example adjustment to make, make it.
+      if adjust_example:
+        examples_for_predict = [
+          adjust_example(ex) for ex in examples_for_predict]
+
+      data = json.dumps({'instances': examples_for_predict})
+
+      try:
+        response = requests.post(url, headers=headers, data=data).json()
+      except Exception as e:
+        #error_during_prediction = True
+        response = {'error': str(e)}
+      return response
 
     def predict(exs):
       """Run prediction on a list of examples and return results."""
@@ -497,8 +534,11 @@ class WitWidgetBase(object):
       batch_size = len(examples)
     batched_examples = list(chunks(examples, batch_size))
 
+    # If location is speficied, then this is a UCAIP request.
+    predict_fn = predict if location is None else unified_predict
+
     pool = multiprocessing.pool.ThreadPool(processes=POOL_SIZE)
-    responses = pool.map(predict, batched_examples)
+    responses = pool.map(predict_fn, batched_examples)
     pool.close()
     pool.join()
 
