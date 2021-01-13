@@ -78,7 +78,7 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
     self.inferences_generator = None
     # TODO(wit-dev) This should depend on the example size targeting less than
     # 10MB per batch to avoid websocket issues.
-    self.batch_size = 1000
+    self.batch_size = 10000
 
     widgets.DOMWidget.__init__(self, layout=Layout(height='%ipx' % height))
     base.WitWidgetBase.__init__(self, config_builder)

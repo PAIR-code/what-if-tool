@@ -139,9 +139,10 @@ var WITView = widgets.DOMWidgetView.extend({
       this.touch();
     });
     this.setupComplete = true;
-    // Notify backend that setup is complete.
-    const setupComplete = this.model.get('frontend_ready');
-    this.model.set('frontend_ready', setupComplete + 1);
+    // Notify backend that setup is complete by incrementing the frontend_ready
+    // counter traitlet.
+    const frontendReady = this.model.get('frontend_ready');
+    this.model.set('frontend_ready', frontendReady + 1);
     this.touch();
   },
 
