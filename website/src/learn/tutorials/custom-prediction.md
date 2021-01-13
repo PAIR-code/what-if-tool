@@ -6,8 +6,8 @@ hero-image: /assets/images/sample-banner.png
 hero-title: "Custom Prediction Functions"
 hero-copy: "Using Custom Prediction Functions"
 
-bc-anchor-category: "analysis"
-bc-category-title: "Conducting Analysis in the What-If Tool"
+bc-anchor-category: "basics"
+bc-category-title: "Basics of the What-If Tool"
 bc-title: "Custom Prediction Functions"
 
 time: "15 minutes"

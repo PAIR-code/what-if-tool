@@ -44,6 +44,9 @@ c-copy: "Set up the What-If Tool inside of TensorBoard." %}
 {% include partials/tutorial-link-element c-title: "Technical Setup: Getting Started in Notebooks", link: "/learn/tutorials/notebooks",
 c-copy: "Set up the What-If Tool inside of notebook environments." %}
 
+{% include partials/tutorial-link-element c-title: "Custom Prediction Functions", link: "/learn/tutorials/custom-prediction",
+c-copy: "Learn to use the What-If Tool with arbitrary python functions, and how to include feature attributions in the analysis." %}
+
 {% include partials/spacer height:50 %}
 
 <a name="analysis"></a>
@@ -61,9 +64,6 @@ c-copy: "Learn how to add non-input features into the What-If Tool to analyze su
 
 {% include partials/tutorial-link-element c-title: "Exploring Features Overview To Identify Biases", link: "/learn/tutorials/features-overview-bias",
 c-copy: "Explore datapoints in Features Overview to identify sources of bias." %}
-
-{% include partials/tutorial-link-element c-title: "Custom Prediction Functions", link: "/learn/tutorials/custom-prediction",
-c-copy: "Learn to use the What-If Tool with arbitrary python functions, and how to include feature attributions in the analysis." %}
 
 {% include partials/tutorial-link-element c-title: "Exploring Attributions", link: "/learn/tutorials/attributions",
 c-copy: "Learn how to analyze feature attributions in the What-If Tool." %}
