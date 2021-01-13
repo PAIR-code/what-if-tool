@@ -202,7 +202,9 @@ def call_servo(examples, serving_bundle):
   Returns:
     A ClassificationResponse or RegressionResponse proto.
   """
+  # Batch size for number of examples to send to servo in a single RPC.
   batch_size = 100000
+
   parsed_url = urlparse('http://' + serving_bundle.inference_address)
   channel = implementations.insecure_channel(parsed_url.hostname,
                                              parsed_url.port)

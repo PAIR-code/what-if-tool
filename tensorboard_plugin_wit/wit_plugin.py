@@ -52,7 +52,8 @@ NUM_EXAMPLES_TO_SCAN = 50
 NUM_MUTANTS = 10
 
 # Max number of examples to send in a single response.
-MAX_EXAMPLES_TO_SEND = 100000
+# TODO(jameswex): Make dynamic based on example size.
+MAX_EXAMPLES_TO_SEND = 10000
 
 class WhatIfToolPlugin(base_plugin.TBPlugin):
   """Plugin for understanding/debugging model inference.
@@ -179,7 +180,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
       request: A request that should contain 'examples_path' and 'max_examples'.
 
     Returns:
-      JSON of up to max_examlpes of the examples in the path.
+      JSON of up to max_examples of the examples in the path.
     """
     start_example = (int(request.args.get('start_example'))
         if request.args.get('start_example') else 0)
@@ -368,7 +369,6 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
 
     # Split results from start_example to + max_examples
     # Send next start_example if necessary
-    logging.error('time to slice')
     end_example = start_example + MAX_EXAMPLES_TO_SEND
 
     def get_inferences_resp():
