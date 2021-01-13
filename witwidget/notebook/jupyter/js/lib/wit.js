@@ -24,9 +24,9 @@ var WITView = widgets.DOMWidgetView.extend({
     this.loadAndCreateWhatIfToolElement();
 
     // Add listeners for changes from python.
-    this.model.on('change:examples', this.examplesChanged, this);
+    this.model.on('change:examples_batch', this.appendStagedExamples, this);
     this.model.on('change:config', this.configChanged, this);
-    this.model.on('change:inferences', this.inferencesChanged, this);
+    this.model.on('change:inferences_batch', this.appendStagedInferences, this);
     this.model.on(
       'change:eligible_features',
       this.eligibleFeaturesChanged,
@@ -59,9 +59,10 @@ var WITView = widgets.DOMWidgetView.extend({
     this.el.appendChild(iframe);
     this.iframe = iframe;
 
+    this.stagedExamples = [];
+    this.stagedInferences = {};
     // Invoke change listeners for initial settings.
     this.configChanged();
-    this.examplesChanged();
     this.spriteChanged();
   },
 
@@ -138,9 +139,36 @@ var WITView = widgets.DOMWidgetView.extend({
       this.touch();
     });
     this.setupComplete = true;
+    // Notify backend that setup is complete by incrementing the frontend_ready
+    // counter traitlet.
+    const frontendReady = this.model.get('frontend_ready');
+    this.model.set('frontend_ready', frontendReady + 1);
+    this.touch();
   },
 
   // Callback functions for when changes made on python side.
+  appendStagedExamples: function() {
+    if (!this.setupComplete) {
+      if (this.isViewReady()) {
+        this.setupView();
+      }
+      requestAnimationFrame(() => this.appendStagedExamples());
+      return;
+    }
+    const i = this.model.get('examples_batch_id')
+    // Add examples
+    const examples = this.model.get('examples_batch');
+    this.stagedExamples.push(...examples);
+    // Request the next batch
+    this.model.set('examples_batch_id', i - 1);
+    this.touch();
+    // If batch number is 0, it means the transfer is complete.
+    if (i == 0) {
+      this.examplesChanged();
+      // Reset staged examples at the end of the transfer.
+      this.stagedExamples = []
+    }
+  },
   examplesChanged: function() {
     if (!this.setupComplete) {
       if (this.isViewReady()) {
@@ -149,10 +177,53 @@ var WITView = widgets.DOMWidgetView.extend({
       requestAnimationFrame(() => this.examplesChanged());
       return;
     }
-
-    const examples = this.model.get('examples');
+    const examples = this.stagedExamples;
     if (examples && examples.length > 0) {
       this.view_.updateExampleContents(examples, false);
+    }
+  },
+  appendStagedInferences: function() {
+    if (!this.setupComplete) {
+      if (this.isViewReady()) {
+        this.setupView();
+      }
+      requestAnimationFrame(() => this.appendStagedInferences());
+      return;
+    }
+
+    // Add inferences
+    const res = this.model.get('inferences_batch');
+
+    // If starting a new set of data, reset the staged results.
+    if (Object.keys(this.stagedInferences).length === 0) {
+      this.stagedInferences = res.inferences;
+    }
+
+    for (let i = 0; i < res.results.length; i++) {
+      if (this.view_.modelType == 'classification') {
+        this.stagedInferences.inferences.results[i].classificationResult
+            .classifications.push(...res.results[i]);
+      }
+      else {
+        this.stagedInferences.inferences.results[i].regressionResult
+            .regressions.push(...res.results[i]);
+      }
+      const extras = res.extra[i];
+      for (let key of Object.keys(extras)) {
+        this.stagedInferences.extra_outputs[i][key].push(...extras[key]);
+      }
+    }
+    this.stagedInferences.inferences.indices.push(...res.indices);
+
+    // Request the next batch
+    const batch_id = this.model.get('inferences_batch_id')
+    this.model.set('inferences_batch_id', batch_id - 1);
+    this.touch();
+    // If batch number is 0, it means the transfer is complete.
+    if (batch_id == 0) {
+      this.inferencesChanged();
+      // Reset staged inferences at the end of the transfer.
+      this.stagedInferences = {}
     }
   },
   inferencesChanged: function() {
@@ -163,7 +234,7 @@ var WITView = widgets.DOMWidgetView.extend({
       requestAnimationFrame(() => this.inferencesChanged());
       return;
     }
-    const inferences = this.model.get('inferences');
+    const inferences = this.stagedInferences;
     this.view_.labelVocab = inferences['label_vocab'];
     this.view_.inferences = inferences['inferences'];
     this.view_.extraOutputs = {

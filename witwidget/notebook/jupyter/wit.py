@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import math
 import ipywidgets as widgets
 import tensorflow as tf
 from IPython.core.display import display, HTML
@@ -34,9 +35,17 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
 
   # Traitlets for communicating between python and javascript.
   config = Dict(dict()).tag(sync=True)
-  examples = List([]).tag(sync=True)
-  inferences = Dict(dict()).tag(sync=True)
+  # Examples and inferences are not synced directly because large datasets cause 
+  # websocket issues. Instead, we indirectly update them through batch updates.
+  examples = List([])
+  frontend_ready = Int(0).tag(sync=True)
+  examples_batch = List([]).tag(sync=True)
+  examples_batch_id = Int(0).tag(sync=True)
+  inferences = Dict(dict())
+  inferences_batch = Dict(dict()).tag(sync=True)
+  inferences_batch_id = Int(0).tag(sync=True)
   infer = Int(0).tag(sync=True)
+  infer_counter = Int(0)
   update_example = Dict(dict()).tag(sync=True)
   delete_example = Dict(dict()).tag(sync=True)
   duplicate_example = Dict(dict()).tag(sync=True)
@@ -64,6 +73,13 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
       the render method is called or the WitWidget object is directly evaluated
       in a notebook cell.
     """
+    self.transfer_block = False
+    self.examples_generator = None
+    self.inferences_generator = None
+    # TODO(wit-dev) This should depend on the example size targeting less than
+    # 10MB per batch to avoid websocket issues.
+    self.batch_size = 10000
+
     widgets.DOMWidget.__init__(self, layout=Layout(height='%ipx' % height))
     base.WitWidgetBase.__init__(self, config_builder)
     self.error_counter = 0
@@ -76,8 +92,27 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
     return self
 
   def set_examples(self, examples):
+    if self.transfer_block:
+      print('Cannot set examples while transfer is in progress.')
+      return
     base.WitWidgetBase.set_examples(self, examples)
+    self.examples_generator = self.generate_next_example_batch()
+    # If this is called after frontend is ready this makes sure examples are
+    # updated.
+    self._start_examples_sync()
     self._generate_sprite()
+
+  def generate_next_example_batch(self):
+    n_examples = len(self.examples)
+    n_batches = n_examples // self.batch_size
+    batch_end = n_batches * self.batch_size
+    num_remaining = n_batches + (batch_end!=n_examples)
+    for i in range(n_batches):
+      num_remaining -= 1
+      yield self.examples[i*self.batch_size:(i+1)*self.batch_size], num_remaining
+    if batch_end != n_examples:
+      num_remaining -= 1
+      yield self.examples[batch_end:], num_remaining
 
   def _report_error(self, err):
     self.error = {
@@ -86,12 +121,133 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
     }
     self.error_counter += 1
 
+  def _start_examples_sync(self):
+    if not self.frontend_ready or self.examples_generator is None or self.transfer_block:
+      return
+    # Send the first batch
+    next_batch, self.examples_batch_id = next(self.examples_generator, ([], -1))
+    self.transfer_block = True
+    self.examples_batch = next_batch
+
   @observe('infer')
   def _infer(self, change):
     try:
       self.inferences = base.WitWidgetBase.infer_impl(self)
+      self.inferences_generator = self.generate_next_inference_batch()
+      self._start_inferences_sync()
     except Exception as e:
       self._report_error(e)
+
+  def generate_next_inference_batch(self):
+    # Parse out the inferences from the returned stucture and empty the
+    # structure of contents, keeping its nested structure.
+    # Chunks of the inference results will be sent to the front-end and
+    # re-assembled.
+    indices = self.inferences['inferences']['indices'][:]
+    self.inferences['inferences']['indices'] = []
+    res2 = []
+    extra = {}
+    extra2 = {}
+    model_inference = self.inferences['inferences']['results'][0]
+    if ('extra_outputs' in self.inferences and len(self.inferences['extra_outputs']) and
+        self.inferences['extra_outputs'][0]):
+      for key in self.inferences['extra_outputs'][0]:
+        extra[key] = self.inferences['extra_outputs'][0][key][:]
+        self.inferences['extra_outputs'][0][key] = []
+    if 'classificationResult' in model_inference:
+      res = model_inference['classificationResult']['classifications'][:]
+      model_inference['classificationResult']['classifications'] = []
+    else:
+      res = model_inference['regressionResult']['regressions'][:]
+      model_inference['regressionResult']['regressions'] = []
+
+    if len(self.inferences['inferences']['results']) > 1:
+      if ('extra_outputs' in self.inferences and
+          len(self.inferences['extra_outputs']) > 1 and
+          self.inferences['extra_outputs'][1]):
+        for key in self.inferences['extra_outputs'][1]:
+          extra2[key] = self.inferences['extra_outputs'][1][key][:]
+          self.inferences['extra_outputs'][1][key] = []
+      model_2_inference = self.inferences['inferences']['results'][1]
+      if 'classificationResult' in model_2_inference:
+        res2 = model_2_inference['classificationResult']['classifications'][:]
+        model_2_inference['classificationResult']['classifications'] = []
+      else:
+        res2 = model_2_inference['regressionResult']['regressions'][:]
+        model_2_inference['regressionResult']['regressions'] = []
+
+    num_pieces = math.ceil(len(indices) / self.batch_size)
+    i = 0
+
+    while num_pieces > 0:
+      num_pieces -= 1
+
+      piece = [res[i : i + self.batch_size]]
+      extra_piece = [{}]
+      for key in extra:
+        extra_piece[0][key] = extra[key][i : i + self.batch_size]
+      if res2:
+        piece.append(res2[i : i + self.batch_size])
+        extra_piece.append({})
+        for key in extra2:
+          extra_piece[1][key] = extra2[key][i : i + self.batch_size]
+      ind_piece = indices[i : i + self.batch_size]
+      data = {'results': piece, 'indices': ind_piece, 'extra': extra_piece,
+              'counter': self.infer_counter}
+      self.infer_counter += 1
+      # For the first segment to send, also send the blank inferences
+      # structure to be filled in. This was cleared of contents above but is
+      # used to maintain the nested structure of the results.
+      if i == 0:
+        data['inferences'] = self.inferences
+      i += self.batch_size
+      yield data, num_pieces
+
+  def _start_inferences_sync(self):
+    if self.inferences_generator is None or self.transfer_block:
+      return
+    # Send the first batch
+    next_batch, self.inferences_batch_id = next(
+      self.inferences_generator, ({}, -1))
+    self.transfer_block = True
+    self.inferences_batch = next_batch
+
+  # When frontend processes sent inferences, it updates batch id to request the
+  # next batch
+  @observe('inferences_batch_id')
+  def _send_inferences_batch(self, change):
+    if not self.transfer_block:
+      return
+    # Do not trigger at the end of a transfer.
+    if self.inferences_batch_id < 0 or self.inferences_generator is None:
+      self.transfer_block = False
+      return
+    self.inferences_batch, num_remaining = next(
+      self.inferences_generator, ({}, -1))
+    if num_remaining == 0:
+      self.inferences_generator = None
+      self.transfer_block = False
+
+  # Finish setup items that require frontend to be ready.
+  @observe('frontend_ready')
+  def _finish_setup(self, change):
+    # Start examples transfer
+    self._start_examples_sync()
+
+  # When frontend processes sent examples, it updates batch id to request the
+  # next batch
+  @observe('examples_batch_id')
+  def _send_example_batch(self, change):
+    if not self.transfer_block:
+      return
+    # Do not trigger at the end of a transfer.
+    if self.examples_batch_id < 0 or self.examples_generator is None:
+      self.transfer_block = False
+      return
+    self.examples_batch, num_remaining = next(self.examples_generator, ([], -1))
+    if num_remaining == 0:
+      self.examples_generator = None
+      self.transfer_block = False
 
   # Observer callbacks for changes from javascript.
   @observe('get_eligible_features')
