@@ -13,7 +13,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-var witHtmlLocation = require('file-loader!./wit_jupyter.html');
 var widgets = require('@jupyter-widgets/base');
 
 // What-If Tool View. Renders the tool and provides communication with the
@@ -51,11 +50,7 @@ var WITView = widgets.DOMWidgetView.extend({
       parseInt(this.model.attributes.layout.attributes.height, 10) - 20;
     const iframe = document.createElement('iframe');
 
-    // Adjust WIT html location if running in a jupyter notebook
-    // and not in jupyterlab.
-    if (document.body.getAttribute('data-base-url') != null) {
-      witHtmlLocation = window.__nbextension_path__ + 'wit_jupyter.html';
-    }
+    const witHtmlLocation = window.__nbextension_path__ + 'wit_jupyter.html';
 
     iframe.frameBorder = '0';
     iframe.style.width = '100%';

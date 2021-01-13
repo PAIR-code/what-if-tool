@@ -567,7 +567,7 @@ class WitConfigBuilder(object):
       Defaults to True.
       batch_size: Optional. Sets the individual batch size to send for
       prediction. Defaults to 500.
-      api_key. Optional. A generated API key to send with the requests to AI
+      api_key: Optional. A generated API key to send with the requests to AI
       Platform.
 
     Returns:
@@ -632,7 +632,7 @@ class WitConfigBuilder(object):
       Defaults to True.
       batch_size: Optional. Sets the individual batch size to send for
       prediction. Defaults to 500.
-      api_key. Optional. A generated API key to send with the requests to AI
+      api_key: Optional. A generated API key to send with the requests to AI
       Platform.
 
     Returns:
