@@ -3,9 +3,9 @@
 ## Release 1.8.0
 
 This version greatly increases the number of datapoints that can be loaded into
-the tool, in both TensorBoard and notebook mode. WIT can now handle on the order
-of hundreds of thousands of datapoints for simple tabular datasets. This version
-also enables witwidget in JupyterLab version 2.x.
+the tool, in both TensorBoard and notebook modes. WIT can now handle on the
+order of hundreds of thousands of datapoints for simple tabular datasets. This
+version also enables witwidget in JupyterLab version 2.x.
 
 ### Notable Features
 - #110 - Change file loading rules in TensorBoard.
