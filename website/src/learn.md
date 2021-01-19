@@ -32,6 +32,9 @@ c-copy: "Learn the steps to find a counterfactual to a datapoint in the What-If 
 {% include partials/tutorial-link-element c-title: "How To: Customize the Datapoints Visualization", link: "/learn/tutorials/customize-datapoints",
 c-copy: "Learn how to customize visualizations from features in a loaded dataset using the Datapoints visualization." %}
 
+{% include partials/tutorial-link-element c-title: "How To: Visualize Partial Dependence Plots", link: "/learn/tutorials/partial-dependence-plots",
+c-copy: "Learn how to view partial dependence plots and what value they provide." %}
+
 {% include partials/tutorial-link-element c-title: "Features Overview: Understanding Your Feature Distributions", link: "/learn/tutorials/features-overview",
 c-copy: "Explore the functionality of the Features Overview dashboard in the What-If Tool." %}
 
@@ -40,6 +43,9 @@ c-copy: "Set up the What-If Tool inside of TensorBoard." %}
 
 {% include partials/tutorial-link-element c-title: "Technical Setup: Getting Started in Notebooks", link: "/learn/tutorials/notebooks",
 c-copy: "Set up the What-If Tool inside of notebook environments." %}
+
+{% include partials/tutorial-link-element c-title: "Custom Prediction Functions", link: "/learn/tutorials/custom-prediction",
+c-copy: "Learn to use the What-If Tool with arbitrary python functions, and how to include feature attributions in the analysis." %}
 
 {% include partials/spacer height:50 %}
 
@@ -58,6 +64,9 @@ c-copy: "Learn how to add non-input features into the What-If Tool to analyze su
 
 {% include partials/tutorial-link-element c-title: "Exploring Features Overview To Identify Biases", link: "/learn/tutorials/features-overview-bias",
 c-copy: "Explore datapoints in Features Overview to identify sources of bias." %}
+
+{% include partials/tutorial-link-element c-title: "Exploring Attributions", link: "/learn/tutorials/attributions",
+c-copy: "Learn how to analyze feature attributions in the What-If Tool." %}
 
 {% include partials/spacer height:50 %}
 

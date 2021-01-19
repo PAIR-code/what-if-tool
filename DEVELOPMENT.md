@@ -1,5 +1,8 @@
 # What-If Tool Development Guide
 
+Building the What-If Tool has been verified to work with bazel version 0.27.
+Later versions of bazel are currently untested and may fail to build the package.
+
 ## First-time Setup
 
 1. Install [Bazel](https://docs.bazel.build/versions/master/install.html)

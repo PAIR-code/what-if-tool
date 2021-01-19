@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Do we need additional share metadata included here? -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-46457317-11"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-46457317-11');
+</script>
+
+    <title>How To - Visualize Partial Dependence Plots</title>
+    
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/what-if-tool/assets/css/material.min.css">
+    <link rel="stylesheet" href="/what-if-tool/assets/css/material-components-web.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Manrope:400,400italic,500,500italic,700,700italic" rel="stylesheet" type="text/css">
+
+    <!-- <link href='/what-if-tool/assets/css/main.css' rel='stylesheet' type='text/css'> -->
+    <link href='/what-if-tool/assets/css/new.css' rel='stylesheet' type='text/css'>
+    <link rel="icon" href="/what-if-tool/assets/images/favicon.png" type="image/png"/>
+
+  </head>
+
+  <body>
+    <div class="mdl-layout mdl-layout--no-desktop-drawer-button mdl-js-layout mdl-layout--fixed-header">
+      
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout__title"><a href="/what-if-tool/">What-If Tool</a></span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation. We hide it in small screens. -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/what-if-tool/get-started/">GET STARTED</a>
+            <a class="mdl-navigation__link" href="/what-if-tool/learn/">TUTORIALS</a>
+            <a class="mdl-navigation__link" href="/what-if-tool/explore/">DEMOS</a>
+            <a class="mdl-navigation__link" href="/what-if-tool/faqs/">FAQs</a>
+            <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="-_blank">GET INVOLVED<img class="header-arrow" src="/what-if-tool/assets/images/arrow-link-out.png"/></a>
+            <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/what-if-tool/assets/images/arrow-link-out.png"/></a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout__title"><a href="/what-if-tool/">What-If Tool</a></span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="/what-if-tool/get-started/">GET STARTED</a>
+          <a class="mdl-navigation__link" href="/what-if-tool/learn/">TUTORIALS</a>
+          <a class="mdl-navigation__link" href="/what-if-tool/explore/">DEMOS</a>
+          <a class="mdl-navigation__link" href="/what-if-tool/faqs/">FAQs</a>
+          <a class="mdl-navigation__link" href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">GET INVOLVED<img class="header-arrow" src="/what-if-tool/assets/images/arrow-link-out.png"/></a>
+          <a class="mdl-navigation__link" href="https://github.com/pair-code/what-if-tool" target="-_blank">GITHUB<img class="header-arrow" src="/what-if-tool/assets/images/arrow-link-out.png"/></a>
+          
+          <!-- <a class="mdl-navigation__link" href="https://pair-code.github.io/facets/" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>Facets</span>
+          </a>
+          <a class="mdl-navigation__link" href="https://js.tensorflow.org" target="-_blank">
+            <i class="material-icons icon-style">star</i>
+            <span>TensorFlow.js</span>
+          </a> -->
+        </nav>
+      </div>
+      
+      <main class="mdl-layout__content hero-banner">
+        <div class="tutorial-page-container mdl-grid">
+          <div class="mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <div class="tutorial-breadcrumbs">
+  <a href="/what-if-tool/learn">Learn</a> > <a href="/what-if-tool/learn/#basics">Basics of the What-If Tool</a> > Visualize Partial Dependence Plots
+</div>
+            <h2>How To - Visualize Partial Dependence Plots</h2>
+<p>The Partial Dependence Plot (PDP) shows the marginal effect of a feature on a model’s predictions. Typically, these plots are used to evaluate a model’s sensitivity to a feature.</p>
+<p>In the What-If Tool, PDPs can be computed for a specific datapoint or globally over the whole set of datapoints.</p>
+<ul>
+<li>Datapoint-specific partial dependence plots visualize the change in prediction results across the range of values for a feature of a selected datapoint, assuming no change to other feature values.</li>
+<li>Global partial dependence plots visualizes, for a feature, the average of model prediction when this feature is set to specific values for all loaded data points.  For example, for an &quot;age&quot; feature, each datapoint loaded in WIT might be edited to have its values be 10, 20, 30, 40, 50, 60 , 70, 80, 90, and 100, and the model prediction for each data point with the age feature set to 10 is averaged, same for 20, etc. Those averaged predictions are then plotted against the feature values.</li>
+</ul>
+<h3>PDPs for numerical and categorical data</h3>
+<p>In the What-If Tool, the  PDP can be displayed for quantitative and categorical data.</p>
+<ul>
+<li>For quantitative features, WIT will display the model predictions for 10 values of the feature ranging from the minimum to the maximum values in the uploaded dataset.</li>
+<li>For categorical data, WIT will display the most popular other categories and the corresponding model prediction as an alternative to the category of the selected datapoint.</li>
+</ul>
+<h3>Visualize a PDP in WIT</h3>
+<p>Here are some steps to exploring PDPs inside the What-If Tool.</p>
+<ol>
+<li><strong>Select a datapoint of interest</strong> in the custom <em>Datapoints</em> visualization by clicking on it. A list of all features and values associated with that datapoint will appear in the <em>Edit</em> module.</li>
+<li><strong>Click on the ‘Partial dependence plots’ button</strong> in the <em>Visualize</em> module, on the left part of the screen. This will display PDPs for all the features of this datapoint.</li>
+</ol>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/what-if-tool/assets/images/PDP3.gif"/>
+  <div class="tutorial-caption">Above: Exploring PDPs.</div>
+</div>
+<ol start="3">
+<li>
+<p><strong>Sort PDPs by variation.</strong> Click the ‘Sort by variation’ button to first display the PDPs with the strongest variation of model output. The more impact features have on model outcome, the more likely they are to be important features worth closer inspection.</p>
+</li>
+<li>
+<p><strong>Switch to Global PDPs.</strong> For global PDPs over the whole sample, you can either select the PDP button without selecting a specific datapoint, or you can click on the ‘Global partial dependence plots’ toggle to visualize prediction results averaged across all data points.</p>
+</li>
+</ol>
+<h3>Additional features</h3>
+<p>One can restrict the range in which PDPs are calculated for each feature by modifying the ‘Set range of values to visualize’ on the right of the graph.</p>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/what-if-tool/assets/images/pdp-controls.png"/>
+  <div class="tutorial-caption">Above: How to set value ranges for PDPs of numeric features.</div>
+</div>
+<p>If the datapoint contains multiple feature values for a feature, each feature value is visualized as a single plot. You can override which feature values are visualized by specifying the indices for partial dependence plots.</p>
+<h3>Example of model analysis with PDPs</h3>
+<p>This example compares two binary classification models that predict whether a person earns a yearly revenue above $50k, based on their census information. One model is a logistic regression classifier and the other is a deep neural network. We want to examine how different features affect each models' predictions. The PDP is an insightful feature for this investigation.</p>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/what-if-tool/assets/images/PDP2.gif"/>
+  <div class="tutorial-caption">Above: We are interested in global PDPs so we don’t select a datapoint and instead directly click on the ‘Partial dependence plots’ button. We then sort PDPs by variation.</div>
+</div>
+<ul>
+<li>The first PDP is the one for the capital gain feature. This numerical feature reports the amount of yearly capital gains earned by individuals.</li>
+<li>The PDP shows that the ‘capital gain’ feature plays a different role for the two models’ predictions. For the neural network (blue line) an increase in capital gain from 0 to 3000 USD decreases the model prediction that an individual earns a yearly revenue above $50k. On the contrary, the logistic regression model shows a monotonic relation between the capital grain and the likelihood of having a yearly revenue above $50k, even below 3000 USD of capital gains.</li>
+<li>This may look surprising at a first glance. Looking at our data, on the feature tab (seen below), we observe that the capital gain feature is highly imbalanced: 90% of its values are zeros, and the remaining 10% are either very low or very high values.</li>
+</ul>
+<div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <img class="tutorial-image" src="/what-if-tool/assets/images/capital-gains.png"/>
+  <div class="tutorial-caption">Above: The capital-gain feature has very imbalanced feature values.</div>
+</div>
+<ul>
+<li>We can hypothesize that the neural network (blue line) is treating 0 capital gains as a special value with no information in it, whereas very low (but non-0) or very high capital gains are treated as very indicative of low or high revenue. The logistic regression model doesn't have the power to make such a distinction. Whether such behaviors are desired or on the contrary need to be mitigated is case-specific and is a question for the people building and deploying the model.</li>
+</ul>
+<div class="mdl-cell info-box mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <div class="info-box-title">My PDP is taking time to load. Is this normal?</div>
+  <div class="info-box-text">To compute the PDPs, the What-If Tool will run prediction on your model many times per feature to be able to recompute model prediction with different feature values. This operation can take time depending on your model.</div>
+</div>
+
+          </div>
+          <div class="mdl-cell--4-col hide-me">
+            <div class="tutorial-info-container">
+              <div class="tutorial-info-header">time to read</div>
+              <div class="tutorial-info-copy">7 minutes</div>
+              <div class="tutorial-info-header">use with</div>
+              <div class="tutorial-info-copy">Classification models<br/>Multi-class models<br/>Regression models</div>
+              <div class="tutorial-info-header">before you begin</div>
+              <div class="tutorial-info-copy">N/A</div>
+              <div class="tutorial-info-header">related demos</div>
+              <div class="tutorial-info-copy">Binary Classification Model: UCI Census Income Prediction<br/><br/>Multi-class Classification Model: Flowers Species Identification<br/><br/>Regression Model: UCI Census Age Prediction</div>
+              <div class="tutorial-info-header">takeaways</div>
+              <div class="tutorial-info-copy">Learn how to view partial dependence plots and what value they provide.</div>
+              <div class="tutorial-info-header">what-if questions</div>
+              <div class="tutorial-info-copy">What is a partial dependence plot?<br/><br/>What can you learn from it?<br/><br/>How does one visualize datapoint-specific and global partial dependence plots?</div>
+            </div>
+          </div>
+          <div class="tutorial-footer mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            The What-If Tool is being actively developed and documentation is likely to change as we improve the tool. We want to hear from you! Leave us a note, feedback, or suggestion on <a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">our community group</a>.
+          </div>
+        </div>
+
+        <div class="footer-container mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://pair.withgoogle.com/" target="_blank"><img src="/what-if-tool/assets/images/pair-logo.svg"/></a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://research.google/teams/brain/pair/" target="_blank">Google Research</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://groups.google.com/forum/#!forum/what-if-tool" target="_blank">Get Involved</a></div>
+  <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--4-col-phone"><a href="https://github.com/pair-code" target="_blank">Github</a></div>
+  <div class="footer-icons mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+    <a href="mailto:peopleai@google.com" target="_blank"><img src="/what-if-tool/assets/images/mail.png"/></a>
+    <a href="https://medium.com/people-ai-research" target="_blank"><img src="/what-if-tool/assets/images/medium.png"/></a>
+    <a href="https://www.youtube.com/channel/UCnnns-uu4yy9BXfYSPIX5AA" target="_blank"><img src="/what-if-tool/assets/images/youtube.png"/></a>
+  </div>
+</div>
+      </main>
+
+    </div>
+  </body>
+
+  
+
+  <script defer src="/what-if-tool/assets/js/material.min.js"></script>
+  <script defer src="/what-if-tool/assets/js/material-components-web.min.js"></script>
+</html>

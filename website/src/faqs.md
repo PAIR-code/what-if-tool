@@ -25,7 +25,7 @@ Submit bugs, ask questions, suggest content, and request features on our [Github
 The number of datapoints depends on the size of the individual datapoints themselves. 
 Some factors that impact the number of datapoints that can be handled are the per-page memory limit of web browsers and the front-end for simultaneous visualization.
 
-For datapoints that contain tabular data or short text segments, the What-If Tool can handle tens of thousands of points. For datapoints that contain encoded images, the tool can only handle a few hundred datapoints, with the exact number depending on the size of the images.
+For datapoints that contain tabular data or short text segments, the What-If Tool can handle **hundreds of thousands of datapoints**. For datapoints that contain encoded images, the tool can only handle a few hundred datapoints, with the exact number depending on the size of the images.
 " %}
 
 {% include partials/faq-element 

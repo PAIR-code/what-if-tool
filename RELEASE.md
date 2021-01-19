@@ -1,5 +1,20 @@
 # What-If Tool releases
 
+## Release 1.8.0
+
+This version greatly increases the number of datapoints that can be loaded into
+the tool, in both TensorBoard and notebook modes. WIT can now handle on the
+order of hundreds of thousands of datapoints for simple tabular datasets. This
+version also enables witwidget in JupyterLab version 2.x.
+
+### Notable Features
+- #110 - Change file loading rules in TensorBoard.
+- #120 - Allow larger number of examples in colab.
+- #121 - Display actual server error text in tool.
+- #144 - Jupyter notebook scaling update.
+- #128 - Handle large number of examples in TensorBoard.
+- #134 - Enable WitWidget in JupyterLab2.
+
 ## Release 1.7.0
 
 This release has a few notable major features:
