@@ -27,6 +27,13 @@ from six import ensure_str
 from six import integer_types
 from utils import inference_utils
 
+import google.cloud.aiplatform_v1beta1
+from typing import Dict
+
+from google.cloud import aiplatform
+from google.protobuf import json_format
+from google.protobuf.struct_pb2 import Value
+
 # Constants used in mutant inference generation.
 NUM_MUTANTS_TO_GENERATE = 10
 NUM_EXAMPLES_FOR_MUTANT_ANALYSIS = 50
@@ -611,3 +618,298 @@ class WitWidgetBase(object):
 
       self.set_examples(filtered_examples)
     return handle_selection
+
+  def _predict_unified_aip_model(self, examples):
+    return self._predict_unified_aip_impl(
+      examples,
+      self.config.get('inference_address'),
+      self.config.get('model_name'),
+      self.config.get('model_signature'),
+      self.config.get('force_json_input'),
+      self.adjust_example_fn,
+      self.adjust_prediction_fn,
+      self.adjust_attribution_fn,
+      self.config.get('aip_service_name'),
+      self.config.get('aip_service_version'),
+      self.config.get('get_explanations'),
+      self.config.get('aip_batch_size'),
+      self.config.get('aip_api_key'))
+
+  def _predict_unified_aip_compare_model(self, examples):
+    return self._predict_unified_aip_impl(
+      examples,
+      self.config.get('inference_address_2'),
+      self.config.get('model_name_2'),
+      self.config.get('model_signature_2'),
+      self.config.get('compare_force_json_input'),
+      self.compare_adjust_example_fn,
+      self.compare_adjust_prediction_fn,
+      self.compare_adjust_attribution_fn,
+      self.config.get('compare_aip_service_name'),
+      self.config.get('compare_aip_service_version'),
+      self.config.get('compare_get_explanations'),
+      self.config.get('compare_aip_batch_size'),
+      self.config.get('compare_aip_api_key'))
+
+  def _predict_unified_aip_impl(self, examples, project, model, endpoint,
+                        force_json, adjust_example, adjust_prediction,
+                        adjust_attribution, service_name, service_version,
+                        get_explanations,batch_size, api_key):
+    """Custom prediction function for running inference through AI Platform (Unified)."""
+
+    # Set up environment for GCP call for specified project.
+    os.environ['GOOGLE_CLOUD_PROJECT'] = project
+
+    should_explain = get_explanations and not self.running_mutant_infer
+    # Set GOOGLE_APPLICATION_CREDENTIALS for filepath or create Credentials object
+    # https://github.com/googleapis/python-aiplatform/blob/master/google/cloud/aiplatform_v1beta1/services/prediction_service/client.py#L223
+
+    # Otherwise, google auth library
+
+    # https://github.com/googleapis/python-aiplatform/blob/master/google/cloud/aiplatform_v1beta1/types/prediction_service.py#L36
+
+    # From https://github.com/googleapis/python-aiplatform/blob/master/samples/snippets/predict_custom_trained_model_sample.py
+    def predict_custom_trained_model_sample(
+    project: str,
+    endpoint_id: str,
+    instance_dict: Dict,
+    location: str = "us-central1",
+    api_endpoint: str = "us-central1-prediction-aiplatform.googleapis.com",
+):
+    # The AI Platform services require regional API endpoints.
+    client_options = {"api_endpoint": api_endpoint}
+    # Initialize client that will be used to create and send requests.
+    # This client only needs to be created once, and can be reused for multiple requests.
+    client = aiplatform.gapic.PredictionServiceClient(client_options=client_options)
+    # The format of each instance should conform to the deployed model's prediction input schema.
+    instance = json_format.ParseDict(instance_dict, Value())
+    instances = [instance]
+    parameters_dict = {}
+    parameters = json_format.ParseDict(parameters_dict, Value())
+    endpoint = client.endpoint_path(
+        project=project, location=location, endpoint=endpoint_id
+    )
+    response = client.predict(
+        endpoint=endpoint, instances=instances, parameters=parameters
+    )
+    print("response")
+    print(" deployed_model_id:", response.deployed_model_id)
+    # The predictions are a google.protobuf.Value representation of the model's predictions.
+    predictions = response.predictions
+    for prediction in predictions:
+        print(" prediction:", dict(prediction))
+
+    def predict(exs):
+      """Run prediction on a list of examples and return results."""
+      # Properly package the examples to send for prediction.
+
+      # Authenticate, build service
+
+      #discovery_url = None
+      service_url = None
+      error_during_prediction = False
+      if api_key is not None: # Use provided api_key
+        discovery_url = (
+          ('https://%s.googleapis.com/$discovery/rest'
+           '?labels=GOOGLE_INTERNAL&key=%s&version=%s')
+          % (service_name, api_key, 'v1'))
+        credentials = GoogleCredentials.get_application_default()
+        service = googleapiclient.discovery.build(
+          service_name, service_version, cache_discovery=False,
+          developerKey=api_key, discoveryServiceUrl=discovery_url,
+          credentials=credentials)
+      else: # Just build the service
+        service = googleapiclient.discovery.build(
+          service_name, service_version, cache_discovery=False)
+
+      name = 'projects/{}/models/{}'.format(project, model)
+      if version is not None:
+        name += '/versions/{}'.format(version)
+
+      if self.config.get('uses_json_input') or force_json:
+        examples_for_predict = self._json_from_tf_examples(exs)
+      else:
+        examples_for_predict = [{'b64': base64.b64encode(
+          example.SerializeToString()).decode('utf-8') }
+          for example in exs]
+
+      # If there is a user-specified input example adjustment to make, make it.
+      if adjust_example:
+        examples_for_predict = [
+          adjust_example(ex) for ex in examples_for_predict]
+
+      # Send request, including custom user-agent for tracking.
+      request_builder = service.projects().predict(
+          name=name,
+          body={'instances': examples_for_predict}
+      )
+      user_agent = request_builder.headers.get('user-agent')
+      request_builder.headers['user-agent'] = (
+        USER_AGENT_FOR_CAIP_TRACKING +
+        ('-' + user_agent if user_agent else ''))
+      try:
+        response = request_builder.execute()
+      except Exception as e:
+        error_during_prediction = True
+        response = {'error': str(e)}
+
+      # Get the attributions and baseline score if explanation is enabled.
+      if should_explain and not error_during_prediction:
+        try:
+          request_builder = service.projects().explain(
+            name=name,
+            body={'instances': examples_for_predict}
+          )
+          request_builder.headers['user-agent'] = (
+            USER_AGENT_FOR_CAIP_TRACKING +
+            ('-' + user_agent if user_agent else ''))
+          explain_response = request_builder.execute()
+          explanations = ([explain['attributions_by_label'][0]['attributions']
+              for explain in explain_response['explanations']])
+          baseline_scores = []
+          for i, explain in enumerate(explanations):
+            baseline_scores.append(
+              explain_response['explanations'][i][
+                'attributions_by_label'][0]['baseline_score'])
+          response.update(
+            {'explanations': explanations, 'baseline_scores': baseline_scores})
+        except Exception as e:
+          pass
+      return response
+
+    # For Tabular AutoML
+    # TODO: Andy may have custom tabular and custom image examples.
+    def explain_tabular_sample(
+        project: str,
+        endpoint_id: str,
+        instance_dict: Dict,
+        location: str = "us-central1",
+        api_endpoint: str = "us-central1-prediction-aiplatform.googleapis.com",
+    ):
+        # The AI Platform services require regional API endpoints.
+        client_options = {"api_endpoint": api_endpoint}
+        # Initialize client that will be used to create and send requests.
+        # This client only needs to be created once, and can be reused for multiple requests.
+        client = aiplatform.gapic.PredictionServiceClient(client_options=client_options)
+        # The format of each instance should conform to the deployed model's prediction input schema.
+        instance = json_format.ParseDict(instance_dict, Value())
+        instances = [instance]
+        # tabular models do not have additional parameters
+        parameters_dict = {}
+        parameters = json_format.ParseDict(parameters_dict, Value())
+        endpoint = client.endpoint_path(
+            project=project, location=location, endpoint=endpoint_id
+        )
+        response = client.explain(
+            endpoint=endpoint, instances=instances, parameters=parameters
+        )
+        print("response")
+        print(" deployed_model_id:", response.deployed_model_id)
+        explanations = response.explanations
+        for explanation in explanations:
+            print(" explanation")
+            # Feature attributions.
+            attributions = explanation.attributions
+            for attribution in attributions:
+                print("  attribution")
+                print("   baseline_output_value:", attribution.baseline_output_value)
+                print("   instance_output_value:", attribution.instance_output_value)
+                print("   output_display_name:", attribution.output_display_name)
+                print("   approximation_error:", attribution.approximation_error)
+                print("   output_name:", attribution.output_name)
+                output_index = attribution.output_index
+                for output_index in output_index:
+                    print("   output_index:", output_index)
+        predictions = response.predictions
+        for prediction in predictions:
+            print(" prediction:", dict(prediction))
+
+    def chunks(l, n):
+      """Yield successive n-sized chunks from l."""
+      for i in range(0, len(l), n):
+          yield l[i:i + n]
+
+    # Run prediction in batches in threads.
+    if batch_size is None:
+      batch_size = len(examples)
+    batched_examples = list(chunks(examples, batch_size))
+
+    pool = multiprocessing.pool.ThreadPool(processes=POOL_SIZE)
+    responses = pool.map(predict, batched_examples)
+    pool.close()
+    pool.join()
+
+    for response in responses:
+      if 'error' in response:
+        raise RuntimeError(response['error'])
+
+    # Parse the results from the responses and return them.
+    all_predictions = []
+    all_baseline_scores = []
+    all_attributions = []
+
+    for response in responses:
+      if 'explanations' in response:
+        # If an attribution adjustment function was provided, use it to adjust
+        # the attributions.
+        if adjust_attribution is not None:
+          all_attributions.extend([
+            adjust_attribution(attr) for attr in response['explanations']])
+        else:
+          all_attributions.extend(response['explanations'])
+
+      if 'baseline_scores' in response:
+        all_baseline_scores.extend(response['baseline_scores'])
+
+      # Use the specified key if one is provided.
+      key_to_use = self.config.get('predict_output_tensor')
+
+      for pred in response['predictions']:
+        # If the prediction contains a key to fetch the prediction, use it.
+        if isinstance(pred, dict):
+          if key_to_use is None:
+            # If the dictionary only contains one key, use it.
+            returned_keys = list(pred.keys())
+            if len(returned_keys) == 1:
+              key_to_use = returned_keys[0]
+            # Use a default key if necessary.
+            elif self.config.get('model_type') == 'classification':
+              key_to_use = 'probabilities'
+            else:
+              key_to_use = 'outputs'
+
+          if key_to_use not in pred:
+            raise KeyError(
+              '"%s" not found in model predictions dictionary' % key_to_use)
+
+          pred = pred[key_to_use]
+
+        # If the model is regression and the response is a list, extract the
+        # score by taking the first element.
+        if (self.config.get('model_type') == 'regression' and
+            isinstance(pred, list)):
+          pred = pred[0]
+
+        # If an prediction adjustment function was provided, use it to adjust
+        # the prediction.
+        if adjust_prediction:
+          pred = adjust_prediction(pred)
+
+        # If the model is classification and the response is a single number,
+        # treat that as the positive class score for a binary classification
+        # and convert it into a list of those two class scores. WIT only
+        # accepts lists of class scores as results from classification models.
+        if (self.config.get('model_type') == 'classification'):
+          if not isinstance(pred, list):
+            pred = [pred]
+          if len(pred) == 1:
+            pred = [1 - pred[0], pred[0]]
+
+        all_predictions.append(pred)
+
+    results = {'predictions': all_predictions}
+    if all_attributions:
+      results.update({'attributions': all_attributions})
+    if all_baseline_scores:
+      results.update({'baseline_score': all_baseline_scores})
+    return results
