@@ -343,6 +343,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
         self.indices_to_infer = sorted(self.updated_example_indices)
         examples_to_infer = [self.examples[index] for index in self.indices_to_infer]
         self.infer_objs = []
+        self.extra_outputs = []
         for model_num in xrange(len(inference_addresses)):
           serving_bundle = inference_utils.ServingBundle(
               inference_addresses[model_num],
@@ -354,9 +355,10 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
               request.args.get('predict_input_tensor'),
               request.args.get('predict_output_tensor'),
               custom_predict_fn=self.custom_predict_fn)
-          (predictions, _) = inference_utils.run_inference_for_inference_results(
+          (predictions, extra_output) = inference_utils.run_inference_for_inference_results(
               examples_to_infer, serving_bundle)
           self.infer_objs.append(predictions)
+          self.extra_outputs.append(extra_output)
         self.updated_example_indices = set()
       except AbortionError as e:
         logging.error(str(e))
@@ -386,9 +388,20 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
       return {'indices': self.indices_to_infer[start_example:end_example],
               'results': sliced_infer_objs}
 
+    def get_extra_outputs_resp():
+      sliced_extra_objs = [
+        copy.deepcopy(infer_obj) for infer_obj in self.extra_outputs]
+      for obj in sliced_extra_objs:
+        if obj is not None:
+          for key in obj:
+            obj[key][:] = obj[key][start_example:end_example]
+      return sliced_extra_objs
+
     try:
       inferences_resp = get_inferences_resp()
-      resp = {'inferences': json.dumps(inferences_resp)}
+      extra_outputs_resp = get_extra_outputs_resp()
+      resp = {'inferences': json.dumps(inferences_resp),
+              'extraOutputs': json.dumps(extra_outputs_resp)}
       if end_example >= len(self.examples):
         end_example = -1
       if start_example == 0:
