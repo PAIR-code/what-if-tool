@@ -7883,9 +7883,11 @@ limitations under the License.
         },
 
         combineInferences_: function(inferences) {
+          // Outer loop is all the chunked responses.
           for (let i = 1; i < inferences.length; i++) {
             inferences[0].indices = inferences[0].indices.concat(
               inferences[i].indices);
+            // Inner loop are individual examples.
             for (let j = 0; j < inferences[0].results.length; j++) {
               if (this.modelType == 'classification') {
                 inferences[0].results[j].classificationResult.classifications =
@@ -7902,12 +7904,15 @@ limitations under the License.
         },
 
         combineExtraOutputs_: function(extraOutputs) {
+          // Outer loop is all the chunked responses.
           for (let i = 1; i < extraOutputs.length; i++) {
+            // Inner loop are individual examples.
             for (let j = 0; j < extraOutputs[0].length; j++) {
               if (extraOutputs[i][j] == null) {
                 continue;
               }
               const keys = Object.keys(extraOutputs[i][j]);
+              // Keys are the keys for each example's extra output fields.
               for (let keyIndex = 0; keyIndex < keys.length; keyIndex++) {
                 const key = keys[keyIndex];
                 extraOutputs[0][j][key] =
