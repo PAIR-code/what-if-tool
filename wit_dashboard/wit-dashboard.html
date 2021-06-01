@@ -7849,6 +7849,7 @@ limitations under the License.
           this.loadingBarHidden_ = false;
           if (!this.local) {
             let tempInferences = [];
+            let tempExtraOutputs = [];
             const url = this.makeUrl_('/data/plugin/whatif/infer', inferParams);
             const inferContents = (result) => {
               if (result.value.vocab != null) {
@@ -7857,10 +7858,17 @@ limitations under the License.
                 ));
               }
               tempInferences.push(JSON.parse(result.value.inferences));
+              tempExtraOutputs.push(JSON.parse(result.value.extraOutputs));
               if (result.value.next === -1) {
                 this.loadingBarHidden_ = true;
                 const inferences = this.combineInferences_(tempInferences);
+                const extraOutputs = this.combineExtraOutputs_(
+                  tempExtraOutputs);
                 this.inferences = /** @type {!Object} */ inferences;
+                this.extraOutputs = {
+                  indices: inferences.indices,
+                  extra: extraOutputs
+                };
               } else {
                 const url = this.makeUrl_('/data/plugin/whatif/infer', {
                   start_example: result.value.next,
@@ -7875,9 +7883,11 @@ limitations under the License.
         },
 
         combineInferences_: function(inferences) {
+          // Outer loop is all the chunked responses.
           for (let i = 1; i < inferences.length; i++) {
             inferences[0].indices = inferences[0].indices.concat(
               inferences[i].indices);
+            // Inner loop are individual examples.
             for (let j = 0; j < inferences[0].results.length; j++) {
               if (this.modelType == 'classification') {
                 inferences[0].results[j].classificationResult.classifications =
@@ -7891,6 +7901,26 @@ limitations under the License.
             }
           }
           return inferences[0];
+        },
+
+        combineExtraOutputs_: function(extraOutputs) {
+          // Outer loop is all the chunked responses.
+          for (let i = 1; i < extraOutputs.length; i++) {
+            // Inner loop are individual examples.
+            for (let j = 0; j < extraOutputs[0].length; j++) {
+              if (extraOutputs[i][j] == null) {
+                continue;
+              }
+              const keys = Object.keys(extraOutputs[i][j]);
+              // Keys are the keys for each example's extra output fields.
+              for (let keyIndex = 0; keyIndex < keys.length; keyIndex++) {
+                const key = keys[keyIndex];
+                extraOutputs[0][j][key] =
+                  extraOutputs[0][j][key].concat(extraOutputs[i][j][key]);
+              }
+            }
+          }
+          return extraOutputs[0];
         },
 
         /**
