@@ -28,9 +28,6 @@ from google.oauth2 import service_account
 from six import ensure_str
 from six import integer_types
 from utils import inference_utils
-
-import google.cloud.aiplatform_v1
-import google.cloud.aiplatform_v1beta1
 from typing import Dict
 
 from google.cloud import aiplatform
@@ -727,12 +724,14 @@ class WitWidgetBase(object):
 
       if should_explain and not error_during_prediction:
         try:
-          request_builder = service.projects().explain(
-            name=name,
-            body={'instances': examples_for_predict}
+          # The explain request is still on v1beta1
+          client_options = {"api_endpoint": api_endpoint}
+          client = aiplatform_v1beta1.PredictionServiceClient(client_options=client_options)
+          request_builder = client.explain(
+              endpoint=endpoint, instances=examples_for_predict, parameters=parameters
           )
           request_builder.headers['user-agent'] = (
-            USER_AGENT_FOR_CAIP_TRACKING +
+            USER_AGENT_FOR_VERTEX_AI_TRACKING +
             ('-' + user_agent if user_agent else ''))
           explain_response = request_builder.execute()
           explanations = explain_response.explanations
