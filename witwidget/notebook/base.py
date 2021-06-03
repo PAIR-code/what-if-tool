@@ -23,14 +23,18 @@ from IPython import display
 from google.protobuf import json_format
 from numbers import Number
 from oauth2client.client import GoogleCredentials
+import google_auth
+from google.oauth2 import service_account
 from six import ensure_str
 from six import integer_types
 from utils import inference_utils
 
+import google.cloud.aiplatform_v1
 import google.cloud.aiplatform_v1beta1
 from typing import Dict
 
 from google.cloud import aiplatform
+from google.cloud import aiplatform.gapic
 from google.protobuf import json_format
 from google.protobuf.struct_pb2 import Value
 
@@ -38,8 +42,10 @@ from google.protobuf.struct_pb2 import Value
 NUM_MUTANTS_TO_GENERATE = 10
 NUM_EXAMPLES_FOR_MUTANT_ANALYSIS = 50
 
-# Custom user agent for tracking number of calls to Cloud AI Platform.
+# Custom user agents for tracking number of calls to Cloud AI Platform
+# and Vertex AI.
 USER_AGENT_FOR_CAIP_TRACKING = 'WhatIfTool'
+USER_AGENT_FOR_VERTEX_AI_TRACKING = 'WhatIfTool'
 
 try:
   POOL_SIZE = max(multiprocessing.cpu_count() - 1, 1)
@@ -619,8 +625,9 @@ class WitWidgetBase(object):
       self.set_examples(filtered_examples)
     return handle_selection
 
-  def _predict_unified_aip_model(self, examples):
-    return self._predict_unified_aip_impl(
+# service_region is required here
+  def _predict_vertex_ai_model(self, examples):
+    return self._predict_vertex_ai_impl(
       examples,
       self.config.get('inference_address'),
       self.config.get('model_name'),
@@ -629,14 +636,16 @@ class WitWidgetBase(object):
       self.adjust_example_fn,
       self.adjust_prediction_fn,
       self.adjust_attribution_fn,
+      self.config.get('aip_service_region'),
       self.config.get('aip_service_name'),
       self.config.get('aip_service_version'),
       self.config.get('get_explanations'),
       self.config.get('aip_batch_size'),
       self.config.get('aip_api_key'))
 
-  def _predict_unified_aip_compare_model(self, examples):
-    return self._predict_unified_aip_impl(
+
+  def _predict_vertex_ai_compare_model(self, examples):
+    return self._predict_vertex_ai_impl(
       examples,
       self.config.get('inference_address_2'),
       self.config.get('model_name_2'),
@@ -645,87 +654,46 @@ class WitWidgetBase(object):
       self.compare_adjust_example_fn,
       self.compare_adjust_prediction_fn,
       self.compare_adjust_attribution_fn,
+      self.config.get('compare_aip_service_region'), # Does this exist yet?
       self.config.get('compare_aip_service_name'),
       self.config.get('compare_aip_service_version'),
       self.config.get('compare_get_explanations'),
       self.config.get('compare_aip_batch_size'),
       self.config.get('compare_aip_api_key'))
 
-  def _predict_unified_aip_impl(self, examples, project, model, endpoint,
+
+  def _predict_vertex_ai_impl(self, examples, project, model, endpoint,
                         force_json, adjust_example, adjust_prediction,
-                        adjust_attribution, service_name, service_version,
-                        get_explanations,batch_size, api_key):
-    """Custom prediction function for running inference through AI Platform (Unified)."""
+                        adjust_attribution, service_region, service_name,
+                        service_version, get_explanations, batch_size, api_key):
+    """Custom prediction function for running inference through Vertex AI."""
 
     # Set up environment for GCP call for specified project.
     os.environ['GOOGLE_CLOUD_PROJECT'] = project
 
     should_explain = get_explanations and not self.running_mutant_infer
-    # Set GOOGLE_APPLICATION_CREDENTIALS for filepath or create Credentials object
-    # https://github.com/googleapis/python-aiplatform/blob/master/google/cloud/aiplatform_v1beta1/services/prediction_service/client.py#L223
 
-    # Otherwise, google auth library
+    # Regional endpoint for prediction
+    # For example, "us-central1-prediction-aiplatform.googleapis.com"
+    api_endpoint = (
+      ('%s-prediction-aiplatform.googleapis.com')
+      % (service_region))
 
-    # https://github.com/googleapis/python-aiplatform/blob/master/google/cloud/aiplatform_v1beta1/types/prediction_service.py#L36
-
-    # From https://github.com/googleapis/python-aiplatform/blob/master/samples/snippets/predict_custom_trained_model_sample.py
-    def predict_custom_trained_model_sample(
-    project: str,
-    endpoint_id: str,
-    instance_dict: Dict,
-    location: str = "us-central1",
-    api_endpoint: str = "us-central1-prediction-aiplatform.googleapis.com",
-):
-    # The AI Platform services require regional API endpoints.
-    client_options = {"api_endpoint": api_endpoint}
-    # Initialize client that will be used to create and send requests.
-    # This client only needs to be created once, and can be reused for multiple requests.
-    client = aiplatform.gapic.PredictionServiceClient(client_options=client_options)
-    # The format of each instance should conform to the deployed model's prediction input schema.
-    instance = json_format.ParseDict(instance_dict, Value())
-    instances = [instance]
-    parameters_dict = {}
-    parameters = json_format.ParseDict(parameters_dict, Value())
-    endpoint = client.endpoint_path(
-        project=project, location=location, endpoint=endpoint_id
-    )
-    response = client.predict(
-        endpoint=endpoint, instances=instances, parameters=parameters
-    )
-    print("response")
-    print(" deployed_model_id:", response.deployed_model_id)
-    # The predictions are a google.protobuf.Value representation of the model's predictions.
-    predictions = response.predictions
-    for prediction in predictions:
-        print(" prediction:", dict(prediction))
-
-    def predict(exs):
-      """Run prediction on a list of examples and return results."""
-      # Properly package the examples to send for prediction.
-
-      # Authenticate, build service
-
-      #discovery_url = None
+    def predict_vertex(exs):
       service_url = None
       error_during_prediction = False
       if api_key is not None: # Use provided api_key
-        discovery_url = (
-          ('https://%s.googleapis.com/$discovery/rest'
-           '?labels=GOOGLE_INTERNAL&key=%s&version=%s')
-          % (service_name, api_key, 'v1'))
+        # Create Credentials object
         credentials = GoogleCredentials.get_application_default()
-        service = googleapiclient.discovery.build(
-          service_name, service_version, cache_discovery=False,
-          developerKey=api_key, discoveryServiceUrl=discovery_url,
-          credentials=credentials)
+        # Update credentials to use google_auth library
+        # credentials, proj = google.auth.default()
       else: # Just build the service
-        service = googleapiclient.discovery.build(
-          service_name, service_version, cache_discovery=False)
+        client_options = {"api_endpoint": api_endpoint}
+        # Initialize client that will be used to create and send requests.
+        # This client only needs to be created once, and can be reused for multiple requests.
+        client = aiplatform.gapic.PredictionServiceClient(client_options=client_options)
 
-      name = 'projects/{}/models/{}'.format(project, model)
-      if version is not None:
-        name += '/versions/{}'.format(version)
-
+      # Preprocessing prediction examples
       if self.config.get('uses_json_input') or force_json:
         examples_for_predict = self._json_from_tf_examples(exs)
       else:
@@ -738,22 +706,25 @@ class WitWidgetBase(object):
         examples_for_predict = [
           adjust_example(ex) for ex in examples_for_predict]
 
-      # Send request, including custom user-agent for tracking.
-      request_builder = service.projects().predict(
-          name=name,
-          body={'instances': examples_for_predict}
+      # Send request and send user agent for tracking
+      endpoint = client.endpoint_path(
+          project=project, location=service_region, endpoint=endpoint
+      )
+      parameters_dict = {}
+      parameters = json_format.ParseDict(parameters_dict, Value())
+      request_builder = client.predict(
+          endpoint=endpoint, instances=examples_for_predict, parameters=parameters
       )
       user_agent = request_builder.headers.get('user-agent')
       request_builder.headers['user-agent'] = (
-        USER_AGENT_FOR_CAIP_TRACKING +
-        ('-' + user_agent if user_agent else ''))
+         USER_AGENT_FOR_VERTEX_AI_TRACKING +
+         ('-' + user_agent if user_agent else ''))
       try:
         response = request_builder.execute()
       except Exception as e:
         error_during_prediction = True
         response = {'error': str(e)}
 
-      # Get the attributions and baseline score if explanation is enabled.
       if should_explain and not error_during_prediction:
         try:
           request_builder = service.projects().explain(
@@ -764,65 +735,20 @@ class WitWidgetBase(object):
             USER_AGENT_FOR_CAIP_TRACKING +
             ('-' + user_agent if user_agent else ''))
           explain_response = request_builder.execute()
-          explanations = ([explain['attributions_by_label'][0]['attributions']
-              for explain in explain_response['explanations']])
+          explanations = explain_response.explanations
+          # Get a list of all the feature attributions from the explain response
+          attributions = [explanation.attributions for explanation in explanations]
           baseline_scores = []
           for i, explain in enumerate(explanations):
+            # Maybe use attribution.baseline_output_value
             baseline_scores.append(
               explain_response['explanations'][i][
                 'attributions_by_label'][0]['baseline_score'])
           response.update(
-            {'explanations': explanations, 'baseline_scores': baseline_scores})
+            {'explanations': attributions, 'baseline_scores': baseline_scores})
         except Exception as e:
           pass
       return response
-
-    # For Tabular AutoML
-    # TODO: Andy may have custom tabular and custom image examples.
-    def explain_tabular_sample(
-        project: str,
-        endpoint_id: str,
-        instance_dict: Dict,
-        location: str = "us-central1",
-        api_endpoint: str = "us-central1-prediction-aiplatform.googleapis.com",
-    ):
-        # The AI Platform services require regional API endpoints.
-        client_options = {"api_endpoint": api_endpoint}
-        # Initialize client that will be used to create and send requests.
-        # This client only needs to be created once, and can be reused for multiple requests.
-        client = aiplatform.gapic.PredictionServiceClient(client_options=client_options)
-        # The format of each instance should conform to the deployed model's prediction input schema.
-        instance = json_format.ParseDict(instance_dict, Value())
-        instances = [instance]
-        # tabular models do not have additional parameters
-        parameters_dict = {}
-        parameters = json_format.ParseDict(parameters_dict, Value())
-        endpoint = client.endpoint_path(
-            project=project, location=location, endpoint=endpoint_id
-        )
-        response = client.explain(
-            endpoint=endpoint, instances=instances, parameters=parameters
-        )
-        print("response")
-        print(" deployed_model_id:", response.deployed_model_id)
-        explanations = response.explanations
-        for explanation in explanations:
-            print(" explanation")
-            # Feature attributions.
-            attributions = explanation.attributions
-            for attribution in attributions:
-                print("  attribution")
-                print("   baseline_output_value:", attribution.baseline_output_value)
-                print("   instance_output_value:", attribution.instance_output_value)
-                print("   output_display_name:", attribution.output_display_name)
-                print("   approximation_error:", attribution.approximation_error)
-                print("   output_name:", attribution.output_name)
-                output_index = attribution.output_index
-                for output_index in output_index:
-                    print("   output_index:", output_index)
-        predictions = response.predictions
-        for prediction in predictions:
-            print(" prediction:", dict(prediction))
 
     def chunks(l, n):
       """Yield successive n-sized chunks from l."""

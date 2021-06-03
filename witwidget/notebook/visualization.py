@@ -685,19 +685,20 @@ class WitConfigBuilder(object):
     self.store('uses_json_list', is_list)
     return self
 
-def set_unified_ai_platform_model(
+
+def set_vertex_ai_platform_model(
   self, project, model, endpoint, force_json_input=None,
   adjust_prediction=None, adjust_example=None, adjust_attribution=None,
-  service_region, service_name='aiplatform',  service_version='v1beta1',
+  service_region='us-central1', service_name='aiplatform', service_version='v1',
   get_explanations=True, batch_size=500, api_key=None):
-  """Sets the model information for a model served by AI Platform (Unified).
+  """Sets the model information for a model served by Vertex AI.
 
-  AI Platform (Unified) is a Google Cloud serving platform.
+  Vertex AI is a Google Cloud serving platform.
 
   Args:
-    project: The name of the AI Platform (Unified) project.
-    model: The name of the AI Platform (Unified) model.
-    endpoint: The endpoint of the AI Platform (Unified) model.
+    project: The name of the Vertex AI project.
+    model: The name of the Vertex AI model.
+    endpoint: The name of the Vertex AI endpoint that the model is deployed to.
     force_json_input: Optional. If True and examples are provided as
     tf.Example protos, convert them to raw JSON objects before sending them
     for inference to this model.
@@ -714,19 +715,18 @@ def set_unified_ai_platform_model(
     example and converts it to the format expected by the tool, which is a
     dictionary of input feature names to attribution scores. Usually necessary
     if making use of adjust_example and the model returns attribution results.
-    service_region: Name of the AI Platform (Unified) region. For example,
-    'us-central1'.
-    service_name: Optional. Name of the AI Platform (Unified) service. Defaults
+    service_region: Name of the Vertex AI region. Defaults to 'us-central1'.
+    service_name: Optional. Name of the Vertex AI service. Defaults
     to 'aiplatform'.
-    service_version: Optional. Version of the AI Platform (Unified) service.
-    Defaults to 'v1beta1'.
+    service_version: Optional. Version of the Vertex AI service.
+    Defaults to 'v1'.
     get_explanations: Optional. If a model is deployed with explanations,
     then this specifies if explanations will be calculated and displayed.
     Defaults to True.
     batch_size: Optional. Sets the individual batch size to send for
     prediction. Defaults to 500.
     api_key: Optional. A generated API key to send with the requests to
-    AI Platform (Unified).
+    Vertex AI.
 
   Returns:
     self, in order to enable method chaining.
@@ -753,20 +753,21 @@ def set_unified_ai_platform_model(
     self.store('aip_api_key', api_key)
   return self
 
-def set_compare_unified_ai_platform_model(
+
+def set_compare_vertex_ai_model(
   self, project, model, endpoint, force_json_input=None,
   adjust_prediction=None, adjust_example=None, adjust_attribution=None,
-  service_region, service_name='aiplatform', service_version='v1beta1',
+  service_region='us-central1', service_name='aiplatform', service_version='v1',
   get_explanations=True, batch_size=500, api_key=None):
   """Sets the model information for a second model served by
-  AI Platform (Unified).
+  Vertex AI.
 
-  AI Platform (Unified) is a Google Cloud serving platform.
+  Vertex AI is a Google Cloud serving platform.
 
   Args:
-    project: The name of the AI Platform (Unified) project.
-    model: The name of the AI Platform (Unified) model.
-    endpoint: The endpoint of the AI Platform (Unified) model.
+    project: The name of the Vertex AI project.
+    model: The name of the Vertex AI model.
+    endpoint: The name of the Vertex AI endpoint that the model is deployed to.
     force_json_input: Optional. If True and examples are provided as
     tf.Example protos, convert them to raw JSON objects before sending them
     for inference to this model.
@@ -783,19 +784,18 @@ def set_compare_unified_ai_platform_model(
     example and converts it to the format expected by the tool, which is a
     dictionary of input feature names to attribution scores. Usually necessary
     if making use of adjust_example and the model returns attribution results.
-    service_region: Name of the AI Platform (Unified) region. For example,
-    'us-central1'.
-    service_name: Optional. Name of the AI Platform (Unified) service. Defaults
+    service_region: Name of the Vertex AI region. Defaults to 'us-central1'.
+    service_name: Optional. Name of the Vertex AI service. Defaults
     to 'aiplatform'.
-    service_version: Optional. Version of the AI Platform (Unified) service.
+    service_version: Optional. Version of the Vertex AI service.
     Defaults to 'v1beta1'.
     get_explanations: Optional. If a model is deployed with explanations,
     then this specifies if explanations will be calculated and displayed.
     Defaults to True.
     batch_size: Optional. Sets the individual batch size to send for
     prediction. Defaults to 500.
-    api_key: Optional. A generated API key to send with the requests to AI
-    Platform (Unified).
+    api_key: Optional. A generated API key to send with the requests to Vertex
+    AI.
 
   Returns:
     self, in order to enable method chaining.
