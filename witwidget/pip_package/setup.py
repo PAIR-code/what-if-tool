@@ -37,7 +37,6 @@ REQUIRED_PACKAGES = [
     'absl-py >= 0.4',
     'google-api-python-client>=1.7.8',
     'ipywidgets>=7.0.0',
-    'jupyter>=1.0,<2',
     'oauth2client>=4.1.3',
     'six>=1.12.0',
 ] + _TF_REQ
