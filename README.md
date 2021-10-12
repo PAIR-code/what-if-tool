@@ -391,15 +391,17 @@ Then, use it as seen at the bottom of the
 [What_If_Tool_Notebook_Usage.ipynb notebook](https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/What_If_Tool_Notebook_Usage.ipynb).
 
 ### How do I enable it for use in a JupyterLab or Cloud AI Platform notebook?
-WIT has been tested in JupyterLab versions 1.x and 2.x.
+WIT has been tested in JupyterLab versions 1.x, 2.x, and 3.x.
 
-Install and enable WIT for JupyterLab 2.x by running a cell containing:
+Install and enable WIT for JupyterLab 3.x by running a cell containing:
 ```
 !pip install witwidget
 !jupyter labextension install wit-widget
-!jupyter labextension install @jupyter-widgets/jupyterlab-manager@2
+!jupyter labextension install @jupyter-widgets/jupyterlab-manager
 ```
-Note that you need to specify the correct version of jupyterlab-manager for your JupyterLab version as per https://www.npmjs.com/package/@jupyter-widgets/jupyterlab-manager.
+Note that you may need to specify the correct version of jupyterlab-manager for
+you JupyterLab version as per
+https://www.npmjs.com/package/@jupyter-widgets/jupyterlab-manager.
 
 Note that you may need to run `!sudo jupyter labextension ...` commands depending on your notebook setup.
 
