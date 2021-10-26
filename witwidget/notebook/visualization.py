@@ -547,7 +547,7 @@ class WitConfigBuilder(object):
       for inference to this model.
       adjust_prediction: Optional. If not None then this function takes the
       prediction output from the model for a single example and converts it to
-      the appopriate format - a regression score or a list of class scores. Only
+      the appropriate format - a regression score or a list of class scores. Only
       necessary if the model doesn't already abide by this format.
       adjust_example: Optional. If not None then this function takes an example
       to run prediction on and converts it to the format expected by the model.
@@ -563,7 +563,7 @@ class WitConfigBuilder(object):
       service_version: Optional. Version of the AI Platform Prediction service. Defaults
       to 'v1'.
       get_explanations: Optional. If a model is deployed with explanations,
-      then this specifies if explainations will be calculated and displayed.
+      then this specifies if explanations will be calculated and displayed.
       Defaults to True.
       batch_size: Optional. Sets the individual batch size to send for
       prediction. Defaults to 500.
@@ -612,7 +612,7 @@ class WitConfigBuilder(object):
       for inference to this model.
       adjust_prediction: Optional. If not None then this function takes the
       prediction output from the model for a single example and converts it to
-      the appopriate format - a regression score or a list of class scores. Only
+      the appropriate format - a regression score or a list of class scores. Only
       necessary if the model doesn't already abide by this format.
       adjust_example: Optional. If not None then this function takes an example
       to run prediction on and converts it to the format expected by the model.
@@ -628,7 +628,7 @@ class WitConfigBuilder(object):
       service_version: Optional. Version of the AI Platform Prediction service. Defaults
       to 'v1'.
       get_explanations: Optional. If a model is deployed with explanations,
-      then this specifies if explainations will be calculated and displayed.
+      then this specifies if explanations will be calculated and displayed.
       Defaults to True.
       batch_size: Optional. Sets the individual batch size to send for
       prediction. Defaults to 500.

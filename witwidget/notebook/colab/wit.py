@@ -341,7 +341,7 @@ class WitWidget(base.WitWidgetBase):
   def infer(self):
     try:
       inferences = base.WitWidgetBase.infer_impl(self)
-      # Parse out the inferences from the returned stucture and empty the
+      # Parse out the inferences from the returned structure and empty the
       # structure of contents, keeping its nested structure.
       # Chunks of the inference results will be sent to the front-end and
       # re-assembled.

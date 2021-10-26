@@ -68,7 +68,7 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
       config_builder: WitConfigBuilder object containing settings for WIT.
       height: Optional height in pixels for WIT to occupy. Defaults to 1000.
       delay_rendering. Optional. This argument is ignored in the Jupyter
-      implementation but is included for API compatability between Colab and
+      implementation but is included for API compatibility between Colab and
       Jupyter implementations. Rendering in Jupyter is always delayed until
       the render method is called or the WitWidget object is directly evaluated
       in a notebook cell.
@@ -139,7 +139,7 @@ class WitWidget(widgets.DOMWidget, base.WitWidgetBase):
       self._report_error(e)
 
   def generate_next_inference_batch(self):
-    # Parse out the inferences from the returned stucture and empty the
+    # Parse out the inferences from the returned structure and empty the
     # structure of contents, keeping its nested structure.
     # Chunks of the inference results will be sent to the front-end and
     # re-assembled.
