@@ -423,7 +423,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
     Returns:
       A list with a JSON object for each feature.
       Numeric features are represented as {name: observedMin: observedMax:}.
-      Categorical features are repesented as {name: samples:[]}.
+      Categorical features are represented as {name: samples:[]}.
     """
     features_list = inference_utils.get_eligible_features(
       self.examples[0: NUM_EXAMPLES_TO_SCAN], NUM_MUTANTS)
@@ -443,7 +443,7 @@ class WhatIfToolPlugin(base_plugin.TBPlugin):
       A sorted list with a JSON object for each feature.
       Numeric features are represented as
       {name: observedMin: observedMax: interestingness:}.
-      Categorical features are repesented as
+      Categorical features are represented as
       {name: samples:[] interestingness:}.
     """
     try:

@@ -463,7 +463,7 @@ class WitWidgetBase(object):
         error_during_prediction = True
         response = {'error': str(e)}
 
-      # Get the attributions and baseline score if explaination is enabled.
+      # Get the attributions and baseline score if explanation is enabled.
       if should_explain and not error_during_prediction:
         try:
           request_builder = service.projects().explain(
