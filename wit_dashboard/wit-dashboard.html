@@ -8081,6 +8081,9 @@ limitations under the License.
           if (endpoint[0] === '/') {
             endpoint = endpoint.slice(1)
           }
+          if (paramsDict == null) {
+            paramsDict = {};
+          }
           const url = tf_backend.addParams(
               endpoint,
               paramsDict
