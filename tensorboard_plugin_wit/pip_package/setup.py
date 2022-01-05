@@ -25,7 +25,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="tensorboard_plugin_wit",
-    version="1.8.0",
+    version="1.8.1",
     description="What-If Tool TensorBoard plugin.",
     long_description=long_description,
     long_description_content_type="text/markdown",
