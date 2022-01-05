@@ -7850,7 +7850,7 @@ limitations under the License.
           if (!this.local) {
             let tempInferences = [];
             let tempExtraOutputs = [];
-            const url = this.makeUrl_('/infer', inferParams);
+            const url = this.makeUrl_('infer', inferParams);
             const inferContents = (result) => {
               if (result.value.vocab != null) {
                 this.labelVocab = /** @type {!Array} */ (JSON.parse(
@@ -7870,7 +7870,7 @@ limitations under the License.
                   extra: extraOutputs
                 };
               } else {
-                const url = this.makeUrl_('/infer', {
+                const url = this.makeUrl_('infer', {
                   start_example: result.value.next,
                   model_type: this.modelType,
                 });
@@ -8061,7 +8061,7 @@ limitations under the License.
         updateExample_: function(exampleJson, index) {
           this.fire('update-example', {example: exampleJson, index: index});
           if (!this.local) {
-            var url = this.makeUrl_('/update_example', null);
+            var url = this.makeUrl_('update_example', null);
 
             this.makeAsyncRequest_(
               url,
@@ -8077,8 +8077,15 @@ limitations under the License.
         },
 
         makeUrl_: function(endpoint, paramsDict) {
-          return '/' + tf_backend.getRouter().pluginRoute(
-            'whatif', endpoint, new URLSearchParams(paramsDict));
+          // Strip off any leading slash to ensure relative path.
+          if (endpoint[0] === '/') {
+            endpoint = endpoint.slice(1)
+          }
+          const url = tf_backend.addParams(
+              endpoint,
+              paramsDict
+            );
+          return url;
         },
 
         showToast_: function(msg) {
@@ -8323,7 +8330,7 @@ limitations under the License.
         getExamples_: function() {
           let tempExamples = [];
           let tempSprite = null;
-          const url = this.makeUrl_('/examples_from_path', {
+          const url = this.makeUrl_('examples_from_path', {
             examples_path: this.examplesPath,
             max_examples: this.maxExamples,
             sampling_odds: this.samplingOdds,
@@ -8341,7 +8348,7 @@ limitations under the License.
                 tempSprite
               );
             } else {
-              const url = this.makeUrl_('/examples_from_path', {
+              const url = this.makeUrl_('examples_from_path', {
                 start_example: result.value.next
               });
               this.makeAsyncRequest_(
@@ -8366,7 +8373,7 @@ limitations under the License.
           if (this.hasSprite) {
             this.$.dive.atlasUrl = null;
             if (!this.local) {
-              this.$.dive.atlasUrl = this.makeUrl_('/sprite', {});
+              this.$.dive.atlasUrl = this.makeUrl_('sprite', {});
             } else {
               this.$.dive.atlasUrl = this.localAtlasUrl;
             }
@@ -8418,7 +8425,7 @@ limitations under the License.
             const refreshDiveAfterDuplicate = (result) => {
               this.refreshDive_();
             };
-            const url = this.makeUrl_('/duplicate_example', {
+            const url = this.makeUrl_('duplicate_example', {
               index: duplicatedIndex,
             });
             this.makeAsyncRequest_(
@@ -8459,7 +8466,7 @@ limitations under the License.
             const refreshDiveAfterDelete = (result) => {
               this.refreshDive_();
             };
-            const url = this.makeUrl_('/delete_example', {
+            const url = this.makeUrl_('delete_example', {
               index: deletedIndex,
             });
             this.makeAsyncRequest_(
@@ -9001,7 +9008,7 @@ limitations under the License.
 
           // Call into backend.
           if (!this.local) {
-            const url = this.makeUrl_('/infer_mutants', urlParams);
+            const url = this.makeUrl_('infer_mutants', urlParams);
             const chartMakerCallback = (result) => {
               return this.makeChartForFeature(
                 result.value.chartType,
@@ -9228,7 +9235,7 @@ limitations under the License.
 
           // Call into the backend to get the possible features to show plots for.
           if (!this.local) {
-            const url = this.makeUrl_('/eligible_features', {});
+            const url = this.makeUrl_('eligible_features', {});
             const setEligibleFields = (result) => {
               this.set('partialDepPlotEligibleFeatures', result.value);
             };
@@ -9255,7 +9262,7 @@ limitations under the License.
           this.isSortingEligibleFeatures = true;
           // Call into the backend to sort the possible features to show plots for.
           if (!this.local) {
-            const url = this.makeUrl_('/sort_eligible_features', urlParams);
+            const url = this.makeUrl_('sort_eligible_features', urlParams);
             const setEligibleFields = (result) => {
               this.set('partialDepPlotEligibleFeatures', result.value);
             };
