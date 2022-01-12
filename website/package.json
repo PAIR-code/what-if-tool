@@ -7,6 +7,6 @@
   "author": "People + AI Research",
   "license": "Apache-2.0",
   "devDependencies": {
-    "markdown-it": "^11.0.0"
+    "markdown-it": "^12.3.2"
   }
 }
