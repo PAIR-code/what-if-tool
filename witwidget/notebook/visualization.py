@@ -684,3 +684,140 @@ class WitConfigBuilder(object):
   def _set_uses_json_list(self, is_list):
     self.store('uses_json_list', is_list)
     return self
+
+
+def set_vertex_ai_platform_model(
+  self, project, model, endpoint, force_json_input=None,
+  adjust_prediction=None, adjust_example=None, adjust_attribution=None,
+  service_region='us-central1', service_name='aiplatform', service_version='v1',
+  get_explanations=True, batch_size=500, api_key=None):
+  """Sets the model information for a model served by Vertex AI.
+
+  Vertex AI is a Google Cloud serving platform.
+
+  Args:
+    project: The name of the Vertex AI project.
+    model: The name of the Vertex AI model.
+    endpoint: The name of the Vertex AI endpoint that the model is deployed to.
+    force_json_input: Optional. If True and examples are provided as
+    tf.Example protos, convert them to raw JSON objects before sending them
+    for inference to this model.
+    adjust_prediction: Optional. If not None then this function takes the
+    prediction output from the model for a single example and converts it to
+    the appopriate format - a regression score or a list of class scores. Only
+    necessary if the model doesn't already abide by this format.
+    adjust_example: Optional. If not None then this function takes an example
+    to run prediction on and converts it to the format expected by the model.
+    Necessary for example if the served model expects a single data value to
+    run inference on instead of a list or dict of values.
+    adjust_attribution: Optional. If not None and the model returns attribution
+    information, then this function takes the attribution information for an
+    example and converts it to the format expected by the tool, which is a
+    dictionary of input feature names to attribution scores. Usually necessary
+    if making use of adjust_example and the model returns attribution results.
+    service_region: Name of the Vertex AI region. Defaults to 'us-central1'.
+    service_name: Optional. Name of the Vertex AI service. Defaults
+    to 'aiplatform'.
+    service_version: Optional. Version of the Vertex AI service.
+    Defaults to 'v1'.
+    get_explanations: Optional. If a model is deployed with explanations,
+    then this specifies if explanations will be calculated and displayed.
+    Defaults to True.
+    batch_size: Optional. Sets the individual batch size to send for
+    prediction. Defaults to 500.
+    api_key: Optional. A generated API key to send with the requests to
+    Vertex AI.
+
+  Returns:
+    self, in order to enable method chaining.
+  """
+  self.set_inference_address(project)
+  self.set_model_name(model)
+  self.store('use_aip', True)
+  self.store('aip_service_region', service_region)
+  self.store('aip_service_name', service_name)
+  self.store('aip_service_version', service_version)
+  self.store('aip_batch_size', batch_size)
+  self.store('get_explanations', get_explanations)
+  if version is not None:
+    self.set_model_signature(version)
+  if force_json_input:
+    self.store('force_json_input', True)
+  if adjust_prediction:
+    self.store('adjust_prediction', adjust_prediction)
+  if adjust_example:
+    self.store('adjust_example', adjust_example)
+  if adjust_attribution:
+    self.store('adjust_attribution', adjust_attribution)
+  if api_key:
+    self.store('aip_api_key', api_key)
+  return self
+
+
+def set_compare_vertex_ai_model(
+  self, project, model, endpoint, force_json_input=None,
+  adjust_prediction=None, adjust_example=None, adjust_attribution=None,
+  service_region='us-central1', service_name='aiplatform', service_version='v1',
+  get_explanations=True, batch_size=500, api_key=None):
+  """Sets the model information for a second model served by
+  Vertex AI.
+
+  Vertex AI is a Google Cloud serving platform.
+
+  Args:
+    project: The name of the Vertex AI project.
+    model: The name of the Vertex AI model.
+    endpoint: The name of the Vertex AI endpoint that the model is deployed to.
+    force_json_input: Optional. If True and examples are provided as
+    tf.Example protos, convert them to raw JSON objects before sending them
+    for inference to this model.
+    adjust_prediction: Optional. If not None then this function takes the
+    prediction output from the model for a single example and converts it to
+    the appopriate format - a regression score or a list of class scores. Only
+    necessary if the model doesn't already abide by this format.
+    adjust_example: Optional. If not None then this function takes an example
+    to run prediction on and converts it to the format expected by the model.
+    Necessary for example if the served model expects a single data value to
+    run inference on instead of a list or dict of values.
+    adjust_attribution: Optional. If not None and the model returns attribution
+    information, then this function takes the attribution information for an
+    example and converts it to the format expected by the tool, which is a
+    dictionary of input feature names to attribution scores. Usually necessary
+    if making use of adjust_example and the model returns attribution results.
+    service_region: Name of the Vertex AI region. Defaults to 'us-central1'.
+    service_name: Optional. Name of the Vertex AI service. Defaults
+    to 'aiplatform'.
+    service_version: Optional. Version of the Vertex AI service.
+    Defaults to 'v1beta1'.
+    get_explanations: Optional. If a model is deployed with explanations,
+    then this specifies if explanations will be calculated and displayed.
+    Defaults to True.
+    batch_size: Optional. Sets the individual batch size to send for
+    prediction. Defaults to 500.
+    api_key: Optional. A generated API key to send with the requests to Vertex
+    AI.
+
+  Returns:
+    self, in order to enable method chaining.
+  """
+  self.set_compare_inference_address(project)
+  self.set_compare_model_name(model)
+  self.store('compare_use_aip', True)
+  self.store('compare_aip_service_region', service_region)
+  self.store('compare_aip_service_name', service_name)
+  self.store('compare_aip_service_version', service_version)
+  self.store('compare_aip_batch_size', batch_size)
+  self.store('compare_get_explanations', get_explanations)
+  if version is not None:
+    self.set_compare_model_signature(version)
+  if force_json_input:
+    self.store('compare_force_json_input', True)
+  if adjust_prediction:
+    self.store('compare_adjust_prediction', adjust_prediction)
+  if adjust_example:
+    self.store('compare_adjust_example', adjust_example)
+  if adjust_attribution:
+    self.store('compare_adjust_attribution', adjust_attribution)
+  if api_key:
+    self.store('compare_aip_api_key', api_key)
+  return self
