@@ -81,7 +81,7 @@ TensorFlow Estimators are supported through the method `set_estimator_and_featur
 
 #### Cloud AI Platform Prediction
 
-Models that have been deployed to Cloud AI Platform Prediction can be used in notebook mode through use of the `set_ai_platform_model` method, which has arguments for project name and model name. It also contains a large number of optional arguments that can be found in the code documentation, including ways to adjust the input datapoints before being sent to the served model, if necessary ([example notebook](https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/xgboost_caip.ipynb)).
+Models that have been deployed to Cloud AI Platform Prediction can be used in notebook mode through use of the `set_ai_platform_model` method, which has arguments for project name and model name. It also contains a large number of optional arguments that can be found in the code documentation, including ways to adjust the input datapoints before being sent to the served model, if necessary.
 
 If the AI Platform model being served has [explanations](https://cloud.google.com/ai-platform/prediction/docs/ai-explanations/overview) enabled, then the returned attribution information will automatically be visualized by the What-If Tool, with no additional setup required.
 

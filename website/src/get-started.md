@@ -50,22 +50,6 @@ Use the What-If Tool to display and investigate attribution values for individua
 
 {% include partials/link-out text:"Visit Cloud AI", link:"https://cloud.google.com/ai-platform/prediction/docs/using-what-if-tool" %}
 
-{% include partials/spacer height:30 %}
-
-<div class="section-action">Explore</div>
-
-### Notebooks
-
-  <div class="mdl-grid no-padding">
-
-  {% include partials/external-demo-card c-title: "Mortgage classification with AI Platform", link: "https://colab.research.google.com/github/pair-code/what-if-tool/blob/master/xgboost_caip.ipynb",
-  c-data-source: "Home Mortgage Disclosure Act Dataset", c-data-source-url: "https://www.ffiec.gov/hmda/hmdaflat.htm", c-copy: "Explore a mortgage classification model that has been deployed on Cloud AI Platform. This model was created with the XGBoost platform and not TensorFlow.", tags: "binary classification, cloud ai platform", external:"true" %}
-
-  {% include partials/external-demo-card c-title: "Training and comparing wine quality models with AI Platform", link: "https://colab.sandbox.google.com/github/pair-code/what-if-tool/blob/master/keras_sklearn_compare_caip_e2e.ipynb",
-  c-data-source: "UCI Wine Quality Dataset", c-data-source-url: "https://archive.ics.uci.edu/ml/datasets/wine+quality", c-copy: "Train both a scikit-learn and keras model to predict wine quality and deploy them to Cloud AI Platform. Then use the What-If Tool to compare the two models. This demo requires a Google Cloud Platform account.", tags: "regression, model comparison, cloud ai platform, keras model, scikit-learn model", external:"true" %}
-
-  </div>
-
 {% include partials/spacer height:50 %}
 
 <a name="tensorboard"></a>
